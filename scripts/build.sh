@@ -37,6 +37,7 @@ docker run -it --rm \
 	-e KEYPASS \
 	-e APP_PACKAGE_NAME \
 	-e APP_NAME \
+	-e APP_ICON_PATH \
 	-e APP_ICON \
 	-e APP_VERSION \
 	-e APP_VERSION_STR \

@@ -50,19 +50,21 @@ apt-get -y dist-upgrade
 
 apt-get -y --no-install-recommends install $APT_PACKAGES
 
+
 # Android SDK/NDK
-curl -o /android-sdk-10406996.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
-unzip /android-sdk-10406996.zip -d android-sdk
-rm -f android-sdk-10406996.zip
+curl -o /android-sdk-15859902.zip https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip
+unzip /android-sdk-15859902.zip -d android-sdk
+rm -f android-sdk-15859902.zip
 
 shopt -s extglob
 mkdir /android-sdk/cmdline-tools/latest
 mv /android-sdk/cmdline-tools/!(latest) /android-sdk/cmdline-tools/latest
 yes | /android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
-/android-sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.1" "platform-tools" "tools" "ndk;${ANDROID_NDK_VERSION}"
+/android-sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-36" "build-tools;36.1.0" "platform-tools" "ndk;${ANDROID_NDK_VERSION}"
 END_OF_SCRIPT
 
 ENV ANDROID_SDK_ROOT /android-sdk
 ENV ANDROID_NDK_HOME=${ANDROID_SDK_ROOT}/ndk/${ANDROID_NDK_VERSION}
+ENV ANDROID_BUILD_TOOLS_VERSION=36.1.0
 
 WORKDIR /usr/src

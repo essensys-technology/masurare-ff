@@ -131,7 +131,7 @@ public class QFieldCloudService extends QtService {
 
         Notification.Builder builder =
             new Notification.Builder(this)
-                .setSmallIcon(R.drawable.qfield_logo)
+                .setSmallIcon(R.drawable.app_logo)
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)
                 .setContentTitle("QFieldCloud")
@@ -177,7 +177,7 @@ public class QFieldCloudService extends QtService {
             PendingIntent.FLAG_MUTABLE);
 
         Notification.Builder builder = new Notification.Builder(this)
-                                           .setSmallIcon(R.drawable.qfield_logo)
+                                           .setSmallIcon(R.drawable.app_logo)
                                            .setWhen(System.currentTimeMillis())
                                            .setOngoing(true)
                                            .setContentTitle("QFieldCloud")

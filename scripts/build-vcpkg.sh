@@ -26,6 +26,7 @@ cmake -S "${SOURCE_DIR}" \
 	-D APP_VERSION="" \
 	-D APP_VERSION_STR="Home" \
 	-D APP_PACKAGE_NAME="${APP_PACKAGE_NAME}" \
+	-D APP_ICON_PATH="${APP_ICON_PATH}" \
 	-D APP_ICON="${APP_ICON}" \
 	-D APP_NAME="${APP_NAME}" \
 	-D VCPKG_INSTALL_OPTIONS="--allow-unsupported" \
