@@ -20,7 +20,7 @@ You can find the open-source QFieldCloud backend on GitHub here: [github.com/ope
 
 QField is officially recognized as a [Digital Public Good](https://digitalpublicgoods.net/r/qfield) for its contributions to open, inclusive, and sustainable digital development.
 
-Explore the full documentation at [docs.qfield.org](https://docs.qfield.org/)
+Explore the full [QField documentation](https://docs.qfield.org/) and connect with other users part of our [growing community](https://community.qfield.org/).
 
 ## 📲 Get QField
 <p align="center">
@@ -61,10 +61,9 @@ If you found it useful, we will be even happier if you could give something back
 
 The world loves to hear about the usage of QField, follow us or share your story on your favorite channel
 
-[![share on linkedin](images/icons/linkedin.svg)](https://www.linkedin.com/products/opengisch-qfield/)
-[![share on bluesky](images/icons/bluesky.svg)](https://bsky.app/profile/qfield.bsky.social/share?text=Looking%20for%20a%20good%20tool%20for%20field%20work%20in%20GIS?%20Check%20out%20%23QField!)
-[![share on mastodon](images/icons/mastodon.svg)](https://mastodon.social/share?text=Looking%20for%20a%20good%20tool%20for%20field%20work%20in%20GIS?%20Check%20out%20%23QField!)
-[![share on X](images/icons/twitter-x.svg)](https://x.com/QFieldForQGIS)
+[![share on linkedin](images/icons/linkedin.svg)](https://www.linkedin.com/company/qfield)
+[![share on bluesky](images/icons/bluesky.svg)](https://bsky.app/profile/qfield.org)
+[![share on mastodon](images/icons/mastodon.svg)](https://fosstodon.org/@qfield)
 
 ## Development
 

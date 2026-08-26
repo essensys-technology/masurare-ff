@@ -118,6 +118,8 @@ public class QFieldActivity extends QtActivity {
     ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public static native void openProject(String url);
+    public static native void clearProject();
+
     public static native void openPath(String path);
     public static native void executeAction(String action);
 
@@ -367,8 +369,8 @@ public class QFieldActivity extends QtActivity {
                             try {
                                 InputStream input =
                                     resolver.openInputStream(uri);
-                                QFieldUtils.inputStreamToFile(
-                                    input, importFilePath, fileBytes);
+                                QFieldUtils.inputStreamToFile(input,
+                                                              importFilePath);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -1040,7 +1042,7 @@ public class QFieldActivity extends QtActivity {
                         InputStream input =
                             resolver.openInputStream(datasetUri);
                         imported = QFieldUtils.inputStreamToFile(
-                            input, importFilePath, documentFile.length());
+                            input, importFilePath);
                     } catch (Exception e) {
                         e.printStackTrace();
                         imported = false;
@@ -1198,6 +1200,8 @@ public class QFieldActivity extends QtActivity {
                 DocumentFile documentFile =
                     DocumentFile.fromSingleUri(context, archiveUri);
 
+                clearProject();
+
                 String projectFolder =
                     new File(projectPath).getParentFile().getAbsolutePath() +
                     "/";
@@ -1216,10 +1220,7 @@ public class QFieldActivity extends QtActivity {
                 }
 
                 progressDialog.dismiss();
-                if (imported) {
-                    // Trigger a project re-load
-                    openProject(projectPath);
-                }
+                openProject(projectPath);
             }
         });
     }
@@ -1360,8 +1361,7 @@ public class QFieldActivity extends QtActivity {
                       "Taken camera picture: " + file.getAbsolutePath());
                 try {
                     InputStream in = new FileInputStream(file);
-                    QFieldUtils.inputStreamToFile(in, result.getPath(),
-                                                  file.length());
+                    QFieldUtils.inputStreamToFile(in, result.getPath());
                     file.delete();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1390,8 +1390,7 @@ public class QFieldActivity extends QtActivity {
                       "Selected gallery file: " + data.getData().toString());
                 try {
                     InputStream in = getContentResolver().openInputStream(uri);
-                    QFieldUtils.inputStreamToFile(in, result.getPath(),
-                                                  documentFile.length());
+                    QFieldUtils.inputStreamToFile(in, result.getPath());
                 } catch (Exception e) {
                     Log.d("QField", e.getMessage());
                 }
@@ -1419,8 +1418,7 @@ public class QFieldActivity extends QtActivity {
                                     data.getData().toString());
                 try {
                     InputStream in = getContentResolver().openInputStream(uri);
-                    QFieldUtils.inputStreamToFile(in, result.getPath(),
-                                                  documentFile.length());
+                    QFieldUtils.inputStreamToFile(in, result.getPath());
                 } catch (Exception e) {
                     Log.d("QField", e.getMessage());
                 }
@@ -1532,6 +1530,12 @@ public class QFieldActivity extends QtActivity {
 
             Uri uri = data.getData();
             Context context = getApplication().getApplicationContext();
+            final int takeFlags =
+                data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                   Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            context.getContentResolver().takePersistableUriPermission(
+                uri, takeFlags);
+
             DocumentFile directory = DocumentFile.fromTreeUri(context, uri);
             File importPath =
                 new File(externalFilesDir.getAbsolutePath() +

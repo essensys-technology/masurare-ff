@@ -1,5 +1,5 @@
-set(QGIS_REF final-4_0_3)
-set(QGIS_SHA512 661387b8efa42344d6827753eec9e7af2505662789b90954f47dc9b5b70f6d13c518c677519343ea15996a03f89280af0564628c5c11b568973716c24f077186)
+set(QGIS_REF 3a92eb30c83d7d52751a330628d72b8eb9e64876)
+set(QGIS_SHA512 3d1a9f5acafd8e6a3e00904872b7ae8176a26e6ea8c41d8ae6b8659d00f6fa5b7e9e88e7779723e1175401e559d376bd6d1de1285fc45f527228fab56dbfb871)
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
@@ -14,8 +14,6 @@ vcpkg_from_github(
         include-qthread.patch
         processing.patch # Needed to avoid link issue with tinygltf (ATM embedded into QGIS) and _GEOSQueryCallback defined multiple times
         mesh.patch
-        compatibility.patch
-        metadata.patch
 )
 
 
@@ -193,6 +191,17 @@ vcpkg_configure_cmake(
 )
 
 vcpkg_install_cmake()
+
+if(VCPKG_TARGET_IS_WINDOWS AND VCPKG_LIBRARY_LINKAGE STREQUAL "static")
+    # Copy debug static libs from build output to installed debug lib dir
+    file(GLOB QGIS_DEBUG_LIBS
+        "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg/src/*/Debug/*.lib"
+        "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg/src/Debug/*.lib"
+    )
+    foreach(LIB_FILE IN LISTS QGIS_DEBUG_LIBS)
+        file(COPY "${LIB_FILE}" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib")
+    endforeach()
+endif()
 
 if(VCPKG_TARGET_IS_WINDOWS)
     function(copy_path basepath targetdir)

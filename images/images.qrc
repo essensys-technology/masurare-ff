@@ -49,6 +49,7 @@
         <file>themes/qfield/nodpi/ic_project_folder_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_print_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_home_black_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_hourglass_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_transfer_into_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_remove_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_create_white_24dp.svg</file>
@@ -220,5 +221,9 @@
         <file>themes/qfield/nodpi/ic_3d_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_3d_settings_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_radar_grey_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_rotate_grey_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_reflect_grey_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_cloud_project_template_48dp.svg</file>
+        <file>themes/qfield/nodpi/ic_cloud_project_template_param_48dp.svg</file>
     </qresource>
 </RCC>

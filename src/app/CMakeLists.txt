@@ -57,36 +57,43 @@ endif()
 configure_file(${CMAKE_SOURCE_DIR}/images/logo.qrc.in
                ${CMAKE_BINARY_DIR}/images/logo.qrc @ONLY)
 
-find_package(
-  Qt6
-  COMPONENTS Core5Compat
-  REQUIRED)
-
 set(QFIELD_APP_SRCS
-    badlayerhandler.cpp
-    changelogcontents.cpp
-    clipboardmanager.cpp
-    permissions.cpp
-    pluginmanager.cpp
-    pluginmodel.cpp
-    qfieldappauthrequesthandler.cpp
-    qfieldurlhandler.cpp
-    qgismobileapp.cpp
-    screendimmer.cpp)
+    qfapp.cpp
+    qfbadlayerhandler.cpp
+    qfchangelogcontents.cpp
+    qfclipboardmanager.cpp
+    qfpluginmanager.cpp
+    qfpluginmodel.cpp
+    qfappauthrequesthandler.cpp
+    qfappcoordinateoperationhandlers.cpp
+    qfurlhandler.cpp
+    qfscreendimmer.cpp
+    qgismobileapp.cpp)
 
 set(QFIELD_APP_HDRS
-    badlayerhandler.h
-    changelogcontents.h
-    clipboardmanager.h
-    permissions.h
-    pluginmanager.h
-    pluginmodel.h
-    qfieldappauthrequesthandler.h
-    qfieldurlhandler.h
-    qgismobileapp.h
-    screendimmer.h)
+    qfapp.h
+    qfbadlayerhandler.h
+    qfchangelogcontents.h
+    qfclipboardmanager.h
+    qfpluginmanager.h
+    qfpluginmodel.h
+    qfappauthrequesthandler.h
+    qfappcoordinateoperationhandlers.h
+    qfurlhandler.h
+    qfscreendimmer.h
+    qgismobileapp.h)
 
 add_library(qfield_app STATIC ${QFIELD_APP_SRCS} ${QFIELD_APP_HDRS})
+
+if(WITH_BLUETOOTH)
+  target_compile_definitions(qfield_app PRIVATE WITH_BLUETOOTH)
+endif()
+if(WITH_SERIALPORT)
+  target_compile_definitions(qfield_app PRIVATE WITH_SERIALPORT)
+endif()
+if(WITH_NFC)
+  target_compile_definitions(qfield_app PRIVATE WITH_NFC)
+endif()
 
 include(GenerateExportHeader)
 generate_export_header(qfield_app)
@@ -99,7 +106,11 @@ target_compile_features(qfield_app PUBLIC cxx_std_20)
 
 set_target_properties(qfield_app PROPERTIES AUTOMOC TRUE)
 
-target_link_libraries(qfield_app PUBLIC qfield_core)
+target_link_libraries(qfield_app PUBLIC qfield_3d qfield_gui qfield_core)
+
+add_subdirectory(qml)
+
+add_subdirectory(qml_compat)
 
 function(create_executable)
   cmake_parse_arguments(exe "" "TARGET" "EXTRA_ARGS" "" ${ARGN})
@@ -115,8 +126,10 @@ function(create_executable)
                                                ${ANDROID_PACKAGE_SOURCE_DIR})
     set_property(TARGET ${exe_TARGET} PROPERTY QT_QML_IMPORT_PATH
                                                $ENV{Qt6_DIR}/qml)
-    set_property(TARGET ${exe_TARGET} PROPERTY QT_QML_ROOT_PATH
-                                               ${CMAKE_SOURCE_DIR}/src/qml)
+    set_property(
+      TARGET ${exe_TARGET}
+      PROPERTY QT_QML_ROOT_PATH ${CMAKE_SOURCE_DIR}/src/core/qml
+               ${CMAKE_SOURCE_DIR}/src/gui/qml ${CMAKE_SOURCE_DIR}/src/app/qml)
 
     set(PROJECT_NAME ${exe_TARGET})
   else()
@@ -139,7 +152,8 @@ function(create_executable)
     FILES
     ${QM_FILES})
 
-  target_link_libraries(${exe_TARGET} PRIVATE qfield_app qfield_core qfield_qml)
+  target_link_libraries(${exe_TARGET} PRIVATE qfield_app qfield_gui qfield_3d
+                                              qfield_core)
 
   if(ANDROID)
     target_link_libraries(${exe_TARGET} PRIVATE qfield_service)
@@ -150,32 +164,34 @@ function(create_executable)
   endif()
 
   get_target_property(QT_TARGET_TYPE Qt::Core TYPE)
-  # This should be in src/qml/CMakeLists.txt but that's not possible with Qt5.
+  # This should sit next to the QML files but that's not possible with Qt5.
   # Retry with Qt6 Same is in tests/CMakeLists.txt
   # https://bugreports.qt.io/browse/QTBUG-80847
   if(${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
     find_package(Qt6 COMPONENTS QmlImportScanner)
 
-    get_target_property(qfield_qmlfiles qfield_qml QML_FILES)
-    file(COPY ${qfield_qmlfiles}
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app")
+    foreach(qml_target qfield_core qfield_3d qfield_gui qfield_app)
+      get_target_property(qfield_qmlfiles ${qml_target} QML_FILES)
+      file(COPY ${qfield_qmlfiles}
+           DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app")
+    endforeach()
 
     if(NOT WITH_BLUETOOTH)
-      file(REMOVE
-           "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/BluetoothDeviceChooser.qml")
+      file(
+        REMOVE
+        "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/QfBluetoothDeviceChooser.qml")
     endif()
     if(NOT WITH_SERIALPORT)
-      file(REMOVE
-           "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/SerialPortChooser.qml")
+      file(
+        REMOVE
+        "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/QfSerialPortDeviceChooser.qml")
     endif()
 
     # Will be no longer needed for Qt6
     qt_import_qml_plugins(${exe_TARGET} PATH_TO_SCAN
                           "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app")
   endif()
-  target_link_libraries(${exe_TARGET} PUBLIC Qt::Core5Compat)
   qt_import_plugins(${exe_TARGET} INCLUDE Qt::QSvgPlugin)
-  qt_import_plugins(${exe_TARGET} INCLUDE Qt::Core5Compat)
 
   if(IOS OR CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     target_link_libraries(
@@ -268,6 +284,8 @@ if(IOS)
     VERBOSE)
 
   set_target_properties(
-    qfield PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS
-                      "${PROJECT_SOURCE_DIR}/platform/ios/qfield.entitlements")
+    qfield
+    PROPERTIES XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS
+               "${PROJECT_SOURCE_DIR}/platform/ios/qfield.entitlements"
+               XCODE_GENERATE_SCHEME TRUE)
 endif()

@@ -17,6 +17,7 @@ function(ADD_CATCH2_TEST TESTNAME TESTSRC WITH_CATCH2_MAIN)
   set_target_properties(${TESTNAME} PROPERTIES AUTOMOC TRUE)
   target_link_libraries(${TESTNAME} PRIVATE
     qfield_app
+    qfield_gui
     qfield_core
     Qt::Test
     Qt::Core
@@ -76,23 +77,25 @@ macro (ADD_QFIELD_QML_TEST TESTNAME TESTSRC)
   )
 
   file(GLOB test_qmlfiles "${CMAKE_CURRENT_SOURCE_DIR}/qml/*.qml")
+  file(GLOB test_qmljsfiles "${CMAKE_CURRENT_SOURCE_DIR}/qml/*.js")
   add_executable(${TESTNAME} ${TESTSOURCES} ${test_qmlfiles})
-  # This should be in src/qml/CMakeLists.txt but that's not possible with Qt5. Retry with Qt6
+  # This should sit next to the QML files but that's not possible with Qt5. Retry with Qt6
   # Same is in src/app/CMakeLists.txt
   # https://bugreports.qt.io/browse/QTBUG-80847
   get_target_property(QT_TARGET_TYPE Qt::Core TYPE)
   if(${QT_TARGET_TYPE} STREQUAL "STATIC_LIBRARY")
     find_package(Qt6 COMPONENTS QmlImportScanner)
-
-    file(COPY ${test_qmlfiles}
+    file(COPY ${test_qmlfiles} ${test_qmljsfiles}
          DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/test")
-    get_target_property(qfield_qmlfiles qfield_qml QML_FILES)
-    file(COPY ${qfield_qmlfiles}
-         DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app")
+    foreach(qml_target qfield_core qfield_3d qfield_gui qfield_app)
+      get_target_property(qfield_qmlfiles ${qml_target} QML_FILES)
+      file(COPY ${qfield_qmlfiles}
+           DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app")
+    endforeach()
 
     if(NOT WITH_BLUETOOTH)
       file(REMOVE
-           "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/BluetoothDeviceChooser.qml")
+           "${CMAKE_CURRENT_BINARY_DIR}/qmldrop/app/QfBluetoothDeviceChooser.qml")
     endif()
 
     qt_import_qml_plugins(${TESTNAME} PATH_TO_SCAN "${CMAKE_CURRENT_BINARY_DIR}/qmldrop")
@@ -101,8 +104,8 @@ macro (ADD_QFIELD_QML_TEST TESTNAME TESTSRC)
   set_target_properties(${TESTNAME} PROPERTIES AUTOMOC TRUE)
   target_link_libraries(${TESTNAME} PRIVATE
     qfield_app
+    qfield_gui
     qfield_core
-    qfield_qml
     Qt::Test
     Qt::Core
     Qt::Gui
@@ -110,7 +113,7 @@ macro (ADD_QFIELD_QML_TEST TESTNAME TESTSRC)
     Qt::Xml
     Qt::QuickTest
   )
-  add_test(NAME ${TESTNAME} COMMAND ${TESTNAME} -import ${CMAKE_SOURCE_DIR}/src/qml/imports -input ${CMAKE_SOURCE_DIR}/test/qml)
+  add_test(NAME ${TESTNAME} COMMAND ${TESTNAME} -import ${CMAKE_BINARY_DIR}/qml -input ${CMAKE_SOURCE_DIR}/test/qml)
 endmacro (ADD_QFIELD_QML_TEST)
 
 if (WITH_SPIX)
@@ -126,6 +129,7 @@ if (WITH_UNITTESTS)
   ADD_CATCH2_TEST(featurehistorytest test_featurehistory.cpp FALSE)
   ADD_CATCH2_TEST(vertexmodeltest test_vertexmodel.cpp TRUE)
   ADD_CATCH2_TEST(deltafilewrappertest test_deltafilewrapper.cpp FALSE)
+  ADD_CATCH2_TEST(deltachangesmodeltest test_deltachangesmodel.cpp FALSE)
   ADD_CATCH2_TEST(fileutilstest test_fileutils.cpp TRUE)
   ADD_CATCH2_TEST(geometryutilstest test_geometryutils.cpp TRUE)
   ADD_CATCH2_TEST(stringutilstest test_stringutils.cpp TRUE)
@@ -146,5 +150,8 @@ if (WITH_UNITTESTS)
   ADD_CATCH2_TEST(maplayermodel test_maplayermodel.cpp TRUE)
   ADD_CATCH2_TEST(maptoscreen test_maptoscreen.cpp TRUE)
   ADD_CATCH2_TEST(qfieldcloudutilstest test_qfieldcloudutils.cpp TRUE)
+  ADD_CATCH2_TEST(locatortest test_locator.cpp FALSE)
+  ADD_CATCH2_TEST(cogotest test_cogo.cpp FALSE)
+  ADD_CATCH2_TEST(qfcloudprojecttest test_qfcloudproject.cpp TRUE)
   ADD_QFIELD_QML_TEST(qmltest test_qml.cpp)
 endif()
