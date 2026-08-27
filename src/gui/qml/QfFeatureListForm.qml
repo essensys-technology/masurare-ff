@@ -299,6 +299,8 @@ QfPaneDrawer {
           right: parent.right
           verticalCenter: parent.verticalCenter
         }
+        topPadding: 5
+        bottomPadding: 5
         font.pointSize: QfTheme.resultFont.pointSize
         font.bold: conditionalFontBold
         font.italic: conditionalFontItalic
@@ -712,6 +714,10 @@ QfPaneDrawer {
       }
       if (state != "FeatureList") {
         if (featureListToolBar.state === "Edit") {
+          if (Qt.inputMethod.visible) {
+            Qt.inputMethod.hide();
+            return;
+          }
           featureForm.requestCancel();
         } else if (formOpenedFromSingleIdentify) {
           state = "Hidden";
