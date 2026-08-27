@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="vanished">Support QField</translation>
+        <translation type="vanished">Support Măsurare FF</translation>
     </message>
     <message>
         <source>Changelog</source>
@@ -143,7 +143,7 @@
     </message>
     <message>
         <source>You may check the Portable Project section in the QField documentation for more help.</source>
-        <translation type="vanished">You may check the Portable Project section in the QField documentation for more help.</translation>
+        <translation type="vanished">You may check the Portable Project section in the Măsurare FF documentation for more help.</translation>
     </message>
 </context>
 <context>
@@ -413,7 +413,7 @@ Cancel to make a minimal device scan instead.</translation>
     <name>Changelog</name>
     <message>
         <source>What&apos;s new in QField</source>
-        <translation type="vanished">What&apos;s new in QField</translation>
+        <translation type="vanished">What&apos;s new in Măsurare FF</translation>
     </message>
     <message>
         <source>Error while fetching changelog, try again later.</source>
@@ -421,15 +421,15 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="vanished">Support QField</translation>
+        <translation type="vanished">Support Măsurare FF</translation>
     </message>
     <message>
         <source>Check the latest QField changes on </source>
-        <translation type="vanished">Check the latest QField changes on </translation>
+        <translation type="vanished">Check the latest Măsurare FF changes on </translation>
     </message>
     <message>
         <source>QField releases page</source>
-        <translation type="vanished">QField releases page</translation>
+        <translation type="vanished">Măsurare FF releases page</translation>
     </message>
 </context>
 <context>
@@ -1169,7 +1169,7 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <name>LocalFilesModel</name>
     <message>
         <source>QField files directory</source>
-        <translation type="vanished">QField files directory</translation>
+        <translation type="vanished">Măsurare FF files directory</translation>
     </message>
     <message>
         <source>Imported projects</source>
@@ -1929,49 +1929,49 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="vanished">Learn more about QFieldCloud</translation>
+        <translation type="vanished">Learn more about Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="obsolete">QFieldCloud</translation>
+        <translation type="obsolete">Măsurare FF Cloud</translation>
     </message>
 </context>
 <context>
     <name>QFieldCloudPackageLayersFeedback</name>
     <message>
         <source>Problematic QFieldCloud layer packaging</source>
-        <translation type="vanished">Problematic QFieldCloud layer packaging</translation>
+        <translation type="vanished">Problematic Măsurare FF Cloud layer packaging</translation>
     </message>
     <message>
         <source>Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
-        <translation type="vanished">Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</translation>
+        <translation type="vanished">Some layers have not been packaged correctly on Măsurare FF Cloud. These layers might be misconfigured or their data source is not accessible from the Măsurare FF Cloud server.</translation>
     </message>
     <message>
         <source>QFieldCloud had troubles packaging your project</source>
-        <translation type="vanished">QFieldCloud had troubles packaging your project</translation>
+        <translation type="vanished">Măsurare FF Cloud had troubles packaging your project</translation>
     </message>
     <message>
         <source>Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server. Please check the logs of the latest packaging job on the qfield.cloud website.</source>
-        <translation type="vanished">Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server. Please check the logs of the latest packaging job on the qfield.cloud website.</translation>
+        <translation type="vanished">Some layers have not been packaged correctly on Măsurare FF Cloud. These layers might be misconfigured or their data source is not accessible from the Măsurare FF Cloud server. Please check the logs of the latest packaging job on the cloud website.</translation>
     </message>
 </context>
 <context>
     <name>QFieldCloudPopup</name>
     <message>
         <source>QFieldCloud</source>
-        <translation type="vanished">QFieldCloud</translation>
+        <translation type="vanished">Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>The current project is not stored on QFieldCloud.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="vanished">The current project is not stored on QFieldCloud.&lt;br&gt;&lt;br&gt;</translation>
+        <translation type="vanished">The current project is not stored on Măsurare FF Cloud.&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Storing projects on QFieldCloud offers seamless synchornization, offline editing, and team management.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="vanished">Storing projects on QFieldCloud offers seamless synchornization, offline editing, and team management.&lt;br&gt;&lt;br&gt;</translation>
+        <translation type="vanished">Storing projects on Măsurare FF Cloud offers seamless synchornization, offline editing, and team management.&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="vanished">Learn more about QFieldCloud</translation>
+        <translation type="vanished">Learn more about Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -1987,7 +1987,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
-        <translation type="vanished">This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</translation>
+        <translation type="vanished">This Măsurare FF Cloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the Măsurare FF Cloud functionality.</translation>
     </message>
     <message>
         <source>Downloading %1%…</source>
@@ -1995,7 +1995,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</translation>
+        <translation type="vanished">Măsurare FF Cloud is preparing the latest data just for you. This might take some time, please hold tight…</translation>
     </message>
     <message>
         <source>Uploading %1%…</source>
@@ -2003,7 +2003,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is applying the latest uploaded changes. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud is applying the latest uploaded changes. This might take some time, please hold tight…</translation>
+        <translation type="vanished">Măsurare FF Cloud is applying the latest uploaded changes. This might take some time, please hold tight…</translation>
     </message>
     <message>
         <source>A server error has occured, please try again.</source>
@@ -2034,7 +2034,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Synchronize the whole project with all modified features and download the freshly updated project with all the applied changes from QFieldCloud.</source>
-        <translation type="vanished">Synchronize the whole project with all modified features and download the freshly updated project with all the applied changes from QFieldCloud.</translation>
+        <translation type="vanished">Synchronize the whole project with all modified features and download the freshly updated project with all the applied changes from Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>Push changes</source>
@@ -2198,7 +2198,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source> (see more in the QField error log)…</source>
-        <translation type="obsolete"> (see more in the QField error log)…</translation>
+        <translation type="obsolete"> (see more in the Măsurare FF error log)…</translation>
     </message>
     <message>
         <source>Job creation finished, but the server response is missing required fields: id(string)</source>
@@ -2364,7 +2364,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source> (see more in the QField error log)…</source>
-        <translation type="vanished"> (see more in the QField error log)…</translation>
+        <translation type="vanished"> (see more in the Măsurare FF error log)…</translation>
     </message>
     <message>
         <source>Failed to copy some of the downloaded files on your device. Check your device storage.</source>
@@ -2375,7 +2375,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QFieldCloudScreen</name>
     <message>
         <source>QFieldCloud Projects</source>
-        <translation type="vanished">QFieldCloud Projects</translation>
+        <translation type="vanished">Măsurare FF Cloud Projects</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -2407,7 +2407,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</translation>
+        <translation type="vanished">Măsurare FF Cloud is preparing the latest data just for you. This might take some time, please hold tight…</translation>
     </message>
     <message>
         <source>Uploading…</source>
@@ -2653,7 +2653,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>If disabled, QField will use a minimalist internal camera instead of the camera app on the device.&lt;br&gt;Tip: Enable this option and install the open camera app to create geo tagged photos.</source>
-        <translation type="vanished">If disabled, QField will use a minimalist internal camera instead of the camera app on the device.&lt;br&gt;Tip: Enable this option and install the open camera app to create geo tagged photos.</translation>
+        <translation type="vanished">If disabled, Măsurare FF will use a minimalist internal camera instead of the camera app on the device.&lt;br&gt;Tip: Enable this option and install the open camera app to create geo tagged photos.</translation>
     </message>
     <message>
         <source>Fast editing mode</source>
@@ -2685,7 +2685,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>If enabled, anonymized metrics will be collected and sent to help improve QField for everyone.</source>
-        <translation type="vanished">If enabled, anonymized metrics will be collected and sent to help improve QField for everyone.</translation>
+        <translation type="vanished">If enabled, anonymized metrics will be collected and sent to help improve Măsurare FF for everyone.</translation>
     </message>
     <message>
         <source>General</source>
@@ -2709,7 +2709,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>To apply the selected user interface language, QField needs to completely shutdown and restart.</source>
-        <translation type="vanished">To apply the selected user interface language, QField needs to completely shutdown and restart.</translation>
+        <translation type="vanished">To apply the selected user interface language, Măsurare FF needs to completely shutdown and restart.</translation>
     </message>
     <message>
         <source>system</source>
@@ -2850,7 +2850,7 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>QField Settings</source>
-        <translation type="vanished">QField Settings</translation>
+        <translation type="vanished">Măsurare FF Settings</translation>
     </message>
     <message>
         <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
@@ -2933,7 +2933,7 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>QFieldCloud Unknown Error</source>
-        <translation>QFieldCloud Unknown Error</translation>
+        <translation>Măsurare FF Cloud Unknown Error</translation>
     </message>
     <message>
         <source>Status not ok</source>
@@ -3001,7 +3001,7 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>Please wait while QField installation finalizes.</source>
-        <translation>Please wait while QField installation finalizes.</translation>
+        <translation>Please wait while Măsurare FF installation finalizes.</translation>
     </message>
     <message>
         <source>averaged</source>
@@ -3160,7 +3160,7 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="unfinished">Support QField</translation>
+        <translation type="unfinished">Support Măsurare FF</translation>
     </message>
     <message>
         <source>Documentation</source>
@@ -3718,7 +3718,7 @@ Cancel to make a minimal device scan instead.</translation>
     <name>QfChangelog</name>
     <message>
         <source>What&apos;s new in QField</source>
-        <translation type="unfinished">What&apos;s new in QField</translation>
+        <translation type="unfinished">What&apos;s new in Măsurare FF</translation>
     </message>
     <message>
         <source>Error while fetching changelog, try again later.</source>
@@ -3726,15 +3726,15 @@ Cancel to make a minimal device scan instead.</translation>
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="unfinished">Support QField</translation>
+        <translation type="unfinished">Support Măsurare FF</translation>
     </message>
     <message>
         <source>Check the latest QField changes on </source>
-        <translation type="unfinished">Check the latest QField changes on </translation>
+        <translation type="unfinished">Check the latest Măsurare FF changes on </translation>
     </message>
     <message>
         <source>QField releases page</source>
-        <translation type="unfinished">QField releases page</translation>
+        <translation type="unfinished">Măsurare FF releases page</translation>
     </message>
 </context>
 <context>
@@ -4002,18 +4002,18 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="unfinished">Learn more about QFieldCloud</translation>
+        <translation type="unfinished">Learn more about Măsurare FF Cloud</translation>
     </message>
 </context>
 <context>
     <name>QfCloudPackageLayersFeedback</name>
     <message>
         <source>Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the Măsurare FF Cloud server.</translation>
     </message>
     <message>
         <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Please check the detailed feedback below and the latest packaging job logs on the Măsurare FF Cloud website.</translation>
     </message>
 </context>
 <context>
@@ -4066,11 +4066,11 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="unfinished">QFieldCloud</translation>
+        <translation type="unfinished">Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
-        <translation type="unfinished">This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</translation>
+        <translation type="unfinished">This Măsurare FF Cloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the Măsurare FF Cloud functionality.</translation>
     </message>
     <message>
         <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
@@ -4086,7 +4086,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Reaching out to QFieldCloud to download project</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reaching out to Măsurare FF to download project</translation>
     </message>
     <message>
         <source>Pushing changes, %1%…</source>
@@ -4094,7 +4094,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is applying the latest pushed changes. This might take some time, please hold tight…</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF is applying the latest pushed changes. This might take some time, please hold tight…</translation>
     </message>
     <message>
         <source>Cloudify project</source>
@@ -4102,15 +4102,15 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Uploading the current project to QFieldCloud.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uploading the current project to Măsurare FF.</translation>
     </message>
     <message>
         <source>The current project is not stored on QFieldCloud. Storing projects on QFieldCloud offers seamless synchronization, offline editing, and team management.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">The current project is not stored on Măsurare FF. Storing projects on Măsurare FF offers seamless synchronization, offline editing, and team management.</translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="unfinished">Learn more about QFieldCloud</translation>
+        <translation type="unfinished">Learn more about Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Cloudifying %1%</source>
@@ -4173,7 +4173,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Uploads your edits, then downloads the latest project from QFieldCloud so everything is up to date.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uploads your edits, then downloads the latest project from Măsurare FF so everything is up to date.</translation>
     </message>
     <message>
         <source>Last synchronized just now</source>
@@ -4366,7 +4366,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source> (see more in the QField error log)…</source>
-        <translation type="unfinished"> (see more in the QField error log)…</translation>
+        <translation type="unfinished"> (see more in the Măsurare FF error log)…</translation>
     </message>
     <message>
         <source>Job creation finished, but the server response is missing required fields: id(string)</source>
@@ -4453,7 +4453,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is packaging project, hold tight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF is packaging project, hold tight</translation>
     </message>
     <message>
         <source>Downloading project</source>
@@ -4546,7 +4546,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QfCloudScreen</name>
     <message>
         <source>QFieldCloud Projects</source>
-        <translation type="obsolete">QFieldCloud Projects</translation>
+        <translation type="obsolete">Măsurare FF Cloud Projects</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -4570,7 +4570,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF is packaging the latest data just for you; this might take some time, please hold tight</translation>
     </message>
     <message>
         <source>Downloading, %1% of %2 fetched</source>
@@ -4582,7 +4582,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Reaching out to QFieldCloud to download project</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Reaching out to Măsurare FF Cloud to download project</translation>
     </message>
     <message>
         <source>Uploading…</source>
@@ -4678,7 +4678,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud project details fetching failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF project details fetching failed</translation>
     </message>
     <message>
         <source>Project cloning failed: %1</source>
@@ -4710,7 +4710,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="unfinished">QFieldCloud</translation>
+        <translation type="unfinished">Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Search for templates</source>
@@ -4765,7 +4765,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QfCloudStatus</name>
     <message>
         <source>QFieldCloud server is not reachable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud server is not reachable</translation>
     </message>
     <message>
         <source>The server at %1 could not be reached. Please check your internet connection.</source>
@@ -4773,11 +4773,11 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is under maintenance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud is under maintenance</translation>
     </message>
     <message>
         <source>QFieldCloud service is degraded</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud service is degraded</translation>
     </message>
     <message>
         <source>There is an ongoing incident</source>
@@ -5080,7 +5080,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud on-demand attachment error: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud on-demand attachment error:</translation>
     </message>
     <message>
         <source>Take a photo</source>
@@ -6016,7 +6016,7 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     </message>
     <message>
         <source>QField files directory</source>
-        <translation type="unfinished">QField files directory</translation>
+        <translation type="unfinished">Măsurare FF files directory</translation>
     </message>
     <message>
         <source>Created projects</source>
@@ -6959,11 +6959,11 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     </message>
     <message>
         <source>QFieldCloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud here</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Learn more about Măsurare FF Cloud here</translation>
     </message>
     <message>
         <source>Automatically upload changes on a regular interval</source>
@@ -8069,7 +8069,8 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <message>
         <source>QFieldCloud
 projects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Măsurare FF Cloud
+projects</translation>
     </message>
     <message>
         <source>Local projects and
@@ -8725,11 +8726,11 @@ to show actions</source>
     </message>
     <message>
         <source>Changes failed to reach QFieldCloud: %1</source>
-        <translation type="unfinished">Changes failed to reach QFieldCloud: %1</translation>
+        <translation type="unfinished">Changes failed to reach Măsurare FF Cloud: %1</translation>
     </message>
     <message>
         <source>Changes successfully pushed to QFieldCloud</source>
-        <translation type="unfinished">Changes successfully pushed to QFieldCloud</translation>
+        <translation type="unfinished">Changes successfully pushed to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Unlock the screen to close project and app</source>
@@ -8833,11 +8834,11 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="unfinished">QFieldCloud</translation>
+        <translation type="unfinished">Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Upload local changes, synchronize or discard changes to and from QFieldCloud when a cloud project is opened.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Upload local changes, synchronize or discard changes to and from Măsurare FF Cloud when a cloud project is opened.</translation>
     </message>
     <message>
         <source>Project folder</source>
@@ -8845,7 +8846,7 @@ to show actions</source>
     </message>
     <message>
         <source>Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to QFieldCloud, and sharing datasets, attachments, and layouts.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to Măsurare FF Cloud, and sharing datasets, attachments, and layouts.</translation>
     </message>
 </context>
 <context>
@@ -9108,7 +9109,7 @@ to show actions</source>
     <name>SystemLoader</name>
     <message>
         <source>Preparing QField, this is a one time operation that might take some time</source>
-        <translation type="vanished">Preparing QField, this is a one time operation that might take some time</translation>
+        <translation type="vanished">Preparing Măsurare FF, this is a one time operation that might take some time</translation>
     </message>
 </context>
 <context>
@@ -9525,7 +9526,7 @@ to show actions</source>
     </message>
     <message>
         <source>Hey there, how do you like your experience with QField so far?</source>
-        <translation type="vanished">Hey there, how do you like your experience with QField so far?</translation>
+        <translation type="vanished">Hey there, how do you like your experience with Măsurare FF so far?</translation>
     </message>
     <message>
         <source>That&apos;s great! We&apos;d love for you to click on the button below and leave a comment on the store.</source>
@@ -9541,7 +9542,7 @@ to show actions</source>
     </message>
     <message>
         <source>To improve stability for everyone, QField collects and sends anonymized metrics.</source>
-        <translation type="vanished">To improve stability for everyone, QField collects and sends anonymized metrics.</translation>
+        <translation type="vanished">To improve stability for everyone, Măsurare FF collects and sends anonymized metrics.</translation>
     </message>
     <message>
         <source>I agree</source>
@@ -9553,7 +9554,7 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud projects</source>
-        <translation type="vanished">QFieldCloud projects</translation>
+        <translation type="vanished">Măsurare FF Cloud projects</translation>
     </message>
     <message>
         <source>Open local file</source>
@@ -9581,11 +9582,11 @@ to show actions</source>
     </message>
     <message>
         <source>Welcome to QField. First time using this application? Try out sample projects listed in the list below.</source>
-        <translation type="vanished">Welcome to QField. First time using this application? Try out sample projects listed in the list below.</translation>
+        <translation type="vanished">Welcome to Măsurare FF. First time using this application? Try out sample projects listed in the list below.</translation>
     </message>
     <message>
         <source>Welcome back to QField.</source>
-        <translation type="vanished">Welcome back to QField.</translation>
+        <translation type="vanished">Welcome back to Măsurare FF.</translation>
     </message>
 </context>
 <context>
@@ -9786,7 +9787,7 @@ to show actions</source>
     </message>
     <message>
         <source>About QField</source>
-        <translation type="vanished">About QField</translation>
+        <translation type="vanished">About Măsurare FF</translation>
     </message>
     <message>
         <source>Select template below</source>
@@ -9798,7 +9799,7 @@ to show actions</source>
     </message>
     <message>
         <source>QField has no permissions to use positioning.</source>
-        <translation type="vanished">QField has no permissions to use positioning.</translation>
+        <translation type="vanished">Măsurare FF has no permissions to use positioning.</translation>
     </message>
     <message>
         <source>Map Canvas Options</source>
@@ -9994,11 +9995,11 @@ to show actions</source>
     </message>
     <message>
         <source>Changes failed to reach QFieldCloud: %1</source>
-        <translation type="vanished">Changes failed to reach QFieldCloud: %1</translation>
+        <translation type="vanished">Changes failed to reach Măsurare FF Cloud: %1</translation>
     </message>
     <message>
         <source>Changes successfully pushed to QFieldCloud</source>
-        <translation type="vanished">Changes successfully pushed to QFieldCloud</translation>
+        <translation type="vanished">Changes successfully pushed to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Press back again to close project and app</source>
@@ -10054,7 +10055,7 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="obsolete">QFieldCloud</translation>
+        <translation type="obsolete">Măsurare FF Cloud</translation>
     </message>
 </context>
 <context>

@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="vanished">Susține QField</translation>
+        <translation type="vanished">Susține Măsurare FF</translation>
     </message>
     <message>
         <source>Changelog</source>
@@ -142,7 +142,7 @@ Vă rugăm să le examinați și să reconfigurați proiectul QGIS.</translation
     </message>
     <message>
         <source>You may check the Portable Project section in the QField documentation for more help.</source>
-        <translation type="vanished">Pentru mai multe informații, puteți verifica secțiunea Proiectului Portabil din documentația QField.</translation>
+        <translation type="vanished">Pentru mai multe informații, puteți verifica secțiunea Proiectului Portabil din documentația Măsurare FF.</translation>
     </message>
 </context>
 <context>
@@ -409,7 +409,7 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     <name>Changelog</name>
     <message>
         <source>What&apos;s new in QField</source>
-        <translation type="vanished">Ce e nou în QField</translation>
+        <translation type="vanished">Ce e nou în Măsurare FF</translation>
     </message>
     <message>
         <source>Error while fetching changelog, try again later.</source>
@@ -417,15 +417,15 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     </message>
     <message>
         <source>Support QField</source>
-        <translation type="vanished">Susține QField</translation>
+        <translation type="vanished">Susține Măsurare FF</translation>
     </message>
     <message>
         <source>Check the latest QField changes on </source>
-        <translation type="vanished">Verificați cele mai recente modificări ale QField</translation>
+        <translation type="vanished">Verificați cele mai recente modificări ale Măsurare FF</translation>
     </message>
     <message>
         <source>QField releases page</source>
-        <translation type="vanished">Pagina cu versiuni QField</translation>
+        <translation type="vanished">Pagina cu versiuni Măsurare FF</translation>
     </message>
 </context>
 <context>
@@ -1150,7 +1150,7 @@ Motiv:
     <name>LocalFilesModel</name>
     <message>
         <source>QField files directory</source>
-        <translation type="vanished">Fișierele Directorului QField</translation>
+        <translation type="vanished">Fișierele Directorului Măsurare FF</translation>
     </message>
     <message>
         <source>Imported projects</source>
@@ -1908,49 +1908,49 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="vanished">Aflați mai multe despre QFieldCloud</translation>
+        <translation type="vanished">Aflați mai multe despre Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF</translation>
     </message>
 </context>
 <context>
     <name>QFieldCloudPackageLayersFeedback</name>
     <message>
         <source>Problematic QFieldCloud layer packaging</source>
-        <translation type="vanished">Împachetarea straturilor QFieldCloud problematică</translation>
+        <translation type="vanished">Împachetarea straturilor Măsurare FF Cloud problematică</translation>
     </message>
     <message>
         <source>Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
-        <translation type="vanished">Unele straturi nu au fost împachetate corect pe QFieldCloud. Aceste straturi pot fi configurate greșit sau sursa lor de date nu este accesibilă din serverul QFieldCloud.</translation>
+        <translation type="vanished">Unele straturi nu au fost împachetate corect pe Măsurare FF Cloud. Aceste straturi pot fi configurate greșit sau sursa lor de date nu este accesibilă din serverul Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>QFieldCloud had troubles packaging your project</source>
-        <translation type="vanished">QFieldCloud a avut probleme la împachetarea proiectului dumneavoastră</translation>
+        <translation type="vanished">Măsurare FF Cloud a avut probleme la împachetarea proiectului dumneavoastră</translation>
     </message>
     <message>
         <source>Some layers have not been packaged correctly on QFieldCloud. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server. Please check the logs of the latest packaging job on the qfield.cloud website.</source>
-        <translation type="vanished">Unele straturi nu au fost împachetate corect pe QFieldCloud. Aceste straturi pot fi configurate greșit sau sursa lor de date nu este accesibilă din serverul QFieldCloud. Vă rugăm să verificați jurnalele pentru cele mai recente pachete de pe site-ul qfield.cloud.</translation>
+        <translation type="vanished">Unele straturi nu au fost împachetate corect pe Măsurare FF Cloud. Aceste straturi pot fi configurate greșit sau sursa lor de date nu este accesibilă din serverul Măsurare FF Cloud. Vă rugăm să verificați jurnalele pentru cele mai recente pachete de pe site.</translation>
     </message>
 </context>
 <context>
     <name>QFieldCloudPopup</name>
     <message>
         <source>QFieldCloud</source>
-        <translation type="vanished">QFieldCloud</translation>
+        <translation type="vanished">Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>The current project is not stored on QFieldCloud.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="vanished">Proiectul actual nu este stocat pe QFieldCloud.&lt;br&gt;&lt;br&gt;</translation>
+        <translation type="vanished">Proiectul actual nu este stocat pe Măsurare FF Cloud.&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Storing projects on QFieldCloud offers seamless synchornization, offline editing, and team management.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="vanished">Stocarea proiectelor pe QFieldCloud oferă sincronizare fără probleme, editare offline și gestionarea echipei.&lt;br&gt;&lt;br&gt;</translation>
+        <translation type="vanished">Stocarea proiectelor pe Măsurare FF Cloud oferă sincronizare fără probleme, editare offline și gestionarea echipei.&lt;br&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation type="vanished">Aflați mai multe despre QFieldCloud</translation>
+        <translation type="vanished">Aflați mai multe despre Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -1966,7 +1966,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
-        <translation type="vanished">Acest proiect QFieldCloud a fost descărcat pentru prima dată cu un alt cont de cloud. Vă rugăm să vă conectați cu contul original pentru acest proiect pentru a utiliza funcționalitatea QFieldCloud.</translation>
+        <translation type="vanished">Acest proiect Măsurare FF Cloud a fost descărcat pentru prima dată cu un alt cont de cloud. Vă rugăm să vă conectați cu contul original pentru acest proiect pentru a utiliza funcționalitatea Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>Downloading %1%…</source>
@@ -1974,7 +1974,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud pregătește cele mai recente date pentru dvs. Acest lucru ar putea dura cateva momente, vă rugăm așteptați...</translation>
+        <translation type="vanished">Măsurare FF Cloud pregătește cele mai recente date pentru dvs. Acest lucru ar putea dura cateva momente, vă rugăm așteptați...</translation>
     </message>
     <message>
         <source>Uploading %1%…</source>
@@ -1982,7 +1982,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is applying the latest uploaded changes. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud aplică cele mai recente modificări încărcate. Acest lucru ar putea dura câteva momente, vă rugăm să așteptați...</translation>
+        <translation type="vanished">Măsurare FF Cloud aplică cele mai recente modificări încărcate. Acest lucru ar putea dura câteva momente, vă rugăm să așteptați...</translation>
     </message>
     <message>
         <source>A server error has occured, please try again.</source>
@@ -2010,7 +2010,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Synchronize the whole project with all modified features and download the freshly updated project with all the applied changes from QFieldCloud.</source>
-        <translation type="vanished">Sincronizați întregul proiect cu toate elementele modificate și descărcați proiectele proaspăt actualizate cu toate modificările aplicate de pe QFieldCloud.</translation>
+        <translation type="vanished">Sincronizați întregul proiect cu toate elementele modificate și descărcați proiectele proaspăt actualizate cu toate modificările aplicate de pe Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>Push changes</source>
@@ -2336,7 +2336,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source> (see more in the QField error log)…</source>
-        <translation type="vanished"> (vezi mai multe informații în jurnalul de modificări QField)…</translation>
+        <translation type="vanished"> (vezi mai multe informații în jurnalul de modificări Măsurare FF)…</translation>
     </message>
     <message>
         <source>Failed to copy some of the downloaded files on your device. Check your device storage.</source>
@@ -2347,7 +2347,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QFieldCloudScreen</name>
     <message>
         <source>QFieldCloud Projects</source>
-        <translation type="vanished">Proiecte QFieldCloud</translation>
+        <translation type="vanished">Proiecte Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -2379,7 +2379,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is preparing the latest data just for you. This might take some time, please hold tight…</source>
-        <translation type="vanished">QFieldCloud pregătește cele mai recente date pentru dvs. Acest lucru ar putea dura cateva momente, vă rugăm așteptați...</translation>
+        <translation type="vanished">Măsurare FF Cloud pregătește cele mai recente date pentru dvs. Acest lucru ar putea dura cateva momente, vă rugăm așteptați...</translation>
     </message>
     <message>
         <source>Uploading…</source>
@@ -2622,7 +2622,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>If disabled, QField will use a minimalist internal camera instead of the camera app on the device.&lt;br&gt;Tip: Enable this option and install the open camera app to create geo tagged photos.</source>
-        <translation type="vanished">Dacă este dezactivat, QField va utiliza o cameră internă minimalistă în loc de aplicația camerei de pe&lt;br&gt;Sfat: Activați această opțiune și instalați aplicația Open Camera pentru a crea fotografii Geo Tagged.</translation>
+        <translation type="vanished">Dacă este dezactivat, Măsurare FF va utiliza o cameră internă minimalistă în loc de aplicația camerei de pe&lt;br&gt;Sfat: Activați această opțiune și instalați aplicația Open Camera pentru a crea fotografii Geo Tagged.</translation>
     </message>
     <message>
         <source>Fast editing mode</source>
@@ -2654,7 +2654,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>If enabled, anonymized metrics will be collected and sent to help improve QField for everyone.</source>
-        <translation type="vanished">Dacă este activată, valorile anonimizate vor fi colectate și trimise pentru a ajuta la îmbunătățirea QField pentru toată lumea.</translation>
+        <translation type="vanished">Dacă este activată, valorile anonimizate vor fi colectate și trimise pentru a ajuta la îmbunătățirea Măsurare FF pentru toată lumea.</translation>
     </message>
     <message>
         <source>General</source>
@@ -2678,7 +2678,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>To apply the selected user interface language, QField needs to completely shutdown and restart.</source>
-        <translation type="vanished">Pentru a aplica limba selectată pentru interfața cu utilizatorul, QField trebuie să se închidă complet și să repornească.</translation>
+        <translation type="vanished">Pentru a aplica limba selectată pentru interfața cu utilizatorul, Măsurare FF trebuie să se închidă complet și să repornească.</translation>
     </message>
     <message>
         <source>system</source>
@@ -2816,7 +2816,7 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     </message>
     <message>
         <source>QField Settings</source>
-        <translation type="vanished">Setări QField</translation>
+        <translation type="vanished">Setări Măsurare FF</translation>
     </message>
     <message>
         <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
@@ -2899,7 +2899,7 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     </message>
     <message>
         <source>QFieldCloud Unknown Error</source>
-        <translation>Eroare Necunoscută QFieldCloud</translation>
+        <translation>Eroare Necunoscută Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Status not ok</source>
@@ -2967,7 +2967,7 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     </message>
     <message>
         <source>Please wait while QField installation finalizes.</source>
-        <translation>Așteptați până când instalarea QField se finalizează.</translation>
+        <translation>Așteptați până când instalarea Măsurare FF se finalizează.</translation>
     </message>
     <message>
         <source>averaged</source>
@@ -3126,7 +3126,7 @@ Anulați pentru a efectua o scanare minimă a dispozitivului.</translation>
     </message>
     <message>
         <source>Support QField</source>
-        <translation>Susține QField</translation>
+        <translation>Susține Măsurare FF</translation>
     </message>
     <message>
         <source>Documentation</source>
@@ -3676,7 +3676,7 @@ Vă rugăm să le examinați și să reconfigurați proiectul QGIS.</translation
     <name>QfChangelog</name>
     <message>
         <source>What&apos;s new in QField</source>
-        <translation>Ce e nou în QField</translation>
+        <translation>Ce e nou în Măsurare FF</translation>
     </message>
     <message>
         <source>Error while fetching changelog, try again later.</source>
@@ -3684,15 +3684,15 @@ Vă rugăm să le examinați și să reconfigurați proiectul QGIS.</translation
     </message>
     <message>
         <source>Support QField</source>
-        <translation>Susține QField</translation>
+        <translation>Susține Măsurare FF</translation>
     </message>
     <message>
         <source>Check the latest QField changes on </source>
-        <translation>Verificați cele mai recente modificări ale QField</translation>
+        <translation>Verificați cele mai recente modificări ale Măsurare FF</translation>
     </message>
     <message>
         <source>QField releases page</source>
-        <translation>Pagina cu versiuni QField</translation>
+        <translation>Pagina cu versiuni Măsurare FF</translation>
     </message>
 </context>
 <context>
@@ -3960,18 +3960,18 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation>Aflați mai multe despre QFieldCloud</translation>
+        <translation>Aflați mai multe despre Măsurare FF Cloud</translation>
     </message>
 </context>
 <context>
     <name>QfCloudPackageLayersFeedback</name>
     <message>
         <source>Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the Măsurare FF Cloud server.</translation>
     </message>
     <message>
         <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Please check the detailed feedback below and the latest packaging job logs on the Măsurare FF Cloud website.</translation>
     </message>
 </context>
 <context>
@@ -4021,15 +4021,15 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
+        <translation>Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
-        <translation>Acest proiect QFieldCloud a fost descărcat pentru prima dată cu un alt cont de cloud. Vă rugăm să vă conectați cu contul original pentru acest proiect pentru a utiliza funcționalitatea QFieldCloud.</translation>
+        <translation>Acest proiect Măsurare FF loud a fost descărcat pentru prima dată cu un alt cont de cloud. Vă rugăm să vă conectați cu contul original pentru acest proiect pentru a utiliza funcționalitatea Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud împachetează datele pentru dumneavoastră; s-ar putea să dureze. Vă rugăm așteptați.</translation>
     </message>
     <message>
         <source>Downloading, %1% of %2 fetched</source>
@@ -4041,7 +4041,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Reaching out to QFieldCloud to download project</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">În curs de conectare la Măsurare FF Cloud pentru a descărca proiectul</translation>
     </message>
     <message>
         <source>Pushing changes, %1%…</source>
@@ -4049,7 +4049,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is applying the latest pushed changes. This might take some time, please hold tight…</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud salvează ultimele modificări. S-ar putea să dureze, vă rugăm să așteptatți.</translation>
     </message>
     <message>
         <source>Cloudify project</source>
@@ -4057,15 +4057,15 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Uploading the current project to QFieldCloud.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Se încarcă proiectul curent în Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>The current project is not stored on QFieldCloud. Storing projects on QFieldCloud offers seamless synchronization, offline editing, and team management.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Proiectul curent nu este salvat în Măsurare FF Cloud. Păstrarea proiectelor în Măsurare FF Cloud oferă sincronizare, editare offline și management de echipă.</translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
-        <translation>Aflați mai multe despre QFieldCloud</translation>
+        <translation>Aflați mai multe despre Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Cloudifying %1%</source>
@@ -4125,7 +4125,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Uploads your edits, then downloads the latest project from QFieldCloud so everything is up to date.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Uploads your edits, then downloads the latest project from Măsurare FF Cloud so everything is up to date.</translation>
     </message>
     <message>
         <source>Last synchronized just now</source>
@@ -4306,7 +4306,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source> (see more in the QField error log)…</source>
-        <translation> (vezi mai multe informații în jurnalul de modificări QField)…</translation>
+        <translation> (vezi mai multe informații în jurnalul de modificări Măsurare FF)…</translation>
     </message>
     <message>
         <source>Job creation finished, but the server response is missing required fields: id(string)</source>
@@ -4393,7 +4393,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is packaging project, hold tight</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud is packaging project, hold tight</translation>
     </message>
     <message>
         <source>Downloading project</source>
@@ -4486,7 +4486,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QfCloudScreen</name>
     <message>
         <source>QFieldCloud Projects</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud Projects</translation>
     </message>
     <message>
         <source>Disconnected from the cloud.</source>
@@ -4510,7 +4510,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud is packaging the latest data just for you; this might take some time, please hold tight</translation>
     </message>
     <message>
         <source>Downloading, %1% of %2 fetched</source>
@@ -4522,7 +4522,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Reaching out to QFieldCloud to download project</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Reaching out to Măsurare FF Cloud to download project</translation>
     </message>
     <message>
         <source>Uploading…</source>
@@ -4618,7 +4618,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud project details fetching failed</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud project details fetching failed</translation>
     </message>
     <message>
         <source>Project cloning failed: %1</source>
@@ -4650,7 +4650,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
+        <translation>Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Search for templates</source>
@@ -4705,7 +4705,7 @@ While you can still view and use the project, it is strongly recommended to rese
     <name>QfCloudStatus</name>
     <message>
         <source>QFieldCloud server is not reachable</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF server is not reachable</translation>
     </message>
     <message>
         <source>The server at %1 could not be reached. Please check your internet connection.</source>
@@ -4713,11 +4713,11 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud is under maintenance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud is under maintenance</translation>
     </message>
     <message>
         <source>QFieldCloud service is degraded</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud service is degraded</translation>
     </message>
     <message>
         <source>There is an ongoing incident</source>
@@ -5011,7 +5011,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>QFieldCloud on-demand attachment error: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud on-demand attachment error: </translation>
     </message>
     <message>
         <source>Take a photo</source>
@@ -5948,7 +5948,7 @@ Motiv:
     </message>
     <message>
         <source>Push to QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Push to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Export to folder...</source>
@@ -6040,11 +6040,11 @@ Motiv:
     </message>
     <message>
         <source>Push file(s) to QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Push file(s) to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Please select one or more files to push to QFieldCloud.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Please select one or more files to push to Măsurare FF Cloud.</translation>
     </message>
     <message>
         <source>Send compressed file(s) to...</source>
@@ -6056,11 +6056,11 @@ Motiv:
     </message>
     <message>
         <source>‘%1’ is being uploaded to QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">‘%1’ is being uploaded to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Items being uploaded to QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Items being uploaded to Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Remove File(s)</source>
@@ -6183,7 +6183,7 @@ Motiv:
     </message>
     <message>
         <source>QField files directory</source>
-        <translation>Fișierele Directorului QField</translation>
+        <translation>Fișierele Directorului Măsurare FF</translation>
     </message>
     <message>
         <source>Created projects</source>
@@ -7126,11 +7126,11 @@ Motiv:
     </message>
     <message>
         <source>QFieldCloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </translation>
     </message>
     <message>
         <source>Learn more about QFieldCloud here</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Learn more about Măsurare FF Cloud here</translation>
     </message>
     <message>
         <source>Automatically upload changes on a regular interval</source>
@@ -8233,7 +8233,8 @@ Motiv:
     <message>
         <source>QFieldCloud
 projects</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud
+projects</translation>
     </message>
     <message>
         <source>Local projects and
@@ -8883,11 +8884,11 @@ to show actions</source>
     </message>
     <message>
         <source>Changes failed to reach QFieldCloud: %1</source>
-        <translation>Modificările nu au reușit să ajungă la QFieldCloud: %1</translation>
+        <translation>Modificările nu au reușit să ajungă la Măsurare FF Cloud: %1</translation>
     </message>
     <message>
         <source>Changes successfully pushed to QFieldCloud</source>
-        <translation>Modificările au reușit să ajungă la QFieldCloud</translation>
+        <translation>Modificările au reușit să ajungă la Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Unlock the screen to close project and app</source>
@@ -8991,11 +8992,11 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
+        <translation>Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Upload local changes, synchronize or discard changes to and from QFieldCloud when a cloud project is opened.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Upload local changes, synchronize or discard changes to and from Măsurare FF Cloud when a cloud project is opened.</translation>
     </message>
     <message>
         <source>Project folder</source>
@@ -9003,7 +9004,7 @@ to show actions</source>
     </message>
     <message>
         <source>Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to QFieldCloud, and sharing datasets, attachments, and layouts.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to Măsurare FF Cloud, and sharing datasets, attachments, and layouts.</translation>
     </message>
 </context>
 <context>
@@ -9266,7 +9267,7 @@ to show actions</source>
     <name>SystemLoader</name>
     <message>
         <source>Preparing QField, this is a one time operation that might take some time</source>
-        <translation type="vanished">QField se încarcă. Această operațiune se face o singură dată și poate dura cateva minute</translation>
+        <translation type="vanished">Măsurare FF se încarcă. Această operațiune se face o singură dată și poate dura cateva minute</translation>
     </message>
 </context>
 <context>
@@ -9683,7 +9684,7 @@ to show actions</source>
     </message>
     <message>
         <source>Hey there, how do you like your experience with QField so far?</source>
-        <translation type="vanished">Hei, cum ți se pare experiența ta cu QField până acum?</translation>
+        <translation type="vanished">Hei, cum ți se pare experiența ta cu Măsurare FF până acum?</translation>
     </message>
     <message>
         <source>That&apos;s great! We&apos;d love for you to click on the button below and leave a comment on the store.</source>
@@ -9699,7 +9700,7 @@ to show actions</source>
     </message>
     <message>
         <source>To improve stability for everyone, QField collects and sends anonymized metrics.</source>
-        <translation type="vanished">Pentru a îmbunătăți stabilitatea pentru toată lumea, QField colectează și trimite date anonime.</translation>
+        <translation type="vanished">Pentru a îmbunătăți stabilitatea pentru toată lumea, Măsurare FF colectează și trimite date anonime.</translation>
     </message>
     <message>
         <source>I agree</source>
@@ -9711,7 +9712,7 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud projects</source>
-        <translation type="vanished">Proiecte QFieldCloud</translation>
+        <translation type="vanished">Proiecte Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Open local file</source>
@@ -9739,11 +9740,11 @@ to show actions</source>
     </message>
     <message>
         <source>Welcome to QField. First time using this application? Try out sample projects listed in the list below.</source>
-        <translation type="vanished">Bine ați venit pe QField. Este prima dată când utilizați această aplicație? Încercați exemplele de proiecte enumerate în lista de mai jos.</translation>
+        <translation type="vanished">Bine ați venit pe Măsurare FF. Este prima dată când utilizați această aplicație? Încercați exemplele de proiecte enumerate în lista de mai jos.</translation>
     </message>
     <message>
         <source>Welcome back to QField.</source>
-        <translation type="vanished">Bine ați revenit pe QField.</translation>
+        <translation type="vanished">Bine ați revenit pe Măsurare FF.</translation>
     </message>
 </context>
 <context>
@@ -9761,7 +9762,7 @@ to show actions</source>
     <name>gallery_relation_editor</name>
     <message>
         <source>QFieldCloud on-demand attachment error: </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud on-demand attachment error: </translation>
     </message>
     <message>
         <source>The external storage&apos;s authentication configuration ID is missing, please insure it is imported into %1</source>
@@ -9959,7 +9960,7 @@ to show actions</source>
     </message>
     <message>
         <source>About QField</source>
-        <translation type="vanished">Despre QField</translation>
+        <translation type="vanished">Despre Măsurare FF</translation>
     </message>
     <message>
         <source>Select template below</source>
@@ -9971,7 +9972,7 @@ to show actions</source>
     </message>
     <message>
         <source>QField has no permissions to use positioning.</source>
-        <translation type="vanished">QField nu oferă permisiuni de utilizare a poziționării.</translation>
+        <translation type="vanished">Măsurare FF nu oferă permisiuni de utilizare a poziționării.</translation>
     </message>
     <message>
         <source>Map Canvas Options</source>
@@ -10167,11 +10168,11 @@ to show actions</source>
     </message>
     <message>
         <source>Changes failed to reach QFieldCloud: %1</source>
-        <translation type="vanished">Modificările nu au reușit să ajungă la QFieldCloud: %1</translation>
+        <translation type="vanished">Modificările nu au reușit să ajungă la Măsurare FF Cloud: %1</translation>
     </message>
     <message>
         <source>Changes successfully pushed to QFieldCloud</source>
-        <translation type="vanished">Modificările au reușit să ajungă la QFieldCloud</translation>
+        <translation type="vanished">Modificările au reușit să ajungă la Măsurare FF Cloud</translation>
     </message>
     <message>
         <source>Press back again to close project and app</source>
@@ -10227,7 +10228,7 @@ to show actions</source>
     </message>
     <message>
         <source>QFieldCloud</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Măsurare FF Cloud</translation>
     </message>
 </context>
 <context>
