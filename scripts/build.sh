@@ -32,6 +32,8 @@ docker run -it --rm \
 	-e triplet=${triplet} \
 	-e install_qt_version=${install_qt_version} \
 	-e install_qt_arch=${install_qt_arch} \
+	-e CMAKE_BUILD_TYPE \
+	-e WITH_SAMPLE_PROJECTS \
 	-e STOREPASS \
 	-e KEYNAME \
 	-e KEYPASS \
