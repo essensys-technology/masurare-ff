@@ -16,6 +16,7 @@
 #ifndef QF3DMAPTEXTUREDATA_H
 #define QF3DMAPTEXTUREDATA_H
 
+#include "qfmarkupmanager.h"
 #include "qgsquickmapsettings.h"
 
 #include <QImage>
@@ -34,15 +35,17 @@ class QgsMapRendererParallelJob;
  * and the result is exposed as texture data for Qt Quick 3D.
  *
  * \note QML Type: Qf3DMapTextureData
- * \ingroup core
+ * \ingroup _3d
  */
 class Qf3DMapTextureData : public QQuick3DTextureData
 {
     Q_OBJECT
-    QML_ELEMENT
 
     //! The map settings from which to get layers, extent, and output size for rendering
     Q_PROPERTY( QgsQuickMapSettings *mapSettings READ mapSettings WRITE setMapSettings NOTIFY mapSettingsChanged )
+
+    //! The markup manager from which visible markup collections will be rendered on the terrain
+    Q_PROPERTY( QfMarkupManager *markups READ markupManager WRITE setMarkupManager NOTIFY markupManagerChanged )
 
     //! Optional custom extent to render. If not set, uses mapSettings extent
     Q_PROPERTY( QgsRectangle extent READ extent WRITE setExtent NOTIFY extentChanged )
@@ -69,6 +72,12 @@ class Qf3DMapTextureData : public QQuick3DTextureData
 
     //! Sets the map settings.
     void setMapSettings( QgsQuickMapSettings *mapSettings );
+
+    //! Returns the markup manager.
+    QfMarkupManager *markupManager() const;
+
+    //! Sets the markup manager.
+    void setMarkupManager( QfMarkupManager *markupManager );
 
     //! Returns the custom extent for rendering.
     QgsRectangle extent() const;
@@ -103,6 +112,9 @@ class Qf3DMapTextureData : public QQuick3DTextureData
     //! Emitted when map settings changes
     void mapSettingsChanged();
 
+    //! Emitte when the markup manager changes
+    void markupManagerChanged();
+
     //! Emitted when extent changes
     void extentChanged();
 
@@ -136,6 +148,8 @@ class Qf3DMapTextureData : public QQuick3DTextureData
     void refresh();
 
     QgsQuickMapSettings *mMapSettings = nullptr;
+    QfMarkupManager *mMarkupManager = nullptr;
+
     QgsRectangle mExtent;
     QObjectUniquePtr<QgsMapRendererParallelJob> mRenderJob;
     QTimer mMapUpdateTimer;

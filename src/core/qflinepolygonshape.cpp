@@ -72,6 +72,8 @@ void QfLinePolygonShape::createPolylines()
   Qgis::GeometryType geomType = Qgis::GeometryType::Null;
   if ( !geometry.isEmpty() && geometry.type() != Qgis::GeometryType::Point )
   {
+    const QPolygonF boundingRect = QPolygonF( QRectF( QPointF( -MAX_SIZE, -MAX_SIZE ), QPointF( MAX_SIZE, MAX_SIZE ) ) );
+
     geometry = geometry.simplify( mMapSettings->mapUnitsPerPoint() );
     geometry = geometry.makeValid();
     geomType = geometry.type();
@@ -86,6 +88,11 @@ void QfLinePolygonShape::createPolylines()
           for ( const QgsPointXY &point : line )
           {
             polyline << QPointF( ( point.x() - visibleExtent.xMinimum() ) * scaleFactor, ( point.y() - visibleExtent.yMaximum() ) * -scaleFactor );
+          }
+          const QRectF rect = polyline.boundingRect();
+          if ( std::max( { std::abs( rect.left() ), std::abs( rect.right() ), std::abs( rect.top() ), std::abs( rect.bottom() ) } ) > MAX_SIZE )
+          {
+            polyline = polyline.intersected( boundingRect );
           }
           mPolylines.append( polyline );
         }
@@ -103,6 +110,11 @@ void QfLinePolygonShape::createPolylines()
             for ( const QgsPointXY &point : line )
             {
               polyline << QPointF( ( point.x() - visibleExtent.xMinimum() ) * scaleFactor, ( point.y() - visibleExtent.yMaximum() ) * -scaleFactor );
+            }
+            const QRectF rect = polyline.boundingRect();
+            if ( std::max( { std::abs( rect.left() ), std::abs( rect.right() ), std::abs( rect.top() ), std::abs( rect.bottom() ) } ) > MAX_SIZE )
+            {
+              polyline = polyline.intersected( boundingRect );
             }
             mPolylines.append( polyline );
           }
@@ -192,10 +204,16 @@ void QfLinePolygonShape::updateTransform()
   if ( !mMapSettings )
     return;
 
+  if ( !mDirty && !mGeometryCorner.isEmpty() )
+  {
+    const QgsPointXY pixelCorner = mMapSettings->coordinateToScreen( mGeometryCorner );
+    mDirty = std::abs( x() ) > MAX_OFFSET || std::abs( y() ) > MAX_OFFSET;
+  }
+
   if ( mDirty )
   {
     const QgsRectangle extent = mMapSettings->visibleExtent();
-    mGeometryCorner = QgsPoint( extent.xMinimum(), extent.yMaximum() );
+    mGeometryCorner = QgsPointXY( extent.xMinimum(), extent.yMaximum() );
     mGeometryMUPP = mMapSettings->mapUnitsPerPoint();
 
     createPolylines();
@@ -256,12 +274,6 @@ void QfLinePolygonShape::setGeometry( QfGeometryWrapper *geometry )
   {
     connect( mGeometry, &QfGeometryWrapper::qgsGeometryChanged, this, &QfLinePolygonShape::catchGeometryWrapperChange );
     connect( mGeometry, &QfGeometryWrapper::crsChanged, this, &QfLinePolygonShape::catchGeometryWrapperChange );
-
-    if ( mGeometry->crs().isValid() && !mGeometry->qgsGeometry().isEmpty() )
-    {
-      qInfo() << "QfLinePolygonShape::setGeometry crs:" << mGeometry->crs().authid();
-      qInfo() << "QfLinePolygonShape::setGeometry geometry:" << mGeometry->qgsGeometry().asWkt();
-    }
   }
 
   mDirty = true;
@@ -272,11 +284,5 @@ void QfLinePolygonShape::setGeometry( QfGeometryWrapper *geometry )
 
 void QfLinePolygonShape::catchGeometryWrapperChange()
 {
-  if ( mGeometry->crs().isValid() && !mGeometry->qgsGeometry().isEmpty() )
-  {
-    qInfo() << "QfLinePolygonShape::catchGeometryWrapperChange crs:" << mGeometry->crs().authid();
-    qInfo() << "QfLinePolygonShape::catchGeometryWrapperChange geometry:" << mGeometry->qgsGeometry().asWkt();
-  }
-
   makeDirty();
 }

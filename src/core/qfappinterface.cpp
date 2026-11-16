@@ -21,6 +21,7 @@
 #include "qfield.h"
 #include "qfplatformutilities.h"
 #include "qftranslatormanager.h"
+#include "qfurlutils.h"
 #include "qfxmlhttprequest.h"
 #if WITH_SENTRY
 #include "sentry_wrapper.h"
@@ -436,7 +437,7 @@ void QfAppInterface::importUrl( const QString &url, const QString &title, bool l
 
   QgsNetworkAccessManager *manager = QgsNetworkAccessManager::instance();
   QNetworkRequest request( ( QUrl( sanitizedUrl ) ) );
-  request.setAttribute( QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy );
+  request.setAttribute( QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy );
 
   emit importTriggered( !title.isEmpty() ? title : request.url().fileName() );
 
@@ -458,7 +459,44 @@ void QfAppInterface::importUrl( const QString &url, const QString &title, bool l
     }
   } );
 
-  connect( reply, &QNetworkReply::finished, this, [this, url, reply, temporaryFile, applicationDirectory, loadOnImport]() {
+  connect( reply, &QNetworkReply::finished, this, [this, url, reply, temporaryFile, title, loadOnImport]() {
+    const int statusCode = reply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
+
+    if ( statusCode >= 300 && statusCode < 400 )
+    {
+      QUrl redirectUrl = reply->attribute( QNetworkRequest::RedirectionTargetAttribute ).toUrl();
+      if ( redirectUrl.isRelative() )
+      {
+        redirectUrl = reply->url().resolved( redirectUrl );
+      }
+
+      if ( redirectUrl.scheme() == QStringLiteral( "qfield" ) )
+      {
+        const QVariantMap actionDetails = QfUrlUtils::getActionDetails( redirectUrl.toString() );
+        if ( actionDetails.value( QStringLiteral( "type" ) ).toString() == QStringLiteral( "local" ) )
+        {
+          redirectUrl = QUrl( actionDetails.value( QStringLiteral( "import" ) ).toString() );
+        }
+        else
+        {
+          redirectUrl = QUrl();
+        }
+      }
+
+      if ( !redirectUrl.isEmpty() )
+      {
+        const bool isOriginalHttps = reply->url().scheme() == QStringLiteral( "https" );
+        if ( !isOriginalHttps || redirectUrl.scheme() == QStringLiteral( "https" ) )
+        {
+          importUrl( redirectUrl.toString(), title, loadOnImport );
+          return;
+        }
+      }
+
+      emit importEnded();
+      return;
+    }
+
     if ( reply->error() == QNetworkReply::NoError )
     {
       QString fileName = reply->url().fileName();
@@ -473,83 +511,96 @@ void QfAppInterface::importUrl( const QString &url, const QString &title, bool l
         }
       }
 
-      QFileInfo fileInfo = QFileInfo( fileName );
-      const QString fileSuffix = fileInfo.suffix().toLower();
-      const bool isProjectFile = fileSuffix == QLatin1String( "qgs" ) || fileSuffix == QLatin1String( "qgz" );
-
-      QString filePath = QStringLiteral( "%1/%2/%3" ).arg( applicationDirectory, isProjectFile ? QLatin1String( "Imported Projects" ) : QLatin1String( "Imported Datasets" ), fileName );
-      {
-        int i = 0;
-        while ( QFileInfo::exists( filePath ) )
-        {
-          filePath = QStringLiteral( "%1/%2/%3_%4.%5" ).arg( applicationDirectory, isProjectFile ? QLatin1String( "Imported Projects" ) : QLatin1String( "Imported Datasets" ), fileInfo.completeBaseName(), QString::number( ++i ), fileSuffix );
-        }
-      }
-      QDir( QFileInfo( filePath ).absolutePath() ).mkpath( "." );
-
       temporaryFile->write( reply->readAll() );
       temporaryFile->setAutoRemove( false );
       temporaryFile->close();
-      if ( temporaryFile->rename( filePath ) )
-      {
-        if ( fileSuffix == QLatin1String( "zip" ) )
-        {
-          // Check if this is a compressed project and handle accordingly
-          QStringList zipFiles = QgsZipUtils::files( filePath );
-          const bool isCompressedProject = std::find_if( zipFiles.begin(),
-                                                         zipFiles.end(),
-                                                         []( const QString &zipFile ) {
-                                                           return zipFile.toLower().endsWith( QLatin1String( ".qgs" ) ) || zipFile.toLower().endsWith( QLatin1String( ".qgz" ) );
-                                                         } )
-                                           != zipFiles.end();
-          if ( isCompressedProject )
-          {
-            QString zipDirectory = QStringLiteral( "%1/Imported Projects/%2" ).arg( applicationDirectory, fileInfo.baseName() );
-            {
-              int i = 0;
-              while ( QFileInfo::exists( zipDirectory ) )
-              {
-                zipDirectory = QStringLiteral( "%1/Imported Projects/%2_%3" ).arg( applicationDirectory, fileInfo.baseName(), QString::number( ++i ) );
-              }
-            }
-            QDir( zipDirectory ).mkpath( "." );
-
-            if ( QfFileUtils::unzip( filePath, zipDirectory, zipFiles, false ) )
-            {
-              // we need to close the project to safely flush the gpkg files and avoid file lock on Windows
-              QDirIterator it( zipDirectory, { QStringLiteral( "*.qgs" ), QStringLiteral( "*.qgz" ) }, QDir::Filter::Files, QDirIterator::Subdirectories );
-              QStringList projectFilePaths;
-              while ( it.hasNext() )
-              {
-                projectFilePaths << it.nextFileInfo().absoluteFilePath();
-              }
-
-              // Project archive successfully imported
-              QFile::remove( filePath );
-              emit importEnded( loadOnImport && projectFilePaths.size() == 1 ? projectFilePaths.at( 0 ) : zipDirectory, url );
-              return;
-            }
-            else
-            {
-              // Broken project archive, bail out
-              QFile::remove( filePath );
-              QDir dir( zipDirectory );
-              dir.removeRecursively();
-              emit importEnded();
-              return;
-            }
-          }
-        }
-
-        // Dataset successfully imported
-        QFileInfo fi( filePath );
-        emit importEnded( loadOnImport ? fi.absoluteFilePath() : fi.isFile() ? fi.absolutePath()
-                                                                             : fi.absoluteFilePath(),
-                          url );
-        return;
-      }
+      importLocalFile( temporaryFile->fileName(), loadOnImport, fileName, url );
+      return;
     }
 
     emit importEnded();
   } );
+}
+
+void QfAppInterface::importLocalFile( const QString &filePath, bool loadOnImport, const QString &fileName, const QString &originalUrl )
+{
+  const QString applicationDirectory = QfPlatformUtilities::instance()->applicationDirectory();
+  if ( applicationDirectory.isEmpty() )
+  {
+    emit importEnded();
+    return;
+  }
+
+  const QFileInfo fileInfo( !fileName.isEmpty() ? fileName : QFileInfo( filePath ).fileName() );
+  const QString fileSuffix = fileInfo.suffix().toLower();
+  const bool isProjectFile = fileSuffix == QLatin1String( "qgs" ) || fileSuffix == QLatin1String( "qgz" );
+
+  QString importedFilePath = QStringLiteral( "%1/%2/%3" ).arg( applicationDirectory, isProjectFile ? QLatin1String( "Imported Projects" ) : QLatin1String( "Imported Datasets" ), fileInfo.fileName() );
+  {
+    int i = 0;
+    while ( QFileInfo::exists( importedFilePath ) )
+    {
+      importedFilePath = QStringLiteral( "%1/%2/%3_%4.%5" ).arg( applicationDirectory, isProjectFile ? QLatin1String( "Imported Projects" ) : QLatin1String( "Imported Datasets" ), fileInfo.completeBaseName(), QString::number( ++i ), fileSuffix );
+    }
+  }
+  QDir( QFileInfo( importedFilePath ).absolutePath() ).mkpath( "." );
+
+  if ( !QFile::rename( filePath, importedFilePath ) )
+  {
+    emit importEnded();
+    return;
+  }
+
+  if ( fileSuffix == QLatin1String( "zip" ) )
+  {
+    // Check if this is a compressed project and handle accordingly
+    QStringList zipFiles = QgsZipUtils::files( importedFilePath );
+    const bool isCompressedProject = std::find_if( zipFiles.begin(),
+                                                   zipFiles.end(),
+                                                   []( const QString &zipFile ) {
+                                                     return zipFile.toLower().endsWith( QLatin1String( ".qgs" ) ) || zipFile.toLower().endsWith( QLatin1String( ".qgz" ) );
+                                                   } )
+                                     != zipFiles.end();
+    if ( isCompressedProject )
+    {
+      QString zipDirectory = QStringLiteral( "%1/Imported Projects/%2" ).arg( applicationDirectory, fileInfo.baseName() );
+      {
+        int i = 0;
+        while ( QFileInfo::exists( zipDirectory ) )
+        {
+          zipDirectory = QStringLiteral( "%1/Imported Projects/%2_%3" ).arg( applicationDirectory, fileInfo.baseName(), QString::number( ++i ) );
+        }
+      }
+      QDir( zipDirectory ).mkpath( "." );
+
+      if ( QfFileUtils::unzip( importedFilePath, zipDirectory, zipFiles, false ) )
+      {
+        // we need to close the project to safely flush the gpkg files and avoid file lock on Windows
+        QDirIterator it( zipDirectory, { QStringLiteral( "*.qgs" ), QStringLiteral( "*.qgz" ) }, QDir::Filter::Files, QDirIterator::Subdirectories );
+        QStringList projectFilePaths;
+        while ( it.hasNext() )
+        {
+          projectFilePaths << it.nextFileInfo().absoluteFilePath();
+        }
+
+        // Project archive successfully imported
+        QFile::remove( importedFilePath );
+        emit importEnded( loadOnImport && projectFilePaths.size() == 1 ? projectFilePaths.at( 0 ) : zipDirectory, originalUrl );
+        return;
+      }
+      else
+      {
+        // Broken project archive, bail out
+        QFile::remove( importedFilePath );
+        QDir dir( zipDirectory );
+        dir.removeRecursively();
+        emit importEnded();
+        return;
+      }
+    }
+  }
+
+  // Dataset successfully imported
+  const QFileInfo importedFileInfo( importedFilePath );
+  emit importEnded( loadOnImport && isFileExtensionSupported( importedFilePath ) ? importedFileInfo.absoluteFilePath() : importedFileInfo.absolutePath(), originalUrl );
 }

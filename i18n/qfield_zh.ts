@@ -3099,6 +3099,10 @@ Cancel to make a minimal device scan instead.</source>
         <source>Failed to delete file: %1 - %2</source>
         <translation>无法删除文件: %1 - %2</translation>
     </message>
+    <message>
+        <source>Failed to delete sidecar file: %1 - %2</source>
+        <translation>无法删除附属文件: %1 - %2</translation>
+    </message>
 </context>
 <context>
     <name>QfAbout</name>
@@ -3259,6 +3263,517 @@ Cancel to make a minimal device scan instead.</source>
     <message>
         <source>Used a ballpark transform from %1 to %2</source>
         <translation>使用了从 %1 到 %2 的变换范围</translation>
+    </message>
+</context>
+<context>
+    <name>QfAppSettings</name>
+    <message>
+        <source>Show scale bar</source>
+        <translation>显示比例尺</translation>
+    </message>
+    <message>
+        <source>Show zoom controls</source>
+        <translation>显示缩放控件</translation>
+    </message>
+    <message>
+        <source>Show bookmarks</source>
+        <translation>显示书签</translation>
+    </message>
+    <message>
+        <source>When switched on, user&apos;s saved and currently opened project bookmarks will be displayed on the map.</source>
+        <translation>开启后，用户保存的和当前打开的工程书签将显示在地图上。</translation>
+    </message>
+    <message>
+        <source>Enable map rotation</source>
+        <translation>旋转地图</translation>
+    </message>
+    <message>
+        <source>When switched on, the map can be rotated by the user.</source>
+        <translation>打开后，用户可以旋转地图。</translation>
+    </message>
+    <message>
+        <source>Show digitizing information</source>
+        <translation>显示数字化信息</translation>
+    </message>
+    <message>
+        <source>When switched on, coordinate information, such as latitude and longitude, is overlayed onto the map while digitizing new features or using the measure tool.</source>
+        <translation>开启后，数字化新要素或使用测量工具时，坐标信息 (如纬度和经度) 将显示在地图上。</translation>
+    </message>
+    <message>
+        <source>Use volume keys to digitize</source>
+        <translation>使用音量键进行数字化</translation>
+    </message>
+    <message>
+        <source>If enabled, pressing the device&apos;s volume up key will add a vertex while pressing volume down key will remove the last entered vertex during digitizing sessions.</source>
+        <translation>如果启用，按设备的音量增大键将添加顶点，而按音量减小键将移除数字化会话期间最后输入的顶点。</translation>
+    </message>
+    <message>
+        <source>Allow finger tap on canvas to add vertices</source>
+        <translation>允许手指在画布上点击以添加顶点</translation>
+    </message>
+    <message>
+        <source>When enabled, tapping on the map canvas with a finger moves the coordinate cursor while double tapping adds a vertex.</source>
+        <translation>启用后，用手指轻触地图画布可移动坐标光标，而双击可添加一个顶点。</translation>
+    </message>
+    <message>
+        <source>Consider mouse as a touchscreen device</source>
+        <translation>将鼠标当作触摸屏设备</translation>
+    </message>
+    <message>
+        <source>When enabled, the mouse will act as if it was a finger. When disabled, the mouse will match the stylus behavior.</source>
+        <translation>启用后，鼠标将像手指一样工作。禁用时，鼠标将与触控笔的行为相匹配。</translation>
+    </message>
+    <message>
+        <source>Maximize feature form</source>
+        <translation>要素表单最大化</translation>
+    </message>
+    <message>
+        <source>Open feature form for single feature identification</source>
+        <translation>用于单要素识别的开放式要素表单</translation>
+    </message>
+    <message>
+        <source>When enabled, the feature form will open automatically if only one feature is identified, skipping the feature list.</source>
+        <translation>启用后，如果只识别了一个要素，要素表单将自动打开，并跳过要素列表。</translation>
+    </message>
+    <message>
+        <source>Fixed scale navigation</source>
+        <translation>固定比例导航</translation>
+    </message>
+    <message>
+        <source>When fixed scale navigation is active, focusing on a search result will pan to the feature. With fixed scale navigation disabled it will pan and zoom to the feature.</source>
+        <translation>当固定比例导航处于激活状态，对查询结果的聚焦会将地图平移到该要素。当固定比例导航处于禁用状态，将先平移后缩放到该要素。</translation>
+    </message>
+    <message>
+        <source>Auto-zoom to identified feature(s)</source>
+        <translation>自动缩放至已识别的要素</translation>
+    </message>
+    <message>
+        <source>When enabled, the map will automatically zoom to show all identified features, as well as the individual selected feature when the feature form is opened.</source>
+        <translation>启用后，地图将自动缩放以显示所有已识别的要素，以及在打开要素表单时单个所选要素。</translation>
+    </message>
+    <message>
+        <source>Render preview content around visible map canvas</source>
+        <translation>在可见地图画布周围预渲染内容</translation>
+    </message>
+    <message>
+        <source>If enabled, areas just outside of the visible map canvas extent will be partially rendered to allow preview when zooming and panning.</source>
+        <translation>如果勾选，将渲染可见地图画布范围之外的周边区域，以便平滑缩放和平移。</translation>
+    </message>
+    <message>
+        <source>Enable auto-save mode</source>
+        <translation>启用自动保存模式</translation>
+    </message>
+    <message>
+        <source>If enabled, newly-added features are stored as soon as it has having a valid geometry and the constraints are fulfilled and edited atributes are commited immediately.</source>
+        <translation>如果勾选，新添加的要素一旦具有有效的几何图形并且满足约束，就会立即存储，并立即提交编辑属性。</translation>
+    </message>
+    <message>
+        <source>Use native camera</source>
+        <translation>使用本机相机</translation>
+    </message>
+    <message>
+        <source>If enabled, the native camera provided by the operating system will be used.</source>
+        <translation>如果启用，将使用操作系统提供的原生相机。</translation>
+    </message>
+    <message>
+        <source>Send anonymized metrics</source>
+        <translation>发送匿名测评数据</translation>
+    </message>
+    <message>
+        <source>If enabled, anonymized metrics will be collected and sent to help improve the user experience for everyone.</source>
+        <translation>如果启用，将收集并发送匿名测评数据，帮助改善用户的使用体验。</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>常规</translation>
+    </message>
+    <message>
+        <source>Positioning</source>
+        <translation>定位</translation>
+    </message>
+    <message>
+        <source>Variables</source>
+        <translation>变量</translation>
+    </message>
+    <message>
+        <source>Map Canvas</source>
+        <translation>地图画布</translation>
+    </message>
+    <message>
+        <source>Map canvas rendering quality:</source>
+        <translation>地图画布渲染质量：</translation>
+    </message>
+    <message>
+        <source>Best quality</source>
+        <translation>最佳质量</translation>
+    </message>
+    <message>
+        <source>Lower quality</source>
+        <translation>质量较低</translation>
+    </message>
+    <message>
+        <source>Lowest quality</source>
+        <translation>最低质量</translation>
+    </message>
+    <message>
+        <source>A lower quality trades rendering precision in favor of lower memory usage and rendering time.</source>
+        <translation>较低质量是以较低内存使用率和渲染时间而降低渲染精度。</translation>
+    </message>
+    <message>
+        <source>Digitizing &amp; Editing</source>
+        <translation>数字化与编辑</translation>
+    </message>
+    <message>
+        <source>User Interface</source>
+        <translation>用户界面</translation>
+    </message>
+    <message>
+        <source>Customize search bar</source>
+        <translation>自定义搜索栏</translation>
+    </message>
+    <message>
+        <source>Manage plugins</source>
+        <translation>管理插件</translation>
+    </message>
+    <message>
+        <source>Dim screen when idling</source>
+        <translation>休止状态时屏幕变暗</translation>
+    </message>
+    <message>
+        <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
+        <translation>屏幕亮度变暗以节省电池电量之前的非活动时间 (以秒为单位)。</translation>
+    </message>
+    <message>
+        <source>Appearance:</source>
+        <translation>外观:</translation>
+    </message>
+    <message>
+        <source>Follow system appearance</source>
+        <translation>跟随系统外观</translation>
+    </message>
+    <message>
+        <source>Light theme</source>
+        <translation>浅色主题</translation>
+    </message>
+    <message>
+        <source>Dark theme</source>
+        <translation>深色主题</translation>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation>字号:</translation>
+    </message>
+    <message>
+        <source>Tiny</source>
+        <translation>小号</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>标准</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>大号</translation>
+    </message>
+    <message>
+        <source>Extra-large</source>
+        <translation>特大号</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>语言:</translation>
+    </message>
+    <message>
+        <source>system</source>
+        <translation>设备系统语言</translation>
+    </message>
+    <message>
+        <source>Found a missing or incomplete language? %1Join the translator community.%2</source>
+        <translation>是否为缺少或不完整的翻译语言？%1请加入翻译社区。%2</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation>网络</translation>
+    </message>
+    <message>
+        <source>Available authentication configurations:</source>
+        <translation>可用认证配置：</translation>
+    </message>
+    <message>
+        <source>Clear authentication cache</source>
+        <translation>清除认证缓存</translation>
+    </message>
+    <message>
+        <source>Authentication cache cleared</source>
+        <translation>认证缓存已清除</translation>
+    </message>
+    <message>
+        <source>Enable proxy</source>
+        <translation>启用代理</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>类型</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>系统默认</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation>主机</translation>
+    </message>
+    <message>
+        <source>e.g. proxy.example.com</source>
+        <translation>例如: proxy.example.com</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <source>e.g. 8888</source>
+        <translation>例如: 8888</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <source>Optional</source>
+        <translation>可选</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message>
+        <source>URLs excluded from proxy (comma-separated)</source>
+        <translation>代理排除的URL (逗号分隔)</translation>
+    </message>
+    <message>
+        <source>e.g. localhost, 192.168.*</source>
+        <translation>例如: localhost, 192.168.*</translation>
+    </message>
+    <message>
+        <source>Configure a network proxy to route QField&apos;s traffic through a proxy server. Useful for corporate networks and VPNs.</source>
+        <translation>配置网络代理，通过代理服务器路径QField的流量。适用于企业网络和VPN。</translation>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>高级</translation>
+    </message>
+    <message>
+        <source>Positioning Device</source>
+        <translation>定位仪器</translation>
+    </message>
+    <message>
+        <source>Positioning device in use:</source>
+        <translation>使用中的定位设备：</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>移除</translation>
+    </message>
+    <message>
+        <source>Connected to %1</source>
+        <translation>已连接%1</translation>
+    </message>
+    <message>
+        <source>Connect to %1</source>
+        <translation>连接至%1</translation>
+    </message>
+    <message>
+        <source>Connecting to %1</source>
+        <translation>正在连接%1</translation>
+    </message>
+    <message>
+        <source>Enable NTRIP corrections</source>
+        <translation>启用NTRIP校正</translation>
+    </message>
+    <message>
+        <source>NTRIP client disconnected</source>
+        <translation>NTRIP客户端断开连接</translation>
+    </message>
+    <message>
+        <source>NTRIP client connecting</source>
+        <translation>NTRIP客户端连接</translation>
+    </message>
+    <message>
+        <source>NTRIP client connected</source>
+        <translation>NTRIP客户端已连接</translation>
+    </message>
+    <message>
+        <source>Please provide valid NTRIP settings</source>
+        <translation>请提供有效的NTRIP设置</translation>
+    </message>
+    <message>
+        <source>Show position information</source>
+        <translation>显示位置信息</translation>
+    </message>
+    <message>
+        <source>Behavior when locked to position:</source>
+        <translation>锁定位置时的行为：</translation>
+    </message>
+    <message>
+        <source>Follow position only</source>
+        <translation>仅遵循位置</translation>
+    </message>
+    <message>
+        <source>Follow position and compass orientation</source>
+        <translation>遵循位置和指南针朝向</translation>
+    </message>
+    <message>
+        <source>Follow position and movement direction</source>
+        <translation>遵循位置和移动方向</translation>
+    </message>
+    <message>
+        <source>When the map canvas is following or locked to position, it can also rotate to match compass orientation or movement direction.</source>
+        <translation>当地图画布遵循或锁定到位置时，它也可以旋转以匹配指南针朝向或移动方向。</translation>
+    </message>
+    <message>
+        <source>Measure (M) value attached to vertices:</source>
+        <translation>附加到顶点的测量值 (M)：</translation>
+    </message>
+    <message>
+        <source>Timestamp (seconds since epoch)</source>
+        <translation>时间戳 (纪元秒数)</translation>
+    </message>
+    <message>
+        <source>Ground speed</source>
+        <translation>对地速度</translation>
+    </message>
+    <message>
+        <source>Bearing</source>
+        <translation>方位角</translation>
+    </message>
+    <message>
+        <source>Horizontal accuracy</source>
+        <translation>水平精度</translation>
+    </message>
+    <message>
+        <source>Vertical accuracy</source>
+        <translation>垂直精度</translation>
+    </message>
+    <message>
+        <source>PDOP</source>
+        <translation>PDOP</translation>
+    </message>
+    <message>
+        <source>HDOP</source>
+        <translation>HDOP</translation>
+    </message>
+    <message>
+        <source>VDOP</source>
+        <translation>VDOP</translation>
+    </message>
+    <message>
+        <source>When digitizing features with the coordinate cursor locked to the current position, the measurement type selected above will be added to the geometry provided it has an M dimension.</source>
+        <translation>在将坐标指针锁定到当前位置的情况下数字化要素时，如果几何图形具有M维度，则上面选择的测量类型将添加到几何图形中。</translation>
+    </message>
+    <message>
+        <source>Activate accuracy indicator</source>
+        <translation>激活精度指示器</translation>
+    </message>
+    <message>
+        <source>Bad accuracy threshold</source>
+        <translation>差精度阈值</translation>
+    </message>
+    <message>
+        <source>m</source>
+        <translation>米</translation>
+    </message>
+    <message>
+        <source>Excellent accuracy threshold</source>
+        <translation>优精度阈值</translation>
+    </message>
+    <message>
+        <source>Enforce accuracy requirement</source>
+        <translation>执行精度要求</translation>
+    </message>
+    <message>
+        <source>When the accuracy indicator is enabled, a badge is attached to the location button and colored &lt;span %1&gt;red&lt;/span&gt; if the accuracy value is worse than &lt;i&gt;bad&lt;/i&gt;, &lt;span %2&gt;yellow&lt;/span&gt; if it falls short of &lt;i&gt;excellent&lt;/i&gt;, or &lt;span %3&gt;green&lt;/span&gt;.&lt;br&gt;&lt;br&gt;In addition, an accuracy restriction mode can be toggled on, which restricts vertex addition when locked to coordinate cursor to positions with an accuracy value worse than the bad threshold.</source>
+        <translation>启用精度指示器后，位置按钮会附加标记：如果精度值较&lt;i&gt;差&lt;/i&gt;，将其标记为&lt;span %1&gt;红色&lt;/span&gt;；如果精度值良，标记颜色为&lt;span %2&gt;黄色&lt;/span&gt;，如果精度值&lt;i&gt;优&lt;/i&gt;，标记颜色为&lt;span %3&gt;绿色&lt;/span&gt;。&lt;br&gt;&lt;br&gt;此外，可以打开精度限制模式。当锁定光标坐标的位置精度值低于差阈值时，将限制添加顶点。</translation>
+    </message>
+    <message>
+        <source>Enable averaged positioning requirement</source>
+        <translation>启用平均定位需求</translation>
+    </message>
+    <message>
+        <source>Minimum positions count</source>
+        <translation>最小位置数量</translation>
+    </message>
+    <message>
+        <source>Automatically end collection when minimum number is met</source>
+        <translation>达到最小数量时自动结束收集</translation>
+    </message>
+    <message>
+        <source>When enabled, digitizing vertices with a cursor locked to position will only accepted an averaged position from a minimum number of collected positions. Digitizing using averaged positions is done by pressing and holding the add vertex button, which will collect positions until the press is released. Accuracy requirement settings are respected when enabled.</source>
+        <translation>启用后，将光标锁定到位置的数字化顶点仅接受最少收集位置数量的平均位置。通过按住添加顶点按钮，可以使用平均位置进行数字化，该按钮将收集位置，直到释放才结束。启用后，将遵守精度需求设置。</translation>
+    </message>
+    <message>
+        <source>Elevation Adjustment</source>
+        <translation>高程调整</translation>
+    </message>
+    <message>
+        <source>Antenna height compensation</source>
+        <translation>天线高度修正</translation>
+    </message>
+    <message>
+        <source>Antenna height</source>
+        <translation>天线高度</translation>
+    </message>
+    <message>
+        <source>This value will correct the Z values recorded from the positioning device. If a value of 1.6 is entered, the system will automatically subtract 1.6 from each recorded value. Make sure to insert the effective antenna height, i.e. pole length + antenna phase center offset.</source>
+        <translation>该值将校正定位设备记录的Z值。如果输入值为1.6，系统将自动从每条记录的值中减去1.6。请确保插入有效天线高度，即杆长+天线相位中心偏移。</translation>
+    </message>
+    <message>
+        <source>Skip altitude correction</source>
+        <translation>跳过海拔校正</translation>
+    </message>
+    <message>
+        <source>Use the altitude as reported by the positioning device. Skip any altitude correction that may be implied by the coordinate system transformation.</source>
+        <translation>使用定位设备报告的海拔，跳过坐标系转换可能隐含的任何海拔校正。</translation>
+    </message>
+    <message>
+        <source>Vertical grid shift in use:</source>
+        <translation>使用中的垂直网格偏移：</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>无</translation>
+    </message>
+    <message>
+        <source>Orthometric from device</source>
+        <translation>来自设备的正交测量</translation>
+    </message>
+    <message>
+        <source>Vertical grid shift is used to increase the altitude accuracy.</source>
+        <translation>垂直网格偏移用于提高海拔精度。</translation>
+    </message>
+    <message>
+        <source>Log NMEA sentences from device to file</source>
+        <translation>将日志NMEA语句从设备保存到文件</translation>
+    </message>
+    <message>
+        <source>%1 Settings</source>
+        <translation>%1设置</translation>
+    </message>
+    <message>
+        <source>Show news on the welcome screen</source>
+        <translation>在欢迎屏幕显示资讯</translation>
+    </message>
+    <message>
+        <source>If enabled, the latest news and useful tips will be displayed on the welcome screen.</source>
+        <translation>如果启用，欢迎屏幕将显示最新资讯和实用提示。</translation>
     </message>
 </context>
 <context>
@@ -3613,14 +4128,6 @@ Cancel to make a minimal device scan instead.</source>
 <context>
     <name>QfCamera</name>
     <message>
-        <source>Latitude</source>
-        <translation>纬度</translation>
-    </message>
-    <message>
-        <source>Longitude</source>
-        <translation>经度</translation>
-    </message>
-    <message>
         <source>Altitude</source>
         <translation>海拔</translation>
     </message>
@@ -3629,8 +4136,20 @@ Cancel to make a minimal device scan instead.</source>
         <translation>速度</translation>
     </message>
     <message>
+        <source>Latitude</source>
+        <translation>纬度</translation>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation>经度</translation>
+    </message>
+    <message>
         <source>Orientation</source>
         <translation>朝向</translation>
+    </message>
+    <message>
+        <source>Highest</source>
+        <translation>最高</translation>
     </message>
     <message>
         <source>Details stamping enabled</source>
@@ -3750,6 +4269,65 @@ Cancel to make a minimal device scan instead.</source>
     </message>
 </context>
 <context>
+    <name>QfCloudAttachmentsHistory</name>
+    <message>
+        <source>Attachments</source>
+        <translation>附件</translation>
+    </message>
+    <message>
+        <source>No attachments have been uploaded yet!</source>
+        <translation>尚未上传任何附件！</translation>
+    </message>
+    <message>
+        <source>Uploaded on %1</source>
+        <translation>上传于%1</translation>
+    </message>
+    <message>
+        <source>Uploaded</source>
+        <translation>已上传</translation>
+    </message>
+    <message>
+        <source>Waiting to be uploaded</source>
+        <translation>等待上传</translation>
+    </message>
+    <message>
+        <source>Not uploaded yet, upload your changes to send it</source>
+        <translation>尚未上传，请上传您的更改进行发送</translation>
+    </message>
+    <message>
+        <source>Upload failed on %1</source>
+        <translation>上传于%1失败</translation>
+    </message>
+    <message>
+        <source>Upload failed</source>
+        <translation>上传失败</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>未知</translation>
+    </message>
+    <message>
+        <source>The file name contains invalid characters or the file is empty.</source>
+        <translation>文件名包含无效字符或文件为空。</translation>
+    </message>
+    <message>
+        <source>The project owner&apos;s available storage is full.</source>
+        <translation>工程所有者的可用存储空间已满。</translation>
+    </message>
+    <message>
+        <source>You do not have the permission to upload attachments to this project.</source>
+        <translation>您没有权限向此工程上传附件。</translation>
+    </message>
+    <message>
+        <source>The cloud project could not be found or your access to it was revoked.</source>
+        <translation>无法找到云工程，或者您对其访问权限已被撤销。</translation>
+    </message>
+    <message>
+        <source>The server answered with HTTP code %1.</source>
+        <translation>服务器返回HTTP代码%1。</translation>
+    </message>
+</context>
+<context>
     <name>QfCloudConnection</name>
     <message>
         <source>Authentication provider missing</source>
@@ -3804,6 +4382,28 @@ Cancel to make a minimal device scan instead.</source>
 %2</source>
         <translation>无法上传存储在`%1`的附件，原因：
 %2</translation>
+    </message>
+    <message>
+        <source>Too many attempts, please wait a minute before trying again.</source>
+        <translation>尝试次数过多，请稍候再试。</translation>
+    </message>
+    <message>
+        <source>Captcha temporary unavailable, please retry later</source>
+        <translation>验证码暂时不可用，请稍后重试</translation>
+    </message>
+    <message>
+        <source>%1
+If this email already has an account, check your inbox for a message from QFieldCloud.</source>
+        <translation>%1
+如果此Email已关联账户，请检查您的收件箱，以获取来自QFieldCloud的消息。</translation>
+    </message>
+    <message>
+        <source>The server did not accept the registration</source>
+        <translation>注册请求被服务器拒绝</translation>
+    </message>
+    <message>
+        <source>The server did not accept the request</source>
+        <translation>服务器未接受请求</translation>
     </message>
 </context>
 <context>
@@ -3942,19 +4542,31 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>New user?</source>
-        <translation>是否为新用户？</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Register an account</source>
-        <translation>注册帐户</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The easiest way to transfer you project from QGIS to your devices!</source>
-        <translation>将工程从QGIS传输到设备的最简单方法！</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
         <translation>了解有关QFieldCloud的更多信息</translation>
+    </message>
+    <message>
+        <source>Forgot your password?</source>
+        <translation>是否忘记密码？</translation>
+    </message>
+    <message>
+        <source>Create an account</source>
+        <translation>创建账户</translation>
+    </message>
+    <message>
+        <source>The easiest way to collaborate and manage your projects across devices!</source>
+        <translation>跨设备协作和管理工程的最简单方式！</translation>
     </message>
 </context>
 <context>
@@ -3966,6 +4578,72 @@ While you can still view and use the project, it is strongly recommended to rese
     <message>
         <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
         <translation>请查看以下详细反馈信息及QFieldCloud网站的最新打包作业日志。</translation>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordField</name>
+    <message>
+        <source>Password</source>
+        <translation>密码</translation>
+    </message>
+    <message numerus="yes">
+        <source>Requires at least %n characters</source>
+        <translation><numerusform>至少需要%n个字符</numerusform></translation>
+    </message>
+    <message>
+        <source>Must not be similar to your username</source>
+        <translation>不能与您的用户名类似</translation>
+    </message>
+    <message>
+        <source>Must not be entirely numeric</source>
+        <translation>不能全为数字</translation>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordReset</name>
+    <message>
+        <source>Forgot your password?</source>
+        <translation>是否忘记密码？</translation>
+    </message>
+    <message>
+        <source>Enter your account email and we will send you a link to pick a new password.</source>
+        <translation>请输入您的账户Email，我们将向您发送链接，用于设置新密码。</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>Email</translation>
+    </message>
+    <message>
+        <source>Send reset link</source>
+        <translation>发送重置链接</translation>
+    </message>
+    <message>
+        <source>Back to sign in</source>
+        <translation>返回登录</translation>
+    </message>
+    <message>
+        <source>Check your inbox</source>
+        <translation>查看您的收件箱</translation>
+    </message>
+    <message>
+        <source>We sent a reset link to %1. Open it to pick a new password.</source>
+        <translation>我们已向%1发送了重置链接。请打开该链接并设置新密码。</translation>
+    </message>
+    <message>
+        <source>Nothing yet? Check your spam folder, or %1use another email%2.</source>
+        <translation>还没收到吗？请检查您的垃圾邮件文件夹，或者%1使用另一个Email%2。</translation>
+    </message>
+    <message>
+        <source>Resend link in %1s</source>
+        <translation>%1秒内重新发送链接</translation>
+    </message>
+    <message>
+        <source>Resend link</source>
+        <translation>重新发送链接</translation>
+    </message>
+    <message>
+        <source>Server: %1</source>
+        <translation>服务器: %1</translation>
     </message>
 </context>
 <context>
@@ -3990,14 +4668,6 @@ While you can still view and use the project, it is strongly recommended to rese
         <source>NULL</source>
         <translation>空</translation>
     </message>
-    <message>
-        <source>%1: %2 to %3</source>
-        <translation>%1: %2 到 %3</translation>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation>%1: %2</translation>
-    </message>
     <message numerus="yes">
         <source>%n change(s)</source>
         <translation><numerusform>%n个更改</numerusform></translation>
@@ -4005,6 +4675,22 @@ While you can still view and use the project, it is strongly recommended to rese
     <message>
         <source>Geometry modified</source>
         <translation>几何图形已修改</translation>
+    </message>
+    <message>
+        <source>%1 to %2</source>
+        <translation>%1 到 %2</translation>
+    </message>
+    <message>
+        <source>Hide empty fields</source>
+        <translation>隐藏空字段</translation>
+    </message>
+    <message numerus="yes">
+        <source>Show %n empty field(s)</source>
+        <translation><numerusform>显示%n个空字段</numerusform></translation>
+    </message>
+    <message>
+        <source>Discard change</source>
+        <translation>放弃更改</translation>
     </message>
 </context>
 <context>
@@ -4142,10 +4828,6 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>同步</translation>
     </message>
     <message>
-        <source>Upload history</source>
-        <translation>上传历史</translation>
-    </message>
-    <message>
         <source>Danger zone</source>
         <translation>危险区域</translation>
     </message>
@@ -4175,7 +4857,7 @@ While you can still view and use the project, it is strongly recommended to rese
     </message>
     <message>
         <source>Connecting cloud</source>
-        <translation>连接云</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This project has an updated project file on the cloud, you are advised to synchronize.</source>
@@ -4228,6 +4910,42 @@ While you can still view and use the project, it is strongly recommended to rese
     <message numerus="yes">
         <source>%n deletion(s)</source>
         <translation><numerusform>%n个删除</numerusform></translation>
+    </message>
+    <message>
+        <source>Uploading %1%</source>
+        <translation>正在上传 %1%</translation>
+    </message>
+    <message>
+        <source>Uploading</source>
+        <translation>正在上传</translation>
+    </message>
+    <message>
+        <source>Connecting...</source>
+        <translation>正在连接…</translation>
+    </message>
+    <message>
+        <source>Changes history</source>
+        <translation>修改历史</translation>
+    </message>
+    <message>
+        <source>Attachments history</source>
+        <translation>附件历史</translation>
+    </message>
+    <message>
+        <source>Discard local change</source>
+        <translation>放弃本地更改</translation>
+    </message>
+    <message>
+        <source>Should this local change be discarded?</source>
+        <translation>是否丢弃此本地更改？</translation>
+    </message>
+    <message>
+        <source>Can&apos;t discard change as project is busy</source>
+        <translation>工程忙，无法丢弃更改</translation>
+    </message>
+    <message>
+        <source>Failed to discard change</source>
+        <translation>无法放弃更改</translation>
     </message>
 </context>
 <context>
@@ -4325,18 +5043,6 @@ While you can still view and use the project, it is strongly recommended to rese
     <message>
         <source>aborted</source>
         <translation>异常退出</translation>
-    </message>
-    <message>
-        <source>Local path doesn&apos;t exist</source>
-        <translation>本地路径不存在</translation>
-    </message>
-    <message>
-        <source>Local path to upload cannot be used as it has multiple project files</source>
-        <translation>无法使用本地路径上传，因为它有多个工程文件</translation>
-    </message>
-    <message>
-        <source>Local path to upload is missing a valid project file</source>
-        <translation>上传的本地路径缺少有效的工程文件</translation>
     </message>
     <message>
         <source>Network error. Failed to upload file `%1`.</source>
@@ -4475,6 +5181,133 @@ While you can still view and use the project, it is strongly recommended to rese
         <source>Cloud project could not be created.</source>
         <translation>无法创建云工程。</translation>
     </message>
+    <message>
+        <source>Cloud project details not found.</source>
+        <translation>未找到云工程详细信息。</translation>
+    </message>
+</context>
+<context>
+    <name>QfCloudRegister</name>
+    <message>
+        <source>Provide your email and desired username</source>
+        <translation>请提供您的Email和期望用户名</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>Email</translation>
+    </message>
+    <message>
+        <source>Your email is used for verification and password recovery</source>
+        <translation>您的Email用于验证和找回密码</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>用户名</translation>
+    </message>
+    <message>
+        <source>Your username must meet the following criteria:</source>
+        <translation>您的用户名必须符合以下标准：</translation>
+    </message>
+    <message numerus="yes">
+        <source>Must have at least %n characters</source>
+        <translation><numerusform>至少需要%n个字符</numerusform></translation>
+    </message>
+    <message>
+        <source>Must start with a letter</source>
+        <translation>必须以字母开头</translation>
+    </message>
+    <message>
+        <source>Must contain only a-z letters, digits, underscores or hyphens</source>
+        <translation>必须仅包含a-z字母、数字、下划线或连字符</translation>
+    </message>
+    <message>
+        <source>Pick a password</source>
+        <translation>设置密码</translation>
+    </message>
+    <message>
+        <source>Repeat password</source>
+        <translation>再次输入密码</translation>
+    </message>
+    <message>
+        <source>The two passwords do not match</source>
+        <translation>两次输入的密码不一致</translation>
+    </message>
+    <message>
+        <source>One last thing</source>
+        <translation>最后一步</translation>
+    </message>
+    <message>
+        <source>Subscribe to the QFieldCloud newsletter</source>
+        <translation>订阅QFieldCloud简讯</translation>
+    </message>
+    <message>
+        <source>When checking this, you agree to receive our newsletter covering latest changes and important updates.</source>
+        <translation>勾选此项，即表示您同意接收简讯，其中包含最新动态和重要更新。</translation>
+    </message>
+    <message>
+        <source>Accept ToS and DPA</source>
+        <translation>接受ToS和DPA</translation>
+    </message>
+    <message>
+        <source>By checking this, you agree with the QFieldCloud %1Terms of Services (ToS)%2 and the %3Data Processing Agreement (DPA)%4.</source>
+        <translation>勾选此项，即表示您同意QFieldCloud的%1服务条款 (ToS)%2 以及%3数据处理协议 (DPA)%4。</translation>
+    </message>
+    <message>
+        <source>Captcha</source>
+        <translation>验证码</translation>
+    </message>
+    <message>
+        <source>Characters shown above</source>
+        <translation>上方显示的字符</translation>
+    </message>
+    <message>
+        <source>Referral code</source>
+        <translation>邀请码</translation>
+    </message>
+    <message>
+        <source>Enter your referral code if you have one</source>
+        <translation>如果有邀请码，请输入</translation>
+    </message>
+    <message>
+        <source>You will be signed in right away.</source>
+        <translation>您将立即登录。</translation>
+    </message>
+    <message>
+        <source>Welcome, %1</source>
+        <translation>欢迎, %1</translation>
+    </message>
+    <message>
+        <source>Verify your email</source>
+        <translation>验证您的Email</translation>
+    </message>
+    <message>
+        <source>Please open the confirmation link once you receive an email from us at %1.</source>
+        <translation>请在收到我们发送至%1的Email后，打开确认链接。</translation>
+    </message>
+    <message>
+        <source>Go to cloud projects</source>
+        <translation>前往云工程</translation>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation>不是现在</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>返回</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>继续</translation>
+    </message>
+    <message>
+        <source>Creating your account, please wait</source>
+        <translation>正在创建您的账户，请稍候</translation>
+    </message>
+    <message>
+        <source>Create account</source>
+        <translation>创建账户</translation>
+    </message>
 </context>
 <context>
     <name>QfCloudScreen</name>
@@ -4499,6 +5332,58 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>工程</translation>
     </message>
     <message>
+        <source>Uploading…</source>
+        <translation>正在上传…</translation>
+    </message>
+    <message>
+        <source>Downloading error. </source>
+        <translation>下载错误。</translation>
+    </message>
+    <message>
+        <source>Uploading error. </source>
+        <translation>上传错误。</translation>
+    </message>
+    <message>
+        <source>Refresh projects list</source>
+        <translation>刷新工程列表</translation>
+    </message>
+    <message>
+        <source>Sign out</source>
+        <translation>注销</translation>
+    </message>
+    <message>
+        <source>Sign in</source>
+        <translation>登录</translation>
+    </message>
+    <message>
+        <source>Open Project</source>
+        <translation>打开工程</translation>
+    </message>
+    <message>
+        <source>Synchronize</source>
+        <translation>同步</translation>
+    </message>
+    <message>
+        <source>Remove Stored Project</source>
+        <translation>删除存储的工程</translation>
+    </message>
+    <message>
+        <source>Refreshing projects list</source>
+        <translation>正在刷新工程列表</translation>
+    </message>
+    <message>
+        <source>QFieldCloud</source>
+        <translation>QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Templates</source>
+        <translation>模板</translation>
+    </message>
+    <message>
+        <source>Search for templates</source>
+        <translation>搜索模板</translation>
+    </message>
+    <message>
         <source>Search for projects</source>
         <translation>搜索工程</translation>
     </message>
@@ -4519,32 +5404,40 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>联系QFieldCloud下载工程</translation>
     </message>
     <message>
-        <source>Uploading…</source>
-        <translation>正在上传…</translation>
-    </message>
-    <message>
-        <source>Downloading error. </source>
-        <translation>下载错误。</translation>
-    </message>
-    <message>
-        <source>Uploading error. </source>
-        <translation>上传错误。</translation>
+        <source>Refreshing templates list...</source>
+        <translation>刷新模板列表...</translation>
     </message>
     <message>
         <source>Refreshing projects list...</source>
         <translation>刷新工程列表...</translation>
     </message>
     <message>
+        <source>Searching for templates...</source>
+        <translation>搜索模板...</translation>
+    </message>
+    <message>
         <source>Searching for projects...</source>
         <translation>搜索工程...</translation>
+    </message>
+    <message>
+        <source>No templates found.</source>
+        <translation>未找到模板。</translation>
     </message>
     <message>
         <source>No cloud projects found.</source>
         <translation>未找到云工程。</translation>
     </message>
     <message>
+        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
+        <translation>尝试%1包含公共模板%2，查看社区能为您提供什么。</translation>
+    </message>
+    <message>
         <source>Try to %1include public projects%2 and see what the community has to offer.</source>
         <translation>尝试%1包含公开工程%2，查看社区能为您提供什么。</translation>
+    </message>
+    <message>
+        <source>Try to %1include public templates%2.</source>
+        <translation>尝试%1包含公共模板%2。</translation>
     </message>
     <message>
         <source>Try to %1include public projects%2.</source>
@@ -4555,16 +5448,8 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>首先, %1请阅读文档%2。</translation>
     </message>
     <message>
-        <source>Refresh projects list</source>
-        <translation>刷新工程列表</translation>
-    </message>
-    <message>
-        <source>Sign out</source>
-        <translation>注销</translation>
-    </message>
-    <message>
-        <source>Sign in</source>
-        <translation>登录</translation>
+        <source>Refresh templates list</source>
+        <translation>刷新模板列表</translation>
     </message>
     <message>
         <source>Settings page</source>
@@ -4579,24 +5464,12 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>工程动作</translation>
     </message>
     <message>
-        <source>Open Project</source>
-        <translation>打开工程</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>同步</translation>
-    </message>
-    <message>
         <source>Upload local changes</source>
         <translation>上传本地更改</translation>
     </message>
     <message>
         <source>Clone Project</source>
         <translation>克隆工程</translation>
-    </message>
-    <message>
-        <source>Remove Stored Project</source>
-        <translation>删除存储的工程</translation>
     </message>
     <message>
         <source>View Project Details</source>
@@ -4611,26 +5484,6 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>确定要移除 `%1` 吗？</translation>
     </message>
     <message>
-        <source>QFieldCloud project details fetching failed</source>
-        <translation>QFieldCloud工程详细信息获取失败</translation>
-    </message>
-    <message>
-        <source>Project cloning failed: %1</source>
-        <translation>工程克隆失败: %1</translation>
-    </message>
-    <message>
-        <source>Project creation failed: %1</source>
-        <translation>工程创建失败: %1</translation>
-    </message>
-    <message>
-        <source>Refreshing projects list</source>
-        <translation>正在刷新工程列表</translation>
-    </message>
-    <message>
-        <source>Templates</source>
-        <translation>模板</translation>
-    </message>
-    <message>
         <source>Project Creation</source>
         <translation>工程创建</translation>
     </message>
@@ -4643,40 +5496,44 @@ While you can still view and use the project, it is strongly recommended to rese
         <translation>允许使用的字符: 0-9A-Za-z_-</translation>
     </message>
     <message>
-        <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
+        <source>Enter your project description</source>
+        <translation>输入您的工程描述</translation>
     </message>
     <message>
-        <source>Search for templates</source>
-        <translation>搜索模板</translation>
+        <source>Fetching available project owners</source>
+        <translation>正在获取可用的工程所有者</translation>
     </message>
     <message>
-        <source>Refreshing templates list...</source>
-        <translation>刷新模板列表...</translation>
-    </message>
-    <message>
-        <source>Searching for templates...</source>
-        <translation>搜索模板...</translation>
-    </message>
-    <message>
-        <source>No templates found.</source>
-        <translation>未找到模板。</translation>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
-        <translation>尝试%1包含公共模板%2，查看社区能为您提供什么。</translation>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2.</source>
-        <translation>尝试%1包含公共模板%2。</translation>
-    </message>
-    <message>
-        <source>Refresh templates list</source>
-        <translation>刷新模板列表</translation>
+        <source>Select your project owner</source>
+        <translation>选择您的工程所有者</translation>
     </message>
     <message>
         <source>Creating project…</source>
         <translation>正在创建工程…</translation>
+    </message>
+    <message>
+        <source>QFieldCloud project details fetching failed</source>
+        <translation>QFieldCloud工程详细信息获取失败</translation>
+    </message>
+    <message>
+        <source>Project cannot be cloned as your available storage is full.</source>
+        <translation>由于您的可用存储空间已满，无法克隆工程。</translation>
+    </message>
+    <message>
+        <source>Project cannot be created as your available storage is full.</source>
+        <translation>由于您的可用存储空间已满，无法创建工程。</translation>
+    </message>
+    <message>
+        <source>Upgrade storage</source>
+        <translation>升级存储</translation>
+    </message>
+    <message>
+        <source>Project cloning failed: %1</source>
+        <translation>工程克隆失败: %1</translation>
+    </message>
+    <message>
+        <source>Project creation failed: %1</source>
+        <translation>工程创建失败: %1</translation>
     </message>
     <message>
         <source>Preparing project…</source>
@@ -4768,6 +5625,22 @@ While you can still view and use the project, it is strongly recommended to rese
         <source>%1 in layer %2</source>
         <translation>%1在图层%2中</translation>
     </message>
+    <message>
+        <source>The project folder could not be found.</source>
+        <translation>未找到工程文件夹。</translation>
+    </message>
+    <message>
+        <source>The project folder contains more than one project file, move the project into a folder of its own and try again.</source>
+        <translation>工程文件夹包含多个工程文件，请将该工程移至自己的文件夹，然后重试。</translation>
+    </message>
+    <message>
+        <source>The project folder does not contain a valid project file.</source>
+        <translation>工程文件夹未包含有效工程文件。</translation>
+    </message>
+    <message>
+        <source>The project folder does not contain a project file.</source>
+        <translation>工程文件夹未包含工程文件。</translation>
+    </message>
 </context>
 <context>
     <name>QfCodeReader</name>
@@ -4786,6 +5659,10 @@ While you can still view and use the project, it is strongly recommended to rese
     <message>
         <source>Center your device on a code</source>
         <translation>请将设备对准条码</translation>
+    </message>
+    <message>
+        <source>Tap a code to select it</source>
+        <translation>点击编码将其选择</translation>
     </message>
 </context>
 <context>
@@ -4860,6 +5737,22 @@ While you can still view and use the project, it is strongly recommended to rese
         <source>The project is read-only.</source>
         <translation>该工程为只读。</translation>
     </message>
+    <message>
+        <source>Markups</source>
+        <translation>标记</translation>
+    </message>
+    <message>
+        <source>Create Collection</source>
+        <translation>创建集合</translation>
+    </message>
+    <message>
+        <source>Markup Collection Creation</source>
+        <translation>标记集合创建</translation>
+    </message>
+    <message>
+        <source>Enter your new collection name</source>
+        <translation>输入您的新集合名称</translation>
+    </message>
 </context>
 <context>
     <name>QfDialog</name>
@@ -4882,6 +5775,21 @@ While you can still view and use the project, it is strongly recommended to rese
     <message>
         <source>Close</source>
         <translation>关闭</translation>
+    </message>
+</context>
+<context>
+    <name>QfDigitizingLayerInformationView</name>
+    <message>
+        <source>Map Layers</source>
+        <translation>地图图层</translation>
+    </message>
+    <message>
+        <source>Markups</source>
+        <translation>标记</translation>
+    </message>
+    <message>
+        <source>Pick a digitizing layer</source>
+        <translation>选择数字化图层</translation>
     </message>
 </context>
 <context>
@@ -5718,6 +6626,151 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <name>QfLayerTreeItemProperties</name>
     <message>
         <source>Expand group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Expand legend item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Stop tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Setup tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload of layer %1 triggered</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show on map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show labels</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Opacity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to parent layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The layer has no features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show Features Menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show visible features list</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLayerUtils</name>
+    <message>
+        <source>Cannot start editing, no layer</source>
+        <translation>无法编辑，没有图层</translation>
+    </message>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>无法启动编辑</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>无法从图层 &quot;%1&quot; 删除要素 %2 ，原因：
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>无法在图层&quot;%1&quot;中提交删除。原因：
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot delete feature %1</source>
+        <translation>无法删除要素 %1</translation>
+    </message>
+    <message>
+        <source>Cannot rollback layer changes in layer %1</source>
+        <translation>无法取消图层%1中的图层更改</translation>
+    </message>
+    <message>
+        <source>Cannot copy invalid feature</source>
+        <translation>无法复制无效的要素</translation>
+    </message>
+    <message>
+        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation>无法在图层 &quot;%1&quot; 中添加新要素。原因：
+%2</translation>
+    </message>
+    <message>
+        <source>Cannot add feature in layer &quot;%1&quot;</source>
+        <translation>无法在图层 &quot;%1&quot; 中添加要素</translation>
+    </message>
+    <message>
+        <source>Cannot commit new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation>无法在图层 &quot;%1&quot; 中提交新要素。原因：
+%2</translation>
+    </message>
+</context>
+<context>
+    <name>QfLegend</name>
+    <message>
+        <source>Tracking active on this layer.</source>
+        <translation>此图层的跟踪处于活动状态。</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <source>Tracking on layer %1 stopped</source>
+        <translation>图层%1的跟踪已停止</translation>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation>此图层无效。这可能是由于网络问题、文件丢失或工程配置错误造成的。</translation>
+    </message>
+    <message>
+        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
+        <translation>该图层已设置为“只读”，禁用添加、删除和编辑要素。</translation>
+    </message>
+    <message>
+        <source>The permissions configuration of this layer disables feature addition.</source>
+        <translation>该图层的权限配置禁用要素添加。</translation>
+    </message>
+</context>
+<context>
+    <name>QfLegendItemProperties</name>
+    <message>
+        <source>Expand group</source>
         <translation>展开组</translation>
     </message>
     <message>
@@ -5810,74 +6863,6 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     </message>
 </context>
 <context>
-    <name>QfLayerUtils</name>
-    <message>
-        <source>Cannot start editing, no layer</source>
-        <translation>无法编辑，没有图层</translation>
-    </message>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>无法启动编辑</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>无法从图层 &quot;%1&quot; 删除要素 %2 ，原因：
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>无法在图层&quot;%1&quot;中提交删除。原因：
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot delete feature %1</source>
-        <translation>无法删除要素 %1</translation>
-    </message>
-    <message>
-        <source>Cannot rollback layer changes in layer %1</source>
-        <translation>无法取消图层%1中的图层更改</translation>
-    </message>
-    <message>
-        <source>Cannot copy invalid feature</source>
-        <translation>无法复制无效的要素</translation>
-    </message>
-    <message>
-        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
-%2</source>
-        <translation>无法在图层 &quot;%1&quot; 中添加新要素。原因：
-%2</translation>
-    </message>
-</context>
-<context>
-    <name>QfLegend</name>
-    <message>
-        <source>Tracking active on this layer.</source>
-        <translation>此图层的跟踪处于活动状态。</translation>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation>停止</translation>
-    </message>
-    <message>
-        <source>Tracking on layer %1 stopped</source>
-        <translation>图层%1的跟踪已停止</translation>
-    </message>
-    <message>
-        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
-        <translation>此图层无效。这可能是由于网络问题、文件丢失或工程配置错误造成的。</translation>
-    </message>
-    <message>
-        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
-        <translation>该图层已设置为“只读”，禁用添加、删除和编辑要素。</translation>
-    </message>
-    <message>
-        <source>The permissions configuration of this layer disables feature addition.</source>
-        <translation>该图层的权限配置禁用要素添加。</translation>
-    </message>
-</context>
-<context>
     <name>QfLocalDataPickerScreen</name>
     <message>
         <source>Project Folder</source>
@@ -5886,6 +6871,10 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <message>
         <source>Local Projects &amp; Datasets</source>
         <translation>本地工程和数据集</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n item(s) selected</source>
+        <translation><numerusform>%n项已选择</numerusform></translation>
     </message>
     <message>
         <source>Folders</source>
@@ -5932,18 +6921,6 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>查看文件</translation>
     </message>
     <message>
-        <source>Send to...</source>
-        <translation>发送到...</translation>
-    </message>
-    <message>
-        <source>Push to QFieldCloud</source>
-        <translation>推送到QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Export to folder...</source>
-        <translation>导出到文件夹...</translation>
-    </message>
-    <message>
         <source>Add to favorites</source>
         <translation>添加到收藏夹</translation>
     </message>
@@ -5952,16 +6929,32 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>从收藏夹中移除</translation>
     </message>
     <message>
+        <source>Upload to QFieldCloud</source>
+        <translation>上传至QFieldCloud</translation>
+    </message>
+    <message>
         <source>Send compressed folder to...</source>
         <translation>将文件夹压缩并发送到...</translation>
     </message>
     <message>
-        <source>Upload folder to WebDAV server</source>
-        <translation>将文件夹上传到WebDAV服务器</translation>
+        <source>Send to...</source>
+        <translation>发送到...</translation>
     </message>
     <message>
-        <source>Download folder from WebDAV server</source>
-        <translation>从WebDAV服务器下载文件夹</translation>
+        <source>Export to folder...</source>
+        <translation>导出到文件夹...</translation>
+    </message>
+    <message>
+        <source>Upload folder to WebDAV</source>
+        <translation>将文件夹上传到WebDAV</translation>
+    </message>
+    <message>
+        <source>Upload file to WebDAV</source>
+        <translation>将文件上传到WebDAV</translation>
+    </message>
+    <message>
+        <source>Download folder from WebDAV</source>
+        <translation>从WebDAV下载文件夹</translation>
     </message>
     <message>
         <source>Delete folder</source>
@@ -6028,12 +7021,8 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>将文件上传到WebDAV</translation>
     </message>
     <message>
-        <source>Push file(s) to QFieldCloud</source>
-        <translation>将文件推送到QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Please select one or more files to push to QFieldCloud.</source>
-        <translation>请选择一个或多个文件推送到QFieldCloud。</translation>
+        <source>Upload file(s) to QFieldCloud</source>
+        <translation>将文件上传至QFieldCloud</translation>
     </message>
     <message>
         <source>Send compressed file(s) to...</source>
@@ -6044,12 +7033,20 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>删除文件</translation>
     </message>
     <message>
+        <source>Items being uploaded to QFieldCloud</source>
+        <translation>正在上传到QFieldCloud的项目</translation>
+    </message>
+    <message>
+        <source>Items queued for upload to QFieldCloud</source>
+        <translation>待上传至QFieldCloud的项</translation>
+    </message>
+    <message>
         <source>‘%1’ is being uploaded to QFieldCloud</source>
         <translation>‘%1’ 正在上传到QFieldCloud</translation>
     </message>
     <message>
-        <source>Items being uploaded to QFieldCloud</source>
-        <translation>正在上传到QFieldCloud的项目</translation>
+        <source>‘%1’ queued for upload to QFieldCloud</source>
+        <translation>待上传至QFieldCloud的 &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Remove File(s)</source>
@@ -6222,6 +7219,67 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <message>
         <source>Enable %1 locator by default</source>
         <translation>默认启用 %1 搜索</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupCollection</name>
+    <message>
+        <source>Markups</source>
+        <translation>标记</translation>
+    </message>
+    <message>
+        <source>Markup item</source>
+        <translation>标记项</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>颜色</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>标注</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>描述</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupLegendItemProperties</name>
+    <message>
+        <source>Show on map</source>
+        <translation>在地图显示</translation>
+    </message>
+    <message>
+        <source>Zoom to collection</source>
+        <translation>缩放至集合</translation>
+    </message>
+    <message>
+        <source>The collection has no features</source>
+        <translation>该集合没有任何要素</translation>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation>显示要素列表</translation>
+    </message>
+    <message>
+        <source>Export collection</source>
+        <translation>导出集合</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupManager</name>
+    <message>
+        <source>Unnamed collection</source>
+        <translation>未命名集合</translation>
+    </message>
+    <message>
+        <source>Default collection</source>
+        <translation>默认集合</translation>
+    </message>
+    <message>
+        <source>Untitled collection</source>
+        <translation>未命名集合</translation>
     </message>
 </context>
 <context>
@@ -6405,7 +7463,7 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     </message>
     <message>
         <source>Atlas feature(s) successfully printed and placed in your project folder</source>
-        <translation>地图集要素已成功输出并保存在您的工程文件夹中</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6565,6 +7623,10 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <source>Raster Datasets</source>
         <translation>栅格数据集</translation>
     </message>
+    <message>
+        <source>Could not move the sidecar file &apos;%1&apos; alongside &apos;%2&apos;</source>
+        <translation>无法将附属文件 &quot;%1&quot; 移到 &quot;%2&quot; 旁边</translation>
+    </message>
 </context>
 <context>
     <name>QfPluginItem</name>
@@ -6588,24 +7650,32 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>请求插件URL位于可用插件列表中，请通过其下载按钮安装</translation>
     </message>
     <message>
-        <source>The downloaded zip file could not be decompressed</source>
-        <translation>无法解压下载的zip文件</translation>
-    </message>
-    <message>
-        <source>The downloaded zip file does not contain the required main.qml plugin file</source>
-        <translation>下载的zip文件不包含必需的 main.qml 插件文件</translation>
-    </message>
-    <message>
         <source>Can&apos;t save the downloaded file</source>
         <translation>无法保存下载的文件</translation>
     </message>
     <message>
         <source>Download file is not an zipped plugin</source>
-        <translation>下载文件不是压缩插件</translation>
+        <translation>下载文件不是已压缩的插件</translation>
     </message>
     <message>
         <source>Network error</source>
         <translation>网络错误</translation>
+    </message>
+    <message>
+        <source>The selected file is not a zipped plugin</source>
+        <translation>所选文件不是已压缩的插件</translation>
+    </message>
+    <message>
+        <source>This plugin is present in the available plugins list, please install via its download button</source>
+        <translation>此插件已出现在可用插件列表，请通过其下载按钮进行安装</translation>
+    </message>
+    <message>
+        <source>The plugin zip file could not be decompressed</source>
+        <translation>插件的压缩文件无法解压</translation>
+    </message>
+    <message>
+        <source>The plugin zip file does not contain the required main.qml plugin file</source>
+        <translation>插件的压缩文件未包含必需的 main.qml 插件文件</translation>
     </message>
 </context>
 <context>
@@ -6669,6 +7739,10 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <message>
         <source>Installing %1</source>
         <translation>正在安装 %1</translation>
+    </message>
+    <message>
+        <source>Install plugin from ZIP</source>
+        <translation>从ZIP安装插件</translation>
     </message>
 </context>
 <context>
@@ -7287,7 +8361,7 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     </message>
     <message>
         <source>Atlas feature(s) successfully printed and placed in your project folder</source>
-        <translation>地图集要素已成功输出并保存在您的工程文件夹中</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Cannot add child feature: insure the parent feature meets all constraints and can be saved</source>
@@ -7365,503 +8439,191 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
     <name>QfSettings</name>
     <message>
         <source>Show scale bar</source>
-        <translation>显示比例尺</translation>
-    </message>
-    <message>
-        <source>Show zoom controls</source>
-        <translation>显示缩放控件</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show bookmarks</source>
-        <translation>显示书签</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When switched on, user&apos;s saved and currently opened project bookmarks will be displayed on the map.</source>
-        <translation>开启后，用户保存的和当前打开的工程书签将显示在地图上。</translation>
-    </message>
-    <message>
-        <source>Enable map rotation</source>
-        <translation>旋转地图</translation>
-    </message>
-    <message>
-        <source>When switched on, the map can be rotated by the user.</source>
-        <translation>打开后，用户可以旋转地图。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show digitizing information</source>
-        <translation>显示数字化信息</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When switched on, coordinate information, such as latitude and longitude, is overlayed onto the map while digitizing new features or using the measure tool.</source>
-        <translation>开启后，数字化新要素或使用测量工具时，坐标信息 (如纬度和经度) 将显示在地图上。</translation>
-    </message>
-    <message>
-        <source>Use volume keys to digitize</source>
-        <translation>使用音量键进行数字化</translation>
-    </message>
-    <message>
-        <source>If enabled, pressing the device&apos;s volume up key will add a vertex while pressing volume down key will remove the last entered vertex during digitizing sessions.</source>
-        <translation>如果启用，按设备的音量增大键将添加顶点，而按音量减小键将移除数字化会话期间最后输入的顶点。</translation>
-    </message>
-    <message>
-        <source>Allow finger tap on canvas to add vertices</source>
-        <translation>允许手指在画布上点击以添加顶点</translation>
-    </message>
-    <message>
-        <source>When enabled, tapping on the map canvas with a finger moves the coordinate cursor while double tapping adds a vertex.</source>
-        <translation>启用后，用手指轻触地图画布可移动坐标光标，而双击可添加一个顶点。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Consider mouse as a touchscreen device</source>
-        <translation>将鼠标当作触摸屏设备</translation>
-    </message>
-    <message>
-        <source>When enabled, the mouse will act as if it was a finger. When disabled, the mouse will match the stylus behavior.</source>
-        <translation>启用后，鼠标将像手指一样工作。禁用时，鼠标将与触控笔的行为相匹配。</translation>
-    </message>
-    <message>
-        <source>Maximize feature form</source>
-        <translation>要素表单最大化</translation>
-    </message>
-    <message>
-        <source>Open feature form for single feature identification</source>
-        <translation>用于单要素识别的开放式要素表单</translation>
-    </message>
-    <message>
-        <source>When enabled, the feature form will open automatically if only one feature is identified, skipping the feature list.</source>
-        <translation>启用后，如果只识别了一个要素，要素表单将自动打开，并跳过要素列表。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Fixed scale navigation</source>
-        <translation>固定比例导航</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When fixed scale navigation is active, focusing on a search result will pan to the feature. With fixed scale navigation disabled it will pan and zoom to the feature.</source>
-        <translation>当固定比例导航处于激活状态，对查询结果的聚焦会将地图平移到该要素。当固定比例导航处于禁用状态，将先平移后缩放到该要素。</translation>
-    </message>
-    <message>
-        <source>Auto-zoom to identified feature(s)</source>
-        <translation>自动缩放至已识别的要素</translation>
-    </message>
-    <message>
-        <source>When enabled, the map will automatically zoom to show all identified features, as well as the individual selected feature when the feature form is opened.</source>
-        <translation>启用后，地图将自动缩放以显示所有已识别的要素，以及在打开要素表单时单个所选要素。</translation>
-    </message>
-    <message>
-        <source>Render preview content around visible map canvas</source>
-        <translation>在可见地图画布周围预渲染内容</translation>
-    </message>
-    <message>
-        <source>If enabled, areas just outside of the visible map canvas extent will be partially rendered to allow preview when zooming and panning.</source>
-        <translation>如果勾选，将渲染可见地图画布范围之外的周边区域，以便平滑缩放和平移。</translation>
-    </message>
-    <message>
-        <source>Enable auto-save mode</source>
-        <translation>启用自动保存模式</translation>
-    </message>
-    <message>
-        <source>If enabled, newly-added features are stored as soon as it has having a valid geometry and the constraints are fulfilled and edited atributes are commited immediately.</source>
-        <translation>如果勾选，新添加的要素一旦具有有效的几何图形并且满足约束，就会立即存储，并立即提交编辑属性。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use native camera</source>
-        <translation>使用本机相机</translation>
-    </message>
-    <message>
-        <source>If enabled, the native camera provided by the operating system will be used.</source>
-        <translation>如果启用，将使用操作系统提供的原生相机。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Send anonymized metrics</source>
-        <translation>发送匿名测评数据</translation>
-    </message>
-    <message>
-        <source>If enabled, anonymized metrics will be collected and sent to help improve the user experience for everyone.</source>
-        <translation>如果启用，将收集并发送匿名测评数据，帮助改善用户的使用体验。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>General</source>
-        <translation>常规</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Positioning</source>
-        <translation>定位</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Variables</source>
-        <translation>变量</translation>
-    </message>
-    <message>
-        <source>Map Canvas</source>
-        <translation>地图画布</translation>
-    </message>
-    <message>
-        <source>Map canvas rendering quality:</source>
-        <translation>地图画布渲染质量：</translation>
-    </message>
-    <message>
-        <source>Best quality</source>
-        <translation>最佳质量</translation>
-    </message>
-    <message>
-        <source>Lower quality</source>
-        <translation>质量较低</translation>
-    </message>
-    <message>
-        <source>Lowest quality</source>
-        <translation>最低质量</translation>
-    </message>
-    <message>
-        <source>A lower quality trades rendering precision in favor of lower memory usage and rendering time.</source>
-        <translation>较低质量是以较低内存使用率和渲染时间而降低渲染精度。</translation>
-    </message>
-    <message>
-        <source>Digitizing &amp; Editing</source>
-        <translation>数字化与编辑</translation>
-    </message>
-    <message>
-        <source>User Interface</source>
-        <translation>用户界面</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Customize search bar</source>
-        <translation>自定义搜索栏</translation>
-    </message>
-    <message>
-        <source>Manage plugins</source>
-        <translation>管理插件</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Dim screen when idling</source>
-        <translation>休止状态时屏幕变暗</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
-        <translation>屏幕亮度变暗以节省电池电量之前的非活动时间 (以秒为单位)。</translation>
-    </message>
-    <message>
-        <source>Appearance:</source>
-        <translation>外观:</translation>
-    </message>
-    <message>
-        <source>Follow system appearance</source>
-        <translation>跟随系统外观</translation>
-    </message>
-    <message>
-        <source>Light theme</source>
-        <translation>浅色主题</translation>
-    </message>
-    <message>
-        <source>Dark theme</source>
-        <translation>深色主题</translation>
-    </message>
-    <message>
-        <source>Font size:</source>
-        <translation>字号:</translation>
-    </message>
-    <message>
-        <source>Tiny</source>
-        <translation>小号</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>标准</translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation>大号</translation>
-    </message>
-    <message>
-        <source>Extra-large</source>
-        <translation>特大号</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>语言:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>system</source>
-        <translation>设备系统语言</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Found a missing or incomplete language? %1Join the translator community.%2</source>
-        <translation>是否为缺少或不完整的翻译语言？%1请加入翻译社区。%2</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation>网络</translation>
-    </message>
-    <message>
-        <source>Available authentication configurations:</source>
-        <translation>可用认证配置：</translation>
-    </message>
-    <message>
-        <source>Clear authentication cache</source>
-        <translation>清除认证缓存</translation>
-    </message>
-    <message>
-        <source>Authentication cache cleared</source>
-        <translation>认证缓存已清除</translation>
-    </message>
-    <message>
-        <source>Enable proxy</source>
-        <translation>启用代理</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>类型</translation>
-    </message>
-    <message>
-        <source>System default</source>
-        <translation>系统默认</translation>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation>主机</translation>
-    </message>
-    <message>
-        <source>e.g. proxy.example.com</source>
-        <translation>例如: proxy.example.com</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>端口</translation>
-    </message>
-    <message>
-        <source>e.g. 8888</source>
-        <translation>例如: 8888</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Username</source>
-        <translation>用户名</translation>
-    </message>
-    <message>
-        <source>Optional</source>
-        <translation>可选</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Password</source>
-        <translation>密码</translation>
-    </message>
-    <message>
-        <source>URLs excluded from proxy (comma-separated)</source>
-        <translation>代理排除的URL (逗号分隔)</translation>
-    </message>
-    <message>
-        <source>e.g. localhost, 192.168.*</source>
-        <translation>例如: localhost, 192.168.*</translation>
-    </message>
-    <message>
-        <source>Configure a network proxy to route QField&apos;s traffic through a proxy server. Useful for corporate networks and VPNs.</source>
-        <translation>配置网络代理，通过代理服务器路径QField的流量。适用于企业网络和VPN。</translation>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>高级</translation>
-    </message>
-    <message>
-        <source>Positioning Device</source>
-        <translation>定位仪器</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Positioning device in use:</source>
-        <translation>使用中的定位设备：</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add</source>
-        <translation>添加</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit</source>
-        <translation>编辑</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove</source>
-        <translation>移除</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connected to %1</source>
-        <translation>已连接%1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connect to %1</source>
-        <translation>连接至%1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation>正在连接%1</translation>
-    </message>
-    <message>
-        <source>Enable NTRIP corrections</source>
-        <translation>启用NTRIP校正</translation>
-    </message>
-    <message>
-        <source>NTRIP client disconnected</source>
-        <translation>NTRIP客户端断开连接</translation>
-    </message>
-    <message>
-        <source>NTRIP client connecting</source>
-        <translation>NTRIP客户端连接</translation>
-    </message>
-    <message>
-        <source>NTRIP client connected</source>
-        <translation>NTRIP客户端已连接</translation>
-    </message>
-    <message>
-        <source>Please provide valid NTRIP settings</source>
-        <translation>请提供有效的NTRIP设置</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show position information</source>
-        <translation>显示位置信息</translation>
-    </message>
-    <message>
-        <source>Behavior when locked to position:</source>
-        <translation>锁定位置时的行为：</translation>
-    </message>
-    <message>
-        <source>Follow position only</source>
-        <translation>仅遵循位置</translation>
-    </message>
-    <message>
-        <source>Follow position and compass orientation</source>
-        <translation>遵循位置和指南针朝向</translation>
-    </message>
-    <message>
-        <source>Follow position and movement direction</source>
-        <translation>遵循位置和移动方向</translation>
-    </message>
-    <message>
-        <source>When the map canvas is following or locked to position, it can also rotate to match compass orientation or movement direction.</source>
-        <translation>当地图画布遵循或锁定到位置时，它也可以旋转以匹配指南针朝向或移动方向。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Measure (M) value attached to vertices:</source>
-        <translation>附加到顶点的测量值 (M)：</translation>
-    </message>
-    <message>
-        <source>Timestamp (seconds since epoch)</source>
-        <translation>时间戳 (纪元秒数)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Ground speed</source>
-        <translation>对地速度</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bearing</source>
-        <translation>方位角</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Horizontal accuracy</source>
-        <translation>水平精度</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical accuracy</source>
-        <translation>垂直精度</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>PDOP</source>
-        <translation>PDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>HDOP</source>
-        <translation>HDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>VDOP</source>
-        <translation>VDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When digitizing features with the coordinate cursor locked to the current position, the measurement type selected above will be added to the geometry provided it has an M dimension.</source>
-        <translation>在将坐标指针锁定到当前位置的情况下数字化要素时，如果几何图形具有M维度，则上面选择的测量类型将添加到几何图形中。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Activate accuracy indicator</source>
-        <translation>激活精度指示器</translation>
-    </message>
-    <message>
-        <source>Bad accuracy threshold</source>
-        <translation>差精度阈值</translation>
-    </message>
-    <message>
-        <source>m</source>
-        <translation>米</translation>
-    </message>
-    <message>
-        <source>Excellent accuracy threshold</source>
-        <translation>优精度阈值</translation>
-    </message>
-    <message>
-        <source>Enforce accuracy requirement</source>
-        <translation>执行精度要求</translation>
-    </message>
-    <message>
-        <source>When the accuracy indicator is enabled, a badge is attached to the location button and colored &lt;span %1&gt;red&lt;/span&gt; if the accuracy value is worse than &lt;i&gt;bad&lt;/i&gt;, &lt;span %2&gt;yellow&lt;/span&gt; if it falls short of &lt;i&gt;excellent&lt;/i&gt;, or &lt;span %3&gt;green&lt;/span&gt;.&lt;br&gt;&lt;br&gt;In addition, an accuracy restriction mode can be toggled on, which restricts vertex addition when locked to coordinate cursor to positions with an accuracy value worse than the bad threshold.</source>
-        <translation>启用精度指示器后，位置按钮会附加标记：如果精度值较&lt;i&gt;差&lt;/i&gt;，将其标记为&lt;span %1&gt;红色&lt;/span&gt;；如果精度值良，标记颜色为&lt;span %2&gt;黄色&lt;/span&gt;，如果精度值&lt;i&gt;优&lt;/i&gt;，标记颜色为&lt;span %3&gt;绿色&lt;/span&gt;。&lt;br&gt;&lt;br&gt;此外，可以打开精度限制模式。当锁定光标坐标的位置精度值低于差阈值时，将限制添加顶点。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable averaged positioning requirement</source>
-        <translation>启用平均定位需求</translation>
-    </message>
-    <message>
-        <source>Minimum positions count</source>
-        <translation>最小位置数量</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Automatically end collection when minimum number is met</source>
-        <translation>达到最小数量时自动结束收集</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When enabled, digitizing vertices with a cursor locked to position will only accepted an averaged position from a minimum number of collected positions. Digitizing using averaged positions is done by pressing and holding the add vertex button, which will collect positions until the press is released. Accuracy requirement settings are respected when enabled.</source>
-        <translation>启用后，将光标锁定到位置的数字化顶点仅接受最少收集位置数量的平均位置。通过按住添加顶点按钮，可以使用平均位置进行数字化，该按钮将收集位置，直到释放才结束。启用后，将遵守精度需求设置。</translation>
-    </message>
-    <message>
-        <source>Elevation Adjustment</source>
-        <translation>高程调整</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Antenna height compensation</source>
-        <translation>天线高度修正</translation>
-    </message>
-    <message>
-        <source>Antenna height</source>
-        <translation>天线高度</translation>
-    </message>
-    <message>
-        <source>This value will correct the Z values recorded from the positioning device. If a value of 1.6 is entered, the system will automatically subtract 1.6 from each recorded value. Make sure to insert the effective antenna height, i.e. pole length + antenna phase center offset.</source>
-        <translation>该值将校正定位设备记录的Z值。如果输入值为1.6，系统将自动从每条记录的值中减去1.6。请确保插入有效天线高度，即杆长+天线相位中心偏移。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Skip altitude correction</source>
-        <translation>跳过海拔校正</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use the altitude as reported by the positioning device. Skip any altitude correction that may be implied by the coordinate system transformation.</source>
-        <translation>使用定位设备报告的海拔，跳过坐标系转换可能隐含的任何海拔校正。</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical grid shift in use:</source>
-        <translation>使用中的垂直网格偏移：</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>None</source>
-        <translation>无</translation>
-    </message>
-    <message>
-        <source>Orthometric from device</source>
-        <translation>来自设备的正交测量</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical grid shift is used to increase the altitude accuracy.</source>
-        <translation>垂直网格偏移用于提高海拔精度。</translation>
-    </message>
-    <message>
-        <source>Log NMEA sentences from device to file</source>
-        <translation>将日志NMEA语句从设备保存到文件</translation>
-    </message>
-    <message>
-        <source>%1 Settings</source>
-        <translation>%1设置</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8192,10 +8954,6 @@ The features geometries will be combined into feature &apos;%1&apos;, which will
         <translation>伸出您的手</translation>
     </message>
     <message>
-        <source>Hey there, how do you like your experience with %1 so far?</source>
-        <translation>嘿，到目前为止，您对%1的体验如何？</translation>
-    </message>
-    <message>
         <source>That&apos;s great! We&apos;d love for you to click on the button below and leave a review.</source>
         <translation>太棒了！希望您点击下面的按钮并留下评论。</translation>
     </message>
@@ -8280,6 +9038,50 @@ project</source>
     <message>
         <source>First time using this application? Try the sample projects listed below.</source>
         <translation>是首次使用本应用程序吗？请试试下面的示例工程。</translation>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation>本地更改</translation>
+    </message>
+    <message>
+        <source>Pending changes are present, do you want to upload them now or keep them pending and close the cloud project and app?</source>
+        <translation>当前存在未提交更改，您是希望立即上传这些更改，还是保留未提交状态并关闭云工程和应用程序？</translation>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation>不再显示</translation>
+    </message>
+    <message>
+        <source>Upload now</source>
+        <translation>立即上传</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>关闭</translation>
+    </message>
+    <message>
+        <source>How&apos;s %1 working for you?</source>
+        <translation>对您来说%1操作如何？</translation>
+    </message>
+    <message>
+        <source>One tap is all it takes.</source>
+        <translation>只需一次点击即可。</translation>
+    </message>
+    <message>
+        <source>Could be better</source>
+        <translation>一般般</translation>
+    </message>
+    <message>
+        <source>Loving it</source>
+        <translation>超爱</translation>
+    </message>
+    <message>
+        <source>%1 can display its latest news and useful tips on launch.</source>
+        <translation>%1可以在启动时展示其最新资讯和实用提示。</translation>
+    </message>
+    <message>
+        <source>Read more</source>
+        <translation>了解更多</translation>
     </message>
 </context>
 <context>
@@ -8997,6 +9799,50 @@ to show actions</source>
     <message>
         <source>Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to QFieldCloud, and sharing datasets, attachments, and layouts.</source>
         <translation>打开工程文件夹访问工程文件、数据源和相关文档。可用于管理工程资源、手动将数据上传到QFieldCloud以及共享数据集、附件与布局。</translation>
+    </message>
+    <message>
+        <source>Pending changes are present. Upload these now or press back again to keep them pending and close the cloud project and app.</source>
+        <translation>当前存在未提交更改。请立即上传这些更改，或再次按返回保持其未提交状态，并关闭云工程和应用程序。</translation>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation>上传本地更改</translation>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation>本地更改</translation>
+    </message>
+    <message>
+        <source>This project has pending changes which have not been uploaded yet. Tap the blue cloud button to open the cloud project panel and send them to QFieldCloud.</source>
+        <translation>此工程有尚未上传的未提交更改。点击蓝色云按钮打开云工程面板，并将这些更改发送到QFieldCloud。</translation>
+    </message>
+    <message>
+        <source>This cloud project has pending changes which have not been uploaded yet. Open the dashboard using this button, then tap the blue cloud icon to send them to QFieldCloud.</source>
+        <translation>此云端工程有尚未上传的未提交更改。使用此按钮打开仪表板，然后点击蓝色云图标将它们发送到QFieldCloud。</translation>
+    </message>
+    <message>
+        <source>Printing %1</source>
+        <translation>正在打印 %1</translation>
+    </message>
+    <message>
+        <source>Print failed</source>
+        <translation>打印失败</translation>
+    </message>
+    <message>
+        <source>Printed and placed in your project layouts folder</source>
+        <translation>已打印并存放于您的工程布局文件夹</translation>
+    </message>
+    <message>
+        <source>Open folder</source>
+        <translation>打开文件夹</translation>
+    </message>
+    <message>
+        <source>Cancel movement</source>
+        <translation>取消移动</translation>
+    </message>
+    <message>
+        <source>Cancel rotation</source>
+        <translation>取消旋转</translation>
     </message>
 </context>
 <context>

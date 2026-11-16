@@ -7,7 +7,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Drawer {
   id: dashBoard
@@ -21,12 +21,14 @@ Drawer {
   signal toggle3DView
   signal returnHome
 
+  property bool projectLoading: false
   property bool preventFromOpening: overlayFeatureFormDrawer.visible
   property bool allowInteractive: true
-  /// type:bool
-  property alias allowActiveLayerChange: legend.allowActiveLayerChange
+  property bool allowActiveLayerChange: true
   /// type:QgsVectorLayer
   property alias activeLayer: legend.activeLayer
+  /// type:QfMarkupCollection
+  property alias activeCollection: markupLegend.activeCollection
   /// type:QfFlatLayerTreeModel
   property alias layerTree: legend.model
   /// type:QgsQuickMapSettings
@@ -68,6 +70,20 @@ Drawer {
         return;
       }
       modeSwitch.checked = stateMachine.state === "digitize";
+    }
+  }
+
+  onProjectLoadingChanged: {
+    if (projectLoading) {
+      mapThemeContainer.isLoading = true;
+    } else {
+      const themes = qgisProject.mapThemeCollection.mapThemes;
+      mapThemeComboBox.model = themes;
+      mapThemeComboBox.enabled = themes.length > 1;
+      mapThemeComboBox.opacity = themes.length > 1 ? 1 : 0.25;
+      mapThemeContainer.visible = themes.length > 1;
+      mapThemeComboBox.currentIndex = flatLayerTree.mapTheme !== '' ? mapThemeComboBox.find(flatLayerTree.mapTheme) : -1;
+      mapThemeContainer.isLoading = false;
     }
   }
 
@@ -348,8 +364,10 @@ Drawer {
           return "";
         }
 
+        property string projectCoordinateReferenceSystem: qgisProject ? qgisProject.crs.authid + " — " + qgisProject.crs.description : ""
+
         Layout.alignment: Qt.AlignVCenter
-        visible: projectDescription != "" || projectAuthor != ""
+        visible: true
         width: 36
         height: 36
         padding: 0
@@ -363,6 +381,7 @@ Drawer {
           informationPopup.descriptionFormat = Text.MarkdownText;
           informationPopup.description = projectDescription;
           informationPopup.author = projectAuthor;
+          informationPopup.coordinateReferenceSystem = projectCoordinateReferenceSystem;
 
           informationPopup.open();
         }
@@ -411,38 +430,26 @@ Drawer {
           popup.bottomMargin: mainWindow.sceneTopMargin
 
           Connections {
-            target: iface
-
-            function onLoadProjectTriggered() {
-              mapThemeContainer.isLoading = true;
-            }
-
-            function onLoadProjectEnded() {
-              var themes = qgisProject.mapThemeCollection.mapThemes;
-              mapThemeComboBox.model = themes;
-              mapThemeComboBox.enabled = themes.length > 1;
-              mapThemeComboBox.opacity = themes.length > 1 ? 1 : 0.25;
-              mapThemeContainer.visible = themes.length > 1;
-              flatLayerTree.updateCurrentMapTheme();
-              mapThemeComboBox.currentIndex = flatLayerTree.mapTheme != '' ? mapThemeComboBox.find(flatLayerTree.mapTheme) : -1;
-              mapThemeContainer.isLoading = false;
-            }
-          }
-
-          Connections {
             target: flatLayerTree
 
             function onMapThemeChanged() {
               if (!mapThemeContainer.isLoading && mapThemeComboBox.currentText !== flatLayerTree.mapTheme) {
                 mapThemeContainer.isLoading = true;
-                mapThemeComboBox.currentIndex = flatLayerTree.mapTheme != '' ? mapThemeComboBox.find(flatLayerTree.mapTheme) : -1;
+                mapThemeComboBox.currentIndex = flatLayerTree.mapTheme !== '' ? mapThemeComboBox.find(flatLayerTree.mapTheme) : -1;
                 mapThemeContainer.isLoading = false;
+              }
+
+              if (!flatLayerTree.isFrozen && flatLayerTree.mapTheme !== '') {
+                const defaultActiveLayer = projectInfo.getDefaultActiveLayerForMapTheme(flatLayerTree.mapTheme);
+                if (defaultActiveLayer !== null) {
+                  dashBoard.activeLayer = defaultActiveLayer;
+                }
               }
             }
           }
 
           onCurrentTextChanged: {
-            if (!mapThemeContainer.isLoading && qgisProject.mapThemeCollection.mapThemes.length > 1) {
+            if (!mapThemeContainer.isLoading && qgisProject.mapThemeCollection.mapThemes.length > 1 && flatLayerTree.mapTheme != mapThemeComboBox.currentText) {
               flatLayerTree.mapTheme = mapThemeComboBox.currentText;
             }
           }
@@ -454,6 +461,76 @@ Drawer {
             font.weight: mapThemeComboBox.currentIndex === index ? Font.DemiBold : Font.Normal
             font.pointSize: QfTheme.tipFont.pointSize
             highlighted: mapThemeComboBox.highlightedIndex == index
+          }
+        }
+      }
+    }
+
+    GroupBox {
+      id: markupContainer
+      objectName: "markupContainer"
+      Layout.fillWidth: true
+      Layout.preferredHeight: Math.min(markupLegend.contentHeight + topPadding + bottomPadding, dashBoard.height / 3)
+      visible: markupManager.hasItems || stateMachine.state === "digitize"
+      title: qsTr("Markups")
+      leftPadding: 5
+      rightPadding: 5
+      topPadding: label.height + 5
+      bottomPadding: 5
+
+      background: Rectangle {
+        color: "transparent"
+      }
+
+      label: Label {
+        x: mapThemeContainer.leftPadding
+        height: 25
+        width: parent.availableWidth
+        leftPadding: mainWindow.sceneLeftMargin
+        text: parent.title
+        color: QfTheme.mainTextColor
+        font: QfTheme.strongTipFont
+        elide: Text.ElideRight
+        verticalAlignment: Text.AlignVCenter
+        clip: true
+
+        QfButton {
+          id: createMarkupCollectionButton
+
+          anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: 10
+          }
+          visible: stateMachine.state === "digitize"
+
+          text: qsTr('Create Collection')
+          bgcolor: QfTheme.darkTheme ? QfTheme.mainBackgroundColorSemiOpaque : QfTheme.lightestGraySemiOpaque
+          color: QfTheme.mainTextColor
+          icon.source: QfTheme.getThemeVectorIcon('ic_add_white_24dp')
+          icon.width: 14
+          icon.height: 14
+          font.pointSize: QfTheme.tinyFont.pointSize - 2
+
+          onClicked: {
+            createMarkupCollectionDialog.open();
+          }
+        }
+      }
+
+      QfMarkupLegend {
+        id: markupLegend
+        objectName: "markupLegend"
+        anchors.fill: parent
+        anchors.leftMargin: mainWindow.sceneLeftMargin + 5
+        anchors.rightMargin: 5
+        allowActiveCollectionChange: dashBoard.allowActiveLayerChange
+
+        onActiveCollectionChanged: {
+          if (activeCollection) {
+            legend.activeLayer = null;
+            projectInfo.activeLayer = null;
+            projectInfo.activeCollection = activeCollection;
           }
         }
       }
@@ -520,6 +597,15 @@ Drawer {
         anchors.rightMargin: 5
         bottomMargin: bottomRow.height + 4
         informationPopup: informationPopup
+        allowActiveLayerChange: dashBoard.allowActiveLayerChange
+
+        onActiveLayerChanged: {
+          if (activeLayer) {
+            markupLegend.activeCollection = null;
+            projectInfo.activeCollection = null;
+            projectInfo.activeLayer = activeLayer;
+          }
+        }
       }
     }
   }
@@ -557,8 +643,8 @@ Drawer {
         id: modeSwitch
         objectName: "modeSwitch"
         height: QfTheme.toolButtonSize
-        width: height * 1.9
-        leftPadding: height / 3
+        width: height * 2
+        leftPadding: height * 0.5 / 2
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         indicator: Rectangle {
@@ -634,5 +720,41 @@ Drawer {
 
   QfInformationPopup {
     id: informationPopup
+  }
+
+  QfDialog {
+    id: createMarkupCollectionDialog
+
+    parent: mainWindow.contentItem
+    title: qsTr("Markup Collection Creation")
+    width: mainWindow.width - 40
+
+    ColumnLayout {
+      width: createMarkupCollectionDialog.availableWidth
+      spacing: 10
+
+      Label {
+        Layout.fillWidth: true
+        wrapMode: Text.WordWrap
+        text: qsTr("Enter your new collection name")
+      }
+
+      QfTextField {
+        id: newMarkupCollectionName
+        Layout.fillWidth: true
+      }
+    }
+
+    onAboutToShow: {
+      newMarkupCollectionName.text = "";
+      newMarkupCollectionName.forceActiveFocus();
+    }
+
+    onAccepted: {
+      const collectionUuid = markupManager.createCollection(newMarkupCollectionName.text);
+      if (collectionUuid !== "") {
+        markupLegend.activeCollection = markupManager.collection(collectionUuid);
+      }
+    }
   }
 }

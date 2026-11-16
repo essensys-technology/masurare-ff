@@ -274,6 +274,21 @@ QfRelationEditorBase {
 
   onIsCardViewChanged: stopAllMedia()
 
+  readonly property list<string> attachmentAcceptedTypes: ExternalResourceUtils.getAttachmentAcceptedTypes(referencingFeatureListModel.relation ? referencingFeatureListModel.relation.referencingLayer : null, referencingFeatureListModel.attachmentFieldName)
+  readonly property string attachmentCaptureType: ExternalResourceUtils.getAttachmentCaptureType(attachmentAcceptedTypes)
+  // Accepted types, when set, take precedence over the viewer type
+  readonly property int attachmentCaptureViewer: {
+    switch (attachmentCaptureType) {
+    case 'image':
+      return QfEditorWidgetExternalResource.DocumentImage;
+    case 'video':
+      return QfEditorWidgetExternalResource.DocumentVideo;
+    case 'audio':
+      return QfEditorWidgetExternalResource.DocumentAudio;
+    }
+    return referencingFeatureListModel.attachmentDocumentViewer;
+  }
+
   QfExpressionEvaluator {
     id: attachmentNamingEvaluator
     layer: referencingFeatureListModel.relation ? referencingFeatureListModel.relation.referencingLayer : null
@@ -326,11 +341,12 @@ QfRelationEditorBase {
       width: QfTheme.toolButtonSize
       height: QfTheme.toolButtonSize
       enabled: isEnabled
-      visible: isEnabled
+      // Files can't be captured, which is the only way the gallery adds attachments
+      visible: isEnabled && isActionEnabled('AddChildFeature') && attachmentCaptureType !== 'file'
 
       round: false
       iconSource: {
-        switch (referencingFeatureListModel.attachmentDocumentViewer) {
+        switch (attachmentCaptureViewer) {
         case QfEditorWidgetExternalResource.DocumentVideo:
           return QfTheme.getThemeVectorIcon("ic_camera_video_black_24dp");
         case QfEditorWidgetExternalResource.DocumentAudio:
@@ -346,7 +362,7 @@ QfRelationEditorBase {
           return;
         }
 
-        switch (referencingFeatureListModel.attachmentDocumentViewer) {
+        switch (attachmentCaptureViewer) {
         case QfEditorWidgetExternalResource.DocumentVideo:
           captureVideo();
           break;
@@ -546,7 +562,7 @@ QfRelationEditorBase {
 
     sourceComponent: Component {
       QfCamera {
-        allowCaptureModeToggle: true
+        allowCaptureModeToggle: ExternalResourceUtils.acceptsAttachmentType(attachmentAcceptedTypes, 'image') && ExternalResourceUtils.acceptsAttachmentType(attachmentAcceptedTypes, 'video')
 
         currentLayer: resourceLayer
 
@@ -557,7 +573,7 @@ QfRelationEditorBase {
 
         onFinished: path => {
           const filepath = QfStringUtils.replaceFilenameTags(ExternalResourceUtils.getAttachmentFilePath(attachmentNamingEvaluator.evaluate(), state === "VideoPreview" ? QfEditorWidgetExternalResource.DocumentVideo : QfEditorWidgetExternalResource.DocumentImage, QfFileUtils), path);
-          platformUtilities.renameFile(path, imagePrefix + filepath);
+          platformUtilities.renameFileWithSidecars(path, imagePrefix + filepath);
           if (!QfFileUtils.mimeTypeName(path).startsWith("video/")) {
             let maximumWidthHeight = iface.readProjectNumEntry("qfieldsync", "maximumImageWidthHeight", 0);
             if (maximumWidthHeight > 0) {

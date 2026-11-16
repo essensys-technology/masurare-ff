@@ -68,14 +68,35 @@ void QfNtripClient::start( const QfNtripSettings &ntripSettings, QfAbstractGnssR
   }
 
   mLastNtripGgaSent = 0;
+  mLastGgaLogMs = 0;
   mBytesSent = 0;
   mBytesReceived = 0;
+  mCorrectionBlocksReceived = 0;
+  mLastCorrectionLogMs = 0;
+  mLastCorrectionLogBytes = 0;
 
   qInfo() << QStringLiteral( "Starting NTRIP client: host %1, port %2, mount point %3" ).arg( ntripSettings.host(), QString::number( ntripSettings.port() ), ntripSettings.mountPoint() );
   mSocket = new QfNtripSocket( this );
 
   connect( mSocket, &QfNtripSocket::correctionDataReceived, this, [this]( const QByteArray &data ) {
     mBytesReceived += data.size();
+    mCorrectionBlocksReceived++;
+
+    const qint64 now = QDateTime::currentMSecsSinceEpoch();
+    if ( mLastCorrectionLogMs == 0 || now - mLastCorrectionLogMs >= CORRECTION_STATS_LOG_INTERVAL_MS )
+    {
+      const qint64 deltaMs = mLastCorrectionLogMs == 0 ? 0 : now - mLastCorrectionLogMs;
+      const qint64 deltaBytes = mBytesReceived - mLastCorrectionLogBytes;
+      const double bytesPerSecond = deltaMs > 0 ? deltaBytes * 1000.0 / deltaMs : 0.0;
+      qDebug() << QStringLiteral( "NTRIP Client: correction stats bytesReceived=%1 blocks=%2 lastBlock=%3 approxRate=%4 B/s receiverReady=%5" )
+                    .arg( mBytesReceived )
+                    .arg( mCorrectionBlocksReceived )
+                    .arg( data.size() )
+                    .arg( bytesPerSecond, 0, 'f', 1 )
+                    .arg( mReceiver ? QStringLiteral( "true" ) : QStringLiteral( "false" ) );
+      mLastCorrectionLogMs = now;
+      mLastCorrectionLogBytes = mBytesReceived;
+    }
 
     emit correctionDataReceived( data );
     emit bytesReceivedChanged();
@@ -124,6 +145,11 @@ void QfNtripClient::sendNmeaSentence( const QString &sentence )
   {
     mBytesSent += bytesWritten;
     emit bytesSentChanged();
+    qDebug() << QStringLiteral( "NTRIP Client: Sent NMEA sentence to caster, bytesWritten=%1 totalBytesSent=%2 sentence=%3" ).arg( bytesWritten ).arg( mBytesSent ).arg( sentence.left( 6 ) );
+  }
+  else
+  {
+    qDebug() << QStringLiteral( "NTRIP Client: Failed to send NMEA sentence to caster, socket not connected or write failed" );
   }
 }
 
@@ -199,6 +225,13 @@ void QfNtripClient::nmeaSentenceReceived( const QString &sentence )
   if ( sentenceId != QStringLiteral( "GGA" ) )
   {
     return;
+  }
+
+  const qint64 now = QDateTime::currentMSecsSinceEpoch();
+  if ( mLastGgaLogMs == 0 || now - mLastGgaLogMs >= GGA_FORWARDING_LOG_INTERVAL_MS )
+  {
+    qDebug() << QStringLiteral( "NTRIP Client: Received GGA from receiver for caster forwarding, talker=%1 length=%2" ).arg( talkerId, QString::number( sentence.size() ) );
+    mLastGgaLogMs = now;
   }
 
   QString sentenceToSend = sentence;
@@ -340,12 +373,11 @@ void QfNtripSocket::onConnected()
     case QfNtripSettings::NtripVersion2:
     {
       request.append( "GET " + mp + " HTTP/1.1\r\n" );
+      request.append( "User-Agent: NTRIP QFieldClient/2.0\r\n" );
+      request.append( "Authorization: Basic " + base64 + "\r\n" );
       request.append( "Host: " + mHost.toUtf8() + ":" + QByteArray::number( mPort ) + "\r\n" );
       request.append( "Ntrip-Version: Ntrip/2.0\r\n" );
-      request.append( "User-Agent: QField NTRIP Client/2.0\r\n" );
       request.append( "Accept: */*\r\n" );
-      request.append( "Authorization: Basic " + base64 + "\r\n" );
-      request.append( "Connection: close\r\n" );
       request.append( "\r\n" );
       break;
     }
@@ -353,11 +385,10 @@ void QfNtripSocket::onConnected()
     case QfNtripSettings::NtripVersion1:
     {
       request.append( "GET " + mp + " HTTP/1.0\r\n" );
-      request.append( "Host: " + mHost.toUtf8() + ":" + QByteArray::number( mPort ) + "\r\n" );
-      request.append( "User-Agent: QField NTRIP Client/1.0\r\n" );
-      request.append( "Accept: */*\r\n" );
+      request.append( "User-Agent: NTRIP QFieldClient/1.0\r\n" );
       request.append( "Authorization: Basic " + base64 + "\r\n" );
-      request.append( "Connection: close\r\n" );
+      request.append( "Host: " + mHost.toUtf8() + ":" + QByteArray::number( mPort ) + "\r\n" );
+      request.append( "Accept: */*\r\n" );
       request.append( "\r\n" );
       break;
     }
@@ -550,12 +581,9 @@ void QfNtripSocket::processChunkedData( const QByteArray &data )
 
 void QfNtripSocket::onDisconnected()
 {
-  if ( mHeadersSent )
-  {
-    // Server-initiated disconnection after stream was connected
-    emit streamDisconnected();
-  }
-  else if ( !mPendingError )
+  emit streamDisconnected();
+
+  if ( !mPendingError )
   {
     // Connection failed or disconnected before headers were processed
     emit errorOccurred( QStringLiteral( "Disconnected from NTRIP caster " ) + mHost

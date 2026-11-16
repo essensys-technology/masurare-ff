@@ -24,6 +24,7 @@
 #include <QLockFile>
 #include <QNetworkCookie>
 #include <QNetworkCookieJar>
+#include <QRegularExpression>
 #include <QSettings>
 #include <QTextDocumentFragment>
 #include <QTimer>
@@ -143,12 +144,12 @@ bool QfCloudConnection::isReachable() const
   switch ( mNetworkInformation->reachability() )
   {
     case QNetworkInformation::Reachability::Online:
+    case QNetworkInformation::Reachability::Local:
+    case QNetworkInformation::Reachability::Site:
     case QNetworkInformation::Reachability::Unknown:
       return true;
 
     case QNetworkInformation::Reachability::Disconnected:
-    case QNetworkInformation::Reachability::Local:
-    case QNetworkInformation::Reachability::Site:
       return false;
   }
 
@@ -408,6 +409,300 @@ void QfCloudConnection::fetchLegacyAuthenticationProviders()
   } );
 }
 
+void QfCloudConnection::getSignupCaptcha()
+{
+  ensureCsrfToken( QStringLiteral( "/accounts/signup/" ), [this]( const QString &error ) {
+    if ( !error.isEmpty() )
+    {
+      emit signupCaptchaFinished( QString(), QString(), error );
+      return;
+    }
+
+    requestSignupCaptcha();
+  } );
+}
+
+void QfCloudConnection::ensureCsrfToken( const QString &formPath, const std::function<void( const QString &error )> &continuation )
+{
+  if ( !csrfToken().isEmpty() )
+  {
+    continuation( QString() );
+    return;
+  }
+
+  // Loading the form is what makes the server hand out the CSRF cookie
+  QNetworkRequest request;
+  request.setAttribute( QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy );
+  QfNetworkReply *reply = get( request, formPath );
+
+  connect( reply, &QfNetworkReply::finished, this, [reply, continuation]() {
+    QNetworkReply *rawReply = reply->currentRawReply();
+
+    Q_ASSERT( reply->isFinished() );
+    Q_ASSERT( rawReply );
+
+    reply->deleteLater();
+    rawReply->deleteLater();
+
+    continuation( rawReply->error() != QNetworkReply::NoError ? formErrorString( rawReply ) : QString() );
+  } );
+}
+
+QByteArray QfCloudConnection::encodeFormBody( const QList<QPair<QString, QString>> &fields )
+{
+  QByteArray body;
+  for ( const QPair<QString, QString> &field : fields )
+  {
+    if ( !body.isEmpty() )
+    {
+      body.append( '&' );
+    }
+
+    body.append( QUrl::toPercentEncoding( field.first ) ).append( '=' ).append( QUrl::toPercentEncoding( field.second ) );
+  }
+
+  return body;
+}
+
+QString QfCloudConnection::formErrorString( QNetworkReply *reply )
+{
+  if ( reply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt() == 429 )
+  {
+    return tr( "Too many attempts, please wait a minute before trying again." );
+  }
+
+  return errorString( reply );
+}
+
+QfNetworkReply *QfCloudConnection::postForm( const QString &path, const QByteArray &body )
+{
+  QNetworkRequest request( QUrl( mUrl + path ) );
+  request.setHeader( QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded" );
+  request.setRawHeader( "X-CSRFToken", csrfToken() );
+  request.setRawHeader( "Referer", request.url().toEncoded() );
+  // A redirect means accepted, a re-rendered form means rejected
+  request.setAttribute( QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy );
+  setClientHeaders( request );
+
+  return QfNetworkManager::post( request, body );
+}
+
+void QfCloudConnection::requestSignupCaptcha()
+{
+  QNetworkRequest request;
+  request.setRawHeader( "X-Requested-With", "XMLHttpRequest" );
+  QfNetworkReply *reply = get( request, QStringLiteral( "/captcha/refresh/" ) );
+
+  connect( reply, &QfNetworkReply::finished, this, [this, reply]() {
+    QNetworkReply *rawReply = reply->currentRawReply();
+
+    Q_ASSERT( reply->isFinished() );
+    Q_ASSERT( rawReply );
+
+    reply->deleteLater();
+    rawReply->deleteLater();
+
+    if ( rawReply->error() != QNetworkReply::NoError )
+    {
+      emit signupCaptchaFinished( QString(), QString(), formErrorString( rawReply ) );
+      return;
+    }
+
+    const QJsonObject payload = QJsonDocument::fromJson( rawReply->readAll() ).object();
+    const QString key = payload.value( QStringLiteral( "key" ) ).toString();
+    const QString imageUrl = payload.value( QStringLiteral( "image_url" ) ).toString();
+
+    if ( key.isEmpty() || imageUrl.isEmpty() )
+    {
+      emit signupCaptchaFinished( QString(), QString(), tr( "Captcha temporary unavailable, please retry later" ) );
+      return;
+    }
+
+    emit signupCaptchaFinished( key, mUrl + imageUrl );
+  } );
+}
+
+QVariantMap QfCloudConnection::signupFormErrors( const QString &html )
+{
+  // An invalid field sits in its own group, which may nest plain ones (e.g. the captcha)
+  const QRegularExpression invalidGroupExpression( QStringLiteral( "<div class=\"form-group is-invalid[^\"]*\">" ) );
+  const QRegularExpression fieldNameExpression( QStringLiteral( "name=\"([a-z0-9_]+)\"" ) );
+  const QRegularExpression messageExpression( QStringLiteral( "<div class=\"invalid-feedback\">(.*?)</div>" ), QRegularExpression::DotMatchesEverythingOption );
+
+  QList<qsizetype> groupStarts;
+  QRegularExpressionMatchIterator groupIterator = invalidGroupExpression.globalMatch( html );
+  while ( groupIterator.hasNext() )
+  {
+    groupStarts << groupIterator.next().capturedStart();
+  }
+
+  QVariantMap errors;
+  for ( qsizetype index = 0; index < groupStarts.size(); index++ )
+  {
+    const qsizetype groupEnd = index + 1 < groupStarts.size() ? groupStarts.at( index + 1 ) : html.size();
+    const QString group = html.mid( groupStarts.at( index ), groupEnd - groupStarts.at( index ) );
+
+    const QRegularExpressionMatch fieldNameMatch = fieldNameExpression.match( group );
+    if ( !fieldNameMatch.hasMatch() )
+    {
+      continue;
+    }
+
+    QString fieldName = fieldNameMatch.captured( 1 );
+    if ( fieldName.startsWith( QStringLiteral( "captcha_" ) ) )
+    {
+      fieldName = QStringLiteral( "captcha" );
+    }
+
+    QStringList messages;
+    QRegularExpressionMatchIterator messageIterator = messageExpression.globalMatch( group );
+    while ( messageIterator.hasNext() )
+    {
+      messages << QTextDocumentFragment::fromHtml( messageIterator.next().captured( 1 ) ).toPlainText().trimmed();
+    }
+
+    if ( !messages.isEmpty() )
+    {
+      errors.insert( fieldName, messages.join( QStringLiteral( "\n" ) ) );
+    }
+  }
+
+  return errors;
+}
+
+void QfCloudConnection::registerAccount( const QString &email, const QString &username, const QString &password, bool hasAcceptedTermsOfService, bool hasNewsletterSubscription, const QString &referralCode, const QString &captchaKey, const QString &captchaAnswer )
+{
+  QList<QPair<QString, QString>> fields = {
+    { QStringLiteral( "email" ), email },
+    { QStringLiteral( "username" ), username },
+    { QStringLiteral( "password1" ), password },
+    { QStringLiteral( "password2" ), password },
+    { QStringLiteral( "timezone" ), QfCloudUtils::deviceTimeZoneId() },
+    { QStringLiteral( "referral_code" ), referralCode },
+    { QStringLiteral( "captcha_0" ), captchaKey },
+    { QStringLiteral( "captcha_1" ), captchaAnswer },
+  };
+
+  if ( hasAcceptedTermsOfService )
+  {
+    fields.append( { QStringLiteral( "has_accepted_tos" ), QStringLiteral( "on" ) } );
+  }
+  if ( hasNewsletterSubscription )
+  {
+    fields.append( { QStringLiteral( "has_newsletter_subscription" ), QStringLiteral( "on" ) } );
+  }
+
+  QfNetworkReply *reply = postForm( QStringLiteral( "/accounts/signup/" ), encodeFormBody( fields ) );
+
+  connect( reply, &QfNetworkReply::finished, this, [this, reply, username, password]() {
+    QNetworkReply *rawReply = reply->currentRawReply();
+
+    Q_ASSERT( reply->isFinished() );
+    Q_ASSERT( rawReply );
+
+    reply->deleteLater();
+    rawReply->deleteLater();
+
+    if ( rawReply->error() != QNetworkReply::NoError )
+    {
+      QVariantMap errors;
+      errors.insert( QString(), formErrorString( rawReply ) );
+      emit registrationFinished( errors );
+      return;
+    }
+
+    const int httpCode = rawReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
+    if ( httpCode >= 300 && httpCode < 400 )
+    {
+      // With a web session around, the API enforces CSRF instead of taking our credentials
+      const QList<QNetworkCookie> cookies = QgsNetworkAccessManager::instance()->cookieJar()->cookiesForUrl( mUrl );
+      for ( const QNetworkCookie &cookie : cookies )
+      {
+        if ( cookie.name() == QLatin1String( "sessionid" ) )
+        {
+          QgsNetworkAccessManager::instance()->cookieJar()->deleteCookie( cookie );
+        }
+      }
+
+      // A taken email gets the same answer as a new account, only the login tells them apart
+      QObject *registrationContext = new QObject( this );
+      connect( this, &QfCloudConnection::statusChanged, registrationContext, [this, registrationContext]() {
+        if ( mStatus != ConnectionStatus::LoggedIn )
+        {
+          return;
+        }
+
+        emit registrationFinished();
+        registrationContext->deleteLater();
+      } );
+      connect( this, &QfCloudConnection::loginFailed, registrationContext, [this, registrationContext]( const QString &reason ) {
+        QVariantMap errors;
+        errors.insert( QString(), tr( "%1\nIf this email already has an account, check your inbox for a message from QFieldCloud." ).arg( reason ) );
+        emit registrationFinished( errors );
+        registrationContext->deleteLater();
+      } );
+
+      setProvider( QString() );
+      setUsername( username );
+      login( password );
+      return;
+    }
+
+    QVariantMap errors = signupFormErrors( QString::fromUtf8( rawReply->readAll() ) );
+    if ( errors.isEmpty() )
+    {
+      errors.insert( QString(), tr( "The server did not accept the registration" ) );
+    }
+    emit registrationFinished( errors );
+  } );
+}
+
+void QfCloudConnection::requestPasswordReset( const QString &email )
+{
+  ensureCsrfToken( QStringLiteral( "/accounts/password/reset/" ), [this, email]( const QString &error ) {
+    if ( !error.isEmpty() )
+    {
+      emit passwordRequestFinished( error );
+      return;
+    }
+
+    QfNetworkReply *reply = postForm( QStringLiteral( "/accounts/password/reset/" ), encodeFormBody( { { QStringLiteral( "email" ), email } } ) );
+
+    connect( reply, &QfNetworkReply::finished, this, [this, reply]() {
+      QNetworkReply *rawReply = reply->currentRawReply();
+
+      Q_ASSERT( reply->isFinished() );
+      Q_ASSERT( rawReply );
+
+      reply->deleteLater();
+      rawReply->deleteLater();
+
+      if ( rawReply->error() != QNetworkReply::NoError )
+      {
+        emit passwordRequestFinished( formErrorString( rawReply ) );
+        return;
+      }
+
+      const int httpCode = rawReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
+      if ( httpCode >= 300 && httpCode < 400 )
+      {
+        emit passwordRequestFinished();
+        return;
+      }
+
+      const QVariantMap errors = signupFormErrors( QString::fromUtf8( rawReply->readAll() ) );
+      emit passwordRequestFinished( errors.isEmpty() ? tr( "The server did not accept the request" ) : errors.first().toString() );
+    } );
+  } );
+}
+
+QByteArray QfCloudConnection::csrfToken() const
+{
+  const QList<QNetworkCookie> cookies = QgsNetworkAccessManager::instance()->cookieJar()->cookiesForUrl( mUrl );
+  const QList<QNetworkCookie>::const_iterator match = std::find_if( cookies.begin(), cookies.end(), []( const QNetworkCookie &cookie ) { return cookie.name() == QLatin1String( "csrftoken" ); } );
+  return match != cookies.end() ? match->value() : QByteArray();
+}
+
 void QfCloudConnection::login( const QString &password )
 {
   if ( !mProvider.isEmpty() )
@@ -463,8 +758,6 @@ void QfCloudConnection::login( const QString &password )
 
     if ( rawReply->error() != QNetworkReply::NoError )
     {
-      const int httpCode = rawReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
-
       if ( rawReply->error() == QNetworkReply::HostNotFoundError )
       {
         emit loginFailed( tr( "Server not found, please check the server URL" ) );
@@ -473,29 +766,33 @@ void QfCloudConnection::login( const QString &password )
       {
         emit loginFailed( tr( "Timeout error, please retry" ) );
       }
-      else if ( httpCode == 400 || httpCode == 401 )
+      else
       {
-        if ( !loginUsingToken )
+        const int httpCode = rawReply->attribute( QNetworkRequest::HttpStatusCodeAttribute ).toInt();
+        if ( httpCode == 400 || httpCode == 401 )
         {
-          emit loginFailed( tr( "Wrong username or password" ) );
+          if ( !loginUsingToken )
+          {
+            emit loginFailed( tr( "Wrong username or password" ) );
+          }
+          else
+          {
+            emit loginFailed( tr( "Session expired" ) );
+          }
         }
         else
         {
-          emit loginFailed( tr( "Session expired" ) );
+          QString message( errorString( rawReply ) );
+          emit loginFailed( message );
         }
-      }
-      else
-      {
-        QString message( errorString( rawReply ) );
-        emit loginFailed( message );
-      }
 
-      if ( !mProvider.isEmpty() && !mProviderConfigId.isEmpty() )
-      {
-        QgsApplication::authManager()->removeAuthenticationConfig( mProviderConfigId );
-        mProviderConfigId.clear();
-        QSettings().remove( "/QFieldCloud/providerConfigId" );
-        emit providerConfigurationChanged();
+        if ( !mProvider.isEmpty() && !mProviderConfigId.isEmpty() )
+        {
+          QgsApplication::authManager()->removeAuthenticationConfig( mProviderConfigId );
+          mProviderConfigId.clear();
+          QSettings().remove( "/QFieldCloud/providerConfigId" );
+          emit providerConfigurationChanged();
+        }
       }
 
       setStatus( ConnectionStatus::Disconnected );
@@ -578,7 +875,7 @@ void QfCloudConnection::logout()
   setStatus( ConnectionStatus::Disconnected );
 }
 
-void QfCloudConnection::getUserOrganizations( const QString &user )
+void QfCloudConnection::getUserOrganizations( const QString &user, bool showCreationOnly )
 {
   if ( mStatus != ConnectionStatus::LoggedIn )
   {
@@ -587,13 +884,14 @@ void QfCloudConnection::getUserOrganizations( const QString &user )
 
   QfNetworkReply *reply = get( QStringLiteral( "/api/v1/users/%1/organizations/" ).arg( user ) );
 
-  connect( reply, &QfNetworkReply::finished, this, [this, reply]() {
+  connect( reply, &QfNetworkReply::finished, this, [this, reply, showCreationOnly]() {
     QNetworkReply *rawReply = reply->currentRawReply();
     reply->deleteLater();
 
     if ( rawReply->error() != QNetworkReply::NoError )
     {
       QgsMessageLog::logMessage( QStringLiteral( "Failed to fetch user organizations: %1" ).arg( rawReply->errorString() ), QStringLiteral( "QFieldCloud" ) );
+      emit userOrganizationsReceived( QStringList() );
       return;
     }
 
@@ -603,7 +901,17 @@ void QfCloudConnection::getUserOrganizations( const QString &user )
     QStringList organizations;
     for ( const auto &value : array )
     {
-      const QString username = value.toObject().value( QStringLiteral( "username" ) ).toString();
+      const QJsonObject organization = value.toObject();
+      if ( showCreationOnly )
+      {
+        const QString role = organization.value( QStringLiteral( "membership_role" ) ).toString();
+        if ( role != QLatin1String( "admin" ) && role != QLatin1String( "creator" ) )
+        {
+          continue;
+        }
+      }
+
+      const QString username = organization.value( QStringLiteral( "username" ) ).toString();
       if ( !username.isEmpty() )
       {
         organizations.append( username );
@@ -943,11 +1251,10 @@ void QfCloudConnection::setAuthenticationDetails( QNetworkRequest &request )
     QgsApplication::authManager()->updateNetworkRequest( request, mProviderConfigId );
     request.setRawHeader( "X-QFC-IDP-ID", providerId.toLatin1() );
 
-    const QList<QNetworkCookie> cookies = QgsNetworkAccessManager::instance()->cookieJar()->cookiesForUrl( mUrl );
-    auto match = std::find_if( cookies.begin(), cookies.end(), []( const QNetworkCookie &cookie ) { return cookie.name() == QLatin1String( "csrftoken" ); } );
-    if ( match != cookies.end() )
+    const QByteArray token = csrfToken();
+    if ( !token.isEmpty() )
     {
-      request.setRawHeader( "X-CSRFToken", match->value() );
+      request.setRawHeader( "X-CSRFToken", token );
       request.setRawHeader( "Referer", mUrl.toLatin1() );
     }
   }
@@ -1040,11 +1347,11 @@ QfCloudConnection::CloudError::CloudError( QNetworkReply *reply )
   if ( errorMessage.isEmpty() )
   {
     errorMessage = httpErrorMessage;
-    QgsMessageLog::logMessage( QStringLiteral( "%1\n%2\n%3" ).arg( errorMessage, payloadPlainText ).arg( reply->errorString() ) );
+    QgsMessageLog::logMessage( QStringLiteral( "%1\n%2\n%3" ).arg( errorMessage, payloadPlainText, reply->errorString() ) );
   }
   else
   {
-    QgsMessageLog::logMessage( QStringLiteral( "%1\n%2\n%3\n%4" ).arg( errorMessage, httpErrorMessage, payloadPlainText ).arg( reply->errorString() ) );
+    QgsMessageLog::logMessage( QStringLiteral( "%1\n%2\n%3\n%4" ).arg( errorMessage, httpErrorMessage, payloadPlainText, reply->errorString() ) );
   }
 
   // strip HTML tags
@@ -1082,7 +1389,7 @@ void QfCloudConnection::processPendingAttachments()
   QMultiMap<QString, QString>::const_iterator it = attachments.constBegin();
   while ( it != attachments.constEnd() )
   {
-    if ( !QFileInfo( it.value() ).exists() )
+    if ( !QFileInfo::exists( it.value() ) )
     {
       // A pending attachment has been deleted from the local device, remove
       // This can happen when for e.g. users remove a cloud project from their devices
@@ -1117,40 +1424,60 @@ void QfCloudConnection::processPendingAttachments()
       if ( attachmentReply->error() != QNetworkReply::NoError )
       {
         QgsMessageLog::logMessage( tr( "Failed to upload attachment stored at `%1`, reason:\n%2" )
-                                     .arg( fileName )
-                                     .arg( QfCloudConnection::errorString( attachmentReply ) ) );
+                                     .arg( fileName, QfCloudConnection::errorString( attachmentReply ) ) );
 
-        // Retry uploading for non-404 errors
-        if ( httpCode != 404 )
+        bool retryOnFail = true;
+        // 400: Attachment file name contains invalid character or content missing/empty
+        // 401: Authentication token invalidated while processing pending attachments
+        // 402: Project owner ran out of storage to receive attachments
+        // 403: Authenticated user does not have the right to upload attachments
+        // 404: Cloud project removed or access revoked, moving on
+        if ( httpCode == 401 )
+        {
+          emit pendingAttachmentsUploadFinished();
+          return;
+        }
+        else if ( httpCode == 400 || httpCode == 402 || httpCode == 403 || httpCode == 404 )
+        {
+          retryOnFail = false;
+        }
+
+        qInfo() << QStringLiteral( "Attachment upload failure - project ID: %1 / filename: %2 / http code: %3" ).arg( projectId, fileName, QString::number( httpCode ) );
+        const QList<QByteArray> rawHeaderList = attachmentReply->rawHeaderList();
+        for ( const QByteArray &header : rawHeaderList )
+        {
+          qInfo() << QStringLiteral( "Attachment upload failure - reply header: %1 => %2" ).arg( header ).arg( attachmentReply->rawHeader( header ) );
+        }
+        qInfo() << QStringLiteral( "Attachment upload failure - reply content: %1" ).arg( attachmentReply->readAll() );
+
+        if ( retryOnFail )
         {
           mUploadFailingCount++;
 
           if ( mUploadFailingCount < 5 )
           {
-            // Retry the last attachment to upload after a brief delay
+            // Move failing attachment to the bottom of the queue list to avoid blocking other attachments permanently
+            QfCloudUtils::removePendingAttachment( mUsername, projectId, fileName );
+            QfCloudUtils::addPendingAttachments( mUsername, projectId, QStringList() << fileName );
+
+            // Attempt to resume uploading after a brief delay
             QTimer::singleShot( std::pow( 5, mUploadFailingCount ) * 1000, this, [this] { processPendingAttachments(); } );
           }
           else
           {
-            // Too many fails, bailing out for now
+            // Too many fails, bailing out
             emit pendingAttachmentsUploadFinished();
           }
+
           return;
         }
       }
 
-      if ( httpCode != 201 && httpCode != 404 )
-      {
-        qDebug() << QStringLiteral( "Attachment project ID: %1 %2 %3" ).arg( projectId ).arg( fileName ).arg( httpCode );
-
-        for ( const QByteArray &header : attachmentReply->rawHeaderList() )
-        {
-          qDebug() << QStringLiteral( "Attachment reply header: %1 => %2" ).arg( header ).arg( attachmentReply->rawHeader( header ) );
-        }
-
-        qDebug() << QStringLiteral( "Attachment reply content: %1" ).arg( attachmentReply->readAll() );
-      }
-
+      QfCloudAttachmentHistoryEntry historyEntry;
+      historyEntry.timestamp = QDateTime::currentDateTimeUtc();
+      historyEntry.httpCode = httpCode;
+      historyEntry.fileName = fileName;
+      QfCloudUtils::addAttachmentHistory( mUsername, projectId, historyEntry );
       QfCloudUtils::removePendingAttachment( mUsername, projectId, fileName );
       mUploadPendingCount--;
       mUploadDoneCount++;
@@ -1199,7 +1526,7 @@ void QfCloudConnection::saveCookies()
   {
     if ( !cookies[idx].isSessionCookie() && QDateTime::currentSecsSinceEpoch() < cookies[idx].expirationDate().toSecsSinceEpoch() )
     {
-      settings.setValue( QStringLiteral( "/QFieldCloud/cookies/%1" ), cookies[idx].toRawForm() );
+      settings.setValue( QStringLiteral( "/QFieldCloud/cookies/%1" ).arg( idx ), cookies[idx].toRawForm() );
     }
   }
 }

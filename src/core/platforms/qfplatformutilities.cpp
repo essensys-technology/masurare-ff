@@ -34,15 +34,16 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QMargins>
 #include <QMessageBox>
+#include <QMimeDatabase>
 #include <QQuickWindow>
 #include <QStandardPaths>
 #include <QStorageInfo>
 #include <QTimer>
 #include <QUrl>
 #include <QtGui/qpa/qplatformwindow.h>
-#include <qgsfileutils.h>
 #include <qgsziputils.h>
 
 #if defined( Q_OS_ANDROID )
@@ -153,7 +154,12 @@ QString QfPlatformUtilities::systemLocalDataLocation( const QString &subDir ) co
 
 bool QfPlatformUtilities::hasQgsProject() const
 {
-  return qApp->arguments().count() > 1 && !qApp->arguments().last().isEmpty();
+  if ( qApp->arguments().count() > 1 && !qApp->arguments().last().isEmpty() )
+  {
+    const QFileInfo fi( qApp->arguments().last() );
+    return fi.exists() && fi.isFile();
+  }
+  return false;
 }
 
 void QfPlatformUtilities::loadQgsProject() const
@@ -243,6 +249,10 @@ bool QfPlatformUtilities::renameFile( const QString &oldFilePath, const QString 
     QFile oldfile( oldFilePath );
     oldfile.remove();
   }
+
+  // Insure correct permissions are allowing for user access
+  QFile::setPermissions( newFi.absoluteFilePath(), QFileDevice::ReadUser | QFileDevice::WriteUser | QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ReadGroup | QFileDevice::WriteGroup );
+
   return ok;
 }
 
@@ -282,6 +292,11 @@ void QfPlatformUtilities::importProjectArchive() const
 void QfPlatformUtilities::importDatasets() const
 {}
 
+void QfPlatformUtilities::handleFileAssociation( const QString &path ) const
+{
+  Q_UNUSED( path )
+}
+
 void QfPlatformUtilities::updateProjectFromArchive( const QString &projectPath ) const
 {
   const QString zipFilePath = QFileDialog::getOpenFileName( nullptr,
@@ -307,6 +322,48 @@ void QfPlatformUtilities::exportFolderTo( const QString &path ) const
   Q_UNUSED( path )
 }
 
+bool QfPlatformUtilities::renameFileWithSidecars( const QString &oldFilePath, const QString &newFilePath, bool overwrite ) const
+{
+  const QSet<QString> sidecarFiles = QfFileUtils::sidecarFilesForPath( oldFilePath );
+
+  if ( !renameFile( oldFilePath, newFilePath, overwrite ) )
+  {
+    return false;
+  }
+
+  const QFileInfo oldFileInfo( oldFilePath );
+  const QFileInfo newFileInfo( newFilePath );
+  const QString oldFileName = oldFileInfo.fileName();
+  const QString oldBaseName = oldFileInfo.completeBaseName();
+
+  for ( const QString &sidecarFile : sidecarFiles )
+  {
+    const QString sidecarFileName = QFileInfo( sidecarFile ).fileName();
+
+    QString newSidecarFileName;
+    if ( sidecarFileName.startsWith( oldFileName ) )
+    {
+      newSidecarFileName = newFileInfo.fileName() + sidecarFileName.mid( oldFileName.size() );
+    }
+    else if ( sidecarFileName.startsWith( oldBaseName + QLatin1Char( '.' ) ) )
+    {
+      newSidecarFileName = newFileInfo.completeBaseName() + sidecarFileName.mid( oldBaseName.size() );
+    }
+    else
+    {
+      continue;
+    }
+
+    const QString newSidecarFilePath = QStringLiteral( "%1/%2" ).arg( newFileInfo.absolutePath(), newSidecarFileName );
+    if ( !renameFile( sidecarFile, newSidecarFilePath, overwrite ) )
+    {
+      QgsMessageLog::logMessage( tr( "Could not move the sidecar file '%1' alongside '%2'" ).arg( sidecarFile, newFilePath ), QStringLiteral( "QField" ), Qgis::Warning );
+    }
+  }
+
+  return true;
+}
+
 void QfPlatformUtilities::exportDatasetTo( const QString &path ) const
 {
   Q_UNUSED( path )
@@ -321,7 +378,7 @@ void QfPlatformUtilities::sendDatasetTo( const QString &path ) const
   }
 
   QStringList paths = QStringList() << path;
-  const QSet<QString> files = QgsFileUtils::sidecarFilesForPath( path );
+  const QSet<QString> files = QfFileUtils::sidecarFilesForPath( path );
   for ( const QString &file : files )
   {
     paths << file;
@@ -334,9 +391,10 @@ void QfPlatformUtilities::sendDatasetTo( const QString &path ) const
   }
 }
 
-void QfPlatformUtilities::sendCompressedFolderTo( const QString &path ) const
+void QfPlatformUtilities::sendCompressedFolderTo( const QString &path, const QString &fileName ) const
 {
-  const QString tempZipPath = QStringLiteral( "%1/%2.zip" ).arg( QDir::tempPath(), QFileInfo( path ).fileName() );
+  const QString zipName = fileName.isEmpty() ? QFileInfo( path ).fileName() : QfFileUtils::sanitizeFilePathPart( fileName );
+  const QString tempZipPath = QStringLiteral( "%1/%2.zip" ).arg( QDir::tempPath(), zipName );
   QFile::remove( tempZipPath );
 
   QStringList files;
@@ -461,10 +519,45 @@ QfResourceSource *QfPlatformUtilities::getGalleryVideo( const QString &prefix, c
   return createResource( prefix, videoFilePath, fileName, parent );
 }
 
+QfResourceSource *QfPlatformUtilities::getGalleryMedia( const QString &prefix, const QString &mediaFilePath, QObject *parent )
+{
+  QString fileName = QFileDialog::getOpenFileName( nullptr, tr( "Select Image or Video File" ), prefix,
+                                                   tr( "All images and video (*.jpg *.jpeg *.png *.bmp *.mp4 *.mkv *.mov);;All images (*.jpg *.jpeg *.png *.bmp);;All video (*.mp4 *.mkv *.mov)" ) );
+  return createResource( prefix, mediaFilePath, fileName, parent );
+}
+
 QfResourceSource *QfPlatformUtilities::getFile( const QString &prefix, const QString &filePath, const QString &mimeType, QObject *parent )
 {
+  return getFile( prefix, filePath, QStringList { mimeType }, parent );
+}
+
+QfResourceSource *QfPlatformUtilities::getFile( const QString &prefix, const QString &filePath, const QStringList &mimeTypes, QObject *parent )
+{
+  // Wildcard mime types are not understood by the file dialog, expanding them into the matching file patterns
+  QStringList patterns;
+  if ( !mimeTypes.contains( QStringLiteral( "*/*" ) ) )
+  {
+    const QList<QMimeType> allMimeTypes = QMimeDatabase().allMimeTypes();
+    for ( const QString &mimeType : mimeTypes )
+    {
+      const bool isWildcard = mimeType.endsWith( QLatin1String( "/*" ) );
+      const QString mimeTypePrefix = mimeType.chopped( 1 );
+      for ( const QMimeType &type : allMimeTypes )
+      {
+        if ( ( isWildcard && type.name().startsWith( mimeTypePrefix ) ) || type.name() == mimeType )
+        {
+          patterns << type.globPatterns();
+        }
+      }
+    }
+    patterns.removeDuplicates();
+  }
+
   QFileDialog fileDialog( nullptr, tr( "Select File" ), prefix );
-  fileDialog.setMimeTypeFilters( { mimeType } );
+  if ( !patterns.isEmpty() )
+  {
+    fileDialog.setNameFilter( QStringLiteral( "%1 (%2)" ).arg( tr( "Supported Files" ), patterns.join( QLatin1Char( ' ' ) ) ) );
+  }
   if ( fileDialog.exec() )
   {
     return createResource( prefix, filePath, fileDialog.selectedFiles().at( 0 ), parent );

@@ -1,16 +1,21 @@
 set(QFIELD_APP_QML_FILES
     QfAbout.qml
+    QfAppSettings.qml
     QfBadLayerItem.qml
     QfChangelog.qml
     QfCoordinateLocator.qml
+    QfCloudAttachmentsHistory.qml
     QfCloudDangerZone.qml
     QfCloudDeltaHistory.qml
     QfCloudLogin.qml
     QfCloudPackageLayersFeedback.qml
+    QfCloudPasswordField.qml
+    QfCloudPasswordReset.qml
     QfCloudPendingChanges.qml
     QfCloudPopup.qml
     QfCloudProjectDetails.qml
     QfCloudProjectFilter.qml
+    QfCloudRegister.qml
     QfCloudScreen.qml
     QfCloudStatusBanner.qml
     QfDashBoard.qml
@@ -24,7 +29,6 @@ set(QFIELD_APP_QML_FILES
     QfPluginManagerSettings.qml
     QfPositioningSettings.qml
     QfScreenLocker.qml
-    QfSettings.qml
     QfSketcher.qml
     QfTrackerSettings.qml
     QfWelcomeScreen.qml

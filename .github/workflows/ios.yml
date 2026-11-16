@@ -22,7 +22,7 @@ jobs:
     name: build (ios)
     runs-on: macos-15
     env:
-      DEPLOYMENT_TARGET: '16.0'
+      DEPLOYMENT_TARGET: '17.0'
       BUILD_TYPE: 'Release'
       TRIPLET: 'arm64-ios'
       IOS_SDK: '26.2'
@@ -47,7 +47,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY_DEPLOYMENT_CERTIFICATES }}
 
       - name: 💎 Setup ruby
-        uses: ruby/setup-ruby@v1.321.0
+        uses: ruby/setup-ruby@v1.336.0
         if: ${{ env.SENTRY_AUTH_TOKEN != '' }}
         with:
           ruby-version: '3.4' # Not needed with a .ruby-version file
@@ -82,7 +82,7 @@ jobs:
           cmakeVersion: 3.31.6
 
       - name: 🐍 Setup Python
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v7.1.0
         if: ${{ env.SENTRY_AUTH_TOKEN != '' }}
         with:
           python-version: '3.12.3'
@@ -180,7 +180,7 @@ jobs:
       - name: 📦 Package
         if: ${{ env.SENTRY_AUTH_TOKEN != '' }}
         env:
-          IPHONEOS_DEPLOYMENT_TARGET: '16.0'
+          IPHONEOS_DEPLOYMENT_TARGET: '17.0'
         run: |
           cmake --build  /Users/runner/builddir --target bundle --config Release
 

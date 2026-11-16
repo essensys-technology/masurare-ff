@@ -86,7 +86,11 @@ void QfGeofencer::checkWithin()
   if ( mActive && !mAreas.isEmpty() && !mPosition.isEmpty() )
   {
     std::unique_ptr<QgsGeometryEngine> geometryEngine;
+#if _QGIS_VERSION_INT >= 40300
+    geometryEngine = QgsGeometry::createGeometryEngine( &mPosition );
+#else
     geometryEngine.reset( QgsGeometry::createGeometryEngine( &mPosition ) );
+#endif
     for ( int i = 0; i < mAreas.size(); i++ )
     {
       if ( geometryEngine->within( mAreas.at( i ).feature.geometry().get() ) )
@@ -107,7 +111,62 @@ void QfGeofencer::checkWithin()
     mIsWithinIndex = isWithinIndex;
 
     emit isWithinChanged();
+
+    processAudio();
   }
+}
+
+void QfGeofencer::processAudio()
+{
+#ifdef WITH_TEXTTOSPEECH
+  if ( !mTextToSpeech )
+  {
+    mTextToSpeech = std::make_unique<QTextToSpeech>();
+    mTextToSpeech->setRate( 0.25 );
+    mTextToSpeech->setLocale( QLocale() );
+
+    const QList<QVoice> voices = mTextToSpeech->findVoices( QVoice::Male );
+    if ( !voices.isEmpty() )
+    {
+      mTextToSpeech->setVoice( voices.first() );
+    }
+  }
+
+  if ( isWithin() )
+  {
+    switch ( mBehavior )
+    {
+      case AlertWhenInsideGeofencedArea:
+        mTextToSpeech->say( QStringLiteral( "Position has trespassed into \"%1\"." ).arg( isWithinAreaName() ) );
+        break;
+
+      case InformWhenEnteringLeavingGeofencedArea:
+        mTextToSpeech->say( QStringLiteral( "Position entered into \"%1\"." ).arg( isWithinAreaName() ) );
+        break;
+
+      case AlertWhenOutsideGeofencedArea:
+        mTextToSpeech->stop();
+        break;
+    }
+  }
+  else
+  {
+    switch ( mBehavior )
+    {
+      case AlertWhenInsideGeofencedArea:
+        mTextToSpeech->stop();
+        break;
+
+      case InformWhenEnteringLeavingGeofencedArea:
+        mTextToSpeech->say( QStringLiteral( "Position left from \"%1\"." ).arg( lastWithinAreaName() ) );
+        break;
+
+      case AlertWhenOutsideGeofencedArea:
+        mTextToSpeech->say( QStringLiteral( "Position outside areas after leaving \"%1\"." ).arg( lastWithinAreaName() ) );
+        break;
+    }
+  }
+#endif
 }
 
 void QfGeofencer::checkAlert()

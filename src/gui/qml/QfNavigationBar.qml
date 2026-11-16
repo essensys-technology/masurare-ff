@@ -21,7 +21,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Rectangle {
   id: toolBar
@@ -351,6 +351,7 @@ Rectangle {
 
     property bool supportsEditing: false
     property bool isCreatedCloudFeature: false
+    property bool isMarkupItem: false
 
     anchors.right: menuButton.left
     anchors.top: parent.top
@@ -379,7 +380,8 @@ Rectangle {
 
       function onFocusedItemChanged() {
         editButton.supportsEditing = selection.focusedLayer && selection.focusedLayer.supportsEditing;
-        editGeomButton.supportsGeometryEditing = selection.focusedLayer && selection.focusedLayer.supportsEditing && !selection.focusedGeometry.isNull && (selection.focusedLayer.geometryType() !== Qgis.GeometryType.Point || WkbTypes.isMultiType(selection.focusedLayer.wkbType()));
+        editButton.isMarkupItem = selection.focusedLayer && selection.focusedLayer.customProperty('QField/is_markup_collection') === true;
+        editGeomButton.supportsGeometryEditing = !editButton.isMarkupItem && selection.focusedLayer && selection.focusedLayer.supportsEditing && !selection.focusedGeometry.isNull && (selection.focusedLayer.geometryType() !== Qgis.GeometryType.Point || WkbTypes.isMultiType(selection.focusedLayer.wkbType()));
       }
       function onFocusedFeatureChanged() {
         if (QfCloudUtils.getProjectId(qgisProject.fileName) !== '') {
@@ -526,9 +528,10 @@ Rectangle {
       text: qsTr('Print Atlas Feature(s) to PDF')
       icon.source: QfTheme.getThemeVectorIcon("ic_print_black_24dp")
       enabled: toolBar.model && toolBar.model.selectedCount > 0 && QfLayerUtils.isAtlasCoverageLayer(toolBar.model.selectedLayer)
+      visible: !editButton.isMarkupItem
 
       font: QfTheme.defaultFont
-      height: 48
+      height: !editButton.isMarkupItem ? 48 : 0
       leftPadding: QfTheme.menuItemLeftPadding
 
       onTriggered: {
@@ -538,7 +541,7 @@ Rectangle {
     }
 
     MenuSeparator {
-      enabled: mergeSelectedFeaturesBtn.visible || moveSelectedFeaturesBtn.visible || duplicateSelectedFeaturesBtn.visible || deleteSelectedFeaturesBtn.visible
+      enabled: !editButton.isMarkupItem && (mergeSelectedFeaturesBtn.visible || moveSelectedFeaturesBtn.visible || duplicateSelectedFeaturesBtn.visible || deleteSelectedFeaturesBtn.visible)
       visible: enabled
       width: parent.width
       height: enabled ? undefined : 0
@@ -547,7 +550,8 @@ Rectangle {
     MenuItem {
       id: mergeSelectedFeaturesBtn
       text: qsTr('Merge Selected Features')
-      height: 48
+      visible: !editButton.isMarkupItem
+      height: !editButton.isMarkupItem ? 48 : 0
       icon.source: QfTheme.getThemeVectorIcon("ic_merge_features_white_24dp")
       enabled: toolBar.model && toolBar.model.canMergeSelection && toolBar.model.selectedCount > 1 && projectInfo.editRights
 
@@ -599,12 +603,16 @@ Rectangle {
 
     MenuSeparator {
       width: parent.width
+      enabled: !editButton.isMarkupItem
+      visible: enabled
+      height: enabled ? undefined : 0
     }
 
     MenuItem {
       id: processingSelectedFeaturesBtn
       text: qsTr('Process Selected Feature(s)')
-      height: 48
+      visible: !editButton.isMarkupItem
+      height: !editButton.isMarkupItem ? 48 : 0
       icon.source: QfTheme.getThemeVectorIcon("ic_processing_black_24dp")
       enabled: toolBar.model && toolBar.model.canProcessSelection && projectInfo.editRights
 
@@ -689,6 +697,7 @@ Rectangle {
       }
 
       QfToolButton {
+        enabled: !editButton.isMarkupItem && QfLayerUtils.isAtlasCoverageLayer(selection.focusedLayer)
         anchors.verticalCenter: parent.verticalCenter
         height: QfTheme.toolButtonSize
         width: QfTheme.toolButtonSize
@@ -696,7 +705,6 @@ Rectangle {
         iconSource: QfTheme.getThemeVectorIcon("ic_print_black_24dp")
         iconColor: enabled ? QfTheme.mainTextColor : QfTheme.mainTextDisabledColor
         bgcolor: enabled && hovered ? parent.hoveredColor : "#00ffffff"
-        enabled: QfLayerUtils.isAtlasCoverageLayer(selection.focusedLayer)
 
         onClicked: {
           featureMenu.close();
@@ -759,7 +767,7 @@ Rectangle {
       id: processFeatureButton
       text: qsTr('Process Feature')
       icon.source: QfTheme.getThemeVectorIcon("ic_processing_black_24dp")
-      enabled: ((projectInfo.editRights || editButton.isCreatedCloudFeature) && (!selection.focusedLayer || !featureForm.model.featureModel.geometryEditingLocked))
+      enabled: ((projectInfo.editRights || editButton.isCreatedCloudFeature) && !editButton.isMarkupItem && (!selection.focusedLayer || !featureForm.model.featureModel.geometryEditingLocked))
       visible: enabled
 
       font: QfTheme.defaultFont
@@ -804,10 +812,11 @@ Rectangle {
       // allow only rotation for line or polygon or multipoint
       property bool isGeometryCompatible: {
         const vl = selection.focusedLayer;
-        if (vl !== null) {
-          if (vl.geometryType() === Qgis.GeometryType.Line || vl.geometryType() === Qgis.GeometryType.Polygon) {
-            return true;
-          } else if (vl.geometryType() === Qgis.GeometryType.Point && vl.wkbType() !== Qgis.WkbType.Point && vl.wkbType() !== Qgis.WkbType.PointZ && vl.wkbType() !== Qgis.WkbType.PointM && vl.wkbType() !== Qgis.WkbType.PointZM && vl.wkbType() !== Qgis.WkbType.Point25D) {
+        const geometryType = vl ? vl.geometryType() : Qgis.GeometryType.Null;
+        if (geometryType === Qgis.GeometryType.Line || geometryType === Qgis.GeometryType.Polygon || geometryType === Qgis.GeometryType.Unknown) {
+          return true;
+        } else if (geometryType === Qgis.GeometryType.Point && vl) {
+          if (vl.wkbType() !== Qgis.WkbType.Point && vl.wkbType() !== Qgis.WkbType.PointZ && vl.wkbType() !== Qgis.WkbType.PointM && vl.wkbType() !== Qgis.WkbType.PointZM && vl.wkbType() !== Qgis.WkbType.Point25D) {
             return true;
           }
         }
@@ -827,7 +836,7 @@ Rectangle {
       id: transferFeatureAttributesBtn
       text: qsTr('Update Attributes from Feature')
       icon.source: QfTheme.getThemeVectorIcon("ic_transfer_into_black_24dp")
-      enabled: (projectInfo.insertRights && (!selection.focusedLayer || !featureForm.model.featureModel.attributeEditingLocked))
+      enabled: (projectInfo.insertRights && !editButton.isMarkupItem && (!selection.focusedLayer || !featureForm.model.featureModel.attributeEditingLocked))
       visible: enabled
 
       font: QfTheme.defaultFont
@@ -912,17 +921,15 @@ Rectangle {
       interval: 500
       repeat: false
       onTriggered: {
-        var ids = [];
+        let ids = [];
         if (toolBar.state === "Indication") {
-          for (var i = 0; i < model.selectedFeatures.length; i++) {
+          for (let i = 0; i < model.selectedFeatures.length; i++) {
             ids.push(model.selectedFeatures[i].id);
           }
         } else {
           ids.push(selection.focusedFeature.id);
         }
-        if (iface.printAtlasFeatures(printName, ids)) {
-          displayToast(qsTr('Atlas feature(s) successfully printed and placed in your project folder'));
-        }
+        iface.printAtlasFeatures(printName, ids);
       }
     }
   }

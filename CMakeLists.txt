@@ -2,7 +2,7 @@
 # CMake settings
 cmake_minimum_required(VERSION 3.19)
 
-set(VCPKG_TAG 99e82d9c9f0b281ec11fba48cc8434574a2b6e66)
+set(VCPKG_TAG 54b1f76973ca73e8b31297734f19bb90ae58374a)
 
 set(QML_IMPORT_PATH ${CMAKE_BINARY_DIR}/qml CACHE PATH "QML import path for Qt Creator to detect custom modules properly")
 
@@ -30,6 +30,7 @@ set(WITH_APP ON CACHE BOOL "Build the QField application")
 set(WITH_CORE ON CACHE BOOL "Build the qfield_core library")
 set(WITH_GUI ${WITH_APP} CACHE BOOL "Build the qfield_gui library and the org.qfield.gui QML module")
 set(WITH_3D ${WITH_APP} CACHE BOOL "Build the qfield_3d library and the org.qfield.3d QML module")
+set(WITH_VALHALLA OFF CACHE BOOL "Build with the valhalla routing engine")
 
 if(NOT WITH_CORE AND (WITH_APP OR WITH_GUI OR WITH_3D))
   message(FATAL_ERROR "WITH_APP, WITH_GUI and WITH_3D all require WITH_CORE.")
@@ -106,15 +107,10 @@ if(WITH_CCACHE)
   include(ccache)
 endif()
 
-set(WITH_BLUETOOTH
-    ON
-    CACHE BOOL "Enable bluetooth support")
-set(WITH_SERIALPORT
-    ON
-    CACHE BOOL "Enable serial port support")
-set(WITH_NFC
-    ON
-    CACHE BOOL "Enable NFC support")
+set(WITH_BLUETOOTH ON CACHE BOOL "Enable bluetooth support")
+set(WITH_SERIALPORT ON CACHE BOOL "Enable serial port support")
+set(WITH_NFC ON CACHE BOOL "Enable NFC support")
+set(WITH_TEXTTOSPEECH ON CACHE BOOL "Enabled text to speech support")
 
 set(SENTRY_DSN "" CACHE STRING "The sentry dsn for logging purpose. If not set, sentry will be disabled")
 set(SENTRY_ENV "" CACHE STRING "The sentry environment for logging purpose.")
@@ -162,46 +158,32 @@ if (ANDROID)
   list(APPEND CMAKE_FIND_ROOT_PATH /)
 
   set(ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_BINARY_DIR}/android-template)
-  set(ANDROID_DRAWABLE_DENSITIES mdpi hdpi xhdpi xxhdpi xxxhdpi)
 
-  # Launcher icons only matter for the packaged application.
   if (WITH_APP)
-  foreach(DENSITY ${ANDROID_DRAWABLE_DENSITIES})
-    set(DST_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/res/drawable-${DENSITY}")
+    set(DST_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/res/drawable")
     file(MAKE_DIRECTORY "${DST_DIR}")
 
-    if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/android/drawable-${DENSITY}/${APP_ICON}.png")
-      message(STATUS "Using custom icon [${DENSITY}]: ${APP_ICON_PATH}/android/drawable-${DENSITY}/${APP_ICON}.png")
-      file(COPY
-            "${APP_ICON_PATH}/android/drawable-${DENSITY}/${APP_ICON}.png"
-            DESTINATION "${DST_DIR}"
-          )
+    if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}.xml")
+      message(STATUS "Using custom icon: ${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}.xml")
+      file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_background.xml" DESTINATION "${DST_DIR}")
+      file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_foreground.xml" DESTINATION "${DST_DIR}")
+      file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_monochrome.xml" DESTINATION "${DST_DIR}")
     else()
-      message(STATUS "Using default icon [${DENSITY}]: qfield_logo.png -> ${APP_ICON}.png")
-      file(COPY
-            "${CMAKE_SOURCE_DIR}/platform/android/res/drawable-${DENSITY}/${APP_ICON}.png"
-            DESTINATION "${DST_DIR}"
-          )
+      message(STATUS "Using default icon: ${APP_ICON}.xml")
+      file(COPY "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/launcher_${APP_ICON}.xml" DESTINATION "${DST_DIR}")
+      file(COPY "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/launcher_${APP_ICON}_background.xml" DESTINATION "${DST_DIR}")
+      file(COPY "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/launcher_${APP_ICON}_foreground.xml" DESTINATION "${DST_DIR}")
+      file(COPY "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/launcher_${APP_ICON}_monochrome.xml" DESTINATION "${DST_DIR}")
     endif()
-  endforeach()
 
-  set(DST_DRAWABLE_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/res/drawable")
-  file(MAKE_DIRECTORY "${DST_DRAWABLE_DIR}")
-
-  if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml")
-    message(STATUS "Using custom vector drawable: ${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml")
-    file(COPY
-        "${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml"
-        DESTINATION "${DST_DRAWABLE_DIR}"
-      )
-  else()
-    message(STATUS "Using default vector drawable: qfield_logo_vector.xml -> ${APP_ICON}_vector.xml")
-    file(COPY
-        "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/${APP_ICON}_vector.xml"
-        DESTINATION "${DST_DRAWABLE_DIR}"
-      )
+    if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml")
+      message(STATUS "Using custom vector drawable: ${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml")
+      file(COPY "${APP_ICON_PATH}/android/drawable/${APP_ICON}_vector.xml" DESTINATION "${DST_DIR}")
+    else()
+      message(STATUS "Using default vector drawable: ${APP_ICON}_vector.xml")
+      file(COPY "${CMAKE_SOURCE_DIR}/platform/android/res/drawable/${APP_ICON}_vector.xml" DESTINATION "${DST_DIR}")
+    endif()
   endif()
-  endif() # WITH_APP
 
 endif()
 
@@ -225,6 +207,10 @@ endif()
 
 if(WITH_3D)
   find_package(Qt6 COMPONENTS Quick3D REQUIRED)
+endif()
+
+if(WITH_VALHALLA)
+  find_package(Valhalla REQUIRED)
 endif()
 
 if(ANDROID)
@@ -324,6 +310,9 @@ if(WITH_CORE AND NOT CMAKE_GENERATOR STREQUAL "Xcode")
   endif()
   if(WITH_NFC)
     list(APPEND QFIELD_EXPORTED_QT_COMPONENTS Nfc)
+  endif()
+  if(WITH_TEXTTOSPEECH)
+    list(APPEND QFIELD_EXPORTED_QT_COMPONENTS TextToSpeech)
   endif()
   if(WITH_GUI)
     list(APPEND QFIELD_EXPORTED_QT_COMPONENTS WebView)

@@ -22,14 +22,20 @@
 #include <qgsattributeeditorcontainer.h>
 #include <qgsattributeeditorfield.h>
 #include <qgsattributeeditorrelation.h>
+#include <qgscolorutils.h>
+#include <qgsfileutils.h>
 #include <qgsmaplayer.h>
 #include <qgsprojectdisplaysettings.h>
+#include <qgsprovidermetadata.h>
+#include <qgsproviderregistry.h>
 #include <qgsrasterlayer.h>
 #include <qgsrelationcontext.h>
 #include <qgsvectorfilewriter.h>
 #include <qgsvectorlayer.h>
 #include <qgsvectortilelayer.h>
 #include <qgsvectortileutils.h>
+
+#include <algorithm>
 
 QfProjectUtils::QfProjectUtils( QObject *parent )
   : QObject( parent )
@@ -83,6 +89,72 @@ Qgis::TransactionMode QfProjectUtils::transactionMode( QgsProject *project )
   return project->transactionMode();
 }
 
+QList<QColor> QfProjectUtils::colorPresets( QgsProject *project )
+{
+  QStringList colorStrings;
+  if ( project )
+  {
+    colorStrings = QgsProject::instance()->readListEntry( QStringLiteral( "Palette" ), QStringLiteral( "/Colors" ) );
+  }
+
+  if ( colorStrings.isEmpty() )
+  {
+    colorStrings << QStringLiteral( "228,26,28" )
+                 << QStringLiteral( "55,126,184" )
+                 << QStringLiteral( "77,175,74" )
+                 << QStringLiteral( "152,78,163" )
+                 << QStringLiteral( "255,127,0" );
+  }
+
+  QList<QColor> colors;
+  for ( const QString &colorString : std::as_const( colorStrings ) )
+  {
+    colors << QgsColorUtils::colorFromString( colorString );
+  }
+  return colors;
+}
+
+bool QfProjectUtils::isLayerDataset( QgsProject *project, const QString &path )
+{
+  if ( !project || path.isEmpty() )
+  {
+    return false;
+  }
+
+  const QString canonicalPath = QFileInfo( path ).canonicalFilePath();
+  if ( canonicalPath.isEmpty() )
+  {
+    return false;
+  }
+
+  const QMap<QString, QgsMapLayer *> layers = project->mapLayers();
+  for ( QgsMapLayer *layer : layers )
+  {
+    QgsProviderMetadata *metadata = QgsProviderRegistry::instance()->providerMetadata( layer->providerType() );
+    if ( !metadata )
+    {
+      continue;
+    }
+
+    const QString layerPath = metadata->decodeUri( layer->source() ).value( QStringLiteral( "path" ) ).toString();
+    if ( layerPath.isEmpty() )
+    {
+      continue;
+    }
+
+    QSet<QString> datasetFiles = QgsFileUtils::sidecarFilesForPath( layerPath );
+    // Also exclude wal and shm files from SQLite-based datasets such as GeoPackage, spatialite, and mbtiles
+    datasetFiles << layerPath << QStringLiteral( "%1-wal" ).arg( layerPath ) << QStringLiteral( "%1-shm" ).arg( layerPath );
+
+    if ( std::any_of( datasetFiles.cbegin(), datasetFiles.cend(), [&canonicalPath]( const QString &datasetFile ) { return QFileInfo( datasetFile ).canonicalFilePath() == canonicalPath; } ) )
+    {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 QString QfProjectUtils::title( QgsProject *project )
 {
   if ( !project )
@@ -95,7 +167,7 @@ QString QfProjectUtils::title( QgsProject *project )
 QString QfProjectUtils::createProject( const QVariantMap &options, const QfGnssPositionInformation &positionInformation )
 {
   QString projectTitle = options.value( QStringLiteral( "title" ), tr( "Created Project" ) ).toString();
-  QString projectFilename = projectTitle.normalized( QString::NormalizationForm_KD );
+  QString projectFilename = QgsStringUtils::unaccent( projectTitle );
   projectFilename.replace( QRegularExpression( "[^A-Za-z0-9_]" ), QStringLiteral( "_" ) );
 
   QDir createdProjectsDir( QStringLiteral( "%1/Created Projects/" ).arg( QfPlatformUtilities::instance()->applicationDirectory() ) );
@@ -362,6 +434,7 @@ QString QfProjectUtils::createProject( const QVariantMap &options, const QfGnssP
         notesFormConfig.setLayout( Qgis::AttributeFormLayout::DragAndDrop );
         QgsAttributeEditorContainer *root = notesFormConfig.invisibleRootContainer();
         QgsAttributeEditorRelation *relationElement = new QgsAttributeEditorRelation( QStringLiteral( "notes_attachments_relation_%1" ).arg( notesLayer->id() ), root );
+        relationElement->setLabel( tr( "Attachments" ) );
         root->addChildElement( relationElement );
         const QStringList orderedFields = {
           QStringLiteral( "color" ),

@@ -63,6 +63,19 @@ class QfProjectUtils : public QObject
     Q_INVOKABLE static Qgis::TransactionMode transactionMode( QgsProject *project = nullptr );
 
     /**
+     * Returns the color presets for a given \a project.
+     */
+    Q_INVOKABLE static QList<QColor> colorPresets( QgsProject *project = nullptr );
+
+    /**
+     * Returns TRUE if a given \a path is the dataset of one of the \a project layers, or a file
+     * belonging to that dataset such as its sidecar files and SQLite write-ahead log files.
+     * The layer datasets are identified by decoding the layer sources through their
+     * provider metadata and comparing the resulting path value.
+     */
+    Q_INVOKABLE static bool isLayerDataset( QgsProject *project, const QString &path );
+
+    /**
      * Returns the \a project title.
      */
     Q_INVOKABLE static QString title( QgsProject *project = nullptr );

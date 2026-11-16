@@ -3101,6 +3101,10 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
         <source>Failed to delete file: %1 - %2</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Failed to delete sidecar file: %1 - %2</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfAbout</name>
@@ -3261,6 +3265,517 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
     <message>
         <source>Used a ballpark transform from %1 to %2</source>
         <translation>Gebruikt een ruwe schatting-transformatie van %1 naar %2</translation>
+    </message>
+</context>
+<context>
+    <name>QfAppSettings</name>
+    <message>
+        <source>Show scale bar</source>
+        <translation>Toon schaalbalk</translation>
+    </message>
+    <message>
+        <source>Show zoom controls</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show bookmarks</source>
+        <translation>Toon bladwijzers</translation>
+    </message>
+    <message>
+        <source>When switched on, user&apos;s saved and currently opened project bookmarks will be displayed on the map.</source>
+        <translation>Indien ingeschakeld, worden de door de gebruiker opgeslagen en momenteel geopende project bladwijzers op de kaart weergegeven.</translation>
+    </message>
+    <message>
+        <source>Enable map rotation</source>
+        <translation>Kaartrotatie inschakelen</translation>
+    </message>
+    <message>
+        <source>When switched on, the map can be rotated by the user.</source>
+        <translation>Indien ingeschakeld kan de kaart door de gebruiker worden geroteerd.</translation>
+    </message>
+    <message>
+        <source>Show digitizing information</source>
+        <translation>Toon Digitaliseringsinformatie</translation>
+    </message>
+    <message>
+        <source>When switched on, coordinate information, such as latitude and longitude, is overlayed onto the map while digitizing new features or using the measure tool.</source>
+        <translation>Wanneer ingeschakeld, wordt coördinaatinformatie, zoals lengte- en breedtegraad, over de kaart heen gelegd terwijl nieuwe objecten worden gedigitaliseerd of het meetgereedschap wordt gebruikt.</translation>
+    </message>
+    <message>
+        <source>Use volume keys to digitize</source>
+        <translation>Gebruik de volume knoppen om te digitaliseren </translation>
+    </message>
+    <message>
+        <source>If enabled, pressing the device&apos;s volume up key will add a vertex while pressing volume down key will remove the last entered vertex during digitizing sessions.</source>
+        <translation>Indien ingeschakeld, voegt de volume hoger knop een vertex toe en verwijdert de volume lager knop de laatst toegevoegde vertex van de digitaliseringssessie.</translation>
+    </message>
+    <message>
+        <source>Allow finger tap on canvas to add vertices</source>
+        <translation>Tik met je vinger op het scherm om hoekpunten toe te voegen</translation>
+    </message>
+    <message>
+        <source>When enabled, tapping on the map canvas with a finger moves the coordinate cursor while double tapping adds a vertex.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Consider mouse as a touchscreen device</source>
+        <translation>Beschouw de muis als een touchscreen-apparaat</translation>
+    </message>
+    <message>
+        <source>When enabled, the mouse will act as if it was a finger. When disabled, the mouse will match the stylus behavior.</source>
+        <translation>Indien ingeschakeld gedraagt de muis zich als een vinger. Als deze optie is uitgeschakeld, gedraagt de muis zich als een stylus.</translation>
+    </message>
+    <message>
+        <source>Maximize feature form</source>
+        <translation>Maximaliseer objectformulier</translation>
+    </message>
+    <message>
+        <source>Open feature form for single feature identification</source>
+        <translation>Open attribuut formulier bij identificatie van één object</translation>
+    </message>
+    <message>
+        <source>When enabled, the feature form will open automatically if only one feature is identified, skipping the feature list.</source>
+        <translation>Indien ingeschakeld, opent het attribuut formulier automatisch wanneer slechts één object geïdentificeerd is en slaat zo de weergave van de objectenlijst over.</translation>
+    </message>
+    <message>
+        <source>Fixed scale navigation</source>
+        <translation>Vaste schaal navigatie</translation>
+    </message>
+    <message>
+        <source>When fixed scale navigation is active, focusing on a search result will pan to the feature. With fixed scale navigation disabled it will pan and zoom to the feature.</source>
+        <translation>Wanneer navigatie op vaste schaal actief is, wordt bij de focus op een zoekresultaat naar het object geschoven. Als navigatie op vaste schaal is uitgeschakeld, wordt naar het object geschoven en gezoomd.</translation>
+    </message>
+    <message>
+        <source>Auto-zoom to identified feature(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When enabled, the map will automatically zoom to show all identified features, as well as the individual selected feature when the feature form is opened.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Render preview content around visible map canvas</source>
+        <translation>Teken preview rondom het zichtbare canvas</translation>
+    </message>
+    <message>
+        <source>If enabled, areas just outside of the visible map canvas extent will be partially rendered to allow preview when zooming and panning.</source>
+        <translation>Indien ingeschakeld, worden gebieden net buiten het zichtbare canvas gedeeltelijk ingetekend voor een preview tijdens zoomen en verschuiven.</translation>
+    </message>
+    <message>
+        <source>Enable auto-save mode</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled, newly-added features are stored as soon as it has having a valid geometry and the constraints are fulfilled and edited atributes are commited immediately.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use native camera</source>
+        <translation>Gebruik ingebouwde camera</translation>
+    </message>
+    <message>
+        <source>If enabled, the native camera provided by the operating system will be used.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send anonymized metrics</source>
+        <translation>Geanonimiseerde statistieken verzenden</translation>
+    </message>
+    <message>
+        <source>If enabled, anonymized metrics will be collected and sent to help improve the user experience for everyone.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Algemeen</translation>
+    </message>
+    <message>
+        <source>Positioning</source>
+        <translation>Positie</translation>
+    </message>
+    <message>
+        <source>Variables</source>
+        <translation>Variabelen</translation>
+    </message>
+    <message>
+        <source>Map Canvas</source>
+        <translation>Kaartbeeld</translation>
+    </message>
+    <message>
+        <source>Map canvas rendering quality:</source>
+        <translation>Weergavekwaliteit van kaart:</translation>
+    </message>
+    <message>
+        <source>Best quality</source>
+        <translation>Beste kwaliteit </translation>
+    </message>
+    <message>
+        <source>Lower quality</source>
+        <translation>Mindere kwaliteit </translation>
+    </message>
+    <message>
+        <source>Lowest quality</source>
+        <translation>Laagste kwaliteit </translation>
+    </message>
+    <message>
+        <source>A lower quality trades rendering precision in favor of lower memory usage and rendering time.</source>
+        <translation>Een lagere kwaliteit verruilt rendering kwaliteit voor een lager geheugengebruik en kortere rendering tijd.</translation>
+    </message>
+    <message>
+        <source>Digitizing &amp; Editing</source>
+        <translation>Digitaliseren en Bewerken</translation>
+    </message>
+    <message>
+        <source>User Interface</source>
+        <translation>Gebruikersinterface</translation>
+    </message>
+    <message>
+        <source>Customize search bar</source>
+        <translation>Pas de zoekbalk aan</translation>
+    </message>
+    <message>
+        <source>Manage plugins</source>
+        <translation>Beheer Plugins</translation>
+    </message>
+    <message>
+        <source>Dim screen when idling</source>
+        <translation>Dim scherm bij inactiviteit</translation>
+    </message>
+    <message>
+        <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
+        <translation>Tijd voordat het scherm wordt gedimd om de batterij te sparen</translation>
+    </message>
+    <message>
+        <source>Appearance:</source>
+        <translation>Thema:</translation>
+    </message>
+    <message>
+        <source>Follow system appearance</source>
+        <translation>gebruik systeeminstelling</translation>
+    </message>
+    <message>
+        <source>Light theme</source>
+        <translation>Licht</translation>
+    </message>
+    <message>
+        <source>Dark theme</source>
+        <translation>Donker</translation>
+    </message>
+    <message>
+        <source>Font size:</source>
+        <translation>Lettertype grootte:</translation>
+    </message>
+    <message>
+        <source>Tiny</source>
+        <translation>Klein</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Groot</translation>
+    </message>
+    <message>
+        <source>Extra-large</source>
+        <translation>Extra groot</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Taal:</translation>
+    </message>
+    <message>
+        <source>system</source>
+        <translation>systeem</translation>
+    </message>
+    <message>
+        <source>Found a missing or incomplete language? %1Join the translator community.%2</source>
+        <translation>Een ontbrekende of onvolledige taal gevonden? %1Word lid van de vertalersgemeenschap.%2</translation>
+    </message>
+    <message>
+        <source>Network</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Available authentication configurations:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear authentication cache</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Authentication cache cleared</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enable proxy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g. proxy.example.com</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>Poort</translation>
+    </message>
+    <message>
+        <source>e.g. 8888</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Gebruikersnaam</translation>
+    </message>
+    <message>
+        <source>Optional</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Wachtwoord</translation>
+    </message>
+    <message>
+        <source>URLs excluded from proxy (comma-separated)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>e.g. localhost, 192.168.*</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Configure a network proxy to route QField&apos;s traffic through a proxy server. Useful for corporate networks and VPNs.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Advanced</source>
+        <translation>Geavanceerd</translation>
+    </message>
+    <message>
+        <source>Positioning Device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Positioning device in use:</source>
+        <translation>Positionerings apparaat in gebruik:</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Toevoegen</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Wijzigen</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Connected to %1</source>
+        <translation>Verbonden met %1</translation>
+    </message>
+    <message>
+        <source>Connect to %1</source>
+        <translation>Verbind met %1</translation>
+    </message>
+    <message>
+        <source>Connecting to %1</source>
+        <translation>Aan het verbinden met %1</translation>
+    </message>
+    <message>
+        <source>Enable NTRIP corrections</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP client disconnected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP client connecting</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP client connected</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please provide valid NTRIP settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show position information</source>
+        <translation>Toon positie informatie</translation>
+    </message>
+    <message>
+        <source>Behavior when locked to position:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Follow position only</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Follow position and compass orientation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Follow position and movement direction</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When the map canvas is following or locked to position, it can also rotate to match compass orientation or movement direction.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Measure (M) value attached to vertices:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Timestamp (seconds since epoch)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ground speed</source>
+        <translation>Grondsnelheid</translation>
+    </message>
+    <message>
+        <source>Bearing</source>
+        <translation>Koers</translation>
+    </message>
+    <message>
+        <source>Horizontal accuracy</source>
+        <translation>Horizontale nauwkeurigheid</translation>
+    </message>
+    <message>
+        <source>Vertical accuracy</source>
+        <translation>Verticale nauwkeurigheid</translation>
+    </message>
+    <message>
+        <source>PDOP</source>
+        <translation>PDOP</translation>
+    </message>
+    <message>
+        <source>HDOP</source>
+        <translation>HDOP</translation>
+    </message>
+    <message>
+        <source>VDOP</source>
+        <translation>VDOP</translation>
+    </message>
+    <message>
+        <source>When digitizing features with the coordinate cursor locked to the current position, the measurement type selected above will be added to the geometry provided it has an M dimension.</source>
+        <translation>Als de coördinaatcursor is ingeschakeld bij het digitaliseren van objecten wordt het hierboven geselecteerde meettype toegevoegd aan de geometrie indien deze een M dimensie bevat.</translation>
+    </message>
+    <message>
+        <source>Activate accuracy indicator</source>
+        <translation>Activeer nauwkeurigheidsindicator</translation>
+    </message>
+    <message>
+        <source>Bad accuracy threshold</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>m</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Excellent accuracy threshold</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enforce accuracy requirement</source>
+        <translation>Nauwkeurigheidscontrole inschakelen</translation>
+    </message>
+    <message>
+        <source>When the accuracy indicator is enabled, a badge is attached to the location button and colored &lt;span %1&gt;red&lt;/span&gt; if the accuracy value is worse than &lt;i&gt;bad&lt;/i&gt;, &lt;span %2&gt;yellow&lt;/span&gt; if it falls short of &lt;i&gt;excellent&lt;/i&gt;, or &lt;span %3&gt;green&lt;/span&gt;.&lt;br&gt;&lt;br&gt;In addition, an accuracy restriction mode can be toggled on, which restricts vertex addition when locked to coordinate cursor to positions with an accuracy value worse than the bad threshold.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enable averaged positioning requirement</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Minimum positions count</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Automatically end collection when minimum number is met</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When enabled, digitizing vertices with a cursor locked to position will only accepted an averaged position from a minimum number of collected positions. Digitizing using averaged positions is done by pressing and holding the add vertex button, which will collect positions until the press is released. Accuracy requirement settings are respected when enabled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Elevation Adjustment</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Antenna height compensation</source>
+        <translation>Antenne-hoogtecompensatie</translation>
+    </message>
+    <message>
+        <source>Antenna height</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This value will correct the Z values recorded from the positioning device. If a value of 1.6 is entered, the system will automatically subtract 1.6 from each recorded value. Make sure to insert the effective antenna height, i.e. pole length + antenna phase center offset.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip altitude correction</source>
+        <translation>Sla hoogtecorrectie over</translation>
+    </message>
+    <message>
+        <source>Use the altitude as reported by the positioning device. Skip any altitude correction that may be implied by the coordinate system transformation.</source>
+        <translation>Gebruik de hoogte zoals aangegeven door het GPS-apparaat. Sla elke hoogtecorrectie over die kan worden geïmpliceerd door transformaties van het coördinatensysteem.</translation>
+    </message>
+    <message>
+        <source>Vertical grid shift in use:</source>
+        <translation>Verticale rasterverplaatsing in gebruik:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Orthometric from device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Vertical grid shift is used to increase the altitude accuracy.</source>
+        <translation>Verticale rasterverschuiving wordt gebruikt om de nauwkeurigheid van de hoogte te vergroten.</translation>
+    </message>
+    <message>
+        <source>Log NMEA sentences from device to file</source>
+        <translation>NMEA-berichten opslaan in bestand</translation>
+    </message>
+    <message>
+        <source>%1 Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show news on the welcome screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled, the latest news and useful tips will be displayed on the welcome screen.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3615,14 +4130,6 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
 <context>
     <name>QfCamera</name>
     <message>
-        <source>Latitude</source>
-        <translation>Latitude</translation>
-    </message>
-    <message>
-        <source>Longitude</source>
-        <translation>Longitude</translation>
-    </message>
-    <message>
         <source>Altitude</source>
         <translation>Hoogte</translation>
     </message>
@@ -3631,8 +4138,20 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
         <translation>Snelheid</translation>
     </message>
     <message>
+        <source>Latitude</source>
+        <translation>Latitude</translation>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation>Longitude</translation>
+    </message>
+    <message>
         <source>Orientation</source>
         <translation>Orientatie</translation>
+    </message>
+    <message>
+        <source>Highest</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Details stamping enabled</source>
@@ -3752,6 +4271,65 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
     </message>
 </context>
 <context>
+    <name>QfCloudAttachmentsHistory</name>
+    <message>
+        <source>Attachments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No attachments have been uploaded yet!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploaded on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploaded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting to be uploaded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Not uploaded yet, upload your changes to send it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload failed on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Onbekend</translation>
+    </message>
+    <message>
+        <source>The file name contains invalid characters or the file is empty.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project owner&apos;s available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You do not have the permission to upload attachments to this project.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The cloud project could not be found or your access to it was revoked.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server answered with HTTP code %1.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>QfCloudConnection</name>
     <message>
         <source>Authentication provider missing</source>
@@ -3806,6 +4384,27 @@ Annuleer om in plaats daarvan een minimale apparaatscan uit te voeren.</translat
 %2</source>
         <translation>Kan bijlage niet uploaden die is opgeslagen op &apos;%1&apos;, reden:
 %2</translation>
+    </message>
+    <message>
+        <source>Too many attempts, please wait a minute before trying again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Captcha temporary unavailable, please retry later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1
+If this email already has an account, check your inbox for a message from QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server did not accept the registration</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server did not accept the request</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3943,19 +4542,31 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     </message>
     <message>
         <source>New user?</source>
-        <translation>Nieuwe gebruiker?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Register an account</source>
-        <translation>Registreer een account</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>The easiest way to transfer you project from QGIS to your devices!</source>
-        <translation>De eenvoudigste manier om je project over te zetten van QGIS naar je apparaten!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Learn more about QFieldCloud</source>
         <translation>Leer meer over QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Forgot your password?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create an account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The easiest way to collaborate and manage your projects across devices!</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3966,6 +4577,72 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     </message>
     <message>
         <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordField</name>
+    <message>
+        <source>Password</source>
+        <translation>Wachtwoord</translation>
+    </message>
+    <message numerus="yes">
+        <source>Requires at least %n characters</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Must not be similar to your username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Must not be entirely numeric</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordReset</name>
+    <message>
+        <source>Forgot your password?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your account email and we will send you a link to pick a new password.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send reset link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Back to sign in</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Check your inbox</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>We sent a reset link to %1. Open it to pick a new password.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Nothing yet? Check your spam folder, or %1use another email%2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Resend link in %1s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Resend link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Server: %1</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3991,20 +4668,28 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <source>NULL</source>
         <translation>NULL</translation>
     </message>
-    <message>
-        <source>%1: %2 to %3</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="unfinished"/>
-    </message>
     <message numerus="yes">
         <source>%n change(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Geometry modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 to %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide empty fields</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Show %n empty field(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Discard change</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4143,10 +4828,6 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation>Synchroniseren</translation>
     </message>
     <message>
-        <source>Upload history</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Danger zone</source>
         <translation type="unfinished"/>
     </message>
@@ -4176,7 +4857,7 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     </message>
     <message>
         <source>Connecting cloud</source>
-        <translation>Verbinden cloud</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>This project has an updated project file on the cloud, you are advised to synchronize.</source>
@@ -4229,6 +4910,42 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     <message numerus="yes">
         <source>%n deletion(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Uploading %1%</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploading</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connecting...</source>
+        <translation>Verbinden...</translation>
+    </message>
+    <message>
+        <source>Changes history</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachments history</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard local change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Should this local change be discarded?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Can&apos;t discard change as project is busy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to discard change</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4326,18 +5043,6 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     <message>
         <source>aborted</source>
         <translation>afgebroken</translation>
-    </message>
-    <message>
-        <source>Local path doesn&apos;t exist</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local path to upload cannot be used as it has multiple project files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local path to upload is missing a valid project file</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <source>Network error. Failed to upload file `%1`.</source>
@@ -4476,6 +5181,133 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <source>Cloud project could not be created.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Cloud project details not found.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudRegister</name>
+    <message>
+        <source>Provide your email and desired username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Your email is used for verification and password recovery</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Gebruikersnaam</translation>
+    </message>
+    <message>
+        <source>Your username must meet the following criteria:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Must have at least %n characters</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Must start with a letter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Must contain only a-z letters, digits, underscores or hyphens</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pick a password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repeat password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The two passwords do not match</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>One last thing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Subscribe to the QFieldCloud newsletter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When checking this, you agree to receive our newsletter covering latest changes and important updates.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Accept ToS and DPA</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>By checking this, you agree with the QFieldCloud %1Terms of Services (ToS)%2 and the %3Data Processing Agreement (DPA)%4.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Captcha</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters shown above</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Referral code</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your referral code if you have one</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You will be signed in right away.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Welcome, %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify your email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please open the confirmation link once you receive an email from us at %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Go to cloud projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating your account, please wait</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create account</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfCloudScreen</name>
@@ -4500,6 +5332,58 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation>Projecten</translation>
     </message>
     <message>
+        <source>Uploading…</source>
+        <translation>Uploading…</translation>
+    </message>
+    <message>
+        <source>Downloading error. </source>
+        <translation>Download-fout.</translation>
+    </message>
+    <message>
+        <source>Uploading error. </source>
+        <translation>Fout bij uploaden.</translation>
+    </message>
+    <message>
+        <source>Refresh projects list</source>
+        <translation>Projectlijst vernieuwen</translation>
+    </message>
+    <message>
+        <source>Sign out</source>
+        <translation>Uitloggen</translation>
+    </message>
+    <message>
+        <source>Sign in</source>
+        <translation>Inloggen</translation>
+    </message>
+    <message>
+        <source>Open Project</source>
+        <translation>Open project</translation>
+    </message>
+    <message>
+        <source>Synchronize</source>
+        <translation>Synchroniseren</translation>
+    </message>
+    <message>
+        <source>Remove Stored Project</source>
+        <translation>Opgeslagen project verwijderen</translation>
+    </message>
+    <message>
+        <source>Refreshing projects list</source>
+        <translation>Projectenlijst wordt vernieuwd</translation>
+    </message>
+    <message>
+        <source>QFieldCloud</source>
+        <translation>QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Templates</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Search for templates</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Search for projects</source>
         <translation type="unfinished"/>
     </message>
@@ -4520,19 +5404,15 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation>QFieldCloud benaderen om project te downloaden</translation>
     </message>
     <message>
-        <source>Uploading…</source>
-        <translation>Uploading…</translation>
-    </message>
-    <message>
-        <source>Downloading error. </source>
-        <translation>Download-fout.</translation>
-    </message>
-    <message>
-        <source>Uploading error. </source>
-        <translation>Fout bij uploaden.</translation>
+        <source>Refreshing templates list...</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Refreshing projects list...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Searching for templates...</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4540,11 +5420,23 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>No templates found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>No cloud projects found.</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Try to %1include public projects%2 and see what the community has to offer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try to %1include public templates%2.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4556,16 +5448,8 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Refresh projects list</source>
-        <translation>Projectlijst vernieuwen</translation>
-    </message>
-    <message>
-        <source>Sign out</source>
-        <translation>Uitloggen</translation>
-    </message>
-    <message>
-        <source>Sign in</source>
-        <translation>Inloggen</translation>
+        <source>Refresh templates list</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Settings page</source>
@@ -4580,24 +5464,12 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation>Projectacties</translation>
     </message>
     <message>
-        <source>Open Project</source>
-        <translation>Open project</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>Synchroniseren</translation>
-    </message>
-    <message>
         <source>Upload local changes</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Clone Project</source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove Stored Project</source>
-        <translation>Opgeslagen project verwijderen</translation>
     </message>
     <message>
         <source>View Project Details</source>
@@ -4612,26 +5484,6 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation>Weet u zeker dat u `%1` wilt verwijderen?</translation>
     </message>
     <message>
-        <source>QFieldCloud project details fetching failed</source>
-        <translation>Ophalen van QFieldCloud project details mislukt</translation>
-    </message>
-    <message>
-        <source>Project cloning failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project creation failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refreshing projects list</source>
-        <translation>Projectenlijst wordt vernieuwd</translation>
-    </message>
-    <message>
-        <source>Templates</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Project Creation</source>
         <translation type="unfinished"/>
     </message>
@@ -4644,39 +5496,43 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Search for templates</source>
+        <source>Enter your project description</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Refreshing templates list...</source>
+        <source>Fetching available project owners</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Searching for templates...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No templates found.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refresh templates list</source>
+        <source>Select your project owner</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Creating project…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud project details fetching failed</source>
+        <translation>Ophalen van QFieldCloud project details mislukt</translation>
+    </message>
+    <message>
+        <source>Project cannot be cloned as your available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project cannot be created as your available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upgrade storage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project cloning failed: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project creation failed: %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -4769,6 +5625,22 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <source>%1 in layer %2</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>The project folder could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder contains more than one project file, move the project into a folder of its own and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder does not contain a valid project file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder does not contain a project file.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfCodeReader</name>
@@ -4787,6 +5659,10 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     <message>
         <source>Center your device on a code</source>
         <translation>Centreer je apparaat op een code</translation>
+    </message>
+    <message>
+        <source>Tap a code to select it</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4861,6 +5737,22 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
         <source>The project is read-only.</source>
         <translation>Het project is alleen-lezen.</translation>
     </message>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create Collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markup Collection Creation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your new collection name</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfDialog</name>
@@ -4882,6 +5774,21 @@ Hoewel u het project nog steeds kunt bekijken en gebruiken, wordt het ten zeerst
     </message>
     <message>
         <source>Close</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfDigitizingLayerInformationView</name>
+    <message>
+        <source>Map Layers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pick a digitizing layer</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5721,6 +6628,150 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <name>QfLayerTreeItemProperties</name>
     <message>
         <source>Expand group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Expand legend item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Stop tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Setup tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload of layer %1 triggered</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show on map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show labels</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Opacity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to parent layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The layer has no features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show Features Menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show visible features list</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLayerUtils</name>
+    <message>
+        <source>Cannot start editing, no layer</source>
+        <translation>Kan niet beginnen met bewerken, geen laag</translation>
+    </message>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>Kan niet beginnen met bewerken</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>Kan verwijdering van object %2 in laag &quot;%1&quot; niet vastleggen. Reden:
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>Kan verwijdering in laag &quot;%1&quot; niet uitvoeren. Reden:
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot delete feature %1</source>
+        <translation>Kan object %1 niet verwijderen</translation>
+    </message>
+    <message>
+        <source>Cannot rollback layer changes in layer %1</source>
+        <translation>Kan laagwijzigingen in laag %1 . niet terugdraaien</translation>
+    </message>
+    <message>
+        <source>Cannot copy invalid feature</source>
+        <translation>Kan ongeldig object niet kopiëren</translation>
+    </message>
+    <message>
+        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation>Kan geen nieuw object toevoegen in laag &quot;%1&quot;. Reden:
+%2</translation>
+    </message>
+    <message>
+        <source>Cannot add feature in layer &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot commit new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLegend</name>
+    <message>
+        <source>Tracking active on this layer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <source>Tracking on layer %1 stopped</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation>Deze laag is ongeldig. Dit kan te wijten zijn aan een netwerkprobleem, een ontbrekend bestand of een verkeerde configuratie van het project.</translation>
+    </message>
+    <message>
+        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
+        <translation>Deze laag is geconfigureerd als &quot;Alleen-lezen&quot;, wat het toevoegen, verwijderen en bewerken van objecten uitschakelt.</translation>
+    </message>
+    <message>
+        <source>The permissions configuration of this layer disables feature addition.</source>
+        <translation>In de toestemmingsconfiguratie voor deze laag is object toevoegen uitgeschakeld.</translation>
+    </message>
+</context>
+<context>
+    <name>QfLegendItemProperties</name>
+    <message>
+        <source>Expand group</source>
         <translation>Uitklappen groep</translation>
     </message>
     <message>
@@ -5813,74 +6864,6 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     </message>
 </context>
 <context>
-    <name>QfLayerUtils</name>
-    <message>
-        <source>Cannot start editing, no layer</source>
-        <translation>Kan niet beginnen met bewerken, geen laag</translation>
-    </message>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>Kan niet beginnen met bewerken</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>Kan verwijdering van object %2 in laag &quot;%1&quot; niet vastleggen. Reden:
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>Kan verwijdering in laag &quot;%1&quot; niet uitvoeren. Reden:
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot delete feature %1</source>
-        <translation>Kan object %1 niet verwijderen</translation>
-    </message>
-    <message>
-        <source>Cannot rollback layer changes in layer %1</source>
-        <translation>Kan laagwijzigingen in laag %1 . niet terugdraaien</translation>
-    </message>
-    <message>
-        <source>Cannot copy invalid feature</source>
-        <translation>Kan ongeldig object niet kopiëren</translation>
-    </message>
-    <message>
-        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
-%2</source>
-        <translation>Kan geen nieuw object toevoegen in laag &quot;%1&quot;. Reden:
-%2</translation>
-    </message>
-</context>
-<context>
-    <name>QfLegend</name>
-    <message>
-        <source>Tracking active on this layer.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation>Stop</translation>
-    </message>
-    <message>
-        <source>Tracking on layer %1 stopped</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
-        <translation>Deze laag is ongeldig. Dit kan te wijten zijn aan een netwerkprobleem, een ontbrekend bestand of een verkeerde configuratie van het project.</translation>
-    </message>
-    <message>
-        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
-        <translation>Deze laag is geconfigureerd als &quot;Alleen-lezen&quot;, wat het toevoegen, verwijderen en bewerken van objecten uitschakelt.</translation>
-    </message>
-    <message>
-        <source>The permissions configuration of this layer disables feature addition.</source>
-        <translation>In de toestemmingsconfiguratie voor deze laag is object toevoegen uitgeschakeld.</translation>
-    </message>
-</context>
-<context>
     <name>QfLocalDataPickerScreen</name>
     <message>
         <source>Project Folder</source>
@@ -5889,6 +6872,10 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <message>
         <source>Local Projects &amp; Datasets</source>
         <translation>Lokale Projecten &amp; Datasets</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n item(s) selected</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
     <message>
         <source>Folders</source>
@@ -5935,18 +6922,6 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation>Bekijk bestand</translation>
     </message>
     <message>
-        <source>Send to...</source>
-        <translation>Versturen naar...</translation>
-    </message>
-    <message>
-        <source>Push to QFieldCloud</source>
-        <translation>Versturen naar QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Export to folder...</source>
-        <translation>Exporteren naar folder:</translation>
-    </message>
-    <message>
         <source>Add to favorites</source>
         <translation>Toevoegen aan favorieten</translation>
     </message>
@@ -5955,16 +6930,32 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation>Verwijderen uit favorieten</translation>
     </message>
     <message>
+        <source>Upload to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Send compressed folder to...</source>
         <translation>Verzend gecomprimeerde map naar...</translation>
     </message>
     <message>
-        <source>Upload folder to WebDAV server</source>
-        <translation>Map uploaden naar WebDAV-server</translation>
+        <source>Send to...</source>
+        <translation>Versturen naar...</translation>
     </message>
     <message>
-        <source>Download folder from WebDAV server</source>
-        <translation>Map downloaden van WebDAV-server</translation>
+        <source>Export to folder...</source>
+        <translation>Exporteren naar folder:</translation>
+    </message>
+    <message>
+        <source>Upload folder to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload file to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Download folder from WebDAV</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Delete folder</source>
@@ -6031,11 +7022,7 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Push file(s) to QFieldCloud</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Please select one or more files to push to QFieldCloud.</source>
+        <source>Upload file(s) to QFieldCloud</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6047,11 +7034,19 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Items being uploaded to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Items queued for upload to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>‘%1’ is being uploaded to QFieldCloud</source>
         <translation>&apos;%1&apos; wordt geüpload naar QFieldCloud</translation>
     </message>
     <message>
-        <source>Items being uploaded to QFieldCloud</source>
+        <source>‘%1’ queued for upload to QFieldCloud</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -6225,6 +7220,67 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <message>
         <source>Enable %1 locator by default</source>
         <translation>Gebruik standaard de locatiefilter %1</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupCollection</name>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markup item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Beschrijving</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupLegendItemProperties</name>
+    <message>
+        <source>Show on map</source>
+        <translation>Toon op kaart</translation>
+    </message>
+    <message>
+        <source>Zoom to collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The collection has no features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation>Toon objectenlijst</translation>
+    </message>
+    <message>
+        <source>Export collection</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfMarkupManager</name>
+    <message>
+        <source>Unnamed collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Default collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Untitled collection</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6568,6 +7624,10 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <source>Raster Datasets</source>
         <translation>Rastergegevenssets</translation>
     </message>
+    <message>
+        <source>Could not move the sidecar file &apos;%1&apos; alongside &apos;%2&apos;</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfPluginItem</name>
@@ -6591,14 +7651,6 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>The downloaded zip file could not be decompressed</source>
-        <translation>Het gedownloade zip-bestand kan niet worden uitgepakt</translation>
-    </message>
-    <message>
-        <source>The downloaded zip file does not contain the required main.qml plugin file</source>
-        <translation>Het gedownloade zip-bestand bevat niet het vereiste pluginbestand main.qml</translation>
-    </message>
-    <message>
         <source>Can&apos;t save the downloaded file</source>
         <translation>Kan het gedownloade bestand niet opslaan</translation>
     </message>
@@ -6609,6 +7661,22 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <message>
         <source>Network error</source>
         <translation>Netwerkfout</translation>
+    </message>
+    <message>
+        <source>The selected file is not a zipped plugin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This plugin is present in the available plugins list, please install via its download button</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The plugin zip file could not be decompressed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The plugin zip file does not contain the required main.qml plugin file</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6672,6 +7740,10 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <message>
         <source>Installing %1</source>
         <translation>%1 wordt geinstalleerd</translation>
+    </message>
+    <message>
+        <source>Install plugin from ZIP</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7368,374 +8440,114 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
     <name>QfSettings</name>
     <message>
         <source>Show scale bar</source>
-        <translation>Toon schaalbalk</translation>
-    </message>
-    <message>
-        <source>Show zoom controls</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Show bookmarks</source>
-        <translation>Toon bladwijzers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When switched on, user&apos;s saved and currently opened project bookmarks will be displayed on the map.</source>
-        <translation>Indien ingeschakeld, worden de door de gebruiker opgeslagen en momenteel geopende project bladwijzers op de kaart weergegeven.</translation>
-    </message>
-    <message>
-        <source>Enable map rotation</source>
-        <translation>Kaartrotatie inschakelen</translation>
-    </message>
-    <message>
-        <source>When switched on, the map can be rotated by the user.</source>
-        <translation>Indien ingeschakeld kan de kaart door de gebruiker worden geroteerd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Show digitizing information</source>
-        <translation>Toon Digitaliseringsinformatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When switched on, coordinate information, such as latitude and longitude, is overlayed onto the map while digitizing new features or using the measure tool.</source>
-        <translation>Wanneer ingeschakeld, wordt coördinaatinformatie, zoals lengte- en breedtegraad, over de kaart heen gelegd terwijl nieuwe objecten worden gedigitaliseerd of het meetgereedschap wordt gebruikt.</translation>
-    </message>
-    <message>
-        <source>Use volume keys to digitize</source>
-        <translation>Gebruik de volume knoppen om te digitaliseren </translation>
-    </message>
-    <message>
-        <source>If enabled, pressing the device&apos;s volume up key will add a vertex while pressing volume down key will remove the last entered vertex during digitizing sessions.</source>
-        <translation>Indien ingeschakeld, voegt de volume hoger knop een vertex toe en verwijdert de volume lager knop de laatst toegevoegde vertex van de digitaliseringssessie.</translation>
-    </message>
-    <message>
-        <source>Allow finger tap on canvas to add vertices</source>
-        <translation>Tik met je vinger op het scherm om hoekpunten toe te voegen</translation>
-    </message>
-    <message>
-        <source>When enabled, tapping on the map canvas with a finger moves the coordinate cursor while double tapping adds a vertex.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Consider mouse as a touchscreen device</source>
-        <translation>Beschouw de muis als een touchscreen-apparaat</translation>
-    </message>
-    <message>
-        <source>When enabled, the mouse will act as if it was a finger. When disabled, the mouse will match the stylus behavior.</source>
-        <translation>Indien ingeschakeld gedraagt de muis zich als een vinger. Als deze optie is uitgeschakeld, gedraagt de muis zich als een stylus.</translation>
-    </message>
-    <message>
-        <source>Maximize feature form</source>
-        <translation>Maximaliseer objectformulier</translation>
-    </message>
-    <message>
-        <source>Open feature form for single feature identification</source>
-        <translation>Open attribuut formulier bij identificatie van één object</translation>
-    </message>
-    <message>
-        <source>When enabled, the feature form will open automatically if only one feature is identified, skipping the feature list.</source>
-        <translation>Indien ingeschakeld, opent het attribuut formulier automatisch wanneer slechts één object geïdentificeerd is en slaat zo de weergave van de objectenlijst over.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Fixed scale navigation</source>
-        <translation>Vaste schaal navigatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When fixed scale navigation is active, focusing on a search result will pan to the feature. With fixed scale navigation disabled it will pan and zoom to the feature.</source>
-        <translation>Wanneer navigatie op vaste schaal actief is, wordt bij de focus op een zoekresultaat naar het object geschoven. Als navigatie op vaste schaal is uitgeschakeld, wordt naar het object geschoven en gezoomd.</translation>
-    </message>
-    <message>
-        <source>Auto-zoom to identified feature(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>When enabled, the map will automatically zoom to show all identified features, as well as the individual selected feature when the feature form is opened.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Render preview content around visible map canvas</source>
-        <translation>Teken preview rondom het zichtbare canvas</translation>
-    </message>
-    <message>
-        <source>If enabled, areas just outside of the visible map canvas extent will be partially rendered to allow preview when zooming and panning.</source>
-        <translation>Indien ingeschakeld, worden gebieden net buiten het zichtbare canvas gedeeltelijk ingetekend voor een preview tijdens zoomen en verschuiven.</translation>
-    </message>
-    <message>
-        <source>Enable auto-save mode</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>If enabled, newly-added features are stored as soon as it has having a valid geometry and the constraints are fulfilled and edited atributes are commited immediately.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Use native camera</source>
-        <translation>Gebruik ingebouwde camera</translation>
-    </message>
-    <message>
-        <source>If enabled, the native camera provided by the operating system will be used.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Send anonymized metrics</source>
-        <translation>Geanonimiseerde statistieken verzenden</translation>
-    </message>
-    <message>
-        <source>If enabled, anonymized metrics will be collected and sent to help improve the user experience for everyone.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>General</source>
-        <translation>Algemeen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Positioning</source>
-        <translation>Positie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Variables</source>
-        <translation>Variabelen</translation>
-    </message>
-    <message>
-        <source>Map Canvas</source>
-        <translation>Kaartbeeld</translation>
-    </message>
-    <message>
-        <source>Map canvas rendering quality:</source>
-        <translation>Weergavekwaliteit van kaart:</translation>
-    </message>
-    <message>
-        <source>Best quality</source>
-        <translation>Beste kwaliteit </translation>
-    </message>
-    <message>
-        <source>Lower quality</source>
-        <translation>Mindere kwaliteit </translation>
-    </message>
-    <message>
-        <source>Lowest quality</source>
-        <translation>Laagste kwaliteit </translation>
-    </message>
-    <message>
-        <source>A lower quality trades rendering precision in favor of lower memory usage and rendering time.</source>
-        <translation>Een lagere kwaliteit verruilt rendering kwaliteit voor een lager geheugengebruik en kortere rendering tijd.</translation>
-    </message>
-    <message>
-        <source>Digitizing &amp; Editing</source>
-        <translation>Digitaliseren en Bewerken</translation>
-    </message>
-    <message>
-        <source>User Interface</source>
-        <translation>Gebruikersinterface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Customize search bar</source>
-        <translation>Pas de zoekbalk aan</translation>
-    </message>
-    <message>
-        <source>Manage plugins</source>
-        <translation>Beheer Plugins</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Dim screen when idling</source>
-        <translation>Dim scherm bij inactiviteit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
-        <translation>Tijd voordat het scherm wordt gedimd om de batterij te sparen</translation>
-    </message>
-    <message>
-        <source>Appearance:</source>
-        <translation>Thema:</translation>
-    </message>
-    <message>
-        <source>Follow system appearance</source>
-        <translation>gebruik systeeminstelling</translation>
-    </message>
-    <message>
-        <source>Light theme</source>
-        <translation>Licht</translation>
-    </message>
-    <message>
-        <source>Dark theme</source>
-        <translation>Donker</translation>
-    </message>
-    <message>
-        <source>Font size:</source>
-        <translation>Lettertype grootte:</translation>
-    </message>
-    <message>
-        <source>Tiny</source>
-        <translation>Klein</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation>Groot</translation>
-    </message>
-    <message>
-        <source>Extra-large</source>
-        <translation>Extra groot</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>Taal:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>system</source>
-        <translation>systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Found a missing or incomplete language? %1Join the translator community.%2</source>
-        <translation>Een ontbrekende of onvolledige taal gevonden? %1Word lid van de vertalersgemeenschap.%2</translation>
-    </message>
-    <message>
-        <source>Network</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Available authentication configurations:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Clear authentication cache</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Authentication cache cleared</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enable proxy</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>System default</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>e.g. proxy.example.com</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>Poort</translation>
-    </message>
-    <message>
-        <source>e.g. 8888</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Username</source>
-        <translation>Gebruikersnaam</translation>
-    </message>
-    <message>
-        <source>Optional</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
-    </message>
-    <message>
-        <source>URLs excluded from proxy (comma-separated)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>e.g. localhost, 192.168.*</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Configure a network proxy to route QField&apos;s traffic through a proxy server. Useful for corporate networks and VPNs.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Advanced</source>
-        <translation>Geavanceerd</translation>
-    </message>
-    <message>
-        <source>Positioning Device</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Positioning device in use:</source>
-        <translation>Positionerings apparaat in gebruik:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Wijzigen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connected to %1</source>
-        <translation>Verbonden met %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connect to %1</source>
-        <translation>Verbind met %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation>Aan het verbinden met %1</translation>
-    </message>
-    <message>
-        <source>Enable NTRIP corrections</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP client disconnected</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP client connecting</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP client connected</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Please provide valid NTRIP settings</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Show position information</source>
-        <translation>Toon positie informatie</translation>
-    </message>
-    <message>
-        <source>Behavior when locked to position:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Follow position only</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Follow position and compass orientation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Follow position and movement direction</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>When the map canvas is following or locked to position, it can also rotate to match compass orientation or movement direction.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -7743,71 +8555,43 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Timestamp (seconds since epoch)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Ground speed</source>
-        <translation>Grondsnelheid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Bearing</source>
-        <translation>Koers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Horizontal accuracy</source>
-        <translation>Horizontale nauwkeurigheid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical accuracy</source>
-        <translation>Verticale nauwkeurigheid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>PDOP</source>
-        <translation>PDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>HDOP</source>
-        <translation>HDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>VDOP</source>
-        <translation>VDOP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>When digitizing features with the coordinate cursor locked to the current position, the measurement type selected above will be added to the geometry provided it has an M dimension.</source>
-        <translation>Als de coördinaatcursor is ingeschakeld bij het digitaliseren van objecten wordt het hierboven geselecteerde meettype toegevoegd aan de geometrie indien deze een M dimensie bevat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Activate accuracy indicator</source>
-        <translation>Activeer nauwkeurigheidsindicator</translation>
-    </message>
-    <message>
-        <source>Bad accuracy threshold</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>m</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Excellent accuracy threshold</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enforce accuracy requirement</source>
-        <translation>Nauwkeurigheidscontrole inschakelen</translation>
-    </message>
-    <message>
-        <source>When the accuracy indicator is enabled, a badge is attached to the location button and colored &lt;span %1&gt;red&lt;/span&gt; if the accuracy value is worse than &lt;i&gt;bad&lt;/i&gt;, &lt;span %2&gt;yellow&lt;/span&gt; if it falls short of &lt;i&gt;excellent&lt;/i&gt;, or &lt;span %3&gt;green&lt;/span&gt;.&lt;br&gt;&lt;br&gt;In addition, an accuracy restriction mode can be toggled on, which restricts vertex addition when locked to coordinate cursor to positions with an accuracy value worse than the bad threshold.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Enable averaged positioning requirement</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Minimum positions count</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -7819,51 +8603,27 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation type="unfinished"/>
     </message>
     <message>
-        <source>Elevation Adjustment</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>Antenna height compensation</source>
-        <translation>Antenne-hoogtecompensatie</translation>
-    </message>
-    <message>
-        <source>Antenna height</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This value will correct the Z values recorded from the positioning device. If a value of 1.6 is entered, the system will automatically subtract 1.6 from each recorded value. Make sure to insert the effective antenna height, i.e. pole length + antenna phase center offset.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Skip altitude correction</source>
-        <translation>Sla hoogtecorrectie over</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Use the altitude as reported by the positioning device. Skip any altitude correction that may be implied by the coordinate system transformation.</source>
-        <translation>Gebruik de hoogte zoals aangegeven door het GPS-apparaat. Sla elke hoogtecorrectie over die kan worden geïmpliceerd door transformaties van het coördinatensysteem.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical grid shift in use:</source>
-        <translation>Verticale rasterverplaatsing in gebruik:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>Orthometric from device</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <source>Vertical grid shift is used to increase the altitude accuracy.</source>
-        <translation>Verticale rasterverschuiving wordt gebruikt om de nauwkeurigheid van de hoogte te vergroten.</translation>
-    </message>
-    <message>
-        <source>Log NMEA sentences from device to file</source>
-        <translation>NMEA-berichten opslaan in bestand</translation>
-    </message>
-    <message>
-        <source>%1 Settings</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -8195,10 +8955,6 @@ De geometrieën van objecten zullen worden gecombineerd tot object &apos;%1&apos
         <translation>Uitreiken</translation>
     </message>
     <message>
-        <source>Hey there, how do you like your experience with %1 so far?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>That&apos;s great! We&apos;d love for you to click on the button below and leave a review.</source>
         <translation>Dat is geweldig! We zouden het leuk vinden als je op de onderstaande knop klikt en een review in de store achterlaat.</translation>
     </message>
@@ -8283,6 +9039,50 @@ project</translation>
     <message>
         <source>First time using this application? Try the sample projects listed below.</source>
         <translation>Gebruik je deze applicatie voor het eerst? Probeer de voorbeeldprojecten uit die in de onderstaande lijst staan.</translation>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pending changes are present, do you want to upload them now or keep them pending and close the cloud project and app?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How&apos;s %1 working for you?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>One tap is all it takes.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Could be better</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Loving it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 can display its latest news and useful tips on launch.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Read more</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8998,6 +9798,50 @@ to show actions</source>
     </message>
     <message>
         <source>Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to QFieldCloud, and sharing datasets, attachments, and layouts.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pending changes are present. Upload these now or press back again to keep them pending and close the cloud project and app.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This project has pending changes which have not been uploaded yet. Tap the blue cloud button to open the cloud project panel and send them to QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This cloud project has pending changes which have not been uploaded yet. Open the dashboard using this button, then tap the blue cloud icon to send them to QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Printing %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Print failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Printed and placed in your project layouts folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel movement</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel rotation</source>
         <translation type="unfinished"/>
     </message>
 </context>

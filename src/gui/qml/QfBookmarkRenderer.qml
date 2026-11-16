@@ -5,7 +5,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Item {
   id: bookmarkRenderer
@@ -65,6 +65,7 @@ Item {
 
           width: 36
           height: 40
+          preferredRendererType: Shape.CurveRenderer
 
           ShapePath {
             strokeWidth: 3
@@ -120,7 +121,7 @@ Item {
           layer.effect: QfDropShadow {
             transparentBorder: true
             radius: 8
-            color: "#99000000"
+            color: QfTheme.shadowColor
             horizontalOffset: 0
             verticalOffset: 0
           }

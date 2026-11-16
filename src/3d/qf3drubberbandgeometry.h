@@ -31,12 +31,11 @@
  * Everything is packed into a single indexed triangle mesh with per-vertex colors.
  *
  * \note QML Type: Qf3DRubberbandGeometry
- * \ingroup core
+ * \ingroup _3d
  */
 class Qf3DRubberbandGeometry : public QQuick3DGeometry
 {
     Q_OBJECT
-    QML_ELEMENT
 
     //! The rubberband model providing the vertex coordinates
     Q_PROPERTY( QfRubberbandModel *rubberbandModel READ rubberbandModel WRITE setRubberbandModel NOTIFY rubberbandModelChanged )

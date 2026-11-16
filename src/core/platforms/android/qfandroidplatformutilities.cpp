@@ -63,7 +63,6 @@ inline void runOnAndroidMainThread( const std::function<void()> &runnable )
 #include <QStandardPaths>
 #include <QString>
 #include <QTimer>
-#include <qgsfileutils.h>
 
 #include <android/bitmap.h>
 #include <android/log.h>
@@ -276,7 +275,7 @@ void QfAndroidPlatformUtilities::sendDatasetTo( const QString &path ) const
       if ( activity.isValid() )
       {
         QStringList paths = QStringList() << path;
-        const QSet<QString> files = QgsFileUtils::sidecarFilesForPath( path );
+        const QSet<QString> files = QfFileUtils::sidecarFilesForPath( path );
         for ( const QString &file : files )
         {
           paths << file;
@@ -302,7 +301,7 @@ void QfAndroidPlatformUtilities::exportDatasetTo( const QString &path ) const
       if ( activity.isValid() )
       {
         QStringList paths = QStringList() << path;
-        const QSet<QString> files = QgsFileUtils::sidecarFilesForPath( path );
+        const QSet<QString> files = QfFileUtils::sidecarFilesForPath( path );
         for ( const QString &file : files )
         {
           paths << file;
@@ -362,16 +361,17 @@ void QfAndroidPlatformUtilities::exportFolderTo( const QString &path ) const
   }
 }
 
-void QfAndroidPlatformUtilities::sendCompressedFolderTo( const QString &path ) const
+void QfAndroidPlatformUtilities::sendCompressedFolderTo( const QString &path, const QString &fileName ) const
 {
   if ( mActivity.isValid() )
   {
-    runOnAndroidMainThread( [path] {
+    runOnAndroidMainThread( [path, fileName] {
       auto activity = qtAndroidContext();
       if ( activity.isValid() )
       {
         QJniObject pathJni = QJniObject::fromString( path );
-        activity.callMethod<void>( "sendCompressedFolderTo", "(Ljava/lang/String;)V", pathJni.object<jstring>() );
+        QJniObject fileNameJni = QJniObject::fromString( QfFileUtils::sanitizeFilePathPart( fileName ) );
+        activity.callMethod<void>( "sendCompressedFolderTo", "(Ljava/lang/String;Ljava/lang/String;)V", pathJni.object<jstring>(), fileNameJni.object<jstring>() );
       }
     } );
   }
@@ -529,7 +529,12 @@ QfResourceSource *QfAndroidPlatformUtilities::getGalleryVideo( const QString &pr
   return processGalleryActivity( prefix, videoFilePath, QStringLiteral( "video/*" ), parent );
 }
 
-QfResourceSource *QfAndroidPlatformUtilities::getFile( const QString &prefix, const QString &filePath, const QString &mimeType, QObject *parent )
+QfResourceSource *QfAndroidPlatformUtilities::getGalleryMedia( const QString &prefix, const QString &mediaFilePath, QObject *parent )
+{
+  return processGalleryActivity( prefix, mediaFilePath, QStringLiteral( "image/*,video/*" ), parent );
+}
+
+QfResourceSource *QfAndroidPlatformUtilities::getFile( const QString &prefix, const QString &filePath, const QStringList &mimeTypes, QObject *parent )
 {
   const QFileInfo destinationInfo( prefix + filePath );
   const QDir prefixDir( prefix );
@@ -540,6 +545,7 @@ QfResourceSource *QfAndroidPlatformUtilities::getFile( const QString &prefix, co
   {
     resourceSource = new QfAndroidResourceSource( prefix, parent );
 
+    const QString mimeType = mimeTypes.join( QLatin1Char( ',' ) );
     runOnAndroidMainThread( [prefix, filePath, mimeType] {
       auto activity = qtAndroidContext();
       if ( activity.isValid() )
@@ -735,8 +741,11 @@ void QfAndroidPlatformUtilities::setHandleVolumeKeys( const bool handle )
 
 void QfAndroidPlatformUtilities::uploadPendingAttachments( QfCloudConnection *connection ) const
 {
-  // Request notification permission
-  checkAndAcquirePermissions( { QStringLiteral( "android.permission.POST_NOTIFICATIONS" ) } );
+  if ( qtAndroidSkdVersion() >= 33 )
+  {
+    // Request notification permission
+    checkAndAcquirePermissions( { QStringLiteral( "android.permission.POST_NOTIFICATIONS" ) } );
+  }
 
   QTimer::singleShot( 500, [connection]() {
     if ( connection )

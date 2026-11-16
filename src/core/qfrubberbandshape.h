@@ -26,7 +26,7 @@ class QfVertexModel;
 class QgsQuickMapSettings;
 
 /**
- * @brief The QfRubberbandShape class is used to provide the shape data to draw rubber bands
+ * \brief The QfRubberbandShape class is used to provide the shape data to draw rubber bands
  * on the map canvas using the QML Shape item.
  * It is aimed to be used with either a QfVertexModel or a QfRubberbandModel.
  * \ingroup core
@@ -78,11 +78,15 @@ class QfRubberbandShape : public QQuickItem
     QColor color() const;
     //! \copydoc color
     void setColor( const QColor &color );
+    //! Returns the default color
+    Q_INVOKABLE static QColor defaultColor() { return QColor( 192, 57, 43, 150 ); }
 
     //! \copydoc outlineColor
     QColor outlineColor() const;
     //! \copydoc outlineColor
     void setOutlineColor( const QColor &color );
+    //! Returns the default outline color
+    Q_INVOKABLE static QColor defaultOutlineColor() { return QColor( 255, 255, 255, 100 ); }
 
     //! \copydoc lineWidth
     float lineWidth() const;
@@ -133,14 +137,17 @@ class QfRubberbandShape : public QQuickItem
     QgsQuickMapSettings *mMapSettings = nullptr;
     bool mFreeze = false;
     bool mDirty = false;
-    QColor mColor = QColor( 192, 57, 43, 150 );
-    QColor mOutlineColor = QColor( 255, 255, 255, 100 );
+    QColor mColor = defaultColor();
+    QColor mOutlineColor = defaultOutlineColor();
     float mWidth = 4;
     Qgis::GeometryType mGeometryType = Qgis::GeometryType::Null;
-    QgsPoint mGeometryCorner;
+    QgsPointXY mGeometryCorner;
     double mGeometryMUPP = 0.0;
     QList<QPolygonF> mPolylines;
     Qgis::GeometryType mPolylinesType = Qgis::GeometryType::Null;
+
+    static constexpr double MAX_SIZE = 250000;
+    static constexpr double MAX_OFFSET = 200000;
 };
 
 

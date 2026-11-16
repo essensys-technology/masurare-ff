@@ -96,7 +96,6 @@ void QfTheme::loadFromJson()
   set( mBookmarkOrange, "bookmarkOrange" );
   set( mBookmarkRed, "bookmarkRed" );
   set( mBookmarkBlue, "bookmarkBlue" );
-  set( mQfieldcloudBlue, "qfieldcloudBlue" );
   set( mVertexColor, "vertexColor" );
   set( mVertexColorSemiOpaque, "vertexColorSemiOpaque" );
   set( mVertexSelectedColor, "vertexSelectedColor" );
@@ -104,6 +103,7 @@ void QfTheme::loadFromJson()
   set( mVertexNewColor, "vertexNewColor" );
   set( mVertexNewColorSemiOpaque, "vertexNewColorSemiOpaque" );
   set( mProcessingPreview, "processingPreview" );
+  set( mShadowColor, "shadowColor" );
 
   emit themeDataLoaded();
 }

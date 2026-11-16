@@ -126,6 +126,21 @@ Q_DECLARE_METATYPE( QfCloudDelta )
 
 /**
  * \ingroup core
+ *
+ * Holds the final outcome of an attachment upload to QFieldCloud.
+ */
+struct QfCloudAttachmentHistoryEntry
+{
+    //! The time at which the upload finished
+    QDateTime timestamp;
+    //! The HTTP status code returned by the server for the upload
+    int httpCode = 0;
+    //! The absolute path of the uploaded file
+    QString fileName;
+};
+
+/**
+ * \ingroup core
  */
 struct QfCloudSubscriptionInformation
 {
@@ -230,6 +245,7 @@ struct QfCloudServerInformation
 
     Q_PROPERTY( QfCloudWhitelabelInformation whitelabel MEMBER whitelabel )
     Q_PROPERTY( QString signupUrl MEMBER signupUrl )
+    Q_PROPERTY( QString signupMode MEMBER signupMode )
 
   public:
     QfCloudServerInformation() = default;
@@ -237,6 +253,7 @@ struct QfCloudServerInformation
     explicit QfCloudServerInformation( const QVariantMap &serverInformation )
       : whitelabel( serverInformation.value( QStringLiteral( "whitelabel" ) ).toMap() )
       , signupUrl( serverInformation.value( QStringLiteral( "signup_url" ) ).toString() )
+      , signupMode( serverInformation.value( QStringLiteral( "signup_mode" ) ).toString() )
     {}
 
     bool operator==( const QfCloudServerInformation &other ) const
@@ -254,11 +271,12 @@ struct QfCloudServerInformation
       return {
         { QStringLiteral( "whitelabel" ), whitelabel.toVariantMap() },
         { QStringLiteral( "signup_url" ), signupUrl },
-      };
+        { QStringLiteral( "signup_mode" ), signupMode } };
     }
 
     QfCloudWhitelabelInformation whitelabel;
     QString signupUrl;
+    QString signupMode;
 };
 
 Q_DECLARE_METATYPE( QfCloudServerInformation )
@@ -328,6 +346,13 @@ class QfCloudUtils : public QObject
      */
     Q_INVOKABLE static QString documentationFromErrorString( const QString &errorString );
 
+    /**
+     * Checks whether the project found in \a localPath can be stored on QFieldCloud, and returns the
+     * reason why it cannot, or an empty string when it can. \a localPath can either be a project file
+     * or the folder holding it.
+     */
+    Q_INVOKABLE static QString checkCloudifyFeasibility( const QString &localPath );
+
     //! Sets a \a setting to a given \a value for project with given \a projectId to the permanent storage.
     static void setProjectSetting( const QString &projectId, const QString &setting, const QVariant &value );
 
@@ -354,11 +379,20 @@ class QfCloudUtils : public QObject
     //! Removes a \a fileName for a given \a projectId to the pending attachments list
     Q_INVOKABLE static void removePendingAttachment( const QString &username, const QString &projectId, const QString &fileName );
 
+    //! Records the final outcome of an attachment upload \a entry for a given \a projectId into the attachments history.
+    static void addAttachmentHistory( const QString &username, const QString &projectId, const QfCloudAttachmentHistoryEntry &entry );
+
+    //! Returns the attachments upload history for a given \a projectId, ordered from oldest to newest.
+    static const QList<QfCloudAttachmentHistoryEntry> getAttachmentsHistory( const QString &username, const QString &projectId );
+
     /**
      * Returns the URL for managing the subscription for a given \a plan, \a serverUrl, and \a username.
      * Returns an empty string if the server is not the default QFieldCloud server or if the \a projectOwner does not match the \a username.
      */
     Q_INVOKABLE static QString subscriptionManagementUrl( const QString &serverUrl, const QString &plan, const QString &projectOwner, const QString &username );
+
+    //! Returns the IANA identifier of the device time zone.
+    Q_INVOKABLE static QString deviceTimeZoneId();
 
 
     static QList<QfCloudDelta> parseDeltaJsonDocument( const QJsonDocument &jsonDocument, QString &errorString, bool &isValid );

@@ -30,6 +30,7 @@
 #include <QTemporaryFile>
 #include <qgis.h>
 #include <qgsapplication.h>
+#include <qgsexpressioncontextutils.h>
 #include <qgslocalizeddatapathregistry.h>
 #include <qgsmessagelog.h>
 #include <qgsnetworkaccessmanager.h>
@@ -130,6 +131,17 @@ void QfCloudProjectsModel::setCurrentProjectId( const QString &currentProjectId 
   mCurrentProjectId = currentProjectId;
   mCurrentProject = findProject( mCurrentProjectId );
 
+  updateCurrentCloudProjectVariables();
+
+  if ( mCurrentProject )
+  {
+    // Refresh the opened project's details. The /projects/ list endpoint no longer
+    // carries the full details (e.g. the user's team affiliation), so opening a project
+    // must fetch its detailed data to be up to date. When the refresh completes with
+    // updated teams, the userTeamsChanged connection re-injects the cloud_teams variable.
+    mCurrentProject->refreshData( QfCloudProject::ProjectRefreshReason::ProjectOpened );
+  }
+
   if ( mLayerObserver )
   {
     mLayerObserver->setDeltaFileWrapper( mCurrentProject ? mCurrentProject->deltaFileWrapper() : nullptr );
@@ -142,6 +154,22 @@ void QfCloudProjectsModel::setCurrentProjectId( const QString &currentProjectId 
 QfCloudProject *QfCloudProjectsModel::currentProject() const
 {
   return mCurrentProject.data();
+}
+
+void QfCloudProjectsModel::updateCurrentCloudProjectVariables()
+{
+  // Inject the current cloud project's details into the global expression scope
+  // (until we have a better solution upstream) so they can drive symbology,
+  // visibility, labeling, etc. These reflect the currently opened cloud project,
+  // and are cleared when there is none.
+  if ( mCurrentProject )
+  {
+    QgsExpressionContextUtils::setGlobalVariable( QStringLiteral( "cloud_teams" ), mCurrentProject->userTeams() );
+  }
+  else
+  {
+    QgsExpressionContextUtils::removeGlobalVariable( QStringLiteral( "cloud_teams" ) );
+  }
 }
 
 QSet<QString> QfCloudProjectsModel::busyProjectIds() const
@@ -551,6 +579,10 @@ void QfCloudProjectsModel::projectReceived()
       updateHasTemplates();
     }
   }
+  else
+  {
+    emit projectAppended( projectId, true, tr( "Cloud project details not found." ) );
+  }
 }
 
 void QfCloudProjectsModel::projectListReceived()
@@ -754,6 +786,17 @@ void QfCloudProjectsModel::setupProjectConnections( QfCloudProject *project )
     const QfCloudProject *p = static_cast<QfCloudProject *>( sender() );
     const QModelIndex idx = findProjectIndex( p->id() );
     emit dataChanged( idx, idx );
+  } );
+
+  connect( project, &QfCloudProject::userTeamsChanged, this, [this] {
+    // When the currently opened project's team affiliation is updated (e.g. after a
+    // details refresh that carries the latest teams), refresh the injected global
+    // variable so expressions pick up the change.
+    const QfCloudProject *p = static_cast<QfCloudProject *>( sender() );
+    if ( mCurrentProject && p == mCurrentProject )
+    {
+      updateCurrentCloudProjectVariables();
+    }
   } );
 
   connect( project, &QfCloudProject::jobFinished, this, [this]( QfCloudProject::JobType type, const QString &error ) {
@@ -1091,6 +1134,16 @@ bool QfCloudProjectsModel::revertLocalChangesFromCurrentProject()
   return true;
 }
 
+bool QfCloudProjectsModel::revertLocalChangeFromCurrentProject( const QString &deltaUuid )
+{
+  if ( !findProject( mCurrentProjectId ) )
+  {
+    return false;
+  }
+
+  return mLayerObserver->deltaFileWrapper()->revertDelta( QgsProject::instance(), deltaUuid );
+}
+
 bool QfCloudProjectsModel::discardLocalChangesFromCurrentProject()
 {
   const QfCloudProject *project = findProject( mCurrentProjectId );
@@ -1129,7 +1182,7 @@ void QfCloudProjectsModel::setGpkgFlusher( QgsGpkgFlusher *flusher )
   emit gpkgFlusherChanged();
 }
 
-void QfCloudProjectsModel::createProject( const QString &name, const QString &fromProjectId )
+void QfCloudProjectsModel::createProject( const QString &name, const QString &description, const QString &fromProjectId, const QString &owner )
 {
   if ( name.isEmpty() )
   {
@@ -1140,17 +1193,18 @@ void QfCloudProjectsModel::createProject( const QString &name, const QString &fr
   mIsCreating = true;
   emit isCreatingChanged();
 
-  QString sanitizedName = name.normalized( QString::NormalizationForm_KD );
+  QString sanitizedName = QgsStringUtils::unaccent( name );
   sanitizedName.replace( QRegularExpression( "[^A-Za-z0-9_]" ), QStringLiteral( "_" ) );
 
-  QString url = QStringLiteral( "/api/v1/projects/?owner=%1" ).arg( mUsername );
+  const QString projectOwner = owner.isEmpty() ? mUsername : owner;
+  QString url = QStringLiteral( "/api/v1/projects/?owner=%1" ).arg( projectOwner );
   QNetworkRequest request( url );
   request.setHeader( QNetworkRequest::ContentTypeHeader, "application/json" );
   request.setAttribute( QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::RedirectPolicy::NoLessSafeRedirectPolicy );
   mCloudConnection->setAuthenticationDetails( request );
 
   const QfNetworkReply *listingreply = mCloudConnection->get( request, url );
-  connect( listingreply, &QfNetworkReply::finished, this, [this, sanitizedName, fromProjectId]() {
+  connect( listingreply, &QfNetworkReply::finished, this, [this, sanitizedName, description, fromProjectId, projectOwner]() {
     QfNetworkReply *reply = qobject_cast<QfNetworkReply *>( sender() );
     QNetworkReply *rawReply = reply->currentRawReply();
     Q_ASSERT( rawReply );
@@ -1182,8 +1236,8 @@ void QfCloudProjectsModel::createProject( const QString &name, const QString &fr
 
     QVariantMap params;
     params.insert( QStringLiteral( "name" ), finalizedName );
-    params.insert( QStringLiteral( "owner" ), mUsername );
-    params.insert( QStringLiteral( "description" ), QString() );
+    params.insert( QStringLiteral( "owner" ), projectOwner );
+    params.insert( QStringLiteral( "description" ), description );
     params.insert( QStringLiteral( "private" ), true );
 
     if ( !fromProjectId.isEmpty() )

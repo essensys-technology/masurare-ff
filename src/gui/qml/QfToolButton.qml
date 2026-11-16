@@ -6,7 +6,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 RoundButton {
   id: button
@@ -20,6 +20,7 @@ RoundButton {
   property bool round: false
   property bool roundborder: false
   property alias bgcolor: backgroundRectangle.color
+  property alias backgroundRadius: backgroundRectangle.radius
   property color borderColor: 'transparent'
 
   width: QfTheme.toolButtonSize

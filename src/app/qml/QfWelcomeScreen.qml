@@ -7,12 +7,13 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Page {
   id: welcomeScreen
 
   property bool firstShown: false
+  property bool showNews: false
 
   property alias model: table.model
 
@@ -49,12 +50,13 @@ Page {
     }
   }
 
-  ScrollView {
-    topPadding: Math.max(mainWindow.sceneTopMargin + 58, (mainWindow.height - welcomeLayout.height) / 2 - 50)
-    leftPadding: mainWindow.sceneLeftMargin
-    rightPadding: mainWindow.sceneRightMargin
-    bottomPadding: mainWindow.sceneBottomMargin
-    ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+  Flickable {
+    anchors.fill: parent
+    anchors.topMargin: Math.max(mainWindow.sceneTopMargin + 58, (mainWindow.height - welcomeLayout.height) / 2 - 50)
+    // Margins below are deliberately outside of the anchors for nicer content display
+    leftMargin: mainWindow.sceneLeftMargin
+    rightMargin: mainWindow.sceneRightMargin
+    bottomMargin: mainWindow.sceneBottomMargin
     ScrollBar.vertical: QfScrollBar {
       opacity: active
       _maxSize: 4
@@ -66,11 +68,8 @@ Page {
         }
       }
     }
-
-    contentItem: welcomeLayout
     contentWidth: welcomeLayout.width
     contentHeight: welcomeLayout.height
-    anchors.fill: parent
     clip: true
 
     ColumnLayout {
@@ -140,337 +139,252 @@ Page {
         }
       }
 
-      SwipeView {
-        id: feedbackView
+      QfWelcomeCard {
+        id: newsOptInView
         visible: false
 
         Layout.margins: 6
-        Layout.topMargin: 10
-        Layout.bottomMargin: 10
+        Layout.topMargin: 0
+        Layout.bottomMargin: 24
         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-        Layout.preferredWidth: Math.min(410, welcomeLayout.width - 30)
-        Layout.preferredHeight: Math.max(ohno.childrenRect.height, intro.childrenRect.height, ohyeah.childrenRect.height)
-        clip: true
+        Layout.fillWidth: true
+        Layout.maximumWidth: 410
 
-        Behavior on Layout.preferredHeight {
-          NumberAnimation {
-            duration: 100
-            easing.type: Easing.InQuad
-          }
-        }
+        QfWelcomeCard.Panel {
+          message: qsTr("%1 can display its latest news and useful tips on launch.").arg(Qfield.name)
 
-        interactive: false
-        currentIndex: 1
-        Item {
-          id: ohno
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr('I prefer not')
+            bgcolor: "transparent"
+            color: QfTheme.mainColor
 
-          Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-              GradientStop {
-                position: 0.0
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.26)
-              }
-              GradientStop {
-                position: 0.88
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.02)
-              }
+            onClicked: {
+              qfieldSettings.showNews = false;
+              newsOptInView.visible = false;
             }
-
-            radius: 6
           }
 
-          ColumnLayout {
-            spacing: 0
-            anchors.centerIn: parent
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr('I agree')
 
-            Text {
-              Layout.margins: 6
-              Layout.topMargin: 12
-              Layout.maximumWidth: feedbackView.width - 12
-              text: qsTr("We're sorry to hear that. Click on the button below to comment or seek support.")
-              font: QfTheme.defaultFont
-              color: QfTheme.mainTextColor
-              horizontalAlignment: Text.AlignHCenter
-              wrapMode: Text.WordWrap
-            }
-
-            RowLayout {
-              spacing: 6
-              Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-              Layout.bottomMargin: 10
-
-              QfButton {
-                topPadding: 8
-                bottomPadding: 8
-                leftPadding: 10
-                rightPadding: 10
-
-                text: qsTr("Reach out")
-                icon.source: QfTheme.getThemeVectorIcon('ic_create_white_24dp')
-
-                onClicked: {
-                  Qt.openUrlExternally("https://www.qfield.org/");
-                  feedbackView.Layout.preferredHeight = 0;
-                }
-              }
+            onClicked: {
+              qfieldSettings.showNews = true;
+              newsOptInView.visible = false;
             }
           }
         }
+      }
 
-        Item {
-          id: intro
+      QfWelcomeCard {
+        id: newsView
+        visible: newsParser.items.length > 0 && !(feedbackView.visible && !feedbackView.collapsed) && !(collectionView.visible && !collectionView.collapsed)
+        interactive: count > 1
+        uniformHeight: true
 
-          Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-              GradientStop {
-                position: 0.0
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.26)
-              }
-              GradientStop {
-                position: 0.88
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.02)
-              }
-            }
+        Layout.margins: 6
+        Layout.topMargin: 0
+        Layout.bottomMargin: newsPageIndicator.visible ? 0 : 24
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        Layout.fillWidth: true
+        Layout.maximumWidth: 410
 
-            radius: 6
-          }
+        Repeater {
+          model: newsParser.items
 
-          ColumnLayout {
-            spacing: 0
-            anchors.centerIn: parent
+          QfWelcomeCard.Panel {
+            required property var modelData
 
-            Text {
-              Layout.margins: 6
-              Layout.topMargin: 12
-              Layout.maximumWidth: feedbackView.width - 12
-              text: qsTr("Hey there, how do you like your experience with %1 so far?").arg(Qfield.name)
-              font: QfTheme.defaultFont
-              color: QfTheme.mainTextColor
-              horizontalAlignment: Text.AlignHCenter
-              wrapMode: Text.WordWrap
-            }
+            closable: true
+            collapseOnClose: false
+            title: modelData.title
+            message: QfStringUtils.snippet(modelData.description, 160)
+            messageMaximumLineCount: 3
+            imageSource: modelData.imageUrl
 
-            RowLayout {
-              spacing: 6
-              Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-              Layout.bottomMargin: 10
-              QfToolButton {
-                iconSource: QfTheme.getThemeVectorIcon('ic_dissatisfied_white_24dp')
-                iconColor: QfTheme.mainOverlayColor
-                bgcolor: QfTheme.mainColor
-                round: true
+            onCloseClicked: newsParser.dismiss(modelData.uuid)
 
-                onClicked: {
-                  feedbackView.currentIndex = 0;
-                }
-              }
-              QfToolButton {
-                iconSource: QfTheme.getThemeVectorIcon('ic_satisfied_white_24dp')
-                iconColor: QfTheme.mainOverlayColor
-                bgcolor: QfTheme.mainColor
-                round: true
+            QfButton {
+              Layout.fillWidth: true
+              Layout.preferredHeight: 36
+              text: qsTr("Read more")
+              bgcolor: "transparent"
+              color: QfTheme.mainColor
 
-                onClicked: {
-                  if (Qt.platform.os === "android" || Qt.platform.os === "ios" || Qt.platform.os === "windows") {
-                    feedbackView.currentIndex = 2;
-                  } else {
-                    feedbackView.Layout.preferredHeight = 0;
-                  }
-                }
-              }
-            }
-          }
-        }
-        Item {
-          id: ohyeah
-
-          Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-              GradientStop {
-                position: 0.0
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.26)
-              }
-              GradientStop {
-                position: 0.88
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.02)
-              }
-            }
-
-            radius: 6
-          }
-
-          ColumnLayout {
-            spacing: 0
-            anchors.centerIn: parent
-
-            Text {
-              Layout.margins: 6
-              Layout.topMargin: 12
-              Layout.maximumWidth: feedbackView.width - 12
-              text: qsTr("That's great! We'd love for you to click on the button below and leave a review.")
-              font: QfTheme.defaultFont
-              color: QfTheme.mainTextColor
-              horizontalAlignment: Text.AlignHCenter
-              wrapMode: Text.WordWrap
-            }
-
-            RowLayout {
-              spacing: 6
-              Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-              Layout.margins: 6
-              Layout.bottomMargin: 10
-              QfButton {
-                topPadding: 8
-                bottomPadding: 8
-                leftPadding: 10
-                rightPadding: 10
-
-                text: qsTr("Rate us")
-                icon.source: QfTheme.getThemeVectorIcon('ic_star_white_24dp')
-
-                onClicked: {
-                  if (Qt.platform.os === "windows") {
-                    Qt.openUrlExternally("https://apps.microsoft.com/detail/xp99h3bcx4bw7f");
-                  } else if (Qt.platform.os === "android") {
-                    Qt.openUrlExternally("market://details?id=ch.opengis.qfield");
-                  } else if (Qt.platform.os === "ios") {
-                    Qt.openUrlExternally("itms-apps://itunes.apple.com/app/qfield-for-qgis/id1531726814");
-                  }
-                  feedbackView.Layout.preferredHeight = 0;
-                }
+              onClicked: {
+                Qt.openUrlExternally(modelData.url);
+                newsParser.dismiss(modelData.uuid);
               }
             }
           }
         }
       }
 
-      SwipeView {
+      PageIndicator {
+        id: newsPageIndicator
+        visible: newsView.count > 1
+
+        Layout.topMargin: 6
+        Layout.bottomMargin: 8
+        padding: 0
+        Layout.alignment: Qt.AlignHCenter
+        count: newsView.count
+        currentIndex: newsView.currentIndex
+
+        delegate: Rectangle {
+          required property int index
+
+          implicitWidth: 6
+          implicitHeight: 6
+          radius: 3
+          color: QfTheme.mainColor
+          opacity: index === newsPageIndicator.currentIndex ? 1 : 0.3
+        }
+      }
+
+      QfWelcomeCard {
+        id: feedbackView
+        visible: false
+
+        Layout.margins: 6
+        Layout.topMargin: 0
+        Layout.bottomMargin: 24
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        Layout.fillWidth: true
+        Layout.maximumWidth: 410
+        currentIndex: 1
+
+        QfWelcomeCard.Panel {
+          id: ohno
+          closable: true
+          message: qsTr("We're sorry to hear that. Click on the button below to comment or seek support.")
+
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            text: qsTr("Reach out")
+            icon.source: QfTheme.getThemeVectorIcon('ic_create_white_24dp')
+
+            onClicked: {
+              Qt.openUrlExternally("https://www.qfield.org/");
+              feedbackView.collapse();
+            }
+          }
+        }
+
+        QfWelcomeCard.Panel {
+          id: intro
+          closable: true
+          title: qsTr("How's %1 working for you?").arg(Qfield.name)
+          message: qsTr("One tap is all it takes.")
+
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr("Could be better")
+            icon.source: QfTheme.getThemeVectorIcon('ic_thumb_down_white_24dp')
+            display: AbstractButton.IconOnly
+            bgcolor: "transparent"
+            color: QfTheme.mainColor
+
+            onClicked: {
+              feedbackView.currentIndex = 0;
+            }
+          }
+
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr("Loving it")
+            icon.source: QfTheme.getThemeVectorIcon('ic_thumb_up_white_24dp')
+            display: AbstractButton.IconOnly
+
+            onClicked: {
+              if (Qt.platform.os === "android" || Qt.platform.os === "ios" || Qt.platform.os === "windows") {
+                feedbackView.currentIndex = 2;
+              } else {
+                feedbackView.collapse();
+              }
+            }
+          }
+        }
+
+        QfWelcomeCard.Panel {
+          id: ohyeah
+          closable: true
+          message: qsTr("That's great! We'd love for you to click on the button below and leave a review.")
+
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            text: qsTr("Rate us")
+            icon.source: QfTheme.getThemeVectorIcon('ic_star_white_24dp')
+
+            onClicked: {
+              if (Qt.platform.os === "windows") {
+                Qt.openUrlExternally("https://apps.microsoft.com/detail/xp99h3bcx4bw7f");
+              } else if (Qt.platform.os === "android") {
+                Qt.openUrlExternally("market://details?id=ch.opengis.qfield");
+              } else if (Qt.platform.os === "ios") {
+                Qt.openUrlExternally("itms-apps://itunes.apple.com/app/qfield-for-qgis/id1531726814");
+              }
+              feedbackView.collapse();
+            }
+          }
+        }
+      }
+
+      QfWelcomeCard {
         id: collectionView
         visible: false
 
-        Layout.margins: 0
-        Layout.topMargin: 10
-        Layout.bottomMargin: 10
+        Layout.margins: 6
+        Layout.topMargin: 0
+        Layout.bottomMargin: 24
         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-        Layout.preferredWidth: Math.min(410, welcomeLayout.width - 20)
-        Layout.preferredHeight: Math.max(collectionOhno.childrenRect.height, collectionIntro.childrenRect.height)
-        clip: true
-
-        Behavior on Layout.preferredHeight {
-          NumberAnimation {
-            duration: 100
-            easing.type: Easing.InQuad
-          }
-        }
-
-        interactive: false
+        Layout.fillWidth: true
+        Layout.maximumWidth: 410
         currentIndex: 1
-        Item {
+
+        QfWelcomeCard.Panel {
           id: collectionOhno
-
-          Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-              GradientStop {
-                position: 0.0
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.26)
-              }
-              GradientStop {
-                position: 0.88
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.02)
-              }
-            }
-
-            radius: 6
-          }
-
-          ColumnLayout {
-            spacing: 0
-            anchors.centerIn: parent
-
-            Text {
-              Layout.margins: 6
-              Layout.topMargin: 12
-              Layout.maximumWidth: collectionView.width - 12
-              text: qsTr("Anonymized metrics collection has been disabled. You can re-enable through the settings panel.")
-              font: QfTheme.defaultFont
-              color: QfTheme.mainTextColor
-              horizontalAlignment: Text.AlignHCenter
-              wrapMode: Text.WordWrap
-            }
-          }
+          message: qsTr("Anonymized metrics collection has been disabled. You can re-enable through the settings panel.")
         }
 
-        Item {
+        QfWelcomeCard.Panel {
           id: collectionIntro
+          message: qsTr("To improve stability for everyone, %1 collects and sends anonymized metrics.").arg(Qfield.name)
 
-          Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-              GradientStop {
-                position: 0.0
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.26)
-              }
-              GradientStop {
-                position: 0.88
-                color: Qt.hsla(QfTheme.mainColor.hslHue, QfTheme.mainColor.hslSaturation, QfTheme.mainColor.hslLightness, 0.02)
-              }
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr('I prefer not')
+            bgcolor: "transparent"
+            color: QfTheme.mainColor
+
+            onClicked: {
+              qfieldSettings.enableInfoCollection = false;
+              collectionView.collapse();
             }
-
-            radius: 6
           }
 
-          ColumnLayout {
-            spacing: 0
-            anchors.centerIn: parent
+          QfButton {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 36
+            Layout.preferredWidth: 0
+            text: qsTr('I agree')
 
-            Text {
-              Layout.margins: 6
-              Layout.topMargin: 12
-              Layout.maximumWidth: collectionView.width - 12
-              text: qsTr("To improve stability for everyone, %1 collects and sends anonymized metrics.").arg(Qfield.name)
-              font: QfTheme.defaultFont
-              color: QfTheme.mainTextColor
-              horizontalAlignment: Text.AlignHCenter
-              wrapMode: Text.WordWrap
-            }
-
-            RowLayout {
-              spacing: 6
-              Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-              Layout.bottomMargin: 10
-              QfButton {
-                topPadding: 8
-                bottomPadding: 8
-                leftPadding: 10
-                rightPadding: 10
-
-                text: qsTr('I agree')
-
-                onClicked: {
-                  qfieldSettings.enableInfoCollection = true;
-                  collectionView.visible = false;
-                }
-              }
-
-              QfButton {
-                topPadding: 8
-                bottomPadding: 8
-                leftPadding: 10
-                rightPadding: 10
-
-                text: qsTr('I prefer not')
-                bgcolor: "transparent"
-                color: QfTheme.mainColor
-
-                onClicked: {
-                  qfieldSettings.enableInfoCollection = false;
-                  collectionView.visible = false;
-                }
-              }
+            onClicked: {
+              qfieldSettings.enableInfoCollection = true;
+              collectionView.collapse();
             }
           }
         }
@@ -671,7 +585,7 @@ Page {
                     case QfRecentProjectListModel.CloudProject:
                     case QfRecentProjectListModel.LocalProject:
                     case QfRecentProjectListModel.LocalDataset:
-                      if (item.type === QfRecentProjectListModel.CloudProject && cloudConnection.hasToken && cloudConnection.status !== QfCloudConnection.LoggedIn) {
+                      if (item.type === QfRecentProjectListModel.CloudProject && cloudConnection.hasToken && cloudConnection.status !== QfCloudConnection.LoggedIn && cloudConnection.isReachable) {
                         cloudConnection.login();
                       }
                       iface.loadFile(item.path, item.projectTitle.text);
@@ -1044,8 +958,23 @@ Page {
     }
   }
 
+  QfNewsParser {
+    id: newsParser
+    feedUrl: "https://qfield.org/blog/feed.xml"
+    enabled: welcomeScreen.showNews
+
+    onEnabledChanged: {
+      if (enabled) {
+        fetch();
+      }
+    }
+  }
+
   Component.onCompleted: {
     adjustWelcomeScreen();
+    if (newsParser.enabled) {
+      newsParser.fetch();
+    }
     const runCount = settings.value("/QField/RunCount", 0) * 1;
     if (runCount > 0) {
       // Avoid throwing new guides to pre-existing users upgrading
@@ -1076,6 +1005,13 @@ Page {
         settings.setValue("/QField/CollectionFormShownV2", true);
       }
     }
+    if (Qfield.name.indexOf("QField") >= 0 && !welcomeScreen.showNews && !collectionView.visible && !feedbackView.visible) {
+      const newsFormShown = settings.value("/QField/NewsFormShown", false);
+      if (!newsFormShown) {
+        newsOptInView.visible = true;
+        settings.setValue("/QField/NewsFormShown", true);
+      }
+    }
     settings.setValue("/QField/RunCount", runCount + 1);
     if (registry.defaultProject != '') {
       if (!QfFileUtils.fileExists(registry.defaultProject)) {
@@ -1089,6 +1025,7 @@ Page {
       welcomeText.text = "";
       feedbackView.visible = false;
       collectionView.visible = false;
+      newsOptInView.visible = false;
       firstShown = true;
     }
   }

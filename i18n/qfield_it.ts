@@ -750,7 +750,7 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
     <message numerus="yes">
         <source>Should the %n feature(s) selected really be deleted?</source>
         <comment>0</comment>
-        <translation type="vanished"><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform></translation>
+        <translation type="vanished"><numerusform>Vuoi davvero eliminare %n elemento selezionato?</numerusform><numerusform>Vuoi davvero eliminare %n elementi selezionati?</numerusform><numerusform>Vuoi davvero eliminare %n elementi selezionati?</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>Successfully deleted %n feature(s)</source>
@@ -822,7 +822,7 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
     <name>FeaturesLocatorFilter</name>
     <message>
         <source>Open form</source>
-        <translation type="vanished">Apri formulario</translation>
+        <translation type="vanished">Apri maschera</translation>
     </message>
     <message>
         <source>Set feature as destination</source>
@@ -2471,11 +2471,11 @@ Messaggio dell&apos;errore: %4</translation>
     <name>QFieldCloudService</name>
     <message>
         <source>Uploading %1</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento %1</translation>
     </message>
     <message numerus="yes">
         <source>%n file(s) remaining</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n file rimanente</numerusform><numerusform>%n file rimanenti</numerusform><numerusform>%n file rimanenti</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2980,7 +2980,7 @@ Annullare per eseguire una scansione veloce del dispositivo.</translation>
     </message>
     <message>
         <source>Error zip file does not exist: &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Errore: il file zip non esiste: &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Error zip filename is empty</source>
@@ -2992,7 +2992,7 @@ Annullare per eseguire una scansione veloce del dispositivo.</translation>
     </message>
     <message>
         <source>Error output dir is not a directory: &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Errore: la directory di output non è una cartella: &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Error output dir is not writable: &apos;%1&apos;</source>
@@ -3100,10 +3100,14 @@ Annullare per eseguire una scansione veloce del dispositivo.</translation>
     </message>
     <message>
         <source>Failed to delete directory: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile eliminare la cartella: %1</translation>
     </message>
     <message>
         <source>Failed to delete file: %1 - %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to delete sidecar file: %1 - %2</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -3176,7 +3180,7 @@ Annullare per eseguire una scansione veloce del dispositivo.</translation>
     </message>
     <message>
         <source>Open form</source>
-        <translation>Apri formulario</translation>
+        <translation>Apri maschera</translation>
     </message>
     <message>
         <source>Set feature as destination</source>
@@ -3269,4118 +3273,14 @@ Annullare per eseguire una scansione veloce del dispositivo.</translation>
     </message>
 </context>
 <context>
-    <name>QfAttributeFormModelBase</name>
-    <message>
-        <source>Expression constraint</source>
-        <translation>Vincolo espressione</translation>
-    </message>
-    <message>
-        <source>Not NULL</source>
-        <translation>Non NULLO</translation>
-    </message>
-    <message>
-        <source>Unique</source>
-        <translation>Unico</translation>
-    </message>
-</context>
-<context>
-    <name>QfAudioClipRecorder</name>
-    <message>
-        <source>Audio Recorder</source>
-        <translation>Registratore Audio</translation>
-    </message>
-</context>
-<context>
-    <name>QfBadLayerItem</name>
-    <message>
-        <source>Unable to load some layers</source>
-        <translation>Impossibile caricare alcuni layer</translation>
-    </message>
-    <message>
-        <source>The following layers could not be loaded, please review those and reconfigure the QGIS project.</source>
-        <translation>I seguenti layer non possono essere caricati. Per favore controllali e riconfigura il progetto QGIS.</translation>
-    </message>
-    <message>
-        <source>You may check the %1Portable Project%2 documentation page for more help.</source>
-        <translation>Puoi controllare la pagina di documentazione del%1Portable Project%2 per ulteriori aiuti.</translation>
-    </message>
-</context>
-<context>
-    <name>QfBluetoothDeviceChooser</name>
-    <message>
-        <source>Scan for nearby devices</source>
-        <translation>Cerca dispositivi nelle vicinanze</translation>
-    </message>
-    <message>
-        <source>Select the Bluetooth device from the list below:</source>
-        <translation>Selezionare il dispositivo Bluetooth dall&apos;elenco seguente:</translation>
-    </message>
-    <message>
-        <source>No Bluetooth devices detected.</source>
-        <translation>Nessun dispositivo bluetooth trovato.</translation>
-    </message>
-    <message>
-        <source>Scanning error: %1</source>
-        <translation>Errore di scansione: %1</translation>
-    </message>
-    <message>
-        <source>Scanning for paired devices</source>
-        <translation>Ricerca di dispositivi associati</translation>
-    </message>
-    <message>
-        <source>Scanning failed: %1</source>
-        <translation>Scansione fallita: %1</translation>
-    </message>
-    <message>
-        <source>Scanning done</source>
-        <translation>Scansione completata</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n device(s) found</source>
-        <translation><numerusform>%n dispositivi trovati</numerusform><numerusform>%n dispositivi trovati</numerusform><numerusform>%n dispositivi trovati</numerusform></translation>
-    </message>
-    <message>
-        <source>Scanning canceled</source>
-        <translation>Scansione annullata</translation>
-    </message>
-    <message>
-        <source>Use Bluetooth Low Energy (BLE)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bluetooth device name:</source>
-        <translation>Nome dispositivo bluetooth:</translation>
-    </message>
-    <message>
-        <source>Bluetooth device address:</source>
-        <translation>Indirizzo dispositivo bluetooth:</translation>
-    </message>
-    <message>
-        <source>Bluetooth device configuration:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Low Energy (BLE)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Classic (BT)</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfBluetoothDeviceModel</name>
-    <message>
-        <source>Bluetooth permission denied</source>
-        <translation>Permesso Bluetooth negato</translation>
-    </message>
-    <message>
-        <source>Bluetooth permission is required to scan for bluetooth devices</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Location permission denied</source>
-        <translation>Autorizzazione alla posizione negata</translation>
-    </message>
-    <message>
-        <source>Location permission is required to scan for bluetooth devices</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfBookmarkList</name>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bookmark List Menu</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Toggle Bookmark Selection</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Export Selected Bookmark(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Export All User Bookmarks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bookmarks exported</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete Selected Bookmark(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bookmark Actions</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Edit Bookmark</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Navigate to bookmark</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Copy Bookmark Details</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bookmark details copied to clipboard</source>
-        <translation>Dettagli del segnalibro copiati negli appunti</translation>
-    </message>
-    <message>
-        <source>Delete Bookmark</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove bookmark</source>
-        <translation>Rimuovi segnalibro</translation>
-    </message>
-    <message>
-        <source>You are about to remove a bookmark, proceed?</source>
-        <translation>Stai per rimuovere un segnalibro, procedere?</translation>
-    </message>
-    <message>
-        <source>Delete bookmark(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>Should the %n selected bookmark(s) really be deleted?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Deleted %n bookmark(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Orange</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Blue</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project bookmarks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Untitled bookmark</source>
-        <translation>Segnalibro senza titolo</translation>
-    </message>
-    <message>
-        <source>No bookmarks yet</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfBookmarkLocatorFilter</name>
-    <message>
-        <source>Navigate to bookmark</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Spatial bookmarks</source>
-        <translation>Segnalibri spaziali</translation>
-    </message>
-    <message>
-        <source>Returns a list of user and currently open project bookmarks with matching names.</source>
-        <translation>Restituisce una lista di utenti e segnalibri di progetti attualmente aperti con nomi corrispondenti.</translation>
-    </message>
-</context>
-<context>
-    <name>QfBookmarkProperties</name>
-    <message>
-        <source>Bookmark Properties</source>
-        <translation>Proprietà del Segnalibro</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descrizione</translation>
-    </message>
-    <message>
-        <source>Change color</source>
-        <translation>Cambia colore</translation>
-    </message>
-    <message>
-        <source>Bookmark details copied to clipboard</source>
-        <translation>Dettagli del segnalibro copiati negli appunti</translation>
-    </message>
-    <message>
-        <source>Remove bookmark</source>
-        <translation>Rimuovi segnalibro</translation>
-    </message>
-    <message>
-        <source>You are about to remove a bookmark, proceed?</source>
-        <translation>Stai per rimuovere un segnalibro, procedere?</translation>
-    </message>
-</context>
-<context>
-    <name>QfBookmarkRenderer</name>
-    <message>
-        <source>Bookmark: %1</source>
-        <translation>Segnalibro: %1</translation>
-    </message>
-    <message>
-        <source>Project bookmarks cannot be edited</source>
-        <translation>I segnalibri del progetto non possono essere modificati</translation>
-    </message>
-</context>
-<context>
-    <name>QfBrowserPanel</name>
-    <message>
-        <source>Browser</source>
-        <translation>Browser</translation>
-    </message>
-</context>
-<context>
-    <name>QfCalendarPanel</name>
-    <message>
-        <source>Hours</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Minutes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Seconds</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>January</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>February</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>March</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>April</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>May</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>June</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>July</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>August</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>September</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>October</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>November</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>December</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCamera</name>
-    <message>
-        <source>Latitude</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Longitude</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Altitude</source>
-        <translation>Altitudine</translation>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Velocità</translation>
-    </message>
-    <message>
-        <source>Orientation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Details stamping enabled</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Details stamping disabled</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Geotagging enabled</source>
-        <translation>Geotagging abilitato</translation>
-    </message>
-    <message>
-        <source>Geotagging disabled</source>
-        <translation>Geotagging disabilitato</translation>
-    </message>
-    <message>
-        <source>Grid enabled</source>
-        <translation>Griglia attivata</translation>
-    </message>
-    <message>
-        <source>Grid disabled</source>
-        <translation>Griglia disattivata</translation>
-    </message>
-    <message>
-        <source>front</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>back</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfChangelog</name>
-    <message>
-        <source>What&apos;s new in QField</source>
-        <translation>Cosa c&apos;è di nuovo in QField</translation>
-    </message>
-    <message>
-        <source>Error while fetching changelog, try again later.</source>
-        <translation>Errore nel recupero del registro delle modifiche, riprova più tardi.</translation>
-    </message>
-    <message>
-        <source>Support QField</source>
-        <translation>Supporta QField</translation>
-    </message>
-    <message>
-        <source>Check the latest QField changes on </source>
-        <translation>Controlla le ultime modifiche di QField su</translation>
-    </message>
-    <message>
-        <source>QField releases page</source>
-        <translation>Pagina delle versioni di QField</translation>
-    </message>
-</context>
-<context>
-    <name>QfChangelogContents</name>
-    <message>
-        <source>Previous releases on GitHub</source>
-        <translation>Versioni precedenti su GitHub</translation>
-    </message>
-</context>
-<context>
-    <name>QfClipboardManager</name>
-    <message>
-        <source>Geometry</source>
-        <translation>Geometria</translation>
-    </message>
-    <message>
-        <source>Paste failed: no destination layer provided</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cut operation: source and destination layers are the same, skipping paste.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Paste failed: clipboard feature is invalid</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cut failed: could not start editing on source layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cut failed: could not delete original feature from source layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Paste failed: no compatible features could be created</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Paste failed: could not start editing on layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Paste failed: could not add feature to layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Paste failed: commitChanges failed on layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cut commit failed on source layer %1</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloseButton</name>
-    <message>
-        <source>close</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudConnection</name>
-    <message>
-        <source>Authentication provider missing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Password missing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Login error due to unexpected redirect, please retry later</source>
-        <translation>Errore di accesso dovuto a redirect inatteso, riprova più tardi</translation>
-    </message>
-    <message>
-        <source>Server not found, please check the server URL</source>
-        <translation>Server non trovato, controllare l&apos;URL del server</translation>
-    </message>
-    <message>
-        <source>Timeout error, please retry</source>
-        <translation>Errore di timeout, riprovare</translation>
-    </message>
-    <message>
-        <source>Wrong username or password</source>
-        <translation>Nome utente o password errati</translation>
-    </message>
-    <message>
-        <source>Session expired</source>
-        <translation>Sessione scaduta</translation>
-    </message>
-    <message>
-        <source>Login temporary unavailable</source>
-        <translation>Accesso temporaneamente non disponibile</translation>
-    </message>
-    <message>
-        <source>[timeout] The request took too long to finish, please retry.</source>
-        <translation>[timeout] La richiesta ha impiegato troppo tempo per il completamento. Riprovare.</translation>
-    </message>
-    <message>
-        <source>[aborted] The request has been aborted.</source>
-        <translation>[aborted] La richiesta è stata annullata.</translation>
-    </message>
-    <message>
-        <source>Server Error.</source>
-        <translation>Errore del Server. </translation>
-    </message>
-    <message>
-        <source>Network Error.</source>
-        <translation>Errore di Rete.</translation>
-    </message>
-    <message>
-        <source>Failed to upload attachment stored at `%1`, reason:
-%2</source>
-        <translation>Impossibile caricare l&apos;allegato archiviato in `%1`. Motivo:
-%2 </translation>
-    </message>
-</context>
-<context>
-    <name>QfCloudDangerZone</name>
-    <message>
-        <source>The action below is irreversible and permanently affects your local data. Proceed with caution.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Reset project</source>
-        <translation>Ripristina il progetto</translation>
-    </message>
-    <message>
-        <source>Discard local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The local copy of this cloud project has been corrupted. Resetting the project will re-download the cloud version and will remove any local changes, make sure those were copied first if needed.
-
-While you can still view and use the project, it is strongly recommended to reset to avoid any accidental data loss as none of the changes made will be pushed back to the cloud.</source>
-        <translation>La copia locale di questo progetto cloud è stata danneggiata. Reimpostando il progetto si ri-scaricherà la versione cloud e si rimuoveranno tutte le modifiche fatte in locale. Assicurati di copiarle da qualche parte prima, se necessario.
-
-Anche se puoi ancora visualizzare e utilizzare questo progetto, è altamente raccomandato il ripristino onde evitare perdite accidentali di dati, siccome nessuna modifica effettuata verrà caricata sul cloud.</translation>
-    </message>
-    <message>
-        <source>Removes all your local edits that have not yet been uploaded.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Discard</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudDeltaHistory</name>
-    <message>
-        <source>Upload History</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fetching upload history…</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No changes have been uploaded yet!</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Uploaded by %1 on %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Applied</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Pending</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Busy</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Conflict</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Not applied</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Ignored</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Unpermitted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Sconosciuto</translation>
-    </message>
-</context>
-<context>
-    <name>QfCloudLogin</name>
-    <message>
-        <source>Failed to sign in</source>
-        <translation>Accesso fallito</translation>
-    </message>
-    <message>
-        <source>%1Server URL
-(Leave empty to use the default server)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Username or email</source>
-        <translation>Nome utente o email</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <source>Sign out</source>
-        <translation>Esci</translation>
-    </message>
-    <message>
-        <source>Signing in, please wait</source>
-        <translation>Accesso in corso, attendi</translation>
-    </message>
-    <message>
-        <source>Sign in</source>
-        <translation>Accedi</translation>
-    </message>
-    <message>
-        <source>or</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Sign in using %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Visit the %1settings page%2 to manage your account.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New user?</source>
-        <translation>Nuovo utente?</translation>
-    </message>
-    <message>
-        <source>Register an account</source>
-        <translation>Registra un account</translation>
-    </message>
-    <message>
-        <source>The easiest way to transfer you project from QGIS to your devices!</source>
-        <translation>Il modo più semplice per trasferire il tuo progetto da QGIS ai tuoi dispositivi!</translation>
-    </message>
-    <message>
-        <source>Learn more about QFieldCloud</source>
-        <translation>Scopri di più su QFieldCloud</translation>
-    </message>
-</context>
-<context>
-    <name>QfCloudPackageLayersFeedback</name>
-    <message>
-        <source>Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudPendingChanges</name>
-    <message>
-        <source>added</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>deleted</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-    <message>
-        <source>%1: %2 to %3</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1: %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>%n change(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Geometry modified</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudPopup</name>
-    <message>
-        <source>Danger Zone</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
-    </message>
-    <message>
-        <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
-        <translation>Questo progetto QFieldCloud è stato inizialmente scaricato con un altro account cloud. Accedi con l&apos;account originale affinché questo progetto utilizzi la funzionalità QFieldCloud.</translation>
-    </message>
-    <message>
-        <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
-        <translation>QFieldCloud sta confezionando i dati più recenti solo per te; potrebbe volerci del tempo, tieni saldo</translation>
-    </message>
-    <message>
-        <source>Downloading, %1% of %2 fetched</source>
-        <translation>Scaricamento, recuperato %1% di %2</translation>
-    </message>
-    <message>
-        <source>Downloading, %1% fetched</source>
-        <translation>Scaricamento, %1% recuperato</translation>
-    </message>
-    <message>
-        <source>Reaching out to QFieldCloud to download project</source>
-        <translation>Raggiungi QFieldCloud per scaricare il progetto</translation>
-    </message>
-    <message>
-        <source>Pushing changes, %1%…</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud is applying the latest pushed changes. This might take some time, please hold tight…</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cloudify project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Uploading the current project to QFieldCloud.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The current project is not stored on QFieldCloud. Storing projects on QFieldCloud offers seamless synchronization, offline editing, and team management.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Learn more about QFieldCloud</source>
-        <translation>Scopri di più su QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Cloudifying %1%</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cloudifying</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The locally stored cloud project has been corrupted</source>
-        <translation>Il progetto cloud salvato in locale è stato corrotto</translation>
-    </message>
-    <message>
-        <source>Upload local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Sends your edits and attachments to the cloud without downloading project updates. Fast and low on data.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No changes uploaded yet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last uploaded just now</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last uploaded %1 minutes ago</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last uploaded today at %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last uploaded on %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Upload</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>Auto-upload every %n minute(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>The current project does not allow for auto-upload to be turned off</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Synchronize project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Uploads your edits, then downloads the latest project from QFieldCloud so everything is up to date.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last synchronized just now</source>
-        <translation>Ultima sincronizzazione proprio ora</translation>
-    </message>
-    <message>
-        <source>Last synchronized %1 minutes ago</source>
-        <translation>Ultima sincronizzazione %1 minuti fa</translation>
-    </message>
-    <message>
-        <source>Last synchronized today at %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last synchronized on %1</source>
-        <translation>Ultima sincronizzazione il %1</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>Sincronizza</translation>
-    </message>
-    <message>
-        <source>Upload history</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Danger zone</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Uploading %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>%n file(s) remaining</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Discard local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Should local changes be discarded?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Reset cloud project</source>
-        <translation>Ripristina il progetto cloud</translation>
-    </message>
-    <message>
-        <source>Last warning, resetting the cloud project will erase any local changes, are you sure you want to go ahead?</source>
-        <translation>Ultimo avviso: ripristinare il progetto sul cloud eliminerà ogni modifica effettuata in locale. Vuoi comunque procedere?</translation>
-    </message>
-    <message>
-        <source>Connecting cloud</source>
-        <translation>Collegamento al cloud</translation>
-    </message>
-    <message>
-        <source>This project has an updated project file on the cloud, you are advised to synchronize.</source>
-        <translation>Questo progetto ha un file di progetto aggiornato sul cloud, si consiglia di sincronizzare.</translation>
-    </message>
-    <message>
-        <source>This project has updated data on the cloud, you should synchronize.</source>
-        <translation>Questo progetto ha aggiornato i dati sul cloud, si dovrebbe sincronizzare.</translation>
-    </message>
-    <message>
-        <source>Project %1 cannot be packaged as your available storage is full.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Upgrade storage</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project %1 cannot be packaged as the project owner&apos;s available storage is full.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local changes discarded</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to discard changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No changes to discard</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Used %1 of %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>%n addition(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n edit(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n deletion(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>QfCloudProject</name>
-    <message>
-        <source>Failed to open temporary file for `%1`, reason:
-%2</source>
-        <translation>Impossibile aprire il file temporaneo per `%1`. Motivo:
-%2</translation>
-    </message>
-    <message>
-        <source>File system error. Failed to write attachment to temporary location `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File system error. Failed to open attachment for writing on temporary `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Network error. Failed to download attachment `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Packaging job finished unsuccessfully for `%1`. %2</source>
-        <translation>Impacchettamento del lavoro terminato con successo per `%1`. %2</translation>
-    </message>
-    <message>
-        <source>Failed to refresh the latest info for `%1`: %2</source>
-        <translation>Impossibile aggiornare le ultime informazioni per `%1`: %2</translation>
-    </message>
-    <message>
-        <source>Failed to get latest package data.</source>
-        <translation>Impossibile ottenere gli ultimi pacchetti di dati.</translation>
-    </message>
-    <message>
-        <source>Latest package data response error.</source>
-        <translation>Errore di risposta dei dati dell&apos;ultimo pacchetto.</translation>
-    </message>
-    <message>
-        <source>Latest package data structure error.</source>
-        <translation>Errore nella struttura dei dati dell&apos;ultimo pacchetto.</translation>
-    </message>
-    <message>
-        <source>Project %1: Packaged layer `%2` is not valid. Error code %3, error message: %4</source>
-        <translation>Progetto %1: il layer impacchettato `%2` non è valido. Codice errore %3.
-Messaggio dell&apos;errore: %4</translation>
-    </message>
-    <message>
-        <source>File system error. Failed to write to partial file `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>File system error. Failed to open partial file `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Network error. Failed to download file `%1`.</source>
-        <translation>Errore di rete. Impossibile scaricare il file `%1`.</translation>
-    </message>
-    <message>
-        <source>Failed to copy some of the downloaded files on your device. Check your device storage.</source>
-        <translation>Impossibile copiare alcuni file scaricati sul tuo dispositivo. Controlla la memoria del tuo dispositivo.</translation>
-    </message>
-    <message>
-        <source>Project `%1`, file `%2`: %3</source>
-        <translation>Progetto`%1`, file `%2`: %3</translation>
-    </message>
-    <message>
-        <source>System message: </source>
-        <translation>Messaggio di sistema:</translation>
-    </message>
-    <message>
-        <source> (see more in the QField error log)…</source>
-        <translation>(ulteriori dettagli nel registro degli errori di QField)...</translation>
-    </message>
-    <message>
-        <source>Job creation finished, but the server response is missing required fields: id(string)</source>
-        <translation>Creazione del lavoro completata, ma la risposta del server manca di un campo richiesto: id(string)</translation>
-    </message>
-    <message>
-        <source>Getting job status, but no `%2` job triggered yet.</source>
-        <translation>Ottengo lo stato del lavoro, ma non c&apos;è nessun lavoro &apos;%2&apos; attivato al momento.</translation>
-    </message>
-    <message>
-        <source>job(%1) status response does not contain all the expected keys: status(string)</source>
-        <translation>La risposta dello stato del lavoro(%1) non contiene tutte le chiavi richieste: status(string)</translation>
-    </message>
-    <message>
-        <source>Job(%1) finished with a failed status.</source>
-        <translation>Lavoro(%1) terminato con uno stato fallito.</translation>
-    </message>
-    <message>
-        <source>project(%1) trigger response refresh not contain all the expected keys: name(string), owner(string), description(string), user_role(string), is_public(bool), can_repackage(bool), needs_repackaging(bool)</source>
-        <translation>L&apos;aggiornamento della risposta del trigger del progetto(%1) non contiene tutte le chiavi richieste: name(string), owner(string), description(string), user_role(string), is_public(bool), can_repackage(bool), needs_repackaging(bool)</translation>
-    </message>
-    <message>
-        <source>aborted</source>
-        <translation>interrotto</translation>
-    </message>
-    <message>
-        <source>Local path doesn&apos;t exist</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local path to upload cannot be used as it has multiple project files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Local path to upload is missing a valid project file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Network error. Failed to upload file `%1`.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>One or more files could not be uploaded</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudProjectDetails</name>
-    <message>
-        <source>Using %1 of %2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Storage size</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Owner</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Creation date</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Latest update date</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This QR code can be scanned for users with the appropriate access to download and open this project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Synchronizing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>Sincronizza</translation>
-    </message>
-    <message>
-        <source>Upload local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud is packaging project, hold tight</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Downloading project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Download project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Downloading project %1</source>
-        <translation>Scaricamento del progetto %1</translation>
-    </message>
-    <message>
-        <source>Open project</source>
-        <translation>Apri progetto</translation>
-    </message>
-    <message>
-        <source>Clone project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Creating project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Create project from template</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudProjectFilter</name>
-    <message>
-        <source>Predefined Filters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Criteria</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Title or description contains</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Owner is</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Include public projects</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>My own</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Owned by %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Include public templates</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudProjectsModel</name>
-    <message>
-        <source>Project busy.</source>
-        <translation>Il progetto é occupato</translation>
-    </message>
-    <message>
-        <source>Network is not currently active. We will push the changes automatically once you are back online.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project creation requires a name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cloud project could not be created.</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudScreen</name>
-    <message>
-        <source>QFieldCloud Projects</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Disconnected from the cloud.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Connecting to the cloud.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Greetings &lt;strong&gt;%1&lt;/strong&gt;.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Projects</source>
-        <translation>Progetti</translation>
-    </message>
-    <message>
-        <source>Search for projects</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
-        <translation>QFieldCloud sta confezionando i dati più recenti solo per te; potrebbe volerci del tempo, tieni saldo</translation>
-    </message>
-    <message>
-        <source>Downloading, %1% of %2 fetched</source>
-        <translation>Scaricamento, recuperato %1% di %2</translation>
-    </message>
-    <message>
-        <source>Downloading, %1% fetched</source>
-        <translation>Scaricamento, %1% recuperato</translation>
-    </message>
-    <message>
-        <source>Reaching out to QFieldCloud to download project</source>
-        <translation>Raggiungi QFieldCloud per scaricare il progetto</translation>
-    </message>
-    <message>
-        <source>Uploading…</source>
-        <translation>Caricamento...</translation>
-    </message>
-    <message>
-        <source>Downloading error. </source>
-        <translation>Errore di scaricamento.</translation>
-    </message>
-    <message>
-        <source>Uploading error. </source>
-        <translation>Errore di caricamento.</translation>
-    </message>
-    <message>
-        <source>Refreshing projects list...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Searching for projects...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No cloud projects found.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public projects%2 and see what the community has to offer.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public projects%2.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>To get started, %1read the documentation%2.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refresh projects list</source>
-        <translation>Aggiorna la lista dei progetti</translation>
-    </message>
-    <message>
-        <source>Sign out</source>
-        <translation>Esci</translation>
-    </message>
-    <message>
-        <source>Sign in</source>
-        <translation>Accedi</translation>
-    </message>
-    <message>
-        <source>Settings page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Show invalid projects</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project Actions</source>
-        <translation>Azioni del progetto</translation>
-    </message>
-    <message>
-        <source>Open Project</source>
-        <translation>Apri progetto</translation>
-    </message>
-    <message>
-        <source>Synchronize</source>
-        <translation>Sincronizza</translation>
-    </message>
-    <message>
-        <source>Upload local changes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Clone Project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove Stored Project</source>
-        <translation>Rimuovi Progetto Archiviato</translation>
-    </message>
-    <message>
-        <source>View Project Details</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>View Project Folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Are you sure you want to remove `%1`?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud project details fetching failed</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project cloning failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project creation failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refreshing projects list</source>
-        <translation>Aggiornamento elenco dei progetti</translation>
-    </message>
-    <message>
-        <source>Templates</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project Creation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Enter your project name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Allowed characters: 0-9A-Za-z_-</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud</source>
-        <translation>QFieldCloud</translation>
-    </message>
-    <message>
-        <source>Search for templates</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refreshing templates list...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Searching for templates...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No templates found.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Try to %1include public templates%2.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Refresh templates list</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Creating project…</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Preparing project…</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Project created but downloading failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The newly-created project could not be prepared.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Downloading project…</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudStatus</name>
-    <message>
-        <source>QFieldCloud server is not reachable</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The server at %1 could not be reached. Please check your internet connection.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud is under maintenance</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud service is degraded</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>There is an ongoing incident</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCloudUtils</name>
-    <message>
-        <source>A server error has occured, please try again.</source>
-        <translation>Si è verificato un errore del server, riprovare.</translation>
-    </message>
-    <message>
-        <source>A network error has occured, please try again.</source>
-        <translation>Si è verificato un errore di rete, riprovare.</translation>
-    </message>
-    <message>
-        <source>The project owner&apos;s available storage is full.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The project owner&apos;s subscription plan is insufficient.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Expected the json document to be an array of delta status</source>
-        <translation>Il documento json dovrebbe essere una matrice di stati delta</translation>
-    </message>
-    <message>
-        <source>Expected all array elements to be an object, but the element at #%1 is not</source>
-        <translation>Tutte le matrici dovrebbero essere oggetti, ma l&apos;elemento #%1 non lo è</translation>
-    </message>
-    <message>
-        <source>Expected all array elements to be an object containing a key &quot;%1&quot;, but the element at #%2 is not</source>
-        <translation>Tutte le matrici dovrebbero essere oggetti contenenti una chiave &quot;%1&quot;, ma l&apos;elemento #%2 non ce l&apos;ha</translation>
-    </message>
-    <message>
-        <source>Unrecognized status &quot;%1&quot; for $%2</source>
-        <translation>Stato non riconosciuto &quot;%1&quot; per $%2</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n feature(s) created</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n feature(s) edited</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n feature(s) deleted</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>%1 in layer %2</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCodeReader</name>
-    <message>
-        <source>No readable code found in the selected image</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NFC text tag detected</source>
-        <translation>NFC text tag rilevato</translation>
-    </message>
-    <message>
-        <source>Code Reader</source>
-        <translation>Lettore di codice</translation>
-    </message>
-    <message>
-        <source>Center your device on a code</source>
-        <translation>Centra il tuo dispositivo su un code</translation>
-    </message>
-</context>
-<context>
-    <name>QfCogoParameterAngle</name>
-    <message>
-        <source>deg</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfCogoParameterPoint</name>
-    <message>
-        <source>latitude</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>longitude</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>elevation</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>easting [X]</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>northing [Y]</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>elevation [Z]</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Point Feature Picker</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfDashBoard</name>
-    <message>
-        <source>The layer %1 is read only.</source>
-        <translation>Il layer %1 è di sola lettura.</translation>
-    </message>
-    <message>
-        <source>Project Information</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Map Theme</source>
-        <translation>Vista mappa</translation>
-    </message>
-    <message>
-        <source>Legend</source>
-        <translation>Legenda</translation>
-    </message>
-    <message>
-        <source>Expand All</source>
-        <translation>Espandi Tutto</translation>
-    </message>
-    <message>
-        <source>Collapse All</source>
-        <translation>Compatta Tutto</translation>
-    </message>
-    <message>
-        <source>Return home</source>
-        <translation>Torna alla home</translation>
-    </message>
-    <message>
-        <source>The project is read-only.</source>
-        <translation>Il progetto è in sola lettura.</translation>
-    </message>
-</context>
-<context>
-    <name>QfDialog</name>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancella</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfDigitizingLogger</name>
-    <message>
-        <source>Default value expression for the digitizing logger&apos;s %2 field has a parser error: %3</source>
-        <translation>L&apos;espressione del valore predefinito per il campo %2 del logger di digitalizzazione ha un errore di analisi: %3</translation>
-    </message>
-    <message>
-        <source>Default value expression for the digitizing logger&apos;s %2 field has an evaluation error: %3</source>
-        <translation>L&apos;espressione del valore predefinito per il campo %2 del logger di digitalizzazione ha un errore di valutazione: %3</translation>
-    </message>
-    <message>
-        <source>Digitizing logs layer feature addition failed</source>
-        <translation>Aggiunta di funzionalità al layer dei registri di digitalizzazione non riuscita</translation>
-    </message>
-    <message>
-        <source>Digitizing logs layer change commits failed</source>
-        <translation>Cambiamento del layer dei registri di digitalizzazione non riuscita</translation>
-    </message>
-    <message>
-        <source>Digitizing logs layer editing failed</source>
-        <translation>Modifica del layer dei registri di digitalizzazione non riuscita</translation>
-    </message>
-</context>
-<context>
-    <name>QfDigitizingToolbar</name>
-    <message>
-        <source>The collected positions count does not meet the requirement</source>
-        <translation>Il conteggio delle posizioni raccolte non soddisfa il requisito</translation>
-    </message>
-    <message>
-        <source>Cancel digitizing</source>
-        <translation>Cancella digitalizzazione</translation>
-    </message>
-    <message>
-        <source>Should the digitized geometry be discarded?</source>
-        <translation>La geometria digitalizzata deve essere scartata?</translation>
-    </message>
-    <message>
-        <source>Position accuracy doesn&apos;t meet the minimum requirement, vertex not added</source>
-        <translation>L&apos;accuratezza della posizione non soddisfa il requisito minimo, vertice non aggiunto</translation>
-    </message>
-</context>
-<context>
-    <name>QfDrawingTemplateModel</name>
-    <message>
-        <source>Blank</source>
-        <translation>Vuoto</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetBase</name>
-    <message>
-        <source>Item Menu</source>
-        <translation>Menu Oggetto</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetBinary</name>
-    <message>
-        <source>(Blob)</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetCheckBox</name>
-    <message>
-        <source>True</source>
-        <translation>Vero</translation>
-    </message>
-    <message>
-        <source>False</source>
-        <translation>Falso</translation>
-    </message>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetDateTime</name>
-    <message>
-        <source>(no date)</source>
-        <translation>(nessuna data)</translation>
-    </message>
-    <message>
-        <source>Date value set to today.</source>
-        <translation>Data sincronizzata con quella attuale.</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetExternalResource</name>
-    <message>
-        <source>The external storage&apos;s authentication configuration ID is missing, please insure it is imported into %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Learn more</source>
-        <translation>Per saperne di più</translation>
-    </message>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-    <message>
-        <source>No Value</source>
-        <translation>Valore vuoto</translation>
-    </message>
-    <message>
-        <source>Cannot handle this file type</source>
-        <translation>Non posso gestire questo tipo di file</translation>
-    </message>
-    <message>
-        <source>QFieldCloud on-demand attachment error: </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Take a photo</source>
-        <translation>Fai una foto</translation>
-    </message>
-    <message>
-        <source>Take a video</source>
-        <translation>Fai un video</translation>
-    </message>
-    <message>
-        <source>Record an audio clip</source>
-        <translation>Registra una clip audio</translation>
-    </message>
-    <message>
-        <source>Attach a gallery item</source>
-        <translation>Allega un elemento della galleria</translation>
-    </message>
-    <message>
-        <source>Attach a file</source>
-        <translation>Allega un file</translation>
-    </message>
-    <message>
-        <source>Draw a sketch</source>
-        <translation>Disegna uno schizzo</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetRange</name>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-</context>
-<context>
-    <name>QfEditorWidgetTextEdit</name>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-    <message>
-        <source>Copy Text</source>
-        <translation>Copia Testo</translation>
-    </message>
-    <message>
-        <source>Paste Text</source>
-        <translation>Incolla Testo</translation>
-    </message>
-    <message>
-        <source>Scan Code</source>
-        <translation>Scansiona Codice</translation>
-    </message>
-</context>
-<context>
-    <name>QfEgenioussReceiver</name>
-    <message>
-        <source>Received data is too short to process</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Invalid start byte</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Received data is too short to contain the payload</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to parse JSON</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Could not find the remote host</source>
-        <translation>Impossibile trovare l&apos;host remoto</translation>
-    </message>
-    <message>
-        <source>Attempt to read or write from socket returned an error</source>
-        <translation>Il tentativo di leggere o scrivere sul socket ha ritornato un errore</translation>
-    </message>
-    <message>
-        <source>The connection was refused by the remote host</source>
-        <translation>La connessione è stata rifiutata dall&apos;host remoto</translation>
-    </message>
-    <message>
-        <source>TCP receiver error (%1)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Is the app running? HTTP request failed: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Egeniouss service is not ready.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Last fix</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Heading</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Roll</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Pitch</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Heading sigma</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfElevationProfile</name>
-    <message>
-        <source>Rendering elevation profile…</source>
-        <translation>Renderizzazione profilo elevazione...</translation>
-    </message>
-    <message>
-        <source>Digitize a path to render the elevation profile</source>
-        <translation>Digitalizza un percorso per renderizzare il profilo di elevazione</translation>
-    </message>
-</context>
-<context>
-    <name>QfExpressionCalculatorLocatorFilter</name>
-    <message>
-        <source>Copy “%1” to clipboard</source>
-        <translation>Copia “%1” negli appunti</translation>
-    </message>
-    <message>
-        <source>Calculator</source>
-        <translation>Calcolatrice</translation>
-    </message>
-    <message>
-        <source>Returns the value of an expression typed in the search bar.</source>
-        <translation>Restituisce il valore di un&apos;espressione digitata nella barra di ricerca.</translation>
-    </message>
-</context>
-<context>
-    <name>QfExpressionVariableModel</name>
-    <message>
-        <source>Not Available</source>
-        <translation>Non disponibile</translation>
-    </message>
-</context>
-<context>
-    <name>QfFeatureForm</name>
-    <message>
-        <source>Previous page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Next page</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Hard constraints not satisfied</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The last entered value for this field will be remembered and reused when creating new features</source>
-        <translation>L&apos;ultimo valore inserito per questo campo sarà ricordato e riutilizzato quando si creano nuovi elementi</translation>
-    </message>
-    <message>
-        <source>The last entered value for this field will not be reused when creating new features</source>
-        <translation>L&apos;ultimo valore inserito per questo campo non sarà riutilizzato quando si creano nuovi elementi</translation>
-    </message>
-    <message>
-        <source>Value applied</source>
-        <translation>Valore applicato</translation>
-    </message>
-    <message>
-        <source>Value skipped</source>
-        <translation>Valore saltato</translation>
-    </message>
-    <message>
-        <source> (click to toggle)</source>
-        <translation>(clicca per attivare)</translation>
-    </message>
-    <message>
-        <source>Soft constraints were not satisified</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Feature addition disabled</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Unable to save changes</source>
-        <translation>Impossibile salvare i cambiamenti</translation>
-    </message>
-    <message>
-        <source>Add feature on %1</source>
-        <translation>Aggiungi elemento su %1</translation>
-    </message>
-    <message>
-        <source>Edit feature on %1</source>
-        <translation>Modifica elemento su %1</translation>
-    </message>
-    <message>
-        <source>View feature on %1</source>
-        <translation>Visualizza elemento su %1</translation>
-    </message>
-    <message>
-        <source>Feature Form Menu</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remember All Reusable Values</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Forget All Reusable Values</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cancel editing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You are about to dismiss the new feature, proceed?</source>
-        <translation>Stai per eliminare il nuovo elemento. Procedere?</translation>
-    </message>
-    <message>
-        <source>You are about to leave editing state, any changes will be lost. Proceed?</source>
-        <translation>Stai per uscire dallo stato di modifica, tutti i cambiamenti andranno persi. Procedere?</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancella</translation>
-    </message>
-    <message>
-        <source>You are about to cancel the feature setup, proceed?</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfFeatureHistory</name>
-    <message>
-        <source>Failed to undo created features in layer &quot;%1&quot;</source>
-        <translation>Impossibile annullare gli elementi creati nel layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Failed to undo deleted features in layer &quot;%1&quot;</source>
-        <translation>Impossibile ripristinare gli elementi eliminati nel layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Failed to undo update features in layer &quot;%1&quot;</source>
-        <translation>Impossibile ripristinare gli elementi aggiornati nel layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Failed to commit undo feature modification in layer &quot;%1&quot;</source>
-        <translation>Impossibile eseguire annulla la modifica dell&apos;elemento nel layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Failed to rollback undo feature modifications in layer &quot;%1&quot;</source>
-        <translation>Impossibile annullare il rollback delle modifiche degli elementi nel layer &quot;%1&quot;</translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo creation of %n feature(s) on layer %1.</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo creation of %n feature(s).</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo deletion of %n feature(s) on layer %1.</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo deletion of %n feature(s).</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo modifications on %n feature(s) on layer %1.</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Undo modifications on %n feature(s).</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo creation of %n feature(s) on layer %1</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo creation of %n feature(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo deletion of %n feature(s) on layer %1</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo deletion of %n feature(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo modifications on %n feature(s) on layer %1</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Redo modifications on %n feature(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>QfFeatureListForm</name>
-    <message>
-        <source>Features</source>
-        <translation>Elementi</translation>
-    </message>
-    <message>
-        <source>Processing Algorithms</source>
-        <translation>Algoritmi di Elaborazione</translation>
-    </message>
-    <message>
-        <source>Changes saved</source>
-        <translation>Modifiche salvate</translation>
-    </message>
-    <message>
-        <source>Changes discarded</source>
-        <translation>Cambiamenti annullati</translation>
-    </message>
-    <message>
-        <source>Stop tracking this feature to edit attributes</source>
-        <translation>Interrompi il tracciamento di questo elemento per modificare gli attributi</translation>
-    </message>
-    <message>
-        <source>Stop tracking this feature to edit geometry</source>
-        <translation>Interrompi il tracciamento di questo elemento per modificarlo</translation>
-    </message>
-    <message>
-        <source>Successfully duplicated feature</source>
-        <translation>Elemento duplicato con successo</translation>
-    </message>
-    <message>
-        <source>A number of features are being tracked, stop tracking to delete those</source>
-        <translation>È in corso il tracciamento di una serie di elementi, interrompere il tracciamento per eliminarli</translation>
-    </message>
-    <message>
-        <source>A number of features are being tracked, stop tracking to merge those</source>
-        <translation>È in corso il tracciamento di una serie di elementi, interrompere il tracciamento per unirli</translation>
-    </message>
-    <message>
-        <source>Successfully duplicated selected features, list updated to show newly-created features</source>
-        <translation>Attributi selezionati duplicati con successo. La lista è stata aggiornata per mostrare i nuovi elementi</translation>
-    </message>
-    <message>
-        <source>No feature at this position</source>
-        <translation>Nessun elemento in questa posizione</translation>
-    </message>
-    <message>
-        <source>Merge feature(s)</source>
-        <translation>Fondi elementi</translation>
-    </message>
-    <message numerus="yes">
-        <source>Should the %n feature(s) selected really be merge?
-
-The features geometries will be combined into feature &apos;%1&apos;, which will keep its attributes.</source>
-        <comment>0</comment>
-        <translation><numerusform>Vuoi davvero fondere questo(i) %n elementi?
-
-Le geometrie degli elementi verranno combinati in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform><numerusform>Vuoi davvero fondere questi %n elementi?
-
-Le geometrie degli elementi verranno combinati in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform><numerusform>Vuoi davvero fondere questi %n elementi?
-
-Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully merged %n feature(s)</source>
-        <translation><numerusform>Fusione di %n elementi eseguita con successo</numerusform><numerusform>Fusione di %n elementi eseguita con successo</numerusform><numerusform>Fusione di %n elementi eseguita con successo</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Failed to merge %n feature(s)</source>
-        <translation><numerusform>Fallita la fusione (merge) di %n elemento(i)</numerusform><numerusform>Impossibile fondere %n elemento(i)</numerusform><numerusform>Impossibile fondere %n elemento(i)</numerusform></translation>
-    </message>
-    <message>
-        <source>Transfer Feature Attributes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Select a feature below from which attributes will be transfered onto the currently opened feature.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Feature attributes transferred</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No feature attributes were transferred</source>
-        <translation>Non è stato trasferito nessun attributo di elemento</translation>
-    </message>
-    <message>
-        <source>Delete feature(s)</source>
-        <translation>Cancella elemento(i)</translation>
-    </message>
-    <message numerus="yes">
-        <source>Should the %n feature(s) selected really be deleted?</source>
-        <comment>0</comment>
-        <translation><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Successfully deleted %n feature(s)</source>
-        <translation><numerusform>%n elementi eliminati con successo</numerusform><numerusform>%n elementi eliminati con successo</numerusform><numerusform>%n elementi eliminati con successo</numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Failed to delete %n feature(s)</source>
-        <translation><numerusform>Impossibile eliminare %n elemento(i)</numerusform><numerusform>Impossibile eliminare %n elemento(i)</numerusform><numerusform>Impossibile eliminare %n elemento(i)</numerusform></translation>
-    </message>
-</context>
-<context>
-    <name>QfFeatureModel</name>
-    <message>
-        <source>Value &quot;%1&quot; %4 could not be converted to a compatible value for field %2(%3).</source>
-        <translation>Non è stato possibile convertire il valore &quot;%1&quot; %4 in un valore compatibile per il campo %2(%3).</translation>
-    </message>
-    <message>
-        <source>Default value expression for %1:%2 has parser error: %3</source>
-        <translation>Il valore di default dell&apos;espressione per %1:%2 ha un errore di decodifica: %3</translation>
-    </message>
-    <message>
-        <source>Default value expression for %1:%2 has evaluation error: %3</source>
-        <translation>Il valore di default dell&apos;espressione per %1:%2 ha un errore di valutazione: %3</translation>
-    </message>
-    <message>
-        <source>Cannot update feature</source>
-        <translation>Impossibile aggiornare l&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Feature %1 could not be fetched after commit</source>
-        <translation>Non è stato possibile recuperare l&apos;elemento %1 dopo il commit</translation>
-    </message>
-    <message>
-        <source>Cannot start editing on layer &quot;%1&quot; to create feature %2</source>
-        <translation>Impossibile iniziare la modifica del layer &quot;%1&quot; per creare la elemento %2</translation>
-    </message>
-    <message>
-        <source>Layer &quot;%1&quot; has been commited but the newly created feature %2 could not be fetched</source>
-        <translation>Il layer &quot;%1&quot; è stato impegnato ma non è stato possibile recuperare la nuova elemento %2</translation>
-    </message>
-    <message>
-        <source>Layer &quot;%1&quot; cannot be commited with the newly created feature %2. Reason:
-%3</source>
-        <translation>Il layer &quot;1%&quot; non può essere impegnato con la nuova elemento %2. Motivo:
-%3</translation>
-    </message>
-    <message>
-        <source>Feature %2 could not be added in layer &quot;%1&quot;</source>
-        <translation>La elemento %2 non può essere aggiunta la layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Could not save changes. Rolling back.</source>
-        <translation>Non è possibile salvare i cambiamenti. Annullamento.</translation>
-    </message>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>Non è possibile iniziare a modificare</translation>
-    </message>
-</context>
-<context>
-    <name>QfFeaturesLocatorFilter</name>
-    <message>
-        <source>Open form</source>
-        <translation>Apri formulario</translation>
-    </message>
-    <message>
-        <source>Set feature as destination</source>
-        <translation>Imposta elemento come destinazione</translation>
-    </message>
-    <message>
-        <source>Feature has no geometry</source>
-        <translation>L&apos;elemento non ha geometria</translation>
-    </message>
-    <message>
-        <source>Features in all layers</source>
-        <translation>Elementi in tutti i layer</translation>
-    </message>
-    <message>
-        <source>Returns a list of features accross all searchable layers with matching display name.</source>
-        <translation>Restituisce un elenco di elementi in tutti i layer ricercabili con attributi corrispondenti al nome visualizzato.</translation>
-    </message>
-</context>
-<context>
-    <name>QfFileDeviceChooser</name>
-    <message>
-        <source>File path</source>
-        <translation>Percorso del file</translation>
-    </message>
-    <message>
-        <source>Interval (in milliseconds)</source>
-        <translation>Intervallo (in millisecondi)</translation>
-    </message>
-</context>
-<context>
-    <name>QfFinlandLocatorFilter</name>
-    <message>
-        <source>Finnish address search</source>
-        <translation>Ricerca indirizzi finlandesi</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorErase</name>
-    <message>
-        <source>The geometry could not be modified into multiple parts</source>
-        <translation>La geometria non può essere modificata in più parti.</translation>
-    </message>
-    <message>
-        <source>The geometry could not be modified</source>
-        <translation>La geometria non può essere modificata</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorFillRing</name>
-    <message>
-        <source>The ring is not closed</source>
-        <translation>L&apos;anello non è chiuso</translation>
-    </message>
-    <message>
-        <source>The ring is not valid</source>
-        <translation>L&apos;anello non è valido</translation>
-    </message>
-    <message>
-        <source>The ring crosses existing rings (it is not disjoint)</source>
-        <translation>L&apos;anello incrocia altri anelli già esistenti (non disgiunto)</translation>
-    </message>
-    <message>
-        <source>The ring doesn&apos;t have any existing ring to fit into</source>
-        <translation>Non è presente alcun anello in cui adattare il nuovo</translation>
-    </message>
-    <message>
-        <source>Unknown error when creating the ring</source>
-        <translation>Errore sconosciuto nella creazione dell&apos;anello</translation>
-    </message>
-    <message>
-        <source>Fill ring</source>
-        <translation>Riempi buco</translation>
-    </message>
-    <message>
-        <source>Would you like to fill the ring with a new polygon?</source>
-        <translation>Riempire l&apos;anello con un nuovo poligono?</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorReshape</name>
-    <message>
-        <source>The geometry could not be reshaped</source>
-        <translation>La geometria non può essere rimodellata</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorSplitFeature</name>
-    <message>
-        <source>Feature could not be split</source>
-        <translation>L&apos;elemento non può essere diviso</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorVertexEditor</name>
-    <message>
-        <source>Failed to save feature!</source>
-        <translation>Impossibile salvare elemento!</translation>
-    </message>
-</context>
-<context>
-    <name>QfGeometryEditorsToolbar</name>
-    <message>
-        <source>Vertex Tool</source>
-        <translation>Strumento Vertice</translation>
-    </message>
-    <message>
-        <source>Split Tool</source>
-        <translation>Strumento Dividi</translation>
-    </message>
-    <message>
-        <source>Reshape Tool</source>
-        <translation>Strumento di rimodellazione</translation>
-    </message>
-    <message>
-        <source>Erase Tool</source>
-        <translation>Strumento di cancellazione</translation>
-    </message>
-    <message>
-        <source>Fill Ring Tool</source>
-        <translation>Strumento Riempi Buco</translation>
-    </message>
-</context>
-<context>
-    <name>QfGotoLocatorFilter</name>
-    <message>
-        <source>Go to %1%2 %3%4 (Map CRS, %5)</source>
-        <translation>Vai a %1%2 %3%4 (SR Mappa, %5)</translation>
-    </message>
-    <message>
-        <source>Set navigation point</source>
-        <translation>Imposta punto di navigazione</translation>
-    </message>
-    <message>
-        <source>Go to %1°N %2°E (%3)</source>
-        <translation>Vai a %1°N %2°E (%3)</translation>
-    </message>
-    <message>
-        <source>Go to coordinate</source>
-        <translation>Vai alle coordinate</translation>
-    </message>
-    <message>
-        <source>Returns a point from a pair of X and Y coordinates - or WGS84 latitude and longitude - typed in the search bar.</source>
-        <translation>Restituisce un punto da una coppia di coordinate X e Y - o latitudine e longitudine WGS84 - digitate nella barra di ricerca.</translation>
-    </message>
-</context>
-<context>
-    <name>QfGuide</name>
-    <message>
-        <source>Finish</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Previous</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfHelpLocatorFilter</name>
-    <message>
-        <source>QField Documentation</source>
-        <translation>Documentazione QField</translation>
-    </message>
-    <message>
-        <source>Returns QField documentation pages matching terms.</source>
-        <translation>Restituisce le pagine di documentazione QField corrispondenti ai termini.</translation>
-    </message>
-</context>
-<context>
-    <name>QfInformationDrawer</name>
-    <message>
-        <source>Navigation</source>
-        <translation>Navigazione</translation>
-    </message>
-    <message>
-        <source>Positioning</source>
-        <translation>Posizionamento</translation>
-    </message>
-    <message>
-        <source>NTRIP</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Sensors</source>
-        <translation>Sensori</translation>
-    </message>
-    <message>
-        <source>Elevation profile</source>
-        <translation>Profilo altimetrico</translation>
-    </message>
-</context>
-<context>
-    <name>QfInformationPopup</name>
-    <message>
-        <source>Author</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfLayerLoginDialog</name>
-    <message>
-        <source>Credentials Details</source>
-        <translation>Dettaglio Credenziali</translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>Nome utente</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <source>Submit</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfLayerObserver</name>
-    <message>
-        <source>Failed to find a local primary key column in layer &quot;%1&quot;</source>
-        <translation>Impossibile trovare una colonna di chiave primaria locale nel layer &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <source>Failed to find a source primary key column in layer &quot;%1&quot;</source>
-        <translation>Impossibile trovare la colonna della chiave primaria della sorgente nel layer &quot;%1&quot;</translation>
-    </message>
-</context>
-<context>
-    <name>QfLayerTreeItemProperties</name>
-    <message>
-        <source>Expand group</source>
-        <translation>Espandi gruppo</translation>
-    </message>
-    <message>
-        <source>Expand legend item</source>
-        <translation>Espandi legenda elemento</translation>
-    </message>
-    <message>
-        <source>Stop tracking</source>
-        <translation>Interrompi il tracciamento</translation>
-    </message>
-    <message>
-        <source>Setup tracking</source>
-        <translation>Configura tracciamento</translation>
-    </message>
-    <message>
-        <source>Reload of layer %1 triggered</source>
-        <translation>Ricarica del layer %1 avviata</translation>
-    </message>
-    <message>
-        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
-        <translation>Questo layer non è valido. Ciò potrebbe essere dovuto a un problema di rete, a un file mancante o ad una configurazione errata del progetto.</translation>
-    </message>
-    <message>
-        <source>Show on map</source>
-        <translation>Mostra sulla mappa</translation>
-    </message>
-    <message>
-        <source>Show labels</source>
-        <translation>Mostra etichette</translation>
-    </message>
-    <message>
-        <source>Opacity</source>
-        <translation>Opacità</translation>
-    </message>
-    <message>
-        <source>Zoom to group</source>
-        <translation>Zoom al gruppo</translation>
-    </message>
-    <message>
-        <source>Zoom to parent layer</source>
-        <translation>Zoom sul layer padre</translation>
-    </message>
-    <message>
-        <source>Zoom to layer</source>
-        <translation>Zoom sul layer</translation>
-    </message>
-    <message>
-        <source>Show features list</source>
-        <translation>Mostra elenco elementi</translation>
-    </message>
-    <message>
-        <source>The layer has no features</source>
-        <translation>Il layer non ha elementi</translation>
-    </message>
-    <message>
-        <source>Tracking on layer %1 stopped</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Read-only layer</source>
-        <translation>Layer in sola lettura</translation>
-    </message>
-    <message>
-        <source>feature addition</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>attribute editing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>geometry editing</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>feature deletion</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Disabled layer permissions: %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Show Features Menu</source>
-        <translation>Mostra Menu Elementi</translation>
-    </message>
-    <message>
-        <source>Show visible features list</source>
-        <translation>Mostra elenco degli elementi visibili</translation>
-    </message>
-</context>
-<context>
-    <name>QfLayerUtils</name>
-    <message>
-        <source>Cannot start editing, no layer</source>
-        <translation>Non è possibile iniziare la modifica, nessun layer</translation>
-    </message>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>Non è possibile iniziare a modificare</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>Impossibile eseguire l&apos;eliminazione dell&apos;elemento %2 nel livello &quot;%1&quot;. Motivo:
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
-%3</source>
-        <translation>Impossibile eseguire l&apos;eliminazione nel livello &quot;%1&quot;. Motivo:
-%3</translation>
-    </message>
-    <message>
-        <source>Cannot delete feature %1</source>
-        <translation>Impossibile eliminare elemento %1</translation>
-    </message>
-    <message>
-        <source>Cannot rollback layer changes in layer %1</source>
-        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
-    </message>
-    <message>
-        <source>Cannot copy invalid feature</source>
-        <translation>Impossibile copiare elemento non valido</translation>
-    </message>
-    <message>
-        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
-%2</source>
-        <translation>Impossibile aggiungere il nuovo elemento nel layer &quot;%1&quot;. Motivo:
-%2</translation>
-    </message>
-</context>
-<context>
-    <name>QfLegend</name>
-    <message>
-        <source>Tracking active on this layer.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Tracking on layer %1 stopped</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
-        <translation>Questo layer non è valido. Ciò potrebbe essere dovuto a un problema di rete, a un file mancante o ad una configurazione errata del progetto.</translation>
-    </message>
-    <message>
-        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
-        <translation>Questo layer è configurato come &quot;Sola-Lettura&quot; che disabilita l&apos;aggiunta, l&apos;eliminazione e la modifica degli elementi.</translation>
-    </message>
-    <message>
-        <source>The permissions configuration of this layer disables feature addition.</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfLocalDataPickerScreen</name>
-    <message>
-        <source>Project Folder</source>
-        <translation>Cartella del Progetto</translation>
-    </message>
-    <message>
-        <source>Local Projects &amp; Datasets</source>
-        <translation>Progetti &amp; Dataset Locali</translation>
-    </message>
-    <message>
-        <source>Folders</source>
-        <translation>Cartelle</translation>
-    </message>
-    <message>
-        <source>Projects</source>
-        <translation>Progetti</translation>
-    </message>
-    <message>
-        <source>Datasets</source>
-        <translation>Dataset</translation>
-    </message>
-    <message>
-        <source>Files</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Favorites</source>
-        <translation>Preferiti</translation>
-    </message>
-    <message>
-        <source>Project file</source>
-        <translation>File di progetto</translation>
-    </message>
-    <message>
-        <source>Vector dataset</source>
-        <translation>Dataset vettoriale</translation>
-    </message>
-    <message>
-        <source>Raster dataset</source>
-        <translation>Dataset raster</translation>
-    </message>
-    <message>
-        <source>Home</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Item Actions</source>
-        <translation>Azioni dell&apos;oggetto</translation>
-    </message>
-    <message>
-        <source>View file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Send to...</source>
-        <translation>Invia a...</translation>
-    </message>
-    <message>
-        <source>Push to QFieldCloud</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Export to folder...</source>
-        <translation>Esporta nella cartella...</translation>
-    </message>
-    <message>
-        <source>Add to favorites</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove from favorites</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Send compressed folder to...</source>
-        <translation>Invia cartella compressa a...</translation>
-    </message>
-    <message>
-        <source>Upload folder to WebDAV server</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Download folder from WebDAV server</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete file</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove dataset</source>
-        <translation>Rimuovi dataset</translation>
-    </message>
-    <message>
-        <source>Import Actions</source>
-        <translation>Importa Azioni</translation>
-    </message>
-    <message>
-        <source>Import project from folder</source>
-        <translation>Importa progetto da cartella</translation>
-    </message>
-    <message>
-        <source>Import project from ZIP</source>
-        <translation>Importa progetto da ZIP</translation>
-    </message>
-    <message>
-        <source>Import dataset(s)</source>
-        <translation>Importa dataset</translation>
-    </message>
-    <message>
-        <source>Import URL</source>
-        <translation>Importa URL</translation>
-    </message>
-    <message>
-        <source>Import WebDAV folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Storage management help</source>
-        <translation>Aiuto per la gestione dell&apos;archiviazione</translation>
-    </message>
-    <message>
-        <source>Project Actions</source>
-        <translation>Azioni del progetto</translation>
-    </message>
-    <message>
-        <source>Update project from ZIP</source>
-        <translation>Aggiorna progetto da ZIP</translation>
-    </message>
-    <message>
-        <source>Compress project and send to...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Upload project to WebDAV</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Download project from WebDAV</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Upload file(s) to WebDAV</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Push file(s) to QFieldCloud</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Please select one or more files to push to QFieldCloud.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Send compressed file(s) to...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete file(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>‘%1’ is being uploaded to QFieldCloud</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Items being uploaded to QFieldCloud</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Remove File(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message numerus="yes">
-        <source>Are you sure you want to remove %n files?</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n file(s) deleted successfully</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message numerus="yes">
-        <source>Failed to delete %n file(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Type a URL below to download and import the project or dataset:</source>
-        <translation>Digita un URL qui sotto per scaricare e importare il progetto o il dataset:</translation>
-    </message>
-    <message>
-        <source>Importing WebDAV folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Downloading WebDAV folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Uploading WebDAV folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>WebDAV error: </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>WebDAV upload</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>WebDAV download</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You are about to upload modified content into &lt;b&gt;%1&lt;/b&gt; using user &lt;b&gt;%2&lt;/b&gt;.&lt;br&gt;&lt;br&gt;This operation will overwrite data stored remotely, make sure this is what you want to do.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You are about to download modified content from &lt;b&gt;%1&lt;/b&gt; using user &lt;b&gt;%2&lt;/b&gt;.&lt;br&gt;&lt;br&gt;This operation will overwrite data stored locally, make sure this is what you want to do.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Password (leave empty to use remembered)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <source>Remember password</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Type the WebDAV details below to import a remote folder:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>WebDAV server URL</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>User and password</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>leave empty to use remembered</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fetching remote folders</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fetch remote folders</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Select the remote folder to import:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>root folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Available locally in ‘%1’</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Imported folder name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Confirm</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>You are about to remove a saved WebDAV item, proceed?</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfLocalFilesModel</name>
-    <message>
-        <source>Home</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QField files directory</source>
-        <translation>Cartella file di QField</translation>
-    </message>
-    <message>
-        <source>Created projects</source>
-        <translation>Progetti creati</translation>
-    </message>
-    <message>
-        <source>Imported projects</source>
-        <translation>Progetti importati</translation>
-    </message>
-    <message>
-        <source>Imported datasets</source>
-        <translation>Dataset importati</translation>
-    </message>
-    <message>
-        <source>Additional files directory</source>
-        <translation>Cartella di file aggiuntivi</translation>
-    </message>
-</context>
-<context>
-    <name>QfLocatorFiltersModel</name>
-    <message>
-        <source>Search filters for your locations have been activated, customize results in the settings panel</source>
-        <translation>I filtri di ricerca basati sulla tua posizione sono stati attivati. Puoi personalizzare i risultati nel pannello delle impostazioni</translation>
-    </message>
-</context>
-<context>
-    <name>QfLocatorItem</name>
-    <message>
-        <source>To search features within the active layer, select a vector layer through the legend.</source>
-        <translation>Per cercare le funzioni all&apos;interno del layer attivo, seleziona un layer vettoriale tramite la legenda.</translation>
-    </message>
-    <message>
-        <source>Activate a vector layer in the legend first to use this functionality</source>
-        <translation>Attiva prima uno strato vettoriale nella legenda per utilizzare questa funzionalità.</translation>
-    </message>
-</context>
-<context>
-    <name>QfLocatorSettings</name>
-    <message>
-        <source>Search Bar Settings</source>
-        <translation>Barra Ricerca Impostazioni</translation>
-    </message>
-    <message>
-        <source>When disabled, this locator filter can still be used by typing the prefix %1 in the search bar.</source>
-        <translation>Quando disabilitato, questo filtro di localizzazione può ancora essere utilizzato digitando il prefisso %1 nella barra di ricerca.</translation>
-    </message>
-    <message>
-        <source>Enable %1 locator by default</source>
-        <translation>Abilita il localizzatore %1 come impostazione predefinita</translation>
-    </message>
-</context>
-<context>
-    <name>QfMessageLog</name>
-    <message>
-        <source>Message Logs</source>
-        <translation>Log dei messaggi</translation>
-    </message>
-    <message>
-        <source>Message text copied</source>
-        <translation>Testo del messaggio copiato</translation>
-    </message>
-    <message>
-        <source>Log runtime profiler</source>
-        <translation>Log runtime profiler</translation>
-    </message>
-    <message>
-        <source>Clear message log</source>
-        <translation>Svuota il registro dei messaggi</translation>
-    </message>
-    <message>
-        <source>Message log cleared</source>
-        <translation>Registro svuotato</translation>
-    </message>
-    <message>
-        <source>Send application log</source>
-        <translation>Invia registro dell&apos;applicazione</translation>
-    </message>
-    <message>
-        <source>This will send a log of your current session to the development team. You only need to do this when you are asked for it.</source>
-        <translation>Questo invierà un log della sessione corrente al team di sviluppo. Devi farlo solo quando ti viene chiesto di farlo.</translation>
-    </message>
-    <message>
-        <source>Type optional details</source>
-        <translation>Digitare i dettagli opzionali</translation>
-    </message>
-    <message>
-        <source>Include cloud user details</source>
-        <translation>Includere dettagli utente cloud</translation>
-    </message>
-    <message>
-        <source>Your application log is being sent…</source>
-        <translation>Il log dell&apos;applicazione sta per essere inviato...</translation>
-    </message>
-</context>
-<context>
-    <name>QfMeterBar</name>
-    <message>
-        <source>Storage</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Tap to upgrade storage</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Tap to manage storage</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfMultiFeatureListModelBase</name>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>Non è possibile iniziare a modificare</translation>
-    </message>
-    <message>
-        <source>Cannot rollback layer changes in layer %1</source>
-        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
-    </message>
-    <message>
-        <source>Cannot change geometry of feature %1 in %2</source>
-        <translation>Impossibile modificare la geometria dell&apos;elemento %1 in %2</translation>
-    </message>
-</context>
-<context>
-    <name>QfNavigationBar</name>
-    <message>
-        <source>Features</source>
-        <translation>Elementi</translation>
-    </message>
-    <message>
-        <source>Feature List Menu</source>
-        <translation>Menù elenco funzioni</translation>
-    </message>
-    <message>
-        <source>Toggle Feature Selection</source>
-        <translation>Attiva/disattiva la selezione degli elementi</translation>
-    </message>
-    <message>
-        <source>Print Atlas Feature(s) to PDF</source>
-        <translation>Stampa Elementi Atlante in PDF</translation>
-    </message>
-    <message>
-        <source>Merge Selected Features</source>
-        <translation>Fondi Elementi Selezionati</translation>
-    </message>
-    <message>
-        <source>Move Selected Feature(s)</source>
-        <translation>Muovi gli elementi selezionati</translation>
-    </message>
-    <message>
-        <source>Duplicate Selected Feature(s)</source>
-        <translation>Duplica gli Elementi Selezionati</translation>
-    </message>
-    <message>
-        <source>Delete Selected Feature(s)</source>
-        <translation>Cancella gli Elementi Selezionati</translation>
-    </message>
-    <message>
-        <source>Process Selected Feature(s)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Feature Menu</source>
-        <translation>Menu Elemento</translation>
-    </message>
-    <message>
-        <source>Feature cut into clipboard</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Feature copied to clipboard</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Feature attributes updated from clipboard</source>
-        <translation>Attributi elemento aggiornati dagli appunti</translation>
-    </message>
-    <message>
-        <source>No feature attributes were updated from clipboard</source>
-        <translation>Nessun attributi elemento sono stati aggiornati dagli appunti</translation>
-    </message>
-    <message>
-        <source>Feature set as navigation destination</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Zoom to Feature</source>
-        <translation>Zoom sull&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Auto-Zoom to Feature</source>
-        <translation>Auto-Zoom sull&apos;Elemento</translation>
-    </message>
-    <message>
-        <source>Process Feature</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Move Feature</source>
-        <translation>Muovi l&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Duplicate Feature</source>
-        <translation>Duplica l&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Rotate Feature</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Update Attributes from Feature</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete Feature</source>
-        <translation>Cancella l&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Print Atlas Feature(s)</source>
-        <translation>Stampa Elementi Atlante</translation>
-    </message>
-    <message>
-        <source>Select template below</source>
-        <translation>Seleziona il modello sottostante</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation>Stampa in corso...</translation>
-    </message>
-    <message>
-        <source>Atlas feature(s) successfully printed and placed in your project folder</source>
-        <translation>Elementi Atlante stampati correttamente e inseriti nella tua cartella di progetto</translation>
-    </message>
-</context>
-<context>
-    <name>QfNavigationInformationView</name>
-    <message>
-        <source>Lon</source>
-        <translation>Lon</translation>
-    </message>
-    <message>
-        <source>X</source>
-        <translation>X</translation>
-    </message>
-    <message>
-        <source>Lat</source>
-        <translation>Lat</translation>
-    </message>
-    <message>
-        <source>Y</source>
-        <translation>Y</translation>
-    </message>
-    <message>
-        <source>Dist.</source>
-        <translation>Distanza</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>NA</translation>
-    </message>
-    <message>
-        <source>Bearing</source>
-        <translation>Rilevamento</translation>
-    </message>
-</context>
-<context>
-    <name>QfNtripSourceTableFetcher</name>
-    <message>
-        <source>Unexpected response from NTRIP caster</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Disconnected before receiving source table</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No mountpoints found in NTRIP source table</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP source table fetch error: </source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfOrderedRelationModel</name>
-    <message>
-        <source>Cannot start editing</source>
-        <translation>Non è possibile iniziare a modificare</translation>
-    </message>
-    <message>
-        <source>Cannot rollback layer changes in layer %1</source>
-        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
-    </message>
-    <message>
-        <source>Cannot commit layer changes in layer %1.</source>
-        <translation>Impossibile eseguire le modifiche nel layer %1.</translation>
-    </message>
-    <message>
-        <source>Cannot update features ordering</source>
-        <translation>Impossibile aggiornare l&apos;ordine degli elementi</translation>
-    </message>
-</context>
-<context>
-    <name>QfOverlayContainer</name>
-    <message>
-        <source>Positioning</source>
-        <translation>Posizionamento</translation>
-    </message>
-</context>
-<context>
-    <name>QfOverlayFeatureFormDrawer</name>
-    <message>
-        <source>Changes saved</source>
-        <translation>Modifiche salvate</translation>
-    </message>
-    <message>
-        <source>Changes discarded</source>
-        <translation>Cambiamenti annullati</translation>
-    </message>
-</context>
-<context>
-    <name>QfPlatformUtilities</name>
-    <message>
-        <source>Select ZIP Archive</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>ZIP Archives (*.zip)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Select Destination Folder</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Removal Confirmation</source>
-        <translation>Conferma di rimozione</translation>
-    </message>
-    <message>
-        <source>The dataset will be deleted, proceed with removal?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The project folder will be deleted, proceed with removal?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Failed to save file resource</source>
-        <translation>Impossibile salvare la risorsa file</translation>
-    </message>
-    <message>
-        <source>Select Image File</source>
-        <translation>Seleziona File Immagine</translation>
-    </message>
-    <message>
-        <source>All images (*.jpg *.jpeg *.png *.bmp);;JPEG images (*.jpg *.jpeg);;PNG images (*.jpg *.jpeg);;BMP images (*.bmp)</source>
-        <translation>Tutte le immagini (*.jpg *.jpeg *.png *.bmp);;Immagini JPEG (*.jpg *.jpeg);;Immagini PNG (*.jpg *.jpeg);;Immagini BMP (*.bmp)</translation>
-    </message>
-    <message>
-        <source>Select Video File</source>
-        <translation>Seleziona File Video</translation>
-    </message>
-    <message>
-        <source>All video (*.mp4 *.mkv *.mov);;MP4 video (*.mp4);;MKV video(*.mkv);;MOV video (*.mov)</source>
-        <translation>Tutti i video (*.mp4 *.mkv *.mov);;Video MP4 (*.mp4);;Video MKV (*.mkv);;Video MOV (*.mov)</translation>
-    </message>
-    <message>
-        <source>Select File</source>
-        <translation>Selezione un File</translation>
-    </message>
-    <message>
-        <source>Open File</source>
-        <translation>Apri File</translation>
-    </message>
-    <message>
-        <source>All Supported Files</source>
-        <translation>Tutti i File Supportati</translation>
-    </message>
-    <message>
-        <source>QGIS Project Files</source>
-        <translation>File di progetto QGIS</translation>
-    </message>
-    <message>
-        <source>Vector Datasets</source>
-        <translation>Dataset Vettoriali</translation>
-    </message>
-    <message>
-        <source>Raster Datasets</source>
-        <translation>Dataset Raster</translation>
-    </message>
-</context>
-<context>
-    <name>QfPluginItem</name>
-    <message>
-        <source>Authored by %1%2%3</source>
-        <translation>Scritto da %1%2%3</translation>
-    </message>
-    <message>
-        <source>Uninstall version %1</source>
-        <translation>Disinstalla versione %1</translation>
-    </message>
-    <message>
-        <source>Uninstall plugin</source>
-        <translation>Disinstalla plugin</translation>
-    </message>
-</context>
-<context>
-    <name>QfPluginManager</name>
-    <message>
-        <source>The requested plugin URL is present in the available plugins list, please install via its download button</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>The downloaded zip file could not be decompressed</source>
-        <translation>Il file zip scaricato non può essere decompresso</translation>
-    </message>
-    <message>
-        <source>The downloaded zip file does not contain the required main.qml plugin file</source>
-        <translation>Il file zip scaricato non contiene il file del plugin main.qml richiesto</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save the downloaded file</source>
-        <translation>Impossibile salvare il file scaricato</translation>
-    </message>
-    <message>
-        <source>Download file is not an zipped plugin</source>
-        <translation>Il file di download non è un plugin zippato</translation>
-    </message>
-    <message>
-        <source>Network error</source>
-        <translation>Errore di rete.</translation>
-    </message>
-</context>
-<context>
-    <name>QfPluginManagerSettings</name>
-    <message>
-        <source>Plugins</source>
-        <translation>Plugin</translation>
-    </message>
-    <message>
-        <source>Local Plugins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Available Plugins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Search for plugin</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Fetching available plugins</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>No plugins have been installed yet, switch to the %1available plugins%3 tab to try some right away.&lt;br&gt;&lt;br&gt;For more information, %2read the documentation%3.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Install plugin from URL</source>
-        <translation>Installa plugin da URL</translation>
-    </message>
-    <message>
-        <source>The currently opened project has loaded a project plugin</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Deny permission</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Plugins management menu</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Clear remembered permissions</source>
-        <translation>Cancella i permessi memorizzati</translation>
-    </message>
-    <message>
-        <source>The author details shown above are self-reported by the plugin and not independently verified. Please make sure you trust the plugin&apos;s origin.</source>
-        <translation>I dettagli dell&apos;autore mostrati sopra sono auto-segnalati dal plugin e non verificati in modo indipendente. Assicurati di fidarti dell&apos;origine del plugin.</translation>
-    </message>
-    <message>
-        <source>Type a URL below to download and install a plugin:</source>
-        <translation>Digita un URL qui sotto per scaricare ed installare un plugin:</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to uninstall `%1`?</source>
-        <translation>Sei sicuro di voler disinstallare `%1`?</translation>
-    </message>
-    <message>
-        <source>Installing %1</source>
-        <translation>Installazione di %1 in corso</translation>
-    </message>
-</context>
-<context>
-    <name>QfPositioningDeviceModel</name>
-    <message>
-        <source>Internal device</source>
-        <translation>Dispositivo interno</translation>
-    </message>
-</context>
-<context>
-    <name>QfPositioningDeviceSettings</name>
-    <message>
-        <source>Egeniouss</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Bluetooth BT + BLE (NMEA)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Serial port (NMEA)</source>
-        <translation>Porta Seriale (NMEA)</translation>
-    </message>
-    <message>
-        <source>Logs file (NMEA)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Positioning Device Settings</source>
-        <translation>Impostazioni del Dispositivo di Posizionamento</translation>
-    </message>
-    <message>
-        <source>Connection type</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Nome</translation>
-    </message>
-    <message>
-        <source> (leave empty to auto-fill)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Connection details</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>TCP (NMEA)</source>
-        <translation>TCP (NMEA)</translation>
-    </message>
-    <message>
-        <source>UDP (NMEA)</source>
-        <translation>UDP (NMEA)</translation>
-    </message>
-</context>
-<context>
-    <name>QfPositioningInformationModel</name>
-    <message>
-        <source>Altitude</source>
-        <translation>Altitudine</translation>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation>Velocità</translation>
-    </message>
-    <message>
-        <source>H. Accuracy</source>
-        <translation>Accuratezza O.</translation>
-    </message>
-    <message>
-        <source>V. Accuracy</source>
-        <translation>Accuratezza V.</translation>
-    </message>
-    <message>
-        <source>Lon</source>
-        <translation>Lon</translation>
-    </message>
-    <message>
-        <source>X</source>
-        <translation>X</translation>
-    </message>
-    <message>
-        <source>Lat</source>
-        <translation>Lat</translation>
-    </message>
-    <message>
-        <source>Y</source>
-        <translation>Y</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>NA</translation>
-    </message>
-    <message>
-        <source>grid</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>ortho.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>ant.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1/s</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfPositioningInformationView</name>
-    <message>
-        <source>N/A</source>
-        <translation>NA</translation>
-    </message>
-</context>
-<context>
-    <name>QfPositioningNtripSettings</name>
-    <message>
-        <source>NTRIP Settings</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Protocol</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP Revision 1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP Revision 2</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>NTRIP SSL/TLS</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation>Nome utente</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <source>Mount point</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Identifier:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Data format:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Distance:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Forward position to NTRIP caster</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfPositioningPreciseView</name>
-    <message>
-        <source>Dist.</source>
-        <translation>Distanza</translation>
-    </message>
-    <message>
-        <source>Positioning accuracy too low for this precision level</source>
-        <translation>Accuratezza di posizionamento insufficiente per questo livello di precisione</translation>
-    </message>
-    <message>
-        <source>Audio proximity feedback</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Rotate view</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Rotation source</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Compass</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Movement</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Precision</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfPositioningSettings</name>
-    <message>
-        <source>Internal device</source>
-        <translation>Dispositivo interno</translation>
-    </message>
-</context>
-<context>
-    <name>QfProcessingAlgorithmForm</name>
-    <message>
-        <source>General Parameters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Advanced Parameters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>There are no general parameters attached to this algorithm.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Algorithm description</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfProcessingAlgorithmsList</name>
-    <message>
-        <source>Favorites</source>
-        <translation>Preferiti</translation>
-    </message>
-    <message>
-        <source>All Algorithms</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfProcessingParameterArea</name>
-    <message>
-        <source>square degrees</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&lt;unknown&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. meters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. kilometers</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. feet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. yards</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. miles</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>hectares</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>acres</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. nautical miles</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. centimeters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. millimeters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>sqr. inches</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfProcessingParameterBoolean</name>
-    <message>
-        <source>True</source>
-        <translation>Vero</translation>
-    </message>
-    <message>
-        <source>False</source>
-        <translation>Falso</translation>
-    </message>
-</context>
-<context>
-    <name>QfProcessingParameterDistance</name>
-    <message>
-        <source>degrees</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>&lt;unknown&gt;</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>meters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>kilometers</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>feet</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>yards</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>miles</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>nautical miles</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>centimeters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>millimeters</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>inches</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfProjectCreationScreen</name>
-    <message>
-        <source>Create a new project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>This page will guide you through the creation of a simple project through simple configuration toggles. For more advanced needs, we advise you to create projects in QGIS using QFieldSync.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>New project name</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Select your basemap</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Choose a basemap for your project. Pick from the available options or provide your own custom URL.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Colorful</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Darkgray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Lightgray</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Blank</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Custom basemap URL</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Take notes?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Quickly capture notes with date, time, and comments. Optionally, attach multimedia items such as images and videos to enrich your notes.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Take image and video attachments</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Allow notes on lines and polygons</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Track your position?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Record your location every second, along with date and time, to keep a precise track of your movements.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Begin tracking automatically</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Backup &amp; collaborate?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>QFieldCloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Learn more about QFieldCloud here</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Automatically upload changes on a regular interval</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Create Project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>My Project</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfProjectUtils</name>
-    <message>
-        <source>Created Project</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Notes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Point</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Note attachments</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Media</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation>Descrizione</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Marker color</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Note</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Tracks</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Track color</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Basemap</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Attachments</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfReferencingFeatureListModelBase</name>
-    <message>
-        <source>Invalid referencing layer</source>
-        <translation>Layer di riferimento non valido</translation>
-    </message>
-    <message>
-        <source>Cannot delete feature</source>
-        <translation>Impossibile cancellare l&apos;elemento</translation>
-    </message>
-</context>
-<context>
-    <name>QfRelationCombobox</name>
-    <message>
-        <source>Empty</source>
-        <translation>Vuoto</translation>
-    </message>
-    <message>
-        <source>NULL</source>
-        <translation>NULL</translation>
-    </message>
-    <message>
-        <source>Invalid relation</source>
-        <translation>Relazione non valida</translation>
-    </message>
-</context>
-<context>
-    <name>QfRelationEditorBase</name>
-    <message numerus="yes">
-        <source>%n feature(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
-    </message>
-    <message>
-        <source>Adding child feature in layer %1</source>
-        <translation>Aggiunta elemento figlio nel layer %1</translation>
-    </message>
-    <message>
-        <source>Unlink Feature</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Delete Feature</source>
-        <translation>Cancella l&apos;elemento</translation>
-    </message>
-    <message>
-        <source>Should the feature &lt;b&gt;%1 (%2)&lt;/b&gt; of layer &lt;b&gt;%3&lt;/b&gt; be unlinked?&lt;br&gt;&lt;i&gt;(The connection will be deleted on layer &lt;b&gt;%4&lt;/b&gt;)&lt;/i&gt;</source>
-        <translation>Disconnettere l&apos;elemento &lt;b&gt;%1 (%2)&lt;/b&gt; del layer &lt;b&gt;%3&lt;/b&gt;?&lt;br&gt;&lt;i&gt;(La connessione verrà cancellata nel layer &lt;b&gt;%4&lt;/b&gt;)&lt;/i&gt;</translation>
-    </message>
-    <message>
-        <source>Should the feature &lt;b&gt;%1 (%2)&lt;/b&gt; on layer &lt;b&gt;%3&lt;/b&gt; be deleted?</source>
-        <translation>Cancellare l&apos;elemento &lt;b&gt;%1 (%2)&lt;/b&gt; nel layer &lt;b&gt;%3&lt;/b&gt;?</translation>
-    </message>
-    <message>
-        <source>Failed to delete referencing feature</source>
-        <translation>Impossibile eliminare l&apos;elemento di riferimento</translation>
-    </message>
-    <message>
-        <source>Child Menu</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Open Form</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Copy Feature Attributes</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Print Atlas Feature to PDF</source>
-        <translation>Stampa Elemento Atlante in PDF</translation>
-    </message>
-    <message>
-        <source>Print Atlas Feature(s)</source>
-        <translation>Stampa Elementi Atlante</translation>
-    </message>
-    <message>
-        <source>Select template below</source>
-        <translation>Seleziona il modello sottostante</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation>Stampa in corso...</translation>
-    </message>
-    <message>
-        <source>Atlas feature(s) successfully printed and placed in your project folder</source>
-        <translation>Elementi Atlante stampati correttamente e inseriti nella tua cartella di progetto</translation>
-    </message>
-    <message>
-        <source>Cannot add child feature: insure the parent feature meets all constraints and can be saved</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>Cannot add child feature: attribute value linking parent and children is not set</source>
-        <translation>Impossibile aggiungere l&apos;elemento figlio: il valore dell&apos;attributo che collega genitore e figli non è impostato</translation>
-    </message>
-</context>
-<context>
-    <name>QfScaleBarMeasurement</name>
-    <message>
-        <source>Unknown</source>
-        <translation>Sconosciuto</translation>
-    </message>
-</context>
-<context>
-    <name>QfSearchBar</name>
-    <message>
-        <source>Search</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>QfSensorInformationView</name>
-    <message>
-        <source>N/A</source>
-        <translation>NA</translation>
-    </message>
-</context>
-<context>
-    <name>QfSerialPortDeviceChooser</name>
-    <message>
-        <source>Select the serial port from the list below:</source>
-        <translation>Seleziona la porta seriale dalla lista qui sotto:</translation>
-    </message>
-    <message>
-        <source>No serial ports detected, refresh the list once a device is connected.</source>
-        <translation>Nessuna porta seriale rilevata, aggiorna l&apos;elenco una volta collegato un dispositivo.</translation>
-    </message>
-    <message>
-        <source>Refresh list</source>
-        <translation>Aggiorna la lista</translation>
-    </message>
-    <message>
-        <source>Serial port display name:</source>
-        <translation>Nome visualizzato della porta seriale:</translation>
-    </message>
-    <message>
-        <source>Serial port address:</source>
-        <translation>Indirizzo porta seriale:</translation>
-    </message>
-</context>
-<context>
-    <name>QfSerialPortReceiver</name>
-    <message>
-        <source>Could not find the serial port device</source>
-        <translation>Impossibile trovare la porta seriale del dispositivo</translation>
-    </message>
-    <message>
-        <source>Attempt to read from the serial port returned an error</source>
-        <translation>Il tentativo di leggere dalla porta seriale ha restituito un errore</translation>
-    </message>
-    <message>
-        <source>The connection was refused due to not having enough permission</source>
-        <translation>La connessione è stata rifiutata per mancanza di permessi sufficienti</translation>
-    </message>
-    <message>
-        <source>Serial port receiver error (%1)</source>
-        <translation>Errore del ricevitore della porta seriale (%1)</translation>
-    </message>
-</context>
-<context>
-    <name>QfSettings</name>
+    <name>QfAppSettings</name>
     <message>
         <source>Show scale bar</source>
         <translation>Mostra barra della scala</translation>
     </message>
     <message>
         <source>Show zoom controls</source>
-        <translation type="unfinished"/>
+        <translation>Mostra i controlli dello zoom</translation>
     </message>
     <message>
         <source>Show bookmarks</source>
@@ -7392,7 +3292,7 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
     </message>
     <message>
         <source>Enable map rotation</source>
-        <translation type="unfinished"/>
+        <translation>Abilita la rotazione della mappa</translation>
     </message>
     <message>
         <source>When switched on, the map can be rotated by the user.</source>
@@ -7432,7 +3332,7 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
     </message>
     <message>
         <source>Maximize feature form</source>
-        <translation type="unfinished"/>
+        <translation>Massimizza la maschera degli attributi</translation>
     </message>
     <message>
         <source>Open feature form for single feature identification</source>
@@ -7874,6 +3774,4866 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
         <source>%1 Settings</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <source>Show news on the welcome screen</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>If enabled, the latest news and useful tips will be displayed on the welcome screen.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfAttributeFormModelBase</name>
+    <message>
+        <source>Expression constraint</source>
+        <translation>Vincolo espressione</translation>
+    </message>
+    <message>
+        <source>Not NULL</source>
+        <translation>Non NULLO</translation>
+    </message>
+    <message>
+        <source>Unique</source>
+        <translation>Unico</translation>
+    </message>
+</context>
+<context>
+    <name>QfAudioClipRecorder</name>
+    <message>
+        <source>Audio Recorder</source>
+        <translation>Registratore Audio</translation>
+    </message>
+</context>
+<context>
+    <name>QfBadLayerItem</name>
+    <message>
+        <source>Unable to load some layers</source>
+        <translation>Impossibile caricare alcuni layer</translation>
+    </message>
+    <message>
+        <source>The following layers could not be loaded, please review those and reconfigure the QGIS project.</source>
+        <translation>I seguenti layer non possono essere caricati. Per favore controllali e riconfigura il progetto QGIS.</translation>
+    </message>
+    <message>
+        <source>You may check the %1Portable Project%2 documentation page for more help.</source>
+        <translation>Puoi controllare la pagina di documentazione del%1Portable Project%2 per ulteriori aiuti.</translation>
+    </message>
+</context>
+<context>
+    <name>QfBluetoothDeviceChooser</name>
+    <message>
+        <source>Scan for nearby devices</source>
+        <translation>Cerca dispositivi nelle vicinanze</translation>
+    </message>
+    <message>
+        <source>Select the Bluetooth device from the list below:</source>
+        <translation>Selezionare il dispositivo Bluetooth dall&apos;elenco seguente:</translation>
+    </message>
+    <message>
+        <source>No Bluetooth devices detected.</source>
+        <translation>Nessun dispositivo bluetooth trovato.</translation>
+    </message>
+    <message>
+        <source>Scanning error: %1</source>
+        <translation>Errore di scansione: %1</translation>
+    </message>
+    <message>
+        <source>Scanning for paired devices</source>
+        <translation>Ricerca di dispositivi associati</translation>
+    </message>
+    <message>
+        <source>Scanning failed: %1</source>
+        <translation>Scansione fallita: %1</translation>
+    </message>
+    <message>
+        <source>Scanning done</source>
+        <translation>Scansione completata</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n device(s) found</source>
+        <translation><numerusform>%n dispositivi trovati</numerusform><numerusform>%n dispositivi trovati</numerusform><numerusform>%n dispositivi trovati</numerusform></translation>
+    </message>
+    <message>
+        <source>Scanning canceled</source>
+        <translation>Scansione annullata</translation>
+    </message>
+    <message>
+        <source>Use Bluetooth Low Energy (BLE)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Bluetooth device name:</source>
+        <translation>Nome dispositivo bluetooth:</translation>
+    </message>
+    <message>
+        <source>Bluetooth device address:</source>
+        <translation>Indirizzo dispositivo bluetooth:</translation>
+    </message>
+    <message>
+        <source>Bluetooth device configuration:</source>
+        <translation>Configurazione dispositivo bluetooth:</translation>
+    </message>
+    <message>
+        <source>Low Energy (BLE)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Classic (BT)</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfBluetoothDeviceModel</name>
+    <message>
+        <source>Bluetooth permission denied</source>
+        <translation>Permesso Bluetooth negato</translation>
+    </message>
+    <message>
+        <source>Bluetooth permission is required to scan for bluetooth devices</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Location permission denied</source>
+        <translation>Autorizzazione alla posizione negata</translation>
+    </message>
+    <message>
+        <source>Location permission is required to scan for bluetooth devices</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfBookmarkList</name>
+    <message>
+        <source>Bookmarks</source>
+        <translation>Segnalibri</translation>
+    </message>
+    <message>
+        <source>Bookmark List Menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Toggle Bookmark Selection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export Selected Bookmark(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Export All User Bookmarks</source>
+        <translation>Esporta Tutti i Segnalibri dell&apos;Utente</translation>
+    </message>
+    <message>
+        <source>Bookmarks exported</source>
+        <translation>Segnalibri esportati</translation>
+    </message>
+    <message>
+        <source>Delete Selected Bookmark(s)</source>
+        <translation>Cancella Segnalibri Selezionati</translation>
+    </message>
+    <message>
+        <source>Bookmark Actions</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Edit Bookmark</source>
+        <translation>Modifica Segnalibro</translation>
+    </message>
+    <message>
+        <source>Navigate to bookmark</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Copy Bookmark Details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Bookmark details copied to clipboard</source>
+        <translation>Dettagli del segnalibro copiati negli appunti</translation>
+    </message>
+    <message>
+        <source>Delete Bookmark</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove bookmark</source>
+        <translation>Rimuovi segnalibro</translation>
+    </message>
+    <message>
+        <source>You are about to remove a bookmark, proceed?</source>
+        <translation>Stai per rimuovere un segnalibro, procedere?</translation>
+    </message>
+    <message>
+        <source>Delete bookmark(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Should the %n selected bookmark(s) really be deleted?</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Deleted %n bookmark(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Orange</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Red</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Blue</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project bookmarks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Green</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Untitled bookmark</source>
+        <translation>Segnalibro senza titolo</translation>
+    </message>
+    <message>
+        <source>No bookmarks yet</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfBookmarkLocatorFilter</name>
+    <message>
+        <source>Navigate to bookmark</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Spatial bookmarks</source>
+        <translation>Segnalibri spaziali</translation>
+    </message>
+    <message>
+        <source>Returns a list of user and currently open project bookmarks with matching names.</source>
+        <translation>Restituisce una lista di utenti e segnalibri di progetti attualmente aperti con nomi corrispondenti.</translation>
+    </message>
+</context>
+<context>
+    <name>QfBookmarkProperties</name>
+    <message>
+        <source>Bookmark Properties</source>
+        <translation>Proprietà del Segnalibro</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Descrizione</translation>
+    </message>
+    <message>
+        <source>Change color</source>
+        <translation>Cambia colore</translation>
+    </message>
+    <message>
+        <source>Bookmark details copied to clipboard</source>
+        <translation>Dettagli del segnalibro copiati negli appunti</translation>
+    </message>
+    <message>
+        <source>Remove bookmark</source>
+        <translation>Rimuovi segnalibro</translation>
+    </message>
+    <message>
+        <source>You are about to remove a bookmark, proceed?</source>
+        <translation>Stai per rimuovere un segnalibro, procedere?</translation>
+    </message>
+</context>
+<context>
+    <name>QfBookmarkRenderer</name>
+    <message>
+        <source>Bookmark: %1</source>
+        <translation>Segnalibro: %1</translation>
+    </message>
+    <message>
+        <source>Project bookmarks cannot be edited</source>
+        <translation>I segnalibri del progetto non possono essere modificati</translation>
+    </message>
+</context>
+<context>
+    <name>QfBrowserPanel</name>
+    <message>
+        <source>Browser</source>
+        <translation>Browser</translation>
+    </message>
+</context>
+<context>
+    <name>QfCalendarPanel</name>
+    <message>
+        <source>Hours</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Minutes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Seconds</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCamera</name>
+    <message>
+        <source>Altitude</source>
+        <translation>Altitudine</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>Latitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Orientation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Highest</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Details stamping enabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Details stamping disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Geotagging enabled</source>
+        <translation>Geotagging abilitato</translation>
+    </message>
+    <message>
+        <source>Geotagging disabled</source>
+        <translation>Geotagging disabilitato</translation>
+    </message>
+    <message>
+        <source>Grid enabled</source>
+        <translation>Griglia attivata</translation>
+    </message>
+    <message>
+        <source>Grid disabled</source>
+        <translation>Griglia disattivata</translation>
+    </message>
+    <message>
+        <source>front</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>back</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfChangelog</name>
+    <message>
+        <source>What&apos;s new in QField</source>
+        <translation>Cosa c&apos;è di nuovo in QField</translation>
+    </message>
+    <message>
+        <source>Error while fetching changelog, try again later.</source>
+        <translation>Errore nel recupero del registro delle modifiche, riprova più tardi.</translation>
+    </message>
+    <message>
+        <source>Support QField</source>
+        <translation>Supporta QField</translation>
+    </message>
+    <message>
+        <source>Check the latest QField changes on </source>
+        <translation>Controlla le ultime modifiche di QField su</translation>
+    </message>
+    <message>
+        <source>QField releases page</source>
+        <translation>Pagina delle versioni di QField</translation>
+    </message>
+</context>
+<context>
+    <name>QfChangelogContents</name>
+    <message>
+        <source>Previous releases on GitHub</source>
+        <translation>Versioni precedenti su GitHub</translation>
+    </message>
+</context>
+<context>
+    <name>QfClipboardManager</name>
+    <message>
+        <source>Geometry</source>
+        <translation>Geometria</translation>
+    </message>
+    <message>
+        <source>Paste failed: no destination layer provided</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cut operation: source and destination layers are the same, skipping paste.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Paste failed: clipboard feature is invalid</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cut failed: could not start editing on source layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cut failed: could not delete original feature from source layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Paste failed: no compatible features could be created</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Paste failed: could not start editing on layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Paste failed: could not add feature to layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Paste failed: commitChanges failed on layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cut commit failed on source layer %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloseButton</name>
+    <message>
+        <source>close</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudAttachmentsHistory</name>
+    <message>
+        <source>Attachments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No attachments have been uploaded yet!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploaded on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploaded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Waiting to be uploaded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Not uploaded yet, upload your changes to send it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload failed on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Sconosciuto</translation>
+    </message>
+    <message>
+        <source>The file name contains invalid characters or the file is empty.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project owner&apos;s available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You do not have the permission to upload attachments to this project.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The cloud project could not be found or your access to it was revoked.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server answered with HTTP code %1.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudConnection</name>
+    <message>
+        <source>Authentication provider missing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password missing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Login error due to unexpected redirect, please retry later</source>
+        <translation>Errore di accesso dovuto a redirect inatteso, riprova più tardi</translation>
+    </message>
+    <message>
+        <source>Server not found, please check the server URL</source>
+        <translation>Server non trovato, controllare l&apos;URL del server</translation>
+    </message>
+    <message>
+        <source>Timeout error, please retry</source>
+        <translation>Errore di timeout, riprovare</translation>
+    </message>
+    <message>
+        <source>Wrong username or password</source>
+        <translation>Nome utente o password errati</translation>
+    </message>
+    <message>
+        <source>Session expired</source>
+        <translation>Sessione scaduta</translation>
+    </message>
+    <message>
+        <source>Login temporary unavailable</source>
+        <translation>Accesso temporaneamente non disponibile</translation>
+    </message>
+    <message>
+        <source>[timeout] The request took too long to finish, please retry.</source>
+        <translation>[timeout] La richiesta ha impiegato troppo tempo per il completamento. Riprovare.</translation>
+    </message>
+    <message>
+        <source>[aborted] The request has been aborted.</source>
+        <translation>[aborted] La richiesta è stata annullata.</translation>
+    </message>
+    <message>
+        <source>Server Error.</source>
+        <translation>Errore del Server. </translation>
+    </message>
+    <message>
+        <source>Network Error.</source>
+        <translation>Errore di Rete.</translation>
+    </message>
+    <message>
+        <source>Failed to upload attachment stored at `%1`, reason:
+%2</source>
+        <translation>Impossibile caricare l&apos;allegato archiviato in `%1`. Motivo:
+%2 </translation>
+    </message>
+    <message>
+        <source>Too many attempts, please wait a minute before trying again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Captcha temporary unavailable, please retry later</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1
+If this email already has an account, check your inbox for a message from QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server did not accept the registration</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server did not accept the request</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudDangerZone</name>
+    <message>
+        <source>The action below is irreversible and permanently affects your local data. Proceed with caution.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reset project</source>
+        <translation>Ripristina il progetto</translation>
+    </message>
+    <message>
+        <source>Discard local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The local copy of this cloud project has been corrupted. Resetting the project will re-download the cloud version and will remove any local changes, make sure those were copied first if needed.
+
+While you can still view and use the project, it is strongly recommended to reset to avoid any accidental data loss as none of the changes made will be pushed back to the cloud.</source>
+        <translation>La copia locale di questo progetto cloud è stata danneggiata. Reimpostando il progetto si ri-scaricherà la versione cloud e si rimuoveranno tutte le modifiche fatte in locale. Assicurati di copiarle da qualche parte prima, se necessario.
+
+Anche se puoi ancora visualizzare e utilizzare questo progetto, è altamente raccomandato il ripristino onde evitare perdite accidentali di dati, siccome nessuna modifica effettuata verrà caricata sul cloud.</translation>
+    </message>
+    <message>
+        <source>Removes all your local edits that have not yet been uploaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudDeltaHistory</name>
+    <message>
+        <source>Upload History</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fetching upload history…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No changes have been uploaded yet!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploaded by %1 on %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Applied</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Busy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Conflict</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Not applied</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ignored</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unpermitted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Sconosciuto</translation>
+    </message>
+</context>
+<context>
+    <name>QfCloudLogin</name>
+    <message>
+        <source>Failed to sign in</source>
+        <translation>Accesso fallito</translation>
+    </message>
+    <message>
+        <source>%1Server URL
+(Leave empty to use the default server)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username or email</source>
+        <translation>Nome utente o email</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <source>Sign out</source>
+        <translation>Esci</translation>
+    </message>
+    <message>
+        <source>Signing in, please wait</source>
+        <translation>Accesso in corso, attendi</translation>
+    </message>
+    <message>
+        <source>Sign in</source>
+        <translation>Accedi</translation>
+    </message>
+    <message>
+        <source>or</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sign in using %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Visit the %1settings page%2 to manage your account.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New user?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Register an account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The easiest way to transfer you project from QGIS to your devices!</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Learn more about QFieldCloud</source>
+        <translation>Scopri di più su QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Forgot your password?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create an account</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The easiest way to collaborate and manage your projects across devices!</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPackageLayersFeedback</name>
+    <message>
+        <source>Some layers have not been packaged correctly. These layers might be misconfigured or their data source is not accessible from the QFieldCloud server.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please check the detailed feedback below and the latest packaging job logs on the QFieldCloud website.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordField</name>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message numerus="yes">
+        <source>Requires at least %n characters</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Must not be similar to your username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Must not be entirely numeric</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPasswordReset</name>
+    <message>
+        <source>Forgot your password?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your account email and we will send you a link to pick a new password.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send reset link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Back to sign in</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Check your inbox</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>We sent a reset link to %1. Open it to pick a new password.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Nothing yet? Check your spam folder, or %1use another email%2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Resend link in %1s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Resend link</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Server: %1</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPendingChanges</name>
+    <message>
+        <source>added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>deleted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n change(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Geometry modified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 to %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hide empty fields</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Show %n empty field(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Discard change</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudPopup</name>
+    <message>
+        <source>Danger Zone</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud</source>
+        <translation>QFieldCloud</translation>
+    </message>
+    <message>
+        <source>This QFieldCloud project was first downloaded with another cloud account. Please sign in with the original account for this project to use the QFieldCloud functionality.</source>
+        <translation>Questo progetto QFieldCloud è stato inizialmente scaricato con un altro account cloud. Accedi con l&apos;account originale affinché questo progetto utilizzi la funzionalità QFieldCloud.</translation>
+    </message>
+    <message>
+        <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
+        <translation>QFieldCloud sta confezionando i dati più recenti solo per te; potrebbe volerci del tempo, tieni saldo</translation>
+    </message>
+    <message>
+        <source>Downloading, %1% of %2 fetched</source>
+        <translation>Scaricamento, recuperato %1% di %2</translation>
+    </message>
+    <message>
+        <source>Downloading, %1% fetched</source>
+        <translation>Scaricamento, %1% recuperato</translation>
+    </message>
+    <message>
+        <source>Reaching out to QFieldCloud to download project</source>
+        <translation>Raggiungi QFieldCloud per scaricare il progetto</translation>
+    </message>
+    <message>
+        <source>Pushing changes, %1%…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud is applying the latest pushed changes. This might take some time, please hold tight…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cloudify project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploading the current project to QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The current project is not stored on QFieldCloud. Storing projects on QFieldCloud offers seamless synchronization, offline editing, and team management.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Learn more about QFieldCloud</source>
+        <translation>Scopri di più su QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Cloudifying %1%</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cloudifying</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The locally stored cloud project has been corrupted</source>
+        <translation>Il progetto cloud salvato in locale è stato corrotto</translation>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sends your edits and attachments to the cloud without downloading project updates. Fast and low on data.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No changes uploaded yet</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last uploaded just now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last uploaded %1 minutes ago</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last uploaded today at %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last uploaded on %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Auto-upload every %n minute(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>The current project does not allow for auto-upload to be turned off</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Synchronize project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploads your edits, then downloads the latest project from QFieldCloud so everything is up to date.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last synchronized just now</source>
+        <translation>Ultima sincronizzazione proprio ora</translation>
+    </message>
+    <message>
+        <source>Last synchronized %1 minutes ago</source>
+        <translation>Ultima sincronizzazione %1 minuti fa</translation>
+    </message>
+    <message>
+        <source>Last synchronized today at %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last synchronized on %1</source>
+        <translation>Ultima sincronizzazione il %1</translation>
+    </message>
+    <message>
+        <source>Synchronize</source>
+        <translation>Sincronizza</translation>
+    </message>
+    <message>
+        <source>Danger zone</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploading %1</source>
+        <translation>Caricamento %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n file(s) remaining</source>
+        <translation><numerusform>%n file rimanente</numerusform><numerusform>%n file rimanenti</numerusform><numerusform>%n file rimanenti</numerusform></translation>
+    </message>
+    <message>
+        <source>Discard local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Should local changes be discarded?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reset cloud project</source>
+        <translation>Ripristina il progetto cloud</translation>
+    </message>
+    <message>
+        <source>Last warning, resetting the cloud project will erase any local changes, are you sure you want to go ahead?</source>
+        <translation>Ultimo avviso: ripristinare il progetto sul cloud eliminerà ogni modifica effettuata in locale. Vuoi comunque procedere?</translation>
+    </message>
+    <message>
+        <source>Connecting cloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This project has an updated project file on the cloud, you are advised to synchronize.</source>
+        <translation>Questo progetto ha un file di progetto aggiornato sul cloud, si consiglia di sincronizzare.</translation>
+    </message>
+    <message>
+        <source>This project has updated data on the cloud, you should synchronize.</source>
+        <translation>Questo progetto ha aggiornato i dati sul cloud, si dovrebbe sincronizzare.</translation>
+    </message>
+    <message>
+        <source>Project %1 cannot be packaged as your available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upgrade storage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project %1 cannot be packaged as the project owner&apos;s available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local changes discarded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to discard changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No changes to discard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Used %1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>%n addition(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n edit(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n deletion(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Uploading %1%</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploading</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connecting...</source>
+        <translation>Collegamento...</translation>
+    </message>
+    <message>
+        <source>Changes history</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachments history</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Discard local change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Should this local change be discarded?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Can&apos;t discard change as project is busy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to discard change</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudProject</name>
+    <message>
+        <source>Failed to open temporary file for `%1`, reason:
+%2</source>
+        <translation>Impossibile aprire il file temporaneo per `%1`. Motivo:
+%2</translation>
+    </message>
+    <message>
+        <source>File system error. Failed to write attachment to temporary location `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File system error. Failed to open attachment for writing on temporary `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Network error. Failed to download attachment `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Packaging job finished unsuccessfully for `%1`. %2</source>
+        <translation>Impacchettamento del lavoro terminato con successo per `%1`. %2</translation>
+    </message>
+    <message>
+        <source>Failed to refresh the latest info for `%1`: %2</source>
+        <translation>Impossibile aggiornare le ultime informazioni per `%1`: %2</translation>
+    </message>
+    <message>
+        <source>Failed to get latest package data.</source>
+        <translation>Impossibile ottenere gli ultimi pacchetti di dati.</translation>
+    </message>
+    <message>
+        <source>Latest package data response error.</source>
+        <translation>Errore di risposta dei dati dell&apos;ultimo pacchetto.</translation>
+    </message>
+    <message>
+        <source>Latest package data structure error.</source>
+        <translation>Errore nella struttura dei dati dell&apos;ultimo pacchetto.</translation>
+    </message>
+    <message>
+        <source>Project %1: Packaged layer `%2` is not valid. Error code %3, error message: %4</source>
+        <translation>Progetto %1: il layer impacchettato `%2` non è valido. Codice errore %3.
+Messaggio dell&apos;errore: %4</translation>
+    </message>
+    <message>
+        <source>File system error. Failed to write to partial file `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>File system error. Failed to open partial file `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Network error. Failed to download file `%1`.</source>
+        <translation>Errore di rete. Impossibile scaricare il file `%1`.</translation>
+    </message>
+    <message>
+        <source>Failed to copy some of the downloaded files on your device. Check your device storage.</source>
+        <translation>Impossibile copiare alcuni file scaricati sul tuo dispositivo. Controlla la memoria del tuo dispositivo.</translation>
+    </message>
+    <message>
+        <source>Project `%1`, file `%2`: %3</source>
+        <translation>Progetto`%1`, file `%2`: %3</translation>
+    </message>
+    <message>
+        <source>System message: </source>
+        <translation>Messaggio di sistema:</translation>
+    </message>
+    <message>
+        <source> (see more in the QField error log)…</source>
+        <translation>(ulteriori dettagli nel registro degli errori di QField)...</translation>
+    </message>
+    <message>
+        <source>Job creation finished, but the server response is missing required fields: id(string)</source>
+        <translation>Creazione del lavoro completata, ma la risposta del server manca di un campo richiesto: id(string)</translation>
+    </message>
+    <message>
+        <source>Getting job status, but no `%2` job triggered yet.</source>
+        <translation>Ottengo lo stato del lavoro, ma non c&apos;è nessun lavoro &apos;%2&apos; attivato al momento.</translation>
+    </message>
+    <message>
+        <source>job(%1) status response does not contain all the expected keys: status(string)</source>
+        <translation>La risposta dello stato del lavoro(%1) non contiene tutte le chiavi richieste: status(string)</translation>
+    </message>
+    <message>
+        <source>Job(%1) finished with a failed status.</source>
+        <translation>Lavoro(%1) terminato con uno stato fallito.</translation>
+    </message>
+    <message>
+        <source>project(%1) trigger response refresh not contain all the expected keys: name(string), owner(string), description(string), user_role(string), is_public(bool), can_repackage(bool), needs_repackaging(bool)</source>
+        <translation>L&apos;aggiornamento della risposta del trigger del progetto(%1) non contiene tutte le chiavi richieste: name(string), owner(string), description(string), user_role(string), is_public(bool), can_repackage(bool), needs_repackaging(bool)</translation>
+    </message>
+    <message>
+        <source>aborted</source>
+        <translation>interrotto</translation>
+    </message>
+    <message>
+        <source>Network error. Failed to upload file `%1`.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>One or more files could not be uploaded</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudProjectDetails</name>
+    <message>
+        <source>Using %1 of %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Storage size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Owner</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creation date</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Latest update date</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This QR code can be scanned for users with the appropriate access to download and open this project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Synchronizing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Synchronize</source>
+        <translation>Sincronizza</translation>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud is packaging project, hold tight</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Download project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading project %1</source>
+        <translation>Scaricamento del progetto %1</translation>
+    </message>
+    <message>
+        <source>Open project</source>
+        <translation>Apri progetto</translation>
+    </message>
+    <message>
+        <source>Clone project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create project from template</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudProjectFilter</name>
+    <message>
+        <source>Predefined Filters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Criteria</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Title or description contains</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Owner is</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Include public projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>My own</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Owned by %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Include public templates</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudProjectsModel</name>
+    <message>
+        <source>Project busy.</source>
+        <translation>Il progetto é occupato</translation>
+    </message>
+    <message>
+        <source>Network is not currently active. We will push the changes automatically once you are back online.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project creation requires a name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cloud project could not be created.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cloud project details not found.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudRegister</name>
+    <message>
+        <source>Provide your email and desired username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Your email is used for verification and password recovery</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Nome utente</translation>
+    </message>
+    <message>
+        <source>Your username must meet the following criteria:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Must have at least %n characters</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Must start with a letter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Must contain only a-z letters, digits, underscores or hyphens</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pick a password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Repeat password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The two passwords do not match</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>One last thing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Subscribe to the QFieldCloud newsletter</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When checking this, you agree to receive our newsletter covering latest changes and important updates.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Accept ToS and DPA</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>By checking this, you agree with the QFieldCloud %1Terms of Services (ToS)%2 and the %3Data Processing Agreement (DPA)%4.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Captcha</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Characters shown above</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Referral code</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your referral code if you have one</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You will be signed in right away.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Welcome, %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Verify your email</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Please open the confirmation link once you receive an email from us at %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Go to cloud projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Not now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating your account, please wait</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create account</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudScreen</name>
+    <message>
+        <source>QFieldCloud Projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disconnected from the cloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connecting to the cloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Greetings &lt;strong&gt;%1&lt;/strong&gt;.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Projects</source>
+        <translation>Progetti</translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
+        <translation>Caricamento...</translation>
+    </message>
+    <message>
+        <source>Downloading error. </source>
+        <translation>Errore di scaricamento.</translation>
+    </message>
+    <message>
+        <source>Uploading error. </source>
+        <translation>Errore di caricamento.</translation>
+    </message>
+    <message>
+        <source>Refresh projects list</source>
+        <translation>Aggiorna la lista dei progetti</translation>
+    </message>
+    <message>
+        <source>Sign out</source>
+        <translation>Esci</translation>
+    </message>
+    <message>
+        <source>Sign in</source>
+        <translation>Accedi</translation>
+    </message>
+    <message>
+        <source>Open Project</source>
+        <translation>Apri progetto</translation>
+    </message>
+    <message>
+        <source>Synchronize</source>
+        <translation>Sincronizza</translation>
+    </message>
+    <message>
+        <source>Remove Stored Project</source>
+        <translation>Rimuovi Progetto Archiviato</translation>
+    </message>
+    <message>
+        <source>Refreshing projects list</source>
+        <translation>Aggiornamento elenco dei progetti</translation>
+    </message>
+    <message>
+        <source>QFieldCloud</source>
+        <translation>QFieldCloud</translation>
+    </message>
+    <message>
+        <source>Templates</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Search for templates</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Search for projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud is packaging the latest data just for you; this might take some time, please hold tight</source>
+        <translation>QFieldCloud sta confezionando i dati più recenti solo per te; potrebbe volerci del tempo, tieni saldo</translation>
+    </message>
+    <message>
+        <source>Downloading, %1% of %2 fetched</source>
+        <translation>Scaricamento, recuperato %1% di %2</translation>
+    </message>
+    <message>
+        <source>Downloading, %1% fetched</source>
+        <translation>Scaricamento, %1% recuperato</translation>
+    </message>
+    <message>
+        <source>Reaching out to QFieldCloud to download project</source>
+        <translation>Raggiungi QFieldCloud per scaricare il progetto</translation>
+    </message>
+    <message>
+        <source>Refreshing templates list...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Refreshing projects list...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Searching for templates...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Searching for projects...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No templates found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No cloud projects found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try to %1include public templates%2 and see what the community has to offer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try to %1include public projects%2 and see what the community has to offer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try to %1include public templates%2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Try to %1include public projects%2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>To get started, %1read the documentation%2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Refresh templates list</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Settings page</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show invalid projects</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project Actions</source>
+        <translation>Azioni del progetto</translation>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clone Project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>View Project Details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>View Project Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Are you sure you want to remove `%1`?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project Creation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your project name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Allowed characters: 0-9A-Za-z_-</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your project description</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fetching available project owners</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select your project owner</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Creating project…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud project details fetching failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project cannot be cloned as your available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project cannot be created as your available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upgrade storage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project cloning failed: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project creation failed: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Preparing project…</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Project created but downloading failed: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The newly-created project could not be prepared.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading project…</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudStatus</name>
+    <message>
+        <source>QFieldCloud server is not reachable</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The server at %1 could not be reached. Please check your internet connection.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud is under maintenance</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud service is degraded</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>There is an ongoing incident</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCloudUtils</name>
+    <message>
+        <source>A server error has occured, please try again.</source>
+        <translation>Si è verificato un errore del server, riprovare.</translation>
+    </message>
+    <message>
+        <source>A network error has occured, please try again.</source>
+        <translation>Si è verificato un errore di rete, riprovare.</translation>
+    </message>
+    <message>
+        <source>The project owner&apos;s available storage is full.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project owner&apos;s subscription plan is insufficient.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Expected the json document to be an array of delta status</source>
+        <translation>Il documento json dovrebbe essere una matrice di stati delta</translation>
+    </message>
+    <message>
+        <source>Expected all array elements to be an object, but the element at #%1 is not</source>
+        <translation>Tutte le matrici dovrebbero essere oggetti, ma l&apos;elemento #%1 non lo è</translation>
+    </message>
+    <message>
+        <source>Expected all array elements to be an object containing a key &quot;%1&quot;, but the element at #%2 is not</source>
+        <translation>Tutte le matrici dovrebbero essere oggetti contenenti una chiave &quot;%1&quot;, ma l&apos;elemento #%2 non ce l&apos;ha</translation>
+    </message>
+    <message>
+        <source>Unrecognized status &quot;%1&quot; for $%2</source>
+        <translation>Stato non riconosciuto &quot;%1&quot; per $%2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n feature(s) created</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n feature(s) edited</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n feature(s) deleted</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>%1 in layer %2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder could not be found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder contains more than one project file, move the project into a folder of its own and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder does not contain a valid project file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder does not contain a project file.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCodeReader</name>
+    <message>
+        <source>No readable code found in the selected image</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NFC text tag detected</source>
+        <translation>NFC text tag rilevato</translation>
+    </message>
+    <message>
+        <source>Code Reader</source>
+        <translation>Lettore di codice</translation>
+    </message>
+    <message>
+        <source>Center your device on a code</source>
+        <translation>Centra il tuo dispositivo su un code</translation>
+    </message>
+    <message>
+        <source>Tap a code to select it</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCogoParameterAngle</name>
+    <message>
+        <source>deg</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfCogoParameterPoint</name>
+    <message>
+        <source>latitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>longitude</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>elevation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>easting [X]</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>northing [Y]</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>elevation [Z]</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Point Feature Picker</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfDashBoard</name>
+    <message>
+        <source>The layer %1 is read only.</source>
+        <translation>Il layer %1 è di sola lettura.</translation>
+    </message>
+    <message>
+        <source>Project Information</source>
+        <translation>Informazioni Progetto</translation>
+    </message>
+    <message>
+        <source>Map Theme</source>
+        <translation>Vista mappa</translation>
+    </message>
+    <message>
+        <source>Legend</source>
+        <translation>Legenda</translation>
+    </message>
+    <message>
+        <source>Expand All</source>
+        <translation>Espandi Tutto</translation>
+    </message>
+    <message>
+        <source>Collapse All</source>
+        <translation>Compatta Tutto</translation>
+    </message>
+    <message>
+        <source>Return home</source>
+        <translation>Torna alla home</translation>
+    </message>
+    <message>
+        <source>The project is read-only.</source>
+        <translation>Il progetto è in sola lettura.</translation>
+    </message>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create Collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markup Collection Creation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enter your new collection name</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfDialog</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancella</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfDigitizingLayerInformationView</name>
+    <message>
+        <source>Map Layers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pick a digitizing layer</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfDigitizingLogger</name>
+    <message>
+        <source>Default value expression for the digitizing logger&apos;s %2 field has a parser error: %3</source>
+        <translation>L&apos;espressione del valore predefinito per il campo %2 del logger di digitalizzazione ha un errore di analisi: %3</translation>
+    </message>
+    <message>
+        <source>Default value expression for the digitizing logger&apos;s %2 field has an evaluation error: %3</source>
+        <translation>L&apos;espressione del valore predefinito per il campo %2 del logger di digitalizzazione ha un errore di valutazione: %3</translation>
+    </message>
+    <message>
+        <source>Digitizing logs layer feature addition failed</source>
+        <translation>Aggiunta di funzionalità al layer dei registri di digitalizzazione non riuscita</translation>
+    </message>
+    <message>
+        <source>Digitizing logs layer change commits failed</source>
+        <translation>Cambiamento del layer dei registri di digitalizzazione non riuscita</translation>
+    </message>
+    <message>
+        <source>Digitizing logs layer editing failed</source>
+        <translation>Modifica del layer dei registri di digitalizzazione non riuscita</translation>
+    </message>
+</context>
+<context>
+    <name>QfDigitizingToolbar</name>
+    <message>
+        <source>The collected positions count does not meet the requirement</source>
+        <translation>Il conteggio delle posizioni raccolte non soddisfa il requisito</translation>
+    </message>
+    <message>
+        <source>Cancel digitizing</source>
+        <translation>Cancella digitalizzazione</translation>
+    </message>
+    <message>
+        <source>Should the digitized geometry be discarded?</source>
+        <translation>La geometria digitalizzata deve essere scartata?</translation>
+    </message>
+    <message>
+        <source>Position accuracy doesn&apos;t meet the minimum requirement, vertex not added</source>
+        <translation>L&apos;accuratezza della posizione non soddisfa il requisito minimo, vertice non aggiunto</translation>
+    </message>
+</context>
+<context>
+    <name>QfDrawingTemplateModel</name>
+    <message>
+        <source>Blank</source>
+        <translation>Vuoto</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetBase</name>
+    <message>
+        <source>Item Menu</source>
+        <translation>Menu Oggetto</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetBinary</name>
+    <message>
+        <source>(Blob)</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetCheckBox</name>
+    <message>
+        <source>True</source>
+        <translation>Vero</translation>
+    </message>
+    <message>
+        <source>False</source>
+        <translation>Falso</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetDateTime</name>
+    <message>
+        <source>(no date)</source>
+        <translation>(nessuna data)</translation>
+    </message>
+    <message>
+        <source>Date value set to today.</source>
+        <translation>Data sincronizzata con quella attuale.</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetExternalResource</name>
+    <message>
+        <source>The external storage&apos;s authentication configuration ID is missing, please insure it is imported into %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Learn more</source>
+        <translation>Per saperne di più</translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+    <message>
+        <source>No Value</source>
+        <translation>Valore vuoto</translation>
+    </message>
+    <message>
+        <source>Cannot handle this file type</source>
+        <translation>Non posso gestire questo tipo di file</translation>
+    </message>
+    <message>
+        <source>QFieldCloud on-demand attachment error: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Take a photo</source>
+        <translation>Fai una foto</translation>
+    </message>
+    <message>
+        <source>Take a video</source>
+        <translation>Fai un video</translation>
+    </message>
+    <message>
+        <source>Record an audio clip</source>
+        <translation>Registra una clip audio</translation>
+    </message>
+    <message>
+        <source>Attach a gallery item</source>
+        <translation>Allega un elemento della galleria</translation>
+    </message>
+    <message>
+        <source>Attach a file</source>
+        <translation>Allega un file</translation>
+    </message>
+    <message>
+        <source>Draw a sketch</source>
+        <translation>Disegna uno schizzo</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetRange</name>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+</context>
+<context>
+    <name>QfEditorWidgetTextEdit</name>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+    <message>
+        <source>Copy Text</source>
+        <translation>Copia Testo</translation>
+    </message>
+    <message>
+        <source>Paste Text</source>
+        <translation>Incolla Testo</translation>
+    </message>
+    <message>
+        <source>Scan Code</source>
+        <translation>Scansiona Codice</translation>
+    </message>
+</context>
+<context>
+    <name>QfEgenioussReceiver</name>
+    <message>
+        <source>Received data is too short to process</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Invalid start byte</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Received data is too short to contain the payload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to parse JSON</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Could not find the remote host</source>
+        <translation>Impossibile trovare l&apos;host remoto</translation>
+    </message>
+    <message>
+        <source>Attempt to read or write from socket returned an error</source>
+        <translation>Il tentativo di leggere o scrivere sul socket ha ritornato un errore</translation>
+    </message>
+    <message>
+        <source>The connection was refused by the remote host</source>
+        <translation>La connessione è stata rifiutata dall&apos;host remoto</translation>
+    </message>
+    <message>
+        <source>TCP receiver error (%1)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Is the app running? HTTP request failed: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Egeniouss service is not ready.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Last fix</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Heading</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Roll</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pitch</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Heading sigma</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfElevationProfile</name>
+    <message>
+        <source>Rendering elevation profile…</source>
+        <translation>Renderizzazione profilo elevazione...</translation>
+    </message>
+    <message>
+        <source>Digitize a path to render the elevation profile</source>
+        <translation>Digitalizza un percorso per renderizzare il profilo di elevazione</translation>
+    </message>
+</context>
+<context>
+    <name>QfExpressionCalculatorLocatorFilter</name>
+    <message>
+        <source>Copy “%1” to clipboard</source>
+        <translation>Copia “%1” negli appunti</translation>
+    </message>
+    <message>
+        <source>Calculator</source>
+        <translation>Calcolatrice</translation>
+    </message>
+    <message>
+        <source>Returns the value of an expression typed in the search bar.</source>
+        <translation>Restituisce il valore di un&apos;espressione digitata nella barra di ricerca.</translation>
+    </message>
+</context>
+<context>
+    <name>QfExpressionVariableModel</name>
+    <message>
+        <source>Not Available</source>
+        <translation>Non disponibile</translation>
+    </message>
+</context>
+<context>
+    <name>QfFeatureForm</name>
+    <message>
+        <source>Previous page</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next page</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Hard constraints not satisfied</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The last entered value for this field will be remembered and reused when creating new features</source>
+        <translation>L&apos;ultimo valore inserito per questo campo sarà ricordato e riutilizzato quando si creano nuovi elementi</translation>
+    </message>
+    <message>
+        <source>The last entered value for this field will not be reused when creating new features</source>
+        <translation>L&apos;ultimo valore inserito per questo campo non sarà riutilizzato quando si creano nuovi elementi</translation>
+    </message>
+    <message>
+        <source>Value applied</source>
+        <translation>Valore applicato</translation>
+    </message>
+    <message>
+        <source>Value skipped</source>
+        <translation>Valore saltato</translation>
+    </message>
+    <message>
+        <source> (click to toggle)</source>
+        <translation>(clicca per attivare)</translation>
+    </message>
+    <message>
+        <source>Soft constraints were not satisified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Feature addition disabled</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unable to save changes</source>
+        <translation>Impossibile salvare i cambiamenti</translation>
+    </message>
+    <message>
+        <source>Add feature on %1</source>
+        <translation>Aggiungi elemento su %1</translation>
+    </message>
+    <message>
+        <source>Edit feature on %1</source>
+        <translation>Modifica elemento su %1</translation>
+    </message>
+    <message>
+        <source>View feature on %1</source>
+        <translation>Visualizza elemento su %1</translation>
+    </message>
+    <message>
+        <source>Feature Form Menu</source>
+        <translation>Menu Maschera Elemento</translation>
+    </message>
+    <message>
+        <source>Remember All Reusable Values</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Forget All Reusable Values</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel editing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You are about to dismiss the new feature, proceed?</source>
+        <translation>Stai per eliminare il nuovo elemento. Procedere?</translation>
+    </message>
+    <message>
+        <source>You are about to leave editing state, any changes will be lost. Proceed?</source>
+        <translation>Stai per uscire dallo stato di modifica, tutti i cambiamenti andranno persi. Procedere?</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancella</translation>
+    </message>
+    <message>
+        <source>You are about to cancel the feature setup, proceed?</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfFeatureHistory</name>
+    <message>
+        <source>Failed to undo created features in layer &quot;%1&quot;</source>
+        <translation>Impossibile annullare gli elementi creati nel layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Failed to undo deleted features in layer &quot;%1&quot;</source>
+        <translation>Impossibile ripristinare gli elementi eliminati nel layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Failed to undo update features in layer &quot;%1&quot;</source>
+        <translation>Impossibile ripristinare gli elementi aggiornati nel layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Failed to commit undo feature modification in layer &quot;%1&quot;</source>
+        <translation>Impossibile eseguire annulla la modifica dell&apos;elemento nel layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Failed to rollback undo feature modifications in layer &quot;%1&quot;</source>
+        <translation>Impossibile annullare il rollback delle modifiche degli elementi nel layer &quot;%1&quot;</translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo creation of %n feature(s) on layer %1.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo creation of %n feature(s).</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo deletion of %n feature(s) on layer %1.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo deletion of %n feature(s).</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo modifications on %n feature(s) on layer %1.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Undo modifications on %n feature(s).</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo creation of %n feature(s) on layer %1</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo creation of %n feature(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo deletion of %n feature(s) on layer %1</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo deletion of %n feature(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo modifications on %n feature(s) on layer %1</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Redo modifications on %n feature(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+</context>
+<context>
+    <name>QfFeatureListForm</name>
+    <message>
+        <source>Features</source>
+        <translation>Elementi</translation>
+    </message>
+    <message>
+        <source>Processing Algorithms</source>
+        <translation>Algoritmi di Elaborazione</translation>
+    </message>
+    <message>
+        <source>Changes saved</source>
+        <translation>Modifiche salvate</translation>
+    </message>
+    <message>
+        <source>Changes discarded</source>
+        <translation>Cambiamenti annullati</translation>
+    </message>
+    <message>
+        <source>Stop tracking this feature to edit attributes</source>
+        <translation>Interrompi il tracciamento di questo elemento per modificare gli attributi</translation>
+    </message>
+    <message>
+        <source>Stop tracking this feature to edit geometry</source>
+        <translation>Interrompi il tracciamento di questo elemento per modificarlo</translation>
+    </message>
+    <message>
+        <source>Successfully duplicated feature</source>
+        <translation>Elemento duplicato con successo</translation>
+    </message>
+    <message>
+        <source>A number of features are being tracked, stop tracking to delete those</source>
+        <translation>È in corso il tracciamento di una serie di elementi, interrompere il tracciamento per eliminarli</translation>
+    </message>
+    <message>
+        <source>A number of features are being tracked, stop tracking to merge those</source>
+        <translation>È in corso il tracciamento di una serie di elementi, interrompere il tracciamento per unirli</translation>
+    </message>
+    <message>
+        <source>Successfully duplicated selected features, list updated to show newly-created features</source>
+        <translation>Attributi selezionati duplicati con successo. La lista è stata aggiornata per mostrare i nuovi elementi</translation>
+    </message>
+    <message>
+        <source>No feature at this position</source>
+        <translation>Nessun elemento in questa posizione</translation>
+    </message>
+    <message>
+        <source>Merge feature(s)</source>
+        <translation>Fondi elementi</translation>
+    </message>
+    <message numerus="yes">
+        <source>Should the %n feature(s) selected really be merge?
+
+The features geometries will be combined into feature &apos;%1&apos;, which will keep its attributes.</source>
+        <comment>0</comment>
+        <translation><numerusform>Vuoi davvero fondere questo(i) %n elementi?
+
+Le geometrie degli elementi verranno combinati in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform><numerusform>Vuoi davvero fondere questi %n elementi?
+
+Le geometrie degli elementi verranno combinati in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform><numerusform>Vuoi davvero fondere questi %n elementi?
+
+Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che manterrà i propri attributi.</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Successfully merged %n feature(s)</source>
+        <translation><numerusform>Fusione di %n elementi eseguita con successo</numerusform><numerusform>Fusione di %n elementi eseguita con successo</numerusform><numerusform>Fusione di %n elementi eseguita con successo</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to merge %n feature(s)</source>
+        <translation><numerusform>Fallita la fusione (merge) di %n elemento(i)</numerusform><numerusform>Impossibile fondere %n elemento(i)</numerusform><numerusform>Impossibile fondere %n elemento(i)</numerusform></translation>
+    </message>
+    <message>
+        <source>Transfer Feature Attributes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select a feature below from which attributes will be transfered onto the currently opened feature.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Feature attributes transferred</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No feature attributes were transferred</source>
+        <translation>Non è stato trasferito nessun attributo di elemento</translation>
+    </message>
+    <message>
+        <source>Delete feature(s)</source>
+        <translation>Cancella elemento(i)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Should the %n feature(s) selected really be deleted?</source>
+        <comment>0</comment>
+        <translation><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform><numerusform>Vuoi davvero eliminare questi %n elementi?</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Successfully deleted %n feature(s)</source>
+        <translation><numerusform>%n elementi eliminati con successo</numerusform><numerusform>%n elementi eliminati con successo</numerusform><numerusform>%n elementi eliminati con successo</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to delete %n feature(s)</source>
+        <translation><numerusform>Impossibile eliminare %n elemento(i)</numerusform><numerusform>Impossibile eliminare %n elemento(i)</numerusform><numerusform>Impossibile eliminare %n elemento(i)</numerusform></translation>
+    </message>
+</context>
+<context>
+    <name>QfFeatureModel</name>
+    <message>
+        <source>Value &quot;%1&quot; %4 could not be converted to a compatible value for field %2(%3).</source>
+        <translation>Non è stato possibile convertire il valore &quot;%1&quot; %4 in un valore compatibile per il campo %2(%3).</translation>
+    </message>
+    <message>
+        <source>Default value expression for %1:%2 has parser error: %3</source>
+        <translation>Il valore di default dell&apos;espressione per %1:%2 ha un errore di decodifica: %3</translation>
+    </message>
+    <message>
+        <source>Default value expression for %1:%2 has evaluation error: %3</source>
+        <translation>Il valore di default dell&apos;espressione per %1:%2 ha un errore di valutazione: %3</translation>
+    </message>
+    <message>
+        <source>Cannot update feature</source>
+        <translation>Impossibile aggiornare l&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Feature %1 could not be fetched after commit</source>
+        <translation>Non è stato possibile recuperare l&apos;elemento %1 dopo il commit</translation>
+    </message>
+    <message>
+        <source>Cannot start editing on layer &quot;%1&quot; to create feature %2</source>
+        <translation>Impossibile iniziare la modifica del layer &quot;%1&quot; per creare la elemento %2</translation>
+    </message>
+    <message>
+        <source>Layer &quot;%1&quot; has been commited but the newly created feature %2 could not be fetched</source>
+        <translation>Il layer &quot;%1&quot; è stato impegnato ma non è stato possibile recuperare la nuova elemento %2</translation>
+    </message>
+    <message>
+        <source>Layer &quot;%1&quot; cannot be commited with the newly created feature %2. Reason:
+%3</source>
+        <translation>Il layer &quot;1%&quot; non può essere impegnato con la nuova elemento %2. Motivo:
+%3</translation>
+    </message>
+    <message>
+        <source>Feature %2 could not be added in layer &quot;%1&quot;</source>
+        <translation>La elemento %2 non può essere aggiunta la layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Could not save changes. Rolling back.</source>
+        <translation>Non è possibile salvare i cambiamenti. Annullamento.</translation>
+    </message>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>Non è possibile iniziare a modificare</translation>
+    </message>
+</context>
+<context>
+    <name>QfFeaturesLocatorFilter</name>
+    <message>
+        <source>Open form</source>
+        <translation>Apri maschera</translation>
+    </message>
+    <message>
+        <source>Set feature as destination</source>
+        <translation>Imposta elemento come destinazione</translation>
+    </message>
+    <message>
+        <source>Feature has no geometry</source>
+        <translation>L&apos;elemento non ha geometria</translation>
+    </message>
+    <message>
+        <source>Features in all layers</source>
+        <translation>Elementi in tutti i layer</translation>
+    </message>
+    <message>
+        <source>Returns a list of features accross all searchable layers with matching display name.</source>
+        <translation>Restituisce un elenco di elementi in tutti i layer ricercabili con attributi corrispondenti al nome visualizzato.</translation>
+    </message>
+</context>
+<context>
+    <name>QfFileDeviceChooser</name>
+    <message>
+        <source>File path</source>
+        <translation>Percorso del file</translation>
+    </message>
+    <message>
+        <source>Interval (in milliseconds)</source>
+        <translation>Intervallo (in millisecondi)</translation>
+    </message>
+</context>
+<context>
+    <name>QfFinlandLocatorFilter</name>
+    <message>
+        <source>Finnish address search</source>
+        <translation>Ricerca indirizzi finlandesi</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorErase</name>
+    <message>
+        <source>The geometry could not be modified into multiple parts</source>
+        <translation>La geometria non può essere modificata in più parti.</translation>
+    </message>
+    <message>
+        <source>The geometry could not be modified</source>
+        <translation>La geometria non può essere modificata</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorFillRing</name>
+    <message>
+        <source>The ring is not closed</source>
+        <translation>L&apos;anello non è chiuso</translation>
+    </message>
+    <message>
+        <source>The ring is not valid</source>
+        <translation>L&apos;anello non è valido</translation>
+    </message>
+    <message>
+        <source>The ring crosses existing rings (it is not disjoint)</source>
+        <translation>L&apos;anello incrocia altri anelli già esistenti (non disgiunto)</translation>
+    </message>
+    <message>
+        <source>The ring doesn&apos;t have any existing ring to fit into</source>
+        <translation>Non è presente alcun anello in cui adattare il nuovo</translation>
+    </message>
+    <message>
+        <source>Unknown error when creating the ring</source>
+        <translation>Errore sconosciuto nella creazione dell&apos;anello</translation>
+    </message>
+    <message>
+        <source>Fill ring</source>
+        <translation>Riempi buco</translation>
+    </message>
+    <message>
+        <source>Would you like to fill the ring with a new polygon?</source>
+        <translation>Riempire l&apos;anello con un nuovo poligono?</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorReshape</name>
+    <message>
+        <source>The geometry could not be reshaped</source>
+        <translation>La geometria non può essere rimodellata</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorSplitFeature</name>
+    <message>
+        <source>Feature could not be split</source>
+        <translation>L&apos;elemento non può essere diviso</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorVertexEditor</name>
+    <message>
+        <source>Failed to save feature!</source>
+        <translation>Impossibile salvare elemento!</translation>
+    </message>
+</context>
+<context>
+    <name>QfGeometryEditorsToolbar</name>
+    <message>
+        <source>Vertex Tool</source>
+        <translation>Strumento Vertice</translation>
+    </message>
+    <message>
+        <source>Split Tool</source>
+        <translation>Strumento Dividi</translation>
+    </message>
+    <message>
+        <source>Reshape Tool</source>
+        <translation>Strumento di rimodellazione</translation>
+    </message>
+    <message>
+        <source>Erase Tool</source>
+        <translation>Strumento di cancellazione</translation>
+    </message>
+    <message>
+        <source>Fill Ring Tool</source>
+        <translation>Strumento Riempi Buco</translation>
+    </message>
+</context>
+<context>
+    <name>QfGotoLocatorFilter</name>
+    <message>
+        <source>Go to %1%2 %3%4 (Map CRS, %5)</source>
+        <translation>Vai a %1%2 %3%4 (SR Mappa, %5)</translation>
+    </message>
+    <message>
+        <source>Set navigation point</source>
+        <translation>Imposta punto di navigazione</translation>
+    </message>
+    <message>
+        <source>Go to %1°N %2°E (%3)</source>
+        <translation>Vai a %1°N %2°E (%3)</translation>
+    </message>
+    <message>
+        <source>Go to coordinate</source>
+        <translation>Vai alle coordinate</translation>
+    </message>
+    <message>
+        <source>Returns a point from a pair of X and Y coordinates - or WGS84 latitude and longitude - typed in the search bar.</source>
+        <translation>Restituisce un punto da una coppia di coordinate X e Y - o latitudine e longitudine WGS84 - digitate nella barra di ricerca.</translation>
+    </message>
+</context>
+<context>
+    <name>QfGuide</name>
+    <message>
+        <source>Finish</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Next</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfHelpLocatorFilter</name>
+    <message>
+        <source>QField Documentation</source>
+        <translation>Documentazione QField</translation>
+    </message>
+    <message>
+        <source>Returns QField documentation pages matching terms.</source>
+        <translation>Restituisce le pagine di documentazione QField corrispondenti ai termini.</translation>
+    </message>
+</context>
+<context>
+    <name>QfInformationDrawer</name>
+    <message>
+        <source>Navigation</source>
+        <translation>Navigazione</translation>
+    </message>
+    <message>
+        <source>Positioning</source>
+        <translation>Posizionamento</translation>
+    </message>
+    <message>
+        <source>NTRIP</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Sensors</source>
+        <translation>Sensori</translation>
+    </message>
+    <message>
+        <source>Elevation profile</source>
+        <translation>Profilo altimetrico</translation>
+    </message>
+</context>
+<context>
+    <name>QfInformationPopup</name>
+    <message>
+        <source>Author</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLayerLoginDialog</name>
+    <message>
+        <source>Credentials Details</source>
+        <translation>Dettaglio Credenziali</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Nome utente</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <source>Submit</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLayerObserver</name>
+    <message>
+        <source>Failed to find a local primary key column in layer &quot;%1&quot;</source>
+        <translation>Impossibile trovare una colonna di chiave primaria locale nel layer &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Failed to find a source primary key column in layer &quot;%1&quot;</source>
+        <translation>Impossibile trovare la colonna della chiave primaria della sorgente nel layer &quot;%1&quot;</translation>
+    </message>
+</context>
+<context>
+    <name>QfLayerTreeItemProperties</name>
+    <message>
+        <source>Expand group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Expand legend item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Stop tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Setup tracking</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Reload of layer %1 triggered</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show on map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show labels</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Opacity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to group</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to parent layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to layer</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The layer has no features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show Features Menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show visible features list</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLayerUtils</name>
+    <message>
+        <source>Cannot start editing, no layer</source>
+        <translation>Non è possibile iniziare la modifica, nessun layer</translation>
+    </message>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>Non è possibile iniziare a modificare</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion of feature %2 in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>Impossibile eseguire l&apos;eliminazione dell&apos;elemento %2 nel livello &quot;%1&quot;. Motivo:
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot commit deletion in layer &quot;%1&quot;. Reason:
+%3</source>
+        <translation>Impossibile eseguire l&apos;eliminazione nel livello &quot;%1&quot;. Motivo:
+%3</translation>
+    </message>
+    <message>
+        <source>Cannot delete feature %1</source>
+        <translation>Impossibile eliminare elemento %1</translation>
+    </message>
+    <message>
+        <source>Cannot rollback layer changes in layer %1</source>
+        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
+    </message>
+    <message>
+        <source>Cannot copy invalid feature</source>
+        <translation>Impossibile copiare elemento non valido</translation>
+    </message>
+    <message>
+        <source>Cannot add new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation>Impossibile aggiungere il nuovo elemento nel layer &quot;%1&quot;. Motivo:
+%2</translation>
+    </message>
+    <message>
+        <source>Cannot add feature in layer &quot;%1&quot;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot commit new feature in layer &quot;%1&quot;. Reason:
+%2</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLegend</name>
+    <message>
+        <source>Tracking active on this layer.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tracking on layer %1 stopped</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation>Questo layer non è valido. Ciò potrebbe essere dovuto a un problema di rete, a un file mancante o ad una configurazione errata del progetto.</translation>
+    </message>
+    <message>
+        <source>This layer is configured as &quot;Read-Only&quot; which disables adding, deleting and editing features.</source>
+        <translation>Questo layer è configurato come &quot;Sola-Lettura&quot; che disabilita l&apos;aggiunta, l&apos;eliminazione e la modifica degli elementi.</translation>
+    </message>
+    <message>
+        <source>The permissions configuration of this layer disables feature addition.</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLegendItemProperties</name>
+    <message>
+        <source>Expand group</source>
+        <translation>Espandi gruppo</translation>
+    </message>
+    <message>
+        <source>Expand legend item</source>
+        <translation>Espandi legenda elemento</translation>
+    </message>
+    <message>
+        <source>Stop tracking</source>
+        <translation>Interrompi il tracciamento</translation>
+    </message>
+    <message>
+        <source>Setup tracking</source>
+        <translation>Configura tracciamento</translation>
+    </message>
+    <message>
+        <source>Reload of layer %1 triggered</source>
+        <translation>Ricarica del layer %1 avviata</translation>
+    </message>
+    <message>
+        <source>This layer is invalid. This might be due to a network issue, a missing file or a misconfiguration of the project.</source>
+        <translation>Questo layer non è valido. Ciò potrebbe essere dovuto a un problema di rete, a un file mancante o ad una configurazione errata del progetto.</translation>
+    </message>
+    <message>
+        <source>Show on map</source>
+        <translation>Mostra sulla mappa</translation>
+    </message>
+    <message>
+        <source>Show labels</source>
+        <translation>Mostra etichette</translation>
+    </message>
+    <message>
+        <source>Opacity</source>
+        <translation>Opacità</translation>
+    </message>
+    <message>
+        <source>Zoom to group</source>
+        <translation>Zoom al gruppo</translation>
+    </message>
+    <message>
+        <source>Zoom to parent layer</source>
+        <translation>Zoom sul layer padre</translation>
+    </message>
+    <message>
+        <source>Zoom to layer</source>
+        <translation>Zoom sul layer</translation>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation>Mostra elenco elementi</translation>
+    </message>
+    <message>
+        <source>The layer has no features</source>
+        <translation>Il layer non ha elementi</translation>
+    </message>
+    <message>
+        <source>Tracking on layer %1 stopped</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Read-only layer</source>
+        <translation>Layer in sola lettura</translation>
+    </message>
+    <message>
+        <source>feature addition</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>attribute editing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>geometry editing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>feature deletion</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disabled layer permissions: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show Features Menu</source>
+        <translation>Mostra Menu Elementi</translation>
+    </message>
+    <message>
+        <source>Show visible features list</source>
+        <translation>Mostra elenco degli elementi visibili</translation>
+    </message>
+</context>
+<context>
+    <name>QfLocalDataPickerScreen</name>
+    <message>
+        <source>Project Folder</source>
+        <translation>Cartella del Progetto</translation>
+    </message>
+    <message>
+        <source>Local Projects &amp; Datasets</source>
+        <translation>Progetti &amp; Dataset Locali</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n item(s) selected</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Folders</source>
+        <translation>Cartelle</translation>
+    </message>
+    <message>
+        <source>Projects</source>
+        <translation>Progetti</translation>
+    </message>
+    <message>
+        <source>Datasets</source>
+        <translation>Dataset</translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Favorites</source>
+        <translation>Preferiti</translation>
+    </message>
+    <message>
+        <source>Project file</source>
+        <translation>File di progetto</translation>
+    </message>
+    <message>
+        <source>Vector dataset</source>
+        <translation>Dataset vettoriale</translation>
+    </message>
+    <message>
+        <source>Raster dataset</source>
+        <translation>Dataset raster</translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Item Actions</source>
+        <translation>Azioni dell&apos;oggetto</translation>
+    </message>
+    <message>
+        <source>View file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add to favorites</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove from favorites</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send compressed folder to...</source>
+        <translation>Invia cartella compressa a...</translation>
+    </message>
+    <message>
+        <source>Send to...</source>
+        <translation>Invia a...</translation>
+    </message>
+    <message>
+        <source>Export to folder...</source>
+        <translation>Esporta nella cartella...</translation>
+    </message>
+    <message>
+        <source>Upload folder to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload file to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Download folder from WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove dataset</source>
+        <translation>Rimuovi dataset</translation>
+    </message>
+    <message>
+        <source>Import Actions</source>
+        <translation>Importa Azioni</translation>
+    </message>
+    <message>
+        <source>Import project from folder</source>
+        <translation>Importa progetto da cartella</translation>
+    </message>
+    <message>
+        <source>Import project from ZIP</source>
+        <translation>Importa progetto da ZIP</translation>
+    </message>
+    <message>
+        <source>Import dataset(s)</source>
+        <translation>Importa dataset</translation>
+    </message>
+    <message>
+        <source>Import URL</source>
+        <translation>Importa URL</translation>
+    </message>
+    <message>
+        <source>Import WebDAV folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Storage management help</source>
+        <translation>Aiuto per la gestione dell&apos;archiviazione</translation>
+    </message>
+    <message>
+        <source>Project Actions</source>
+        <translation>Azioni del progetto</translation>
+    </message>
+    <message>
+        <source>Update project from ZIP</source>
+        <translation>Aggiorna progetto da ZIP</translation>
+    </message>
+    <message>
+        <source>Compress project and send to...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload project to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Download project from WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload file(s) to WebDAV</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload file(s) to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send compressed file(s) to...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete file(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Items being uploaded to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Items queued for upload to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>‘%1’ is being uploaded to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>‘%1’ queued for upload to QFieldCloud</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove File(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message numerus="yes">
+        <source>Are you sure you want to remove %n files?</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n file(s) deleted successfully</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to delete %n file(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Type a URL below to download and import the project or dataset:</source>
+        <translation>Digita un URL qui sotto per scaricare e importare il progetto o il dataset:</translation>
+    </message>
+    <message>
+        <source>Importing WebDAV folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Downloading WebDAV folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Uploading WebDAV folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>WebDAV error: </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>WebDAV upload</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>WebDAV download</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You are about to upload modified content into &lt;b&gt;%1&lt;/b&gt; using user &lt;b&gt;%2&lt;/b&gt;.&lt;br&gt;&lt;br&gt;This operation will overwrite data stored remotely, make sure this is what you want to do.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You are about to download modified content from &lt;b&gt;%1&lt;/b&gt; using user &lt;b&gt;%2&lt;/b&gt;.&lt;br&gt;&lt;br&gt;This operation will overwrite data stored locally, make sure this is what you want to do.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password (leave empty to use remembered)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <source>Remember password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Type the WebDAV details below to import a remote folder:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>WebDAV server URL</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>User and password</source>
+        <translation>Utente e password</translation>
+    </message>
+    <message>
+        <source>leave empty to use remembered</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fetching remote folders</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fetch remote folders</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select the remote folder to import:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>root folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Available locally in ‘%1’</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Imported folder name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>You are about to remove a saved WebDAV item, proceed?</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfLocalFilesModel</name>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QField files directory</source>
+        <translation>Cartella file di QField</translation>
+    </message>
+    <message>
+        <source>Created projects</source>
+        <translation>Progetti creati</translation>
+    </message>
+    <message>
+        <source>Imported projects</source>
+        <translation>Progetti importati</translation>
+    </message>
+    <message>
+        <source>Imported datasets</source>
+        <translation>Dataset importati</translation>
+    </message>
+    <message>
+        <source>Additional files directory</source>
+        <translation>Cartella di file aggiuntivi</translation>
+    </message>
+</context>
+<context>
+    <name>QfLocatorFiltersModel</name>
+    <message>
+        <source>Search filters for your locations have been activated, customize results in the settings panel</source>
+        <translation>I filtri di ricerca basati sulla tua posizione sono stati attivati. Puoi personalizzare i risultati nel pannello delle impostazioni</translation>
+    </message>
+</context>
+<context>
+    <name>QfLocatorItem</name>
+    <message>
+        <source>To search features within the active layer, select a vector layer through the legend.</source>
+        <translation>Per cercare le funzioni all&apos;interno del layer attivo, seleziona un layer vettoriale tramite la legenda.</translation>
+    </message>
+    <message>
+        <source>Activate a vector layer in the legend first to use this functionality</source>
+        <translation>Attiva prima uno strato vettoriale nella legenda per utilizzare questa funzionalità.</translation>
+    </message>
+</context>
+<context>
+    <name>QfLocatorSettings</name>
+    <message>
+        <source>Search Bar Settings</source>
+        <translation>Barra Ricerca Impostazioni</translation>
+    </message>
+    <message>
+        <source>When disabled, this locator filter can still be used by typing the prefix %1 in the search bar.</source>
+        <translation>Quando disabilitato, questo filtro di localizzazione può ancora essere utilizzato digitando il prefisso %1 nella barra di ricerca.</translation>
+    </message>
+    <message>
+        <source>Enable %1 locator by default</source>
+        <translation>Abilita il localizzatore %1 come impostazione predefinita</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupCollection</name>
+    <message>
+        <source>Markups</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Markup item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Colore</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Descrizione</translation>
+    </message>
+</context>
+<context>
+    <name>QfMarkupLegendItemProperties</name>
+    <message>
+        <source>Show on map</source>
+        <translation>Mostra sulla mappa</translation>
+    </message>
+    <message>
+        <source>Zoom to collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The collection has no features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show features list</source>
+        <translation>Mostra elenco elementi</translation>
+    </message>
+    <message>
+        <source>Export collection</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfMarkupManager</name>
+    <message>
+        <source>Unnamed collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Default collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Untitled collection</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfMessageLog</name>
+    <message>
+        <source>Message Logs</source>
+        <translation>Log dei messaggi</translation>
+    </message>
+    <message>
+        <source>Message text copied</source>
+        <translation>Testo del messaggio copiato</translation>
+    </message>
+    <message>
+        <source>Log runtime profiler</source>
+        <translation>Log runtime profiler</translation>
+    </message>
+    <message>
+        <source>Clear message log</source>
+        <translation>Svuota il registro dei messaggi</translation>
+    </message>
+    <message>
+        <source>Message log cleared</source>
+        <translation>Registro svuotato</translation>
+    </message>
+    <message>
+        <source>Send application log</source>
+        <translation>Invia registro dell&apos;applicazione</translation>
+    </message>
+    <message>
+        <source>This will send a log of your current session to the development team. You only need to do this when you are asked for it.</source>
+        <translation>Questo invierà un log della sessione corrente al team di sviluppo. Devi farlo solo quando ti viene chiesto di farlo.</translation>
+    </message>
+    <message>
+        <source>Type optional details</source>
+        <translation>Digitare i dettagli opzionali</translation>
+    </message>
+    <message>
+        <source>Include cloud user details</source>
+        <translation>Includere dettagli utente cloud</translation>
+    </message>
+    <message>
+        <source>Your application log is being sent…</source>
+        <translation>Il log dell&apos;applicazione sta per essere inviato...</translation>
+    </message>
+</context>
+<context>
+    <name>QfMeterBar</name>
+    <message>
+        <source>Storage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tap to upgrade storage</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tap to manage storage</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfMultiFeatureListModelBase</name>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>Non è possibile iniziare a modificare</translation>
+    </message>
+    <message>
+        <source>Cannot rollback layer changes in layer %1</source>
+        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
+    </message>
+    <message>
+        <source>Cannot change geometry of feature %1 in %2</source>
+        <translation>Impossibile modificare la geometria dell&apos;elemento %1 in %2</translation>
+    </message>
+</context>
+<context>
+    <name>QfNavigationBar</name>
+    <message>
+        <source>Features</source>
+        <translation>Elementi</translation>
+    </message>
+    <message>
+        <source>Feature List Menu</source>
+        <translation>Menù elenco funzioni</translation>
+    </message>
+    <message>
+        <source>Toggle Feature Selection</source>
+        <translation>Attiva/disattiva la selezione degli elementi</translation>
+    </message>
+    <message>
+        <source>Print Atlas Feature(s) to PDF</source>
+        <translation>Stampa Elementi Atlante in PDF</translation>
+    </message>
+    <message>
+        <source>Merge Selected Features</source>
+        <translation>Fondi Elementi Selezionati</translation>
+    </message>
+    <message>
+        <source>Move Selected Feature(s)</source>
+        <translation>Muovi gli elementi selezionati</translation>
+    </message>
+    <message>
+        <source>Duplicate Selected Feature(s)</source>
+        <translation>Duplica gli Elementi Selezionati</translation>
+    </message>
+    <message>
+        <source>Delete Selected Feature(s)</source>
+        <translation>Cancella gli Elementi Selezionati</translation>
+    </message>
+    <message>
+        <source>Process Selected Feature(s)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Feature Menu</source>
+        <translation>Menu Elemento</translation>
+    </message>
+    <message>
+        <source>Feature cut into clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Feature copied to clipboard</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Feature attributes updated from clipboard</source>
+        <translation>Attributi elemento aggiornati dagli appunti</translation>
+    </message>
+    <message>
+        <source>No feature attributes were updated from clipboard</source>
+        <translation>Nessun attributi elemento sono stati aggiornati dagli appunti</translation>
+    </message>
+    <message>
+        <source>Feature set as navigation destination</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Zoom to Feature</source>
+        <translation>Zoom sull&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Auto-Zoom to Feature</source>
+        <translation>Auto-Zoom sull&apos;Elemento</translation>
+    </message>
+    <message>
+        <source>Process Feature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Move Feature</source>
+        <translation>Muovi l&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Duplicate Feature</source>
+        <translation>Duplica l&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Rotate Feature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Update Attributes from Feature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Feature</source>
+        <translation>Cancella l&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Print Atlas Feature(s)</source>
+        <translation>Stampa Elementi Atlante</translation>
+    </message>
+    <message>
+        <source>Select template below</source>
+        <translation>Seleziona il modello sottostante</translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation>Stampa in corso...</translation>
+    </message>
+    <message>
+        <source>Atlas feature(s) successfully printed and placed in your project folder</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfNavigationInformationView</name>
+    <message>
+        <source>Lon</source>
+        <translation>Lon</translation>
+    </message>
+    <message>
+        <source>X</source>
+        <translation>X</translation>
+    </message>
+    <message>
+        <source>Lat</source>
+        <translation>Lat</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>Dist.</source>
+        <translation>Distanza</translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation>NA</translation>
+    </message>
+    <message>
+        <source>Bearing</source>
+        <translation>Rilevamento</translation>
+    </message>
+</context>
+<context>
+    <name>QfNtripSourceTableFetcher</name>
+    <message>
+        <source>Unexpected response from NTRIP caster</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Disconnected before receiving source table</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No mountpoints found in NTRIP source table</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP source table fetch error: </source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfOrderedRelationModel</name>
+    <message>
+        <source>Cannot start editing</source>
+        <translation>Non è possibile iniziare a modificare</translation>
+    </message>
+    <message>
+        <source>Cannot rollback layer changes in layer %1</source>
+        <translation>Impossibile ripristinare le modifiche nel layer %1</translation>
+    </message>
+    <message>
+        <source>Cannot commit layer changes in layer %1.</source>
+        <translation>Impossibile eseguire le modifiche nel layer %1.</translation>
+    </message>
+    <message>
+        <source>Cannot update features ordering</source>
+        <translation>Impossibile aggiornare l&apos;ordine degli elementi</translation>
+    </message>
+</context>
+<context>
+    <name>QfOverlayContainer</name>
+    <message>
+        <source>Positioning</source>
+        <translation>Posizionamento</translation>
+    </message>
+</context>
+<context>
+    <name>QfOverlayFeatureFormDrawer</name>
+    <message>
+        <source>Changes saved</source>
+        <translation>Modifiche salvate</translation>
+    </message>
+    <message>
+        <source>Changes discarded</source>
+        <translation>Cambiamenti annullati</translation>
+    </message>
+</context>
+<context>
+    <name>QfPlatformUtilities</name>
+    <message>
+        <source>Select ZIP Archive</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>ZIP Archives (*.zip)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select Destination Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Removal Confirmation</source>
+        <translation>Conferma di rimozione</translation>
+    </message>
+    <message>
+        <source>The dataset will be deleted, proceed with removal?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The project folder will be deleted, proceed with removal?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Failed to save file resource</source>
+        <translation>Impossibile salvare la risorsa file</translation>
+    </message>
+    <message>
+        <source>Select Image File</source>
+        <translation>Seleziona File Immagine</translation>
+    </message>
+    <message>
+        <source>All images (*.jpg *.jpeg *.png *.bmp);;JPEG images (*.jpg *.jpeg);;PNG images (*.jpg *.jpeg);;BMP images (*.bmp)</source>
+        <translation>Tutte le immagini (*.jpg *.jpeg *.png *.bmp);;Immagini JPEG (*.jpg *.jpeg);;Immagini PNG (*.jpg *.jpeg);;Immagini BMP (*.bmp)</translation>
+    </message>
+    <message>
+        <source>Select Video File</source>
+        <translation>Seleziona File Video</translation>
+    </message>
+    <message>
+        <source>All video (*.mp4 *.mkv *.mov);;MP4 video (*.mp4);;MKV video(*.mkv);;MOV video (*.mov)</source>
+        <translation>Tutti i video (*.mp4 *.mkv *.mov);;Video MP4 (*.mp4);;Video MKV (*.mkv);;Video MOV (*.mov)</translation>
+    </message>
+    <message>
+        <source>Select File</source>
+        <translation>Selezione un File</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation>Apri File</translation>
+    </message>
+    <message>
+        <source>All Supported Files</source>
+        <translation>Tutti i File Supportati</translation>
+    </message>
+    <message>
+        <source>QGIS Project Files</source>
+        <translation>File di progetto QGIS</translation>
+    </message>
+    <message>
+        <source>Vector Datasets</source>
+        <translation>Dataset Vettoriali</translation>
+    </message>
+    <message>
+        <source>Raster Datasets</source>
+        <translation>Dataset Raster</translation>
+    </message>
+    <message>
+        <source>Could not move the sidecar file &apos;%1&apos; alongside &apos;%2&apos;</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPluginItem</name>
+    <message>
+        <source>Authored by %1%2%3</source>
+        <translation>Scritto da %1%2%3</translation>
+    </message>
+    <message>
+        <source>Uninstall version %1</source>
+        <translation>Disinstalla versione %1</translation>
+    </message>
+    <message>
+        <source>Uninstall plugin</source>
+        <translation>Disinstalla plugin</translation>
+    </message>
+</context>
+<context>
+    <name>QfPluginManager</name>
+    <message>
+        <source>The requested plugin URL is present in the available plugins list, please install via its download button</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Can&apos;t save the downloaded file</source>
+        <translation>Impossibile salvare il file scaricato</translation>
+    </message>
+    <message>
+        <source>Download file is not an zipped plugin</source>
+        <translation>Il file di download non è un plugin zippato</translation>
+    </message>
+    <message>
+        <source>Network error</source>
+        <translation>Errore di rete.</translation>
+    </message>
+    <message>
+        <source>The selected file is not a zipped plugin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This plugin is present in the available plugins list, please install via its download button</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The plugin zip file could not be decompressed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>The plugin zip file does not contain the required main.qml plugin file</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPluginManagerSettings</name>
+    <message>
+        <source>Plugins</source>
+        <translation>Plugin</translation>
+    </message>
+    <message>
+        <source>Local Plugins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Available Plugins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Search for plugin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fetching available plugins</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>No plugins have been installed yet, switch to the %1available plugins%3 tab to try some right away.&lt;br&gt;&lt;br&gt;For more information, %2read the documentation%3.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Install plugin from URL</source>
+        <translation>Installa plugin da URL</translation>
+    </message>
+    <message>
+        <source>The currently opened project has loaded a project plugin</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Deny permission</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Plugins management menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Clear remembered permissions</source>
+        <translation>Cancella i permessi memorizzati</translation>
+    </message>
+    <message>
+        <source>The author details shown above are self-reported by the plugin and not independently verified. Please make sure you trust the plugin&apos;s origin.</source>
+        <translation>I dettagli dell&apos;autore mostrati sopra sono auto-segnalati dal plugin e non verificati in modo indipendente. Assicurati di fidarti dell&apos;origine del plugin.</translation>
+    </message>
+    <message>
+        <source>Type a URL below to download and install a plugin:</source>
+        <translation>Digita un URL qui sotto per scaricare ed installare un plugin:</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to uninstall `%1`?</source>
+        <translation>Sei sicuro di voler disinstallare `%1`?</translation>
+    </message>
+    <message>
+        <source>Installing %1</source>
+        <translation>Installazione di %1 in corso</translation>
+    </message>
+    <message>
+        <source>Install plugin from ZIP</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPositioningDeviceModel</name>
+    <message>
+        <source>Internal device</source>
+        <translation>Dispositivo interno</translation>
+    </message>
+</context>
+<context>
+    <name>QfPositioningDeviceSettings</name>
+    <message>
+        <source>Egeniouss</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Bluetooth BT + BLE (NMEA)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Serial port (NMEA)</source>
+        <translation>Porta Seriale (NMEA)</translation>
+    </message>
+    <message>
+        <source>Logs file (NMEA)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Positioning Device Settings</source>
+        <translation>Impostazioni del Dispositivo di Posizionamento</translation>
+    </message>
+    <message>
+        <source>Connection type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nome</translation>
+    </message>
+    <message>
+        <source> (leave empty to auto-fill)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connection details</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>TCP (NMEA)</source>
+        <translation>TCP (NMEA)</translation>
+    </message>
+    <message>
+        <source>UDP (NMEA)</source>
+        <translation>UDP (NMEA)</translation>
+    </message>
+</context>
+<context>
+    <name>QfPositioningInformationModel</name>
+    <message>
+        <source>Altitude</source>
+        <translation>Altitudine</translation>
+    </message>
+    <message>
+        <source>Speed</source>
+        <translation>Velocità</translation>
+    </message>
+    <message>
+        <source>H. Accuracy</source>
+        <translation>Accuratezza O.</translation>
+    </message>
+    <message>
+        <source>V. Accuracy</source>
+        <translation>Accuratezza V.</translation>
+    </message>
+    <message>
+        <source>Lon</source>
+        <translation>Lon</translation>
+    </message>
+    <message>
+        <source>X</source>
+        <translation>X</translation>
+    </message>
+    <message>
+        <source>Lat</source>
+        <translation>Lat</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>N/A</source>
+        <translation>NA</translation>
+    </message>
+    <message>
+        <source>grid</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>ortho.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>ant.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1/s</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPositioningInformationView</name>
+    <message>
+        <source>N/A</source>
+        <translation>NA</translation>
+    </message>
+</context>
+<context>
+    <name>QfPositioningNtripSettings</name>
+    <message>
+        <source>NTRIP Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Protocol</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP Revision 1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP Revision 2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>NTRIP SSL/TLS</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Nome utente</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <source>Mount point</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Identifier:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Data format:</source>
+        <translation>Formato dei dati:</translation>
+    </message>
+    <message>
+        <source>Distance:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Forward position to NTRIP caster</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPositioningPreciseView</name>
+    <message>
+        <source>Dist.</source>
+        <translation>Distanza</translation>
+    </message>
+    <message>
+        <source>Positioning accuracy too low for this precision level</source>
+        <translation>Accuratezza di posizionamento insufficiente per questo livello di precisione</translation>
+    </message>
+    <message>
+        <source>Audio proximity feedback</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Rotate view</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Rotation source</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Compass</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Movement</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Precision</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfPositioningSettings</name>
+    <message>
+        <source>Internal device</source>
+        <translation>Dispositivo interno</translation>
+    </message>
+</context>
+<context>
+    <name>QfProcessingAlgorithmForm</name>
+    <message>
+        <source>General Parameters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Advanced Parameters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>There are no general parameters attached to this algorithm.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Algorithm description</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfProcessingAlgorithmsList</name>
+    <message>
+        <source>Favorites</source>
+        <translation>Preferiti</translation>
+    </message>
+    <message>
+        <source>All Algorithms</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfProcessingParameterArea</name>
+    <message>
+        <source>square degrees</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;unknown&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. meters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. kilometers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. feet</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. yards</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. miles</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>hectares</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>acres</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. nautical miles</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. centimeters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. millimeters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>sqr. inches</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfProcessingParameterBoolean</name>
+    <message>
+        <source>True</source>
+        <translation>Vero</translation>
+    </message>
+    <message>
+        <source>False</source>
+        <translation>Falso</translation>
+    </message>
+</context>
+<context>
+    <name>QfProcessingParameterDistance</name>
+    <message>
+        <source>degrees</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>&lt;unknown&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>meters</source>
+        <translation>metri</translation>
+    </message>
+    <message>
+        <source>kilometers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>feet</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>yards</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>miles</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>nautical miles</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>centimeters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>millimeters</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>inches</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfProjectCreationScreen</name>
+    <message>
+        <source>Create a new project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This page will guide you through the creation of a simple project through simple configuration toggles. For more advanced needs, we advise you to create projects in QGIS using QFieldSync.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>New project name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Select your basemap</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Choose a basemap for your project. Pick from the available options or provide your own custom URL.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Colorful</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Darkgray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Lightgray</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Blank</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Custom basemap URL</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Take notes?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Quickly capture notes with date, time, and comments. Optionally, attach multimedia items such as images and videos to enrich your notes.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Take image and video attachments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Allow notes on lines and polygons</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Track your position?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Record your location every second, along with date and time, to keep a precise track of your movements.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Begin tracking automatically</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Backup &amp; collaborate?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>QFieldCloud allows to synchronize and merge the data collected by your team in %1. From small individual projects to large data collection campaigns. </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Learn more about QFieldCloud here</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Automatically upload changes on a regular interval</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Create Project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>My Project</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfProjectUtils</name>
+    <message>
+        <source>Created Project</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Notes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Point</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Note attachments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Media</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Descrizione</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Marker color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Tracks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Track color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Basemap</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Attachments</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfReferencingFeatureListModelBase</name>
+    <message>
+        <source>Invalid referencing layer</source>
+        <translation>Layer di riferimento non valido</translation>
+    </message>
+    <message>
+        <source>Cannot delete feature</source>
+        <translation>Impossibile cancellare l&apos;elemento</translation>
+    </message>
+</context>
+<context>
+    <name>QfRelationCombobox</name>
+    <message>
+        <source>Empty</source>
+        <translation>Vuoto</translation>
+    </message>
+    <message>
+        <source>NULL</source>
+        <translation>NULL</translation>
+    </message>
+    <message>
+        <source>Invalid relation</source>
+        <translation>Relazione non valida</translation>
+    </message>
+</context>
+<context>
+    <name>QfRelationEditorBase</name>
+    <message numerus="yes">
+        <source>%n feature(s)</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
+    <message>
+        <source>Adding child feature in layer %1</source>
+        <translation>Aggiunta elemento figlio nel layer %1</translation>
+    </message>
+    <message>
+        <source>Unlink Feature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Delete Feature</source>
+        <translation>Cancella l&apos;elemento</translation>
+    </message>
+    <message>
+        <source>Should the feature &lt;b&gt;%1 (%2)&lt;/b&gt; of layer &lt;b&gt;%3&lt;/b&gt; be unlinked?&lt;br&gt;&lt;i&gt;(The connection will be deleted on layer &lt;b&gt;%4&lt;/b&gt;)&lt;/i&gt;</source>
+        <translation>Disconnettere l&apos;elemento &lt;b&gt;%1 (%2)&lt;/b&gt; del layer &lt;b&gt;%3&lt;/b&gt;?&lt;br&gt;&lt;i&gt;(La connessione verrà cancellata nel layer &lt;b&gt;%4&lt;/b&gt;)&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <source>Should the feature &lt;b&gt;%1 (%2)&lt;/b&gt; on layer &lt;b&gt;%3&lt;/b&gt; be deleted?</source>
+        <translation>Cancellare l&apos;elemento &lt;b&gt;%1 (%2)&lt;/b&gt; nel layer &lt;b&gt;%3&lt;/b&gt;?</translation>
+    </message>
+    <message>
+        <source>Failed to delete referencing feature</source>
+        <translation>Impossibile eliminare l&apos;elemento di riferimento</translation>
+    </message>
+    <message>
+        <source>Child Menu</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open Form</source>
+        <translation>Apri Maschera</translation>
+    </message>
+    <message>
+        <source>Copy Feature Attributes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Print Atlas Feature to PDF</source>
+        <translation>Stampa Elemento Atlante in PDF</translation>
+    </message>
+    <message>
+        <source>Print Atlas Feature(s)</source>
+        <translation>Stampa Elementi Atlante</translation>
+    </message>
+    <message>
+        <source>Select template below</source>
+        <translation>Seleziona il modello sottostante</translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation>Stampa in corso...</translation>
+    </message>
+    <message>
+        <source>Atlas feature(s) successfully printed and placed in your project folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot add child feature: insure the parent feature meets all constraints and can be saved</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cannot add child feature: attribute value linking parent and children is not set</source>
+        <translation>Impossibile aggiungere l&apos;elemento figlio: il valore dell&apos;attributo che collega genitore e figli non è impostato</translation>
+    </message>
+</context>
+<context>
+    <name>QfScaleBarMeasurement</name>
+    <message>
+        <source>Unknown</source>
+        <translation>Sconosciuto</translation>
+    </message>
+</context>
+<context>
+    <name>QfSearchBar</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>QfSensorInformationView</name>
+    <message>
+        <source>N/A</source>
+        <translation>NA</translation>
+    </message>
+</context>
+<context>
+    <name>QfSerialPortDeviceChooser</name>
+    <message>
+        <source>Select the serial port from the list below:</source>
+        <translation>Seleziona la porta seriale dalla lista qui sotto:</translation>
+    </message>
+    <message>
+        <source>No serial ports detected, refresh the list once a device is connected.</source>
+        <translation>Nessuna porta seriale rilevata, aggiorna l&apos;elenco una volta collegato un dispositivo.</translation>
+    </message>
+    <message>
+        <source>Refresh list</source>
+        <translation>Aggiorna la lista</translation>
+    </message>
+    <message>
+        <source>Serial port display name:</source>
+        <translation>Nome visualizzato della porta seriale:</translation>
+    </message>
+    <message>
+        <source>Serial port address:</source>
+        <translation>Indirizzo porta seriale:</translation>
+    </message>
+</context>
+<context>
+    <name>QfSerialPortReceiver</name>
+    <message>
+        <source>Could not find the serial port device</source>
+        <translation>Impossibile trovare la porta seriale del dispositivo</translation>
+    </message>
+    <message>
+        <source>Attempt to read from the serial port returned an error</source>
+        <translation>Il tentativo di leggere dalla porta seriale ha restituito un errore</translation>
+    </message>
+    <message>
+        <source>The connection was refused due to not having enough permission</source>
+        <translation>La connessione è stata rifiutata per mancanza di permessi sufficienti</translation>
+    </message>
+    <message>
+        <source>Serial port receiver error (%1)</source>
+        <translation>Errore del ricevitore della porta seriale (%1)</translation>
+    </message>
+</context>
+<context>
+    <name>QfSettings</name>
+    <message>
+        <source>Show scale bar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show bookmarks</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When switched on, user&apos;s saved and currently opened project bookmarks will be displayed on the map.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show digitizing information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When switched on, coordinate information, such as latitude and longitude, is overlayed onto the map while digitizing new features or using the measure tool.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Consider mouse as a touchscreen device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fixed scale navigation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When fixed scale navigation is active, focusing on a search result will pan to the feature. With fixed scale navigation disabled it will pan and zoom to the feature.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use native camera</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Send anonymized metrics</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Positioning</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Variables</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Customize search bar</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Dim screen when idling</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Time of inactivity in seconds before the screen brightness get be dimmed to preserve battery.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>system</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Found a missing or incomplete language? %1Join the translator community.%2</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Positioning device in use:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connected to %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connect to %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Connecting to %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Show position information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Measure (M) value attached to vertices:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Ground speed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Bearing</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Horizontal accuracy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Vertical accuracy</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>PDOP</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>HDOP</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>VDOP</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When digitizing features with the coordinate cursor locked to the current position, the measurement type selected above will be added to the geometry provided it has an M dimension.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Activate accuracy indicator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Enable averaged positioning requirement</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Automatically end collection when minimum number is met</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>When enabled, digitizing vertices with a cursor locked to position will only accepted an averaged position from a minimum number of collected positions. Digitizing using averaged positions is done by pressing and holding the add vertex button, which will collect positions until the press is released. Accuracy requirement settings are respected when enabled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Antenna height compensation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Skip altitude correction</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Use the altitude as reported by the positioning device. Skip any altitude correction that may be implied by the coordinate system transformation.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Vertical grid shift in use:</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Vertical grid shift is used to increase the altitude accuracy.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>QfSketcher</name>
@@ -8203,10 +8963,6 @@ Le geometrie degli elementi verranno combinate in un elemento &apos;%1&apos; che
         <translation>Raggiungi</translation>
     </message>
     <message>
-        <source>Hey there, how do you like your experience with %1 so far?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>That&apos;s great! We&apos;d love for you to click on the button below and leave a review.</source>
         <translation type="unfinished"/>
     </message>
@@ -8283,10 +9039,54 @@ project</source>
     </message>
     <message>
         <source>Return to map</source>
-        <translation type="unfinished"/>
+        <translation>Ritorna alla mappa</translation>
     </message>
     <message>
         <source>First time using this application? Try the sample projects listed below.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pending changes are present, do you want to upload them now or keep them pending and close the cloud project and app?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Don&apos;t show this again</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload now</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>How&apos;s %1 working for you?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>One tap is all it takes.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Could be better</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Loving it</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>%1 can display its latest news and useful tips on launch.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Read more</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -8314,15 +9114,15 @@ project</source>
     </message>
     <message>
         <source>Could not load font: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare il font: %1</translation>
     </message>
     <message>
         <source>Can&apos;t load project, file &quot;%1&quot; does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare il progetto, il file &quot;%1&quot; non esiste</translation>
     </message>
     <message>
         <source>Can&apos;t read project, file &quot;%1&quot; does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile leggere il progetto, il file &quot;%1&quot; non esiste</translation>
     </message>
     <message>
         <source>Map printed on %1 using QField</source>
@@ -8370,11 +9170,11 @@ project</source>
     </message>
     <message>
         <source>Failed to load 3D view</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile caricare vista 3D</translation>
     </message>
     <message>
         <source>Loading terrain...</source>
-        <translation type="unfinished"/>
+        <translation>Caricamento terreno...</translation>
     </message>
     <message>
         <source>Long press on your location marker to show actions</source>
@@ -8419,7 +9219,7 @@ to show actions</source>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"/>
+        <translation>metri</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -8503,7 +9303,7 @@ to show actions</source>
     </message>
     <message>
         <source>Close 3D view</source>
-        <translation type="unfinished"/>
+        <translation>Chiudi la vista 3D</translation>
     </message>
     <message>
         <source>Stop editing</source>
@@ -8523,11 +9323,11 @@ to show actions</source>
     </message>
     <message>
         <source>Snapping turned on</source>
-        <translation>Snapping acceso</translation>
+        <translation>Aggancio acceso</translation>
     </message>
     <message>
         <source>Snapping turned off</source>
-        <translation>Snapping spento</translation>
+        <translation>Aggancio spento</translation>
     </message>
     <message>
         <source>Topological editing turned on</source>
@@ -8547,11 +9347,11 @@ to show actions</source>
     </message>
     <message>
         <source>Snap to %1° angle turned on</source>
-        <translation>Snap a %1° di angolo attivato</translation>
+        <translation>Aggancio a %1° di angolo attivato</translation>
     </message>
     <message>
         <source>Snap to common angle turned off</source>
-        <translation>Snap ad angolo comune disattivato</translation>
+        <translation>Aggancio ad angolo comune disattivato</translation>
     </message>
     <message>
         <source>Relative angle</source>
@@ -8559,19 +9359,19 @@ to show actions</source>
     </message>
     <message>
         <source>Snapping to every</source>
-        <translation type="unfinished"/>
+        <translation>Aggancia ad ogni</translation>
     </message>
     <message>
         <source>%1°</source>
-        <translation type="unfinished"/>
+        <translation>%1°</translation>
     </message>
     <message>
         <source>Snapping tolerance</source>
-        <translation type="unfinished"/>
+        <translation>Tolleranza di aggancio</translation>
     </message>
     <message>
         <source>Narrow</source>
-        <translation type="unfinished"/>
+        <translation>Stretta</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8583,7 +9383,7 @@ to show actions</source>
     </message>
     <message>
         <source>Snapping tolerance set to %1</source>
-        <translation type="unfinished"/>
+        <translation>Tolleranza di aggancio impostata a %1</translation>
     </message>
     <message>
         <source>Waiting for location</source>
@@ -8647,11 +9447,11 @@ to show actions</source>
     </message>
     <message>
         <source>Bookmarks</source>
-        <translation type="unfinished"/>
+        <translation>Segnalibri</translation>
     </message>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished"/>
+        <translation>Gestore Plugin</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -8715,7 +9515,7 @@ to show actions</source>
     </message>
     <message>
         <source>Enable Map Rotation</source>
-        <translation type="unfinished"/>
+        <translation>Attiva la rotazione della mappa</translation>
     </message>
     <message>
         <source>Layer:</source>
@@ -8727,15 +9527,15 @@ to show actions</source>
     </message>
     <message>
         <source>Open Feature Form</source>
-        <translation>Apri Modulo Elemento</translation>
+        <translation>Apri Maschera Elemento</translation>
     </message>
     <message>
         <source>Cut Feature</source>
-        <translation type="unfinished"/>
+        <translation>Taglia l&apos;elemento</translation>
     </message>
     <message>
         <source>Copy Feature</source>
-        <translation type="unfinished"/>
+        <translation>Copia l&apos;elemento</translation>
     </message>
     <message>
         <source>Duplicate Feature</source>
@@ -8751,15 +9551,15 @@ to show actions</source>
     </message>
     <message>
         <source>Paste Into Layer</source>
-        <translation type="unfinished"/>
+        <translation>Incolla nel layer</translation>
     </message>
     <message>
         <source>Feature pasted successfully</source>
-        <translation type="unfinished"/>
+        <translation>Elemento incollato con successo</translation>
     </message>
     <message>
         <source>Failed to paste feature into layer</source>
-        <translation type="unfinished"/>
+        <translation>Impossibile incollare l&apos;elemento nel layer</translation>
     </message>
     <message>
         <source>Navigation Options</source>
@@ -9003,6 +9803,50 @@ to show actions</source>
     </message>
     <message>
         <source>Open the project folder to access project files, data sources, and related documents. Useful for managing project resources, manually uploading data to QFieldCloud, and sharing datasets, attachments, and layouts.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Pending changes are present. Upload these now or press back again to keep them pending and close the cloud project and app.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Upload local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Local changes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This project has pending changes which have not been uploaded yet. Tap the blue cloud button to open the cloud project panel and send them to QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This cloud project has pending changes which have not been uploaded yet. Open the dashboard using this button, then tap the blue cloud icon to send them to QFieldCloud.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Printing %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Print failed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Printed and placed in your project layouts folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Open folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel movement</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Cancel rotation</source>
         <translation type="unfinished"/>
     </message>
 </context>

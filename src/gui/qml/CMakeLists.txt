@@ -19,9 +19,11 @@ set(QFIELD_GUI_QML_FILES
     QfCogoOperations.qml
     QfCollapsibleMessage.qml
     QfComboBox.qml
+    QfCompassDial.qml
     QfConfirmationToolbar.qml
     QfContainerCard.qml
     QfDialog.qml
+    QfDigitizingLayerInformationView.qml
     QfDigitizingToolbar.qml
     QfDropShadow.qml
     QfEgenioussDeviceChooser.qml
@@ -38,11 +40,16 @@ set(QFIELD_GUI_QML_FILES
     QfInformationDrawer.qml
     QfInformationPopup.qml
     QfLayerLoginDialog.qml
-    QfLayerTreeItemProperties.qml
     QfLegend.qml
+    QfLegendItemProperties.qml
     QfLocationMarker.qml
     QfLocatorItem.qml
     QfLocatorSettings.qml
+    QfMarkupCollectionRenderer.qml
+    QfMarkupItemRenderer.qml
+    QfMarkupLegend.qml
+    QfMarkupLegendItemProperties.qml
+    QfMarkupToolbar.qml
     QfMenu.qml
     QfMessageLog.qml
     QfMeterBar.qml
@@ -91,6 +98,7 @@ set(QFIELD_GUI_QML_FILES
     QfVariableEditor.qml
     QfVisibilityFadingRow.qml
     QfWelcomeAction.qml
+    QfWelcomeCard.qml
     editorwidgets/ExternalResourceUtils.js
     editorwidgets/QfEditorWidgetBase.qml
     editorwidgets/QfEditorWidgetBinary.qml

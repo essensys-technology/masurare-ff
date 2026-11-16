@@ -31,12 +31,11 @@
  * provider extent changes, enabling dynamic positioning of 3D elements.
  *
  * \note QML Type: QfMapToView3D
- * \ingroup core
+ * \ingroup _3d
  */
 class QfMapToView3D : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
 
     //! The terrain provider used for geo-to-3D coordinate conversion
     Q_PROPERTY( Qf3DTerrainProvider *terrainProvider READ terrainProvider WRITE setTerrainProvider NOTIFY terrainProviderChanged )

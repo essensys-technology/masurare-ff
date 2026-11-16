@@ -11,7 +11,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Page {
   id: form
@@ -161,8 +161,10 @@ Page {
         }
       }
 
-      onCurrentIndexChanged: if (swipeView.currentIndex != tabRow.currentIndex) {
-        swipeView.currentIndex = tabRow.currentIndex;
+      onCurrentIndexChanged: {
+        if (swipeView.currentIndex != tabRow.currentIndex) {
+          swipeView.currentIndex = Math.min(tabRow.currentIndex, count - 1);
+        }
       }
     }
 
@@ -174,8 +176,10 @@ Page {
       Layout.fillWidth: true
       Layout.fillHeight: true
       currentIndex: tabRow.currentIndex
-      onCurrentIndexChanged: if (tabRow.currentIndex != swipeView.currentIndex) {
-        tabRow.currentIndex = swipeView.currentIndex;
+      onCurrentIndexChanged: {
+        if (tabRow.currentIndex != swipeView.currentIndex) {
+          tabRow.currentIndex = Math.min(swipeView.currentIndex, count - 1);
+        }
       }
       clip: true
 
@@ -187,7 +191,7 @@ Page {
         Loader {
           id: contentLoader
 
-          property bool activeNeeded: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
+          property bool activeNeeded: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem || SwipeView.index == swipeView.currentIndex
           onActiveNeededChanged: {
             if (activeNeeded && !active) {
               active = true;
@@ -420,6 +424,24 @@ Page {
         feature: form.model.featureModel.feature
         onFeatureChanged: {
           expressionChanged();
+        }
+      }
+      property QtObject attributeFormBridge: QtObject {
+        property bool editable: form.state !== 'ReadOnly'
+        property var context: undefined
+        property var layer: form.model.featureModel.currentLayer
+        property var currentFormFeature: form.model.featureModel.feature
+
+        function changeGeometry(geometry) {
+          form.model.changeGeometry(geometry);
+        }
+
+        function changeAttribute(fieldName, value) {
+          form.model.changeAttribute(fieldName, value);
+        }
+
+        function attribute(fieldName) {
+          return form.model.attribute(fieldName);
         }
       }
 

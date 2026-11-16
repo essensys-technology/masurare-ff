@@ -4,7 +4,7 @@ import org.qfield.core
 import org.qgis
 
 /**
- * \ingroup qml
+ * \ingroup qml_core
  */
 QfLinePolygonShape {
   id: linePolygonShape
@@ -32,6 +32,7 @@ QfLinePolygonShape {
   Shape {
     id: shape
     anchors.fill: parent
+    preferredRendererType: Shape.CurveRenderer
 
     ShapePath {
       id: shapePath

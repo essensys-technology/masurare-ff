@@ -36,6 +36,8 @@
 #include <qgsprintlayout.h>
 #include <qgsproject.h>
 #include <qgsprojectstylesettings.h>
+#include <qgsproviderregistry.h>
+#include <qgsprovidersublayerdetails.h>
 #include <qgsrasterlayer.h>
 #include <qgsrasterlayerelevationproperties.h>
 #include <qgssinglesymbolrenderer.h>
@@ -84,13 +86,22 @@ void QfLayerUtils::setDefaultRenderer( QgsVectorLayer *layer, QgsProject *projec
     return;
   }
 
-  QgsSymbol *symbol = project ? project->styleSettings()->defaultSymbol( symbolType ) : nullptr;
-  if ( !symbol )
+  std::unique_ptr<QgsSymbol> symbol;
+  if ( project )
   {
-    symbol = QfLayerUtils::defaultSymbol( layer, attachmentField, colorField );
+#if _QGIS_VERSION_INT >= 40300
+    symbol = project->styleSettings()->defaultSymbol( symbolType );
+#else
+    symbol.reset( project->styleSettings()->defaultSymbol( symbolType ) );
+#endif
   }
 
-  QgsSingleSymbolRenderer *renderer = new QgsSingleSymbolRenderer( symbol );
+  if ( !symbol )
+  {
+    symbol.reset( QfLayerUtils::defaultSymbol( layer, attachmentField, colorField ) );
+  }
+
+  QgsSingleSymbolRenderer *renderer = new QgsSingleSymbolRenderer( symbol.release() );
   layer->setRenderer( renderer );
 }
 
@@ -359,13 +370,53 @@ QString QfLayerUtils::fieldType( const QgsField &field )
   return QVariant( QMetaType( field.type() ) ).typeName();
 }
 
+QgsCoordinateReferenceSystem QfLayerUtils::layerCrs( QgsVectorLayer *layer )
+{
+  if ( !layer )
+  {
+    return QgsCoordinateReferenceSystem();
+  }
+
+  if ( layer->dataProvider() && QgsWkbTypes::flatType( layer->wkbType() ) == Qgis::WkbType::GeometryCollection )
+  {
+    return layer->dataProvider()->crs();
+  }
+
+  return layer->crs();
+}
+
 bool QfLayerUtils::addFeature( QgsVectorLayer *layer, QgsFeature feature )
 {
-  if ( layer )
+  if ( !layer )
   {
-    return layer->addFeature( feature );
+    return false;
   }
-  return false;
+
+  const bool wasEditing = layer->editBuffer();
+  if ( !wasEditing && !layer->startEditing() )
+  {
+    QgsMessageLog::logMessage( tr( "Cannot start editing" ), "QField", Qgis::Warning );
+    return false;
+  }
+
+  if ( !layer->addFeature( feature ) )
+  {
+    QgsMessageLog::logMessage( tr( "Cannot add feature in layer \"%1\"" ).arg( layer->name() ), "QField", Qgis::Warning );
+    if ( !wasEditing && !layer->rollBack() )
+    {
+      QgsMessageLog::logMessage( tr( "Cannot rollback layer changes in layer %1" ).arg( layer->name() ), "QField", Qgis::Critical );
+    }
+    return false;
+  }
+
+  if ( !wasEditing && !layer->commitChanges() )
+  {
+    const QString msgs = layer->commitErrors().join( QStringLiteral( "\n" ) );
+    QgsMessageLog::logMessage( tr( "Cannot commit new feature in layer \"%1\". Reason:\n%2" ).arg( layer->name(), msgs ), "QField", Qgis::Warning );
+    return false;
+  }
+
+  return true;
 }
 
 bool QfLayerUtils::deleteFeature( QgsProject *project, QgsVectorLayer *layer, const QgsFeatureId fid, bool flushBuffer )
@@ -617,6 +668,31 @@ QgsVectorLayer *QfLayerUtils::loadVectorLayer( const QString &uri, const QString
   QgsVectorLayer *layer = new QgsVectorLayer( uri, name, provider );
   QQmlEngine::setObjectOwnership( layer, QQmlEngine::CppOwnership );
   return layer;
+}
+
+QList<QgsMapLayer *> QfLayerUtils::loadMapLayers( const QString &uri, const QString &name )
+{
+  QList<QgsMapLayer *> layers;
+
+  QgsProviderSublayerDetails::LayerOptions options( QgsProject::instance()->transformContext() );
+  const QList<QgsProviderSublayerDetails> sublayers = QgsProviderRegistry::instance()->querySublayers( uri, Qgis::SublayerQueryFlags() | Qgis::SublayerQueryFlag::ResolveGeometryType );
+  const bool nameAsPrefix = sublayers.size() > 1;
+  for ( const QgsProviderSublayerDetails &sublayer : sublayers )
+  {
+    std::unique_ptr<QgsMapLayer> layer( sublayer.toLayer( options ) );
+    if ( !layer || !layer->isValid() )
+    {
+      continue;
+    }
+
+    if ( !name.isEmpty() )
+    {
+      layer->setName( nameAsPrefix ? QStringLiteral( "%1 — %2" ).arg( name, sublayer.name() ) : name );
+      layers << layer.release();
+    }
+  }
+
+  return layers;
 }
 
 QgsRasterLayer *QfLayerUtils::loadRasterLayer( const QString &uri, const QString &name, const QString &provider )

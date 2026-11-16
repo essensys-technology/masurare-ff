@@ -7,7 +7,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Popup {
   id: sketcher
@@ -54,6 +54,7 @@ Popup {
     Shape {
       id: drawingCurrentStroke
       anchors.fill: parent
+      preferredRendererType: Shape.CurveRenderer
 
       ShapePath {
         strokeColor: drawingCanvas.currentStroke.color

@@ -7,7 +7,7 @@ import org.qfield.gui
 import org.qfield.app
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Page {
   id: qfieldCloudScreen
@@ -16,6 +16,7 @@ Page {
   signal viewProjectFolder(string projectPath)
 
   property string requestedProjectDetails: ""
+  property bool requestedProjectCreation: false
   property string pendingCreatedProjectId: ""
   property bool pendingCreatedDownloadStarted: false
   property QfCloudStatus cloudServiceStatus: null
@@ -38,7 +39,9 @@ Page {
     topMargin: mainWindow.sceneTopMargin
 
     onFinished: {
-      if (connectionSettings.visible) {
+      if (qfieldCloudLogin.isRegistrationVisible || qfieldCloudLogin.isPasswordResetVisible) {
+        qfieldCloudLogin.goBack();
+      } else if (connectionSettings.visible) {
         if (cloudConnection.status === QfCloudConnection.LoggedIn || table.count > 0) {
           connectionSettings.visible = false;
           projectsSwipeView.visible = true;
@@ -169,19 +172,27 @@ Page {
       visible: !connectionInformation.visible
 
       ScrollView {
+        id: loginScrollView
         Layout.fillWidth: true
         Layout.fillHeight: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         ScrollBar.vertical: QfScrollBar {}
         contentWidth: qfieldCloudLogin.width
-        contentHeight: qfieldCloudLogin.height
+        contentHeight: qfieldCloudLogin.childrenRect.height
         clip: true
 
         QfCloudLogin {
           id: qfieldCloudLogin
           isVisible: connectionSettings.visible
           width: connectionSettings.width
+          availableHeight: loginScrollView.availableHeight
           cloudServiceStatus: qfieldCloudScreen.cloudServiceStatus
+
+          onIsRegistrationVisibleChanged: {
+            if (!isRegistrationVisible && cloudConnection.status === QfCloudConnection.LoggedIn) {
+              prepareCloudScreen();
+            }
+          }
         }
       }
 
@@ -362,17 +373,6 @@ Page {
               border.width: 1
               radius: 2
 
-              ProgressBar {
-                anchors.bottom: line.bottom
-                anchors.left: line.left
-                anchors.right: parent.right
-                height: 4
-                indeterminate: PackagingStatus !== QfCloudProject.PackagingFinishedStatus && DownloadProgress === 0.0
-                value: DownloadProgress
-                visible: Status === QfCloudProject.ProjectStatus.Downloading
-                z: 1
-              }
-
               Row {
                 id: line
                 width: parent.width
@@ -523,6 +523,16 @@ Page {
                   height: QfTheme.toolButtonSize
                   anchors.verticalCenter: line.verticalCenter
 
+                  QfProgressRing {
+                    anchors.centerIn: parent
+                    size: parent.width * 0.75
+                    strokeWidth: 3
+                    backgroundColor: Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, 0.2)
+                    indeterminate: PackagingStatus !== QfCloudProject.PackagingFinishedStatus && DownloadProgress === 0.0
+                    value: DownloadProgress
+                    visible: Status === QfCloudProject.ProjectStatus.Downloading
+                  }
+
                   QfToolButton {
                     id: downloadActionButton
 
@@ -672,7 +682,7 @@ Page {
                 }
               } else {
                 labelText = qsTr("No cloud projects found.");
-                if (Qt.platform !== "ios") {
+                if (Qt.platform.os !== "ios") {
                   labelText += "\n\n" + qsTr("To get started, %1read the documentation%2.").arg("<a href=\"https://docs.qfield.org/get-started/tutorials/get-started-qfc/\">").arg("</a>");
                 }
               }
@@ -977,10 +987,21 @@ Page {
 
   QfDialog {
     id: cloneProjectDialog
+
+    property string sourceProjectId: ""
+    property list<string> availableOwners: []
+    property bool isFetchingOwners: false
+
     parent: mainWindow.contentItem
     title: qsTr("Project Creation")
     width: mainWindow.width - 40
-    property string sourceProjectId: ""
+
+    onAboutToShow: {
+      availableOwners = [cloudConnection.username];
+      cloneProjectOwner.currentIndex = 0;
+      isFetchingOwners = true;
+      cloudConnection.getUserOrganizations(cloudConnection.username, true);
+    }
 
     ColumnLayout {
       width: cloneProjectDialog.availableWidth
@@ -1004,6 +1025,60 @@ Page {
         font: QfTheme.tipFont
         color: QfTheme.secondaryTextColor
       }
+
+      Label {
+        Layout.fillWidth: true
+        wrapMode: Text.WordWrap
+        text: qsTr("Enter your project description")
+      }
+
+      ScrollView {
+        Layout.fillWidth: true
+        Layout.maximumHeight: 300
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        ScrollBar.vertical: QfScrollBar {}
+
+        TextArea {
+          id: cloneProjectDescription
+          topInset: 0
+          wrapMode: TextEdit.Wrap
+        }
+      }
+
+      RowLayout {
+        Layout.fillWidth: true
+        visible: cloneProjectDialog.isFetchingOwners
+        spacing: 10
+
+        BusyIndicator {
+          Layout.preferredWidth: 24
+          Layout.preferredHeight: 24
+          running: cloneProjectDialog.isFetchingOwners
+        }
+
+        Label {
+          Layout.fillWidth: true
+          wrapMode: Text.WordWrap
+          text: qsTr("Fetching available project owners")
+          font: QfTheme.tipFont
+          color: QfTheme.secondaryTextColor
+        }
+      }
+
+      Label {
+        Layout.fillWidth: true
+        visible: cloneProjectOwner.visible
+        wrapMode: Text.WordWrap
+        text: qsTr("Select your project owner")
+      }
+
+      QfComboBox {
+        id: cloneProjectOwner
+        Layout.fillWidth: true
+        visible: !cloneProjectDialog.isFetchingOwners && cloneProjectDialog.availableOwners.length > 1
+        model: cloneProjectDialog.availableOwners
+        font: QfTheme.defaultFont
+      }
     }
 
     onAccepted: {
@@ -1011,7 +1086,9 @@ Page {
       if (trimmedName !== "") {
         busyOverlay.text = qsTr("Creating project…");
         busyOverlay.state = "visible";
-        cloudProjectsModel.createProject(trimmedName, sourceProjectId);
+        qfieldCloudScreen.requestedProjectCreation = true;
+        const owner = cloneProjectOwner.visible ? cloneProjectOwner.currentText : cloudConnection.username;
+        cloudProjectsModel.createProject(trimmedName, cloneProjectDescription.text.trim(), sourceProjectId, owner);
       }
     }
   }
@@ -1039,12 +1116,21 @@ Page {
 
     function onStatusChanged() {
       if (cloudConnection.status === QfCloudConnection.LoggedIn) {
-        prepareCloudScreen();
+        if (!qfieldCloudLogin.isRegistrationVisible) {
+          prepareCloudScreen();
+        }
       } else if (cloudConnection.status === QfCloudConnection.Disconnected) {
         if (table.count === 0) {
           projectsSwipeView.visible = false;
           connectionSettings.visible = true;
         }
+      }
+    }
+
+    function onUserOrganizationsReceived(organizations) {
+      if (cloneProjectDialog.visible) {
+        cloneProjectDialog.availableOwners = [cloudConnection.username].concat(organizations);
+        cloneProjectDialog.isFetchingOwners = false;
       }
     }
   }
@@ -1065,12 +1151,27 @@ Page {
     }
 
     function onProjectCreated(projectId, fromProjectId, hasError, errorString) {
+      if (!requestedProjectCreation) {
+        return;
+      }
       const isClone = fromProjectId !== "";
       if (hasError) {
         busyOverlay.state = "hidden";
+        if (errorString.indexOf(`"code":"${QfCloudUtils.errorCodeOverQuota}"`) >= 0) {
+          const message = isClone ? qsTr("Project cannot be cloned as your available storage is full.") : qsTr("Project cannot be created as your available storage is full.");
+          if (cloudConnection.url == cloudConnection.defaultUrl && Qt.platform.os !== "ios") {
+            displayToast(message, 'info', qsTr('Upgrade storage'), function () {
+              Qt.openUrlExternally('https://app.qfield.cloud/plans');
+            });
+          } else {
+            displayToast(message, 'warning');
+          }
+          return;
+        }
         displayToast(isClone ? qsTr("Project cloning failed: %1").arg(errorString) : qsTr("Project creation failed: %1").arg(errorString));
         return;
       }
+      requestedProjectCreation = false;
       pendingCreatedProjectId = projectId;
       pendingCreatedDownloadStarted = false;
       busyOverlay.text = qsTr("Preparing project…");
@@ -1086,7 +1187,9 @@ Page {
       busyOverlay.state = "hidden";
 
       if (hasError) {
-        displayToast(qsTr("Project created but downloading failed: %1").arg(QfCloudUtils.userFriendlyErrorString(errorString)));
+        if (errorString.indexOf(`"code":"${QfCloudUtils.errorCodeOverQuota}"`) < 0) {
+          displayToast(qsTr("Project created but downloading failed: %1").arg(QfCloudUtils.userFriendlyErrorString(errorString)));
+        }
         return;
       }
 
@@ -1151,7 +1254,7 @@ Page {
     if (visible) {
       switch (cloudConnection.status) {
       case QfCloudConnection.Disconnected:
-        if (cloudConnection.hasToken || cloudConnection.hasProviderConfiguration) {
+        if (cloudConnection.isReachable && (cloudConnection.hasToken || cloudConnection.hasProviderConfiguration)) {
           cloudConnection.login();
           if (requestedProjectDetails != "") {
             // Project details requested, jump on the login screen then project details

@@ -1,11 +1,11 @@
 /***************************************************************************
-                            qfiosplatformutilities.mm  -  utilities for qfield
+  qfiosplatformutilities.mm  -  utilities for qfield
 
-                              -------------------
-              begin                : November 2020
-              copyright            : (C) 2020 by Denis Rouzaud
-              email                : denis@opengis.ch
- ***************************************************************************/
+  -------------------
+  begin                : November 2020
+  copyright            : (C) 2020 by Denis Rouzaud
+  email                : denis@opengis.ch
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -25,6 +25,7 @@
 
 #include <AVFoundation/AVFoundation.h>
 #include <CoreLocation/CoreLocation.h>
+#include <MediaPlayer/MediaPlayer.h>
 #include <MobileCoreServices/MobileCoreServices.h>
 #include <UIKit/UIDocumentInteractionController.h>
 #include <UIKit/UIKit.h>
@@ -37,7 +38,6 @@
 #include <qpa/qplatformnativeinterface.h>
 
 #include <QDirIterator>
-#include <qgsfileutils.h>
 #include <qgsziputils.h>
 
 #include <QtGui>
@@ -65,17 +65,275 @@
 }
 @end
 
+#pragma mark -
+#pragma mark Volume Button Observer
+
+static const float sVolumeStep = 0.0625f;
+static const float sMaxVolume = 0.99999f - sVolumeStep;
+static const float sMinVolume = 0.00001f + sVolumeStep;
+
+@interface QFieldVolumeButtonObserver : NSObject {
+  MPVolumeView *_volumeView;
+  float _initialVolume;
+  BOOL _observing;
+  BOOL _appIsActive;
+}
+- (void)start;
+- (void)stop;
+@end
+
+@implementation QFieldVolumeButtonObserver
+
+- (instancetype)init {
+  self = [super init];
+  if (self) {
+    _appIsActive = YES;
+    _volumeView = [[MPVolumeView alloc]
+        initWithFrame:CGRectMake(MAXFLOAT, MAXFLOAT, 0, 0)];
+    _volumeView.hidden = YES;
+    [[UIApplication sharedApplication].windows.firstObject
+        addSubview:_volumeView];
+  }
+  return self;
+}
+
+- (void)setSystemVolume:(float)volume {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  dispatch_async(dispatch_get_main_queue(), ^{
+      [[MPMusicPlayerController applicationMusicPlayer] setVolume:volume];
+  });
+#pragma clang diagnostic pop
+}
+
+- (void)captureInitialVolume {
+  _initialVolume = [AVAudioSession sharedInstance].outputVolume;
+  if (_initialVolume > sMaxVolume) {
+    _initialVolume = sMaxVolume;
+    [self setSystemVolume:_initialVolume];
+  } else if (_initialVolume < sMinVolume) {
+    _initialVolume = sMinVolume;
+    [self setSystemVolume:_initialVolume];
+  }
+}
+
+- (void)start {
+  if (_observing) {
+    return;
+  }
+  AVAudioSession *session = [AVAudioSession sharedInstance];
+  NSError *error = nil;
+  [self captureInitialVolume];
+  [session setActive:YES error:&error];
+  [session addObserver:self
+            forKeyPath:@"outputVolume"
+               options:NSKeyValueObservingOptionNew
+               context:NULL];
+  _volumeView.hidden = NO;
+
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(applicationDidChangeActive:)
+             name:UIApplicationWillResignActiveNotification
+           object:nil];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(applicationDidChangeActive:)
+             name:UIApplicationDidBecomeActiveNotification
+           object:nil];
+  _observing = YES;
+}
+
+- (void)stop {
+  if (!_observing) {
+    return;
+  }
+  @try {
+    [[AVAudioSession sharedInstance] removeObserver:self
+                                         forKeyPath:@"outputVolume"
+                                            context:NULL];
+  } @catch (__unused NSException *exception) {
+  }
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  _volumeView.hidden = YES;
+  _observing = NO;
+}
+
+- (void)dealloc {
+  [self stop];
+  MPVolumeView *volumeView = _volumeView;
+  dispatch_async(dispatch_get_main_queue(), ^{
+      [volumeView removeFromSuperview];
+  });
+}
+
+- (void)applicationDidChangeActive:(NSNotification *)notification {
+  _appIsActive = [notification.name
+      isEqualToString:UIApplicationDidBecomeActiveNotification];
+  if (_observing && _appIsActive) {
+    [self captureInitialVolume];
+  }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
+                       context:(void *)context {
+  if (![keyPath isEqualToString:@"outputVolume"]) {
+    [super observeValueForKeyPath:keyPath
+                         ofObject:object
+                           change:change
+                          context:context];
+    return;
+  }
+
+  NSNumber *newValueNumber = change[NSKeyValueChangeNewKey];
+  if (newValueNumber == nil) {
+    return;
+  }
+  const float newVolume = newValueNumber.floatValue;
+
+  if (!_appIsActive) {
+    return;
+  }
+  if (newVolume == _initialVolume) {
+    return;
+  }
+
+  if (QfAppInterface::instance()) {
+    if (newVolume > _initialVolume) {
+      emit QfAppInterface::instance()->volumeKeyUp(Qt::Key_VolumeUp);
+    } else {
+      emit QfAppInterface::instance()->volumeKeyUp(Qt::Key_VolumeDown);
+    }
+  }
+
+  [self setSystemVolume:_initialVolume];
+}
+
+@end
+
+static QString incomingDirectory() {
+  return QString::fromNSString(
+      [NSTemporaryDirectory() stringByAppendingPathComponent:@"Incoming"]);
+}
+
+static QString incomingPath(const QString &fileName) {
+  return QStringLiteral("%1/%2/%3")
+      .arg(incomingDirectory(), QString::fromNSString([NSUUID UUID].UUIDString),
+           fileName);
+}
+
+static bool isInsideApplicationDirectory(const QString &path,
+                                         const QString &appDir) {
+  const QString canonicalPath = QFileInfo(path).canonicalFilePath();
+  const QString canonicalAppDir = QFileInfo(appDir).canonicalFilePath();
+  if (canonicalPath.isEmpty() || canonicalAppDir.isEmpty()) {
+    return false;
+  }
+  // Inbox holds copies iOS made for us, those still need importing
+  return canonicalPath.startsWith(canonicalAppDir + QStringLiteral("/")) &&
+         !canonicalPath.startsWith(canonicalAppDir + QStringLiteral("/Inbox/"));
+}
+
+static void (*originalOpenUrlContexts)(id, SEL, UIScene *,
+                                       NSSet<UIOpenURLContext *> *) = nullptr;
+
+// Qt only passes the path of opened URLs on, which drops the security scope of
+// files opened in place, so those are copied here while the scope is reachable
+static void openUrlContexts(id sceneDelegate, SEL selector, UIScene *scene,
+                            NSSet<UIOpenURLContext *> *contexts) {
+  const QString appDir =
+      QfPlatformUtilities::instance()->applicationDirectory();
+  NSMutableSet<UIOpenURLContext *> *forwardedContexts = [NSMutableSet set];
+  for (UIOpenURLContext *context in contexts) {
+    NSURL *url = context.URL;
+    if (!url.isFileURL || !context.options.openInPlace ||
+        isInsideApplicationDirectory(QString::fromNSString(url.path), appDir)) {
+      [forwardedContexts addObject:context];
+      continue;
+    }
+
+    const QString destinationPath =
+        incomingPath(QString::fromNSString(url.lastPathComponent));
+    NSURL *destination = [NSURL fileURLWithPath:destinationPath.toNSString()];
+    NSString *directory =
+        QFileInfo(destinationPath).absolutePath().toNSString();
+    const BOOL accessing = [url startAccessingSecurityScopedResource];
+
+    // Reading may first download the file from iCloud
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager createDirectoryAtPath:directory
+               withIntermediateDirectories:YES
+                                attributes:nil
+                                     error:nil];
+        __block BOOL copied = NO;
+        NSFileCoordinator *coordinator =
+            [[NSFileCoordinator alloc] initWithFilePresenter:nil];
+        [coordinator
+            coordinateReadingItemAtURL:url
+                               options:NSFileCoordinatorReadingWithoutChanges
+                                 error:nil
+                            byAccessor:^(NSURL *readingUrl) {
+                                copied = [fileManager copyItemAtURL:readingUrl
+                                                              toURL:destination
+                                                              error:nil];
+                            }];
+        if (accessing) {
+          [url stopAccessingSecurityScopedResource];
+        }
+        if (copied) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+              QDesktopServices::openUrl(
+                  QUrl::fromLocalFile(QString::fromNSString(destination.path)));
+          });
+        }
+    });
+  }
+
+  if (forwardedContexts.count > 0) {
+    originalOpenUrlContexts(sceneDelegate, selector, scene, forwardedContexts);
+  }
+}
+
+static void installOpenInPlaceHandling() {
+  Method method =
+      class_getInstanceMethod(NSClassFromString(@"QIOSWindowSceneDelegate"),
+                              @selector(scene:openURLContexts:));
+  if (!method) {
+    return;
+  }
+  originalOpenUrlContexts = reinterpret_cast<void (*)(
+      id, SEL, UIScene *, NSSet<UIOpenURLContext *> *)>(
+      method_setImplementation(method, reinterpret_cast<IMP>(openUrlContexts)));
+}
+
 QfIosPlatformUtilities::QfIosPlatformUtilities() : QfPlatformUtilities() {
   NSError *sessionError = nil;
   [[AVAudioSession sharedInstance]
       setCategory:AVAudioSessionCategoryPlayAndRecord
             error:&sessionError];
+  mVolumeButtonObserver = [[QFieldVolumeButtonObserver alloc] init];
+  installOpenInPlaceHandling();
+}
+
+void QfIosPlatformUtilities::setHandleVolumeKeys(const bool handle) {
+  if (!mVolumeButtonObserver) {
+    return;
+  }
+  if (handle) {
+    [mVolumeButtonObserver start];
+  } else {
+    [mVolumeButtonObserver stop];
+  }
 }
 
 QfPlatformUtilities::Capabilities QfIosPlatformUtilities::capabilities() const {
   QfPlatformUtilities::Capabilities capabilities =
       Capabilities() | NativeCamera | AdjustBrightness | FilePicker |
-      CustomImport | CustomSend | CustomExport | UpdateProjectFromArchive;
+      CustomImport | CustomSend | CustomExport | UpdateProjectFromArchive |
+      VolumeKeys | CustomFileAssociation;
 #if WITH_SENTRY
   capabilities |= SentryFramework;
 #endif
@@ -152,6 +410,14 @@ QfResourceSource *QfIosPlatformUtilities::getGalleryVideo(
       new QfIosResourceSource(prefix, videoFilePath, parent);
   videoSource->pickGalleryVideo();
   return videoSource;
+}
+
+QfResourceSource *QfIosPlatformUtilities::getGalleryMedia(
+    const QString &prefix, const QString &mediaFilePath, QObject *parent) {
+  QfIosResourceSource *mediaSource =
+      new QfIosResourceSource(prefix, mediaFilePath, parent);
+  mediaSource->pickGalleryMedia();
+  return mediaSource;
 }
 
 QfViewStatus *QfIosPlatformUtilities::open(const QString &uri, bool,
@@ -425,7 +691,7 @@ void QfIosPlatformUtilities::exportDatasetTo(const QString &path) const {
   NSMutableArray<NSString *> *sourcePaths = [NSMutableArray array];
   [sourcePaths addObject:path.toNSString()];
 
-  const QSet<QString> sidecarFiles = QgsFileUtils::sidecarFilesForPath(path);
+  const QSet<QString> sidecarFiles = QfFileUtils::sidecarFilesForPath(path);
   for (const QString &file : sidecarFiles) {
     [sourcePaths addObject:file.toNSString()];
   }
@@ -517,11 +783,42 @@ void QfIosPlatformUtilities::importDatasets() const {
   [root presentViewController:picker animated:YES completion:nil];
 }
 
+void QfIosPlatformUtilities::handleFileAssociation(const QString &path) const {
+  QFileInfo fileInfo(path);
+  if (!fileInfo.exists() || !fileInfo.isFile() || !QfAppInterface::instance()) {
+    return;
+  }
+
+  QString sourcePath = path;
+  if (isInsideApplicationDirectory(path, applicationDirectory())) {
+    // Files tapped in QField's own folder are opened where they are
+    if (fileInfo.suffix().toLower() != QLatin1String("zip")) {
+      if (!QfAppInterface::instance()->loadFile(path)) {
+        emit QfAppInterface::instance()->openPath(fileInfo.absolutePath());
+      }
+      return;
+    }
+
+    // Archives are imported from a copy so the user's zip stays where it is
+    sourcePath = incomingPath(fileInfo.fileName());
+    QDir().mkpath(QFileInfo(sourcePath).absolutePath());
+    if (!QFile::copy(path, sourcePath)) {
+      return;
+    }
+  }
+
+  emit QfAppInterface::instance()->importTriggered(fileInfo.fileName());
+  QfAppInterface::instance()->importLocalFile(sourcePath, true);
+  if (sourcePath.startsWith(incomingDirectory() + QStringLiteral("/"))) {
+    QDir(QFileInfo(sourcePath).absolutePath()).removeRecursively();
+  }
+}
+
 void QfIosPlatformUtilities::sendDatasetTo(const QString &path) const {
   NSMutableArray *items = [NSMutableArray array];
   [items addObject:[NSURL fileURLWithPath:path.toNSString()]];
 
-  const QSet<QString> sidecarFiles = QgsFileUtils::sidecarFilesForPath(path);
+  const QSet<QString> sidecarFiles = QfFileUtils::sidecarFilesForPath(path);
   if (!sidecarFiles.isEmpty()) {
     QStringList paths;
     paths << path;
@@ -553,10 +850,14 @@ void QfIosPlatformUtilities::sendDatasetTo(const QString &path) const {
   [root presentViewController:activityVC animated:YES completion:nil];
 }
 
-void QfIosPlatformUtilities::sendCompressedFolderTo(const QString &path) const {
+void QfIosPlatformUtilities::sendCompressedFolderTo(
+    const QString &path, const QString &fileName) const {
+  QString zipName = fileName.isEmpty()
+                        ? QFileInfo(path).fileName()
+                        : QfFileUtils::sanitizeFilePathPart(fileName);
   QString tempZipPath =
       QStandardPaths::writableLocation(QStandardPaths::CacheLocation) +
-      QStringLiteral("/") + QFileInfo(path).fileName() + QStringLiteral(".zip");
+      QStringLiteral("/") + zipName + QStringLiteral(".zip");
   QFile::remove(tempZipPath);
 
   QStringList files;

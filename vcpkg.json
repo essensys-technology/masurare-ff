@@ -89,6 +89,7 @@
       "name": "qtserialport",
       "platform": "!ios"
     },
+    "qtspeech",
     {
       "name": "qttools",
       "host": true,
@@ -136,6 +137,7 @@
         "webp",
         "zstd"
       ]
-    }
+    },
+    "valhalla"
   ]
 }

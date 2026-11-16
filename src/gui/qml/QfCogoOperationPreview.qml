@@ -4,7 +4,7 @@ import org.qgis
 import org.qfield.core
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Item {
   id: cogoOperationPreview
@@ -49,6 +49,8 @@ Item {
     id: lineVisualGuide
 
     Shape {
+      preferredRendererType: Shape.CurveRenderer
+
       ShapePath {
         strokeColor: visualGuideOutlineColor
         strokeWidth: visualGuideDetails.size + 2
@@ -80,6 +82,8 @@ Item {
     id: circleVisualGuide
 
     Shape {
+      preferredRendererType: Shape.CurveRenderer
+
       ShapePath {
         strokeColor: visualGuideOutlineColor
         strokeWidth: visualGuideDetails.size + 2

@@ -6,7 +6,7 @@ import org.qfield.app
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 QfPopup {
   id: changelogPopup
@@ -127,6 +127,11 @@ QfPopup {
   }
 
   onOpened: {
+    const changelogVersion = settings.value("/QField/ChangelogVersion", "");
+    if (changelogVersion === "") {
+      settings.setValue("/QField/ChangelogVersion", Qfield.version);
+    }
+
     if (settings.valueBool("/QField/isLoadingChangelog", false)) {
       settings.setValue("/QField/isCrashingSslDevice", true);
     } else {

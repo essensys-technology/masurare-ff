@@ -25,12 +25,16 @@ email                : kaustuv@opengis.ch
 #include <QVariantMap>
 
 /**
- * \ingroup gui
- *
+ * \defgroup gui
+ * \brief QField GUI C++ classes
+ */
+
+/**
  * \brief Provides all color, font scale, and layout constants used throughout
  * the QField UI. Registered as a QML singleton in org.qfield.gui.
  *
  * \note Default colors are loaded from :/theme/theme.json
+ * \ingroup gui
  */
 class QFIELD_GUI_EXPORT QfTheme final : public QObject
 {
@@ -92,7 +96,6 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     Q_PROPERTY( QColor bookmarkOrange READ bookmarkOrange NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor bookmarkRed READ bookmarkRed NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor bookmarkBlue READ bookmarkBlue NOTIFY themeDataLoaded )
-    Q_PROPERTY( QColor qfieldcloudBlue READ qfieldcloudBlue NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor vertexColor READ vertexColor NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor vertexColorSemiOpaque READ vertexColorSemiOpaque NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor vertexSelectedColor READ vertexSelectedColor NOTIFY themeDataLoaded )
@@ -100,6 +103,7 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     Q_PROPERTY( QColor vertexNewColor READ vertexNewColor NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor vertexNewColorSemiOpaque READ vertexNewColorSemiOpaque NOTIFY themeDataLoaded )
     Q_PROPERTY( QColor processingPreview READ processingPreview NOTIFY themeDataLoaded )
+    Q_PROPERTY( QColor shadowColor READ shadowColor NOTIFY themeDataLoaded )
 
     Q_PROPERTY( qreal fontScale READ fontScale WRITE setFontScale NOTIFY fontScaleChanged )
 
@@ -277,7 +281,6 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     QColor bookmarkOrange() const { return mBookmarkOrange; }
     QColor bookmarkRed() const { return mBookmarkRed; }
     QColor bookmarkBlue() const { return mBookmarkBlue; }
-    QColor qfieldcloudBlue() const { return mQfieldcloudBlue; }
     QColor vertexColor() const { return mVertexColor; }
     QColor vertexColorSemiOpaque() const { return mVertexColorSemiOpaque; }
     QColor vertexSelectedColor() const { return mVertexSelectedColor; }
@@ -285,6 +288,7 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     QColor vertexNewColor() const { return mVertexNewColor; }
     QColor vertexNewColorSemiOpaque() const { return mVertexNewColorSemiOpaque; }
     QColor processingPreview() const { return mProcessingPreview; }
+    QColor shadowColor() const { return mShadowColor; }
 
     QString appearance() const { return mAppearance; }
     void setAppearance( const QString &appearance );
@@ -401,7 +405,6 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     QColor mBookmarkOrange;
     QColor mBookmarkRed;
     QColor mBookmarkBlue;
-    QColor mQfieldcloudBlue;
     QColor mVertexColor;
     QColor mVertexColorSemiOpaque;
     QColor mVertexSelectedColor;
@@ -409,6 +412,7 @@ class QFIELD_GUI_EXPORT QfTheme final : public QObject
     QColor mVertexNewColor;
     QColor mVertexNewColorSemiOpaque;
     QColor mProcessingPreview;
+    QColor mShadowColor;
 
     QString mAppearance;
     bool mDarkTheme = false;

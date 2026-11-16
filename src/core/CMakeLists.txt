@@ -58,6 +58,8 @@ set(QFIELD_CORE_SRCS
     qfieldcloud/qflayerobserver.cpp
     qfieldcloud/qfnetworkmanager.cpp
     qfieldcloud/qfnetworkreply.cpp
+    qfieldcloud/qfcloudattachmentsmodel.cpp
+    qfieldcloud/qfcloudattachmentswatcher.cpp
     qfieldcloud/qfcloudconnection.cpp
     qfieldcloud/qfcloudproject.cpp
     qfieldcloud/qfcloudprojectsmodel.cpp
@@ -67,8 +69,10 @@ set(QFIELD_CORE_SRCS
     qfaudioanalyzer.cpp
     qfaudiorecorder.cpp
     qfbarcodedecoder.cpp
+    qfbarcodevideomodel.cpp
     qfbookmarkmodel.cpp
     qfcameraorientationnormalizer.cpp
+    qfdigitizinglayermodel.cpp
     qfdigitizinglogger.cpp
     qfdistancearea.cpp
     qfdrawingcanvas.cpp
@@ -88,11 +92,15 @@ set(QFIELD_CORE_SRCS
     qflinepolygonshape.cpp
     qfmaplayermodel.cpp
     qfmaptoscreen.cpp
+    qfmarkupcollection.cpp
+    qfmarkupitem.cpp
+    qfmarkupmanager.cpp
     qfmultifeaturelistmodel.cpp
     qfmultifeaturelistmodelbase.cpp
     qfnavigation.cpp
     qfnavigationmodel.cpp
     qfnearfieldreader.cpp
+    qfnewsparser.cpp
     qfpeliasgeocoder.cpp
     qfresourcesource.cpp
     qftranslatormanager.cpp
@@ -107,6 +115,7 @@ set(QFIELD_CORE_SRCS
     qfscalebarmeasurement.cpp
     qfsettings.cpp
     qfsnappingresult.cpp
+    qfsubtitlewriter.cpp
     qfsubmodel.cpp
     qftracker.cpp
     qftrackingmodel.cpp
@@ -175,6 +184,8 @@ set(QFIELD_CORE_HDRS
     qfieldcloud/qflayerobserver.h
     qfieldcloud/qfnetworkmanager.h
     qfieldcloud/qfnetworkreply.h
+    qfieldcloud/qfcloudattachmentsmodel.h
+    qfieldcloud/qfcloudattachmentswatcher.h
     qfieldcloud/qfcloudconnection.h
     qfieldcloud/qfcloudproject.h
     qfieldcloud/qfcloudprojectsmodel.h
@@ -185,8 +196,10 @@ set(QFIELD_CORE_HDRS
     qfaudioanalyzer.h
     qfaudiorecorder.h
     qfbarcodedecoder.h
+    qfbarcodevideomodel.h
     qfbookmarkmodel.h
     qfcameraorientationnormalizer.h
+    qfdigitizinglayermodel.h
     qfdigitizinglogger.h
     qfdistancearea.h
     qfdrawingcanvas.h
@@ -206,11 +219,15 @@ set(QFIELD_CORE_HDRS
     qflinepolygonshape.h
     qfmaplayermodel.h
     qfmaptoscreen.h
+    qfmarkupcollection.h
+    qfmarkupitem.h
+    qfmarkupmanager.h
     qfmultifeaturelistmodel.h
     qfmultifeaturelistmodelbase.h
     qfnavigation.h
     qfnavigationmodel.h
     qfnearfieldreader.h
+    qfnewsparser.h
     qfpeliasgeocoder.h
     qfresourcesource.h
     qftranslatormanager.h
@@ -225,6 +242,7 @@ set(QFIELD_CORE_HDRS
     qfscalebarmeasurement.h
     qfsettings.h
     qfsnappingresult.h
+    qfsubtitlewriter.h
     qfsubmodel.h
     qftracker.h
     qftrackingmodel.h
@@ -279,10 +297,9 @@ find_package(QtWebDAV REQUIRED)
 
 add_library(qfield_core STATIC ${QFIELD_CORE_SRCS} ${QFIELD_CORE_HDRS})
 
-string(SUBSTRING ${ZXing_VERSION} 0 1 ZXing_VERSION_MAJOR)
-target_compile_definitions(qfield_core
-                           PRIVATE ZXing_VERSION_MAJOR=${ZXing_VERSION_MAJOR})
-
+if(WITH_TEXTTOSPEECH)
+  target_compile_definitions(qfield_core PRIVATE WITH_TEXTTOSPEECH)
+endif()
 if(WITH_BLUETOOTH)
   target_compile_definitions(qfield_core PRIVATE WITH_BLUETOOTH)
 endif()
@@ -303,6 +320,8 @@ target_include_directories(
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "iOS")
   target_compile_options(qfield_core PRIVATE "-fobjc-arc")
+  find_library(MEDIAPLAYER_FRAMEWORK MediaPlayer REQUIRED)
+  target_link_libraries(qfield_core PRIVATE ${MEDIAPLAYER_FRAMEWORK})
 endif()
 
 # The public headers are installed flat into ${QFIELD_INCLUDE_SUBDIR}, so a
@@ -368,6 +387,14 @@ target_link_libraries(
          libzip::zip
          QtWebDAV::QtWebDAV)
 
+if(WITH_TEXTTOSPEECH)
+  find_package(
+    Qt6
+    COMPONENTS TextToSpeech
+    REQUIRED)
+  target_link_libraries(qfield_core PUBLIC Qt6::TextToSpeech)
+endif()
+
 if(WITH_BLUETOOTH)
   find_package(
     Qt6
@@ -391,6 +418,10 @@ if(WITH_NFC)
     COMPONENTS Nfc
     REQUIRED)
   target_link_libraries(qfield_core PUBLIC Qt6::Nfc)
+endif()
+
+if(WITH_VALHALLA)
+  target_link_libraries(qfield_core PRIVATE Valhalla::valhalla)
 endif()
 
 if(WITH_SENTRY)

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
+        <file alias="qfield_logo.svg">icons/qfield_logo.svg</file>
         <file alias="qfieldcloud_logo.svg">icons/qfieldcloud_logo.svg</file>
         <file alias="nyuki.svg">icons/nyuki.svg</file>
         <file alias="opengis-logo.svg">icons/openGIS-logo-round-green.svg</file>
@@ -34,6 +35,7 @@
         <file>themes/qfield/nodpi/ic_tcp_receiver_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_udp_receiver_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_serial_port_receiver_black_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_share_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_coordinate_locator_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_copy_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_cut_black_24dp.svg</file>
@@ -85,6 +87,7 @@
         <file>themes/qfield/nodpi/ic_calendar_today_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_close_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_ellipsis_black_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_export_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_eye_dome_lighting_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_cloud_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_cloud_active_24dp.svg</file>
@@ -131,6 +134,8 @@
         <file>themes/qfield/nodpi/ic_sponsor_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_satisfied_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_dissatisfied_white_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_thumb_up_white_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_thumb_down_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_star_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_star_filled_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_settings_white_24dp.svg</file>
@@ -171,15 +176,23 @@
         <file>themes/qfield/nodpi/ic_legend_collapsed_state_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_legend_collapsed_state_white_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_group_18dp.svg</file>
+        <file>themes/qfield/nodpi/ic_geometry_point_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_geometry_point_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_geometry_line_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_geometry_line_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_geometry_polygon_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_geometry_polygon_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_geometry_mixed_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_markup_collection_18dp.svg</file>
+        <file>themes/qfield/nodpi/ic_markup_collection_24dp.svg</file>
+        <file>themes/qfield/nodpi/ic_table_18dp.svg</file>
+        <file>themes/qfield/nodpi/ic_table_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_vectorlayer_point_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_vectorlayer_line_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_vectorlayer_polygon_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_vectorlayer_table_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_rasterlayer_18dp.svg</file>
+        <file>themes/qfield/nodpi/ic_markuplayer_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_meshlayer_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_vectortilelayer_18dp.svg</file>
         <file>themes/qfield/nodpi/ic_annotationlayer_18dp.svg</file>
@@ -190,7 +203,6 @@
         <file>themes/qfield/nodpi/directions_walk_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_list_black_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_grid_black_24dp.svg</file>
-        <file>themes/qfield/nodpi/ic_list_visible_black_24dp.svg</file>
         <file>themes/qfield/nodpi/zoom_out_map_24dp.svg</file>
         <file>themes/qfield/nodpi/ic_show_green_48dp.svg</file>
         <file>themes/qfield/nodpi/ic_hide_green_48dp.svg</file>

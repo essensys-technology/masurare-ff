@@ -32,13 +32,12 @@ class Qf3DTerrainProvider;
  * use with Qt Quick 3D Model items and supports dynamic updates when height data changes.
  *
  * \note QML Type: Qf3DTerrainGeometry
- * \ingroup core
+ * \ingroup _3d
  *
  */
 class Qf3DTerrainGeometry : public QQuick3DGeometry
 {
     Q_OBJECT
-    QML_ELEMENT
 
     //! Grid dimensions (width x height) for terrain vertices
     Q_PROPERTY( QSize gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged )

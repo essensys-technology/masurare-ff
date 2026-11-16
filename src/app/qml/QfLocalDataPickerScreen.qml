@@ -7,14 +7,14 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Page {
   id: qfieldLocalDataPickerScreen
 
   property bool openedOnce: false
   property bool projectFolderView: false
-  property alias model: table.model
+  property alias model: localFilesModel
 
   signal finished(var loading)
 
@@ -34,10 +34,11 @@ Page {
     showBackButton: true
     showApplyButton: false
     showCancelButton: false
-    showMenuButton: localFilesModel.inSelectionMode && (table.selectedItemsPushableToQField || table.selectedItemsWebDavConfigured || table.selectedItemsDeletable || table.selectedItemsCompressible)
+    showMenuButton: localFilesModel.inSelectionMode && (table.selectedItemsUploadableToCloud || table.selectedItemsWebDavConfigured || table.selectedItemsDeletable || table.selectedItemsCompressible)
     backAsCancel: localFilesModel.inSelectionMode
 
     topMargin: mainWindow.sceneTopMargin
+    busyIndicatorState: localFilesModel.isFetchingCloudStatus ? 'on' : 'off'
 
     onCancel: {
       localFilesModel.clearSelection();
@@ -72,7 +73,7 @@ Page {
 
         Text {
           Layout.fillWidth: true
-          text: table.model.currentTitle
+          text: localFilesModel.inSelectionMode ? qsTr('%n item(s) selected', '', localFilesModel.selectedCount) : table.model.currentTitle
           font.pointSize: QfTheme.defaultFont.pointSize
           font.bold: true
           color: QfTheme.mainTextColor
@@ -82,7 +83,7 @@ Page {
         Text {
           Layout.fillWidth: true
           visible: text !== ''
-          text: table.model.currentPath !== 'root' ? table.model.currentPath : ''
+          text: localFilesModel.inSelectionMode ? QfFileUtils.representFileSize(localFilesModel.selectedSize) : (table.model.currentPath !== 'root' ? table.model.currentPath : '')
           font: QfTheme.tipFont
           color: QfTheme.mainTextColor
           wrapMode: Text.NoWrap
@@ -157,13 +158,14 @@ Page {
 
         property var selectedList: []
         property bool selectedItemsWebDavConfigured
-        property bool selectedItemsPushableToQField
+        property bool selectedItemsUploadableToCloud
         property bool selectedItemsDeletable
         property bool selectedItemsCompressible
 
         delegate: Rectangle {
           id: rectangle
 
+          property bool isPressed: false
           property int itemIndex: index
           property int itemMetaType: ItemMetaType
           property int itemType: ItemType
@@ -174,7 +176,7 @@ Page {
           property bool itemWithinQFieldCloudProjectFolder: cloudProjectsModel.currentProjectId !== "" && itemPath.search(cloudProjectsModel.currentProjectId) !== -1
           property bool itemHasWebdavConfiguration: ItemHasWebdavConfiguration
           property bool itemMenuLoadable: !projectFolderView && (ItemMetaType === QfLocalFilesModel.Project || ItemMetaType === QfLocalFilesModel.Dataset)
-          property bool itemMenuVisible: ((ItemType === QfLocalFilesModel.SimpleFolder || ItemMetaType == QfLocalFilesModel.Dataset || ItemMetaType == QfLocalFilesModel.File) && table.model.currentPath !== 'root') || ((platformUtilities.capabilities & QfPlatformUtilities.CustomExport || platformUtilities.capabilities & QfPlatformUtilities.CustomSend) && (ItemMetaType === QfLocalFilesModel.Dataset)) || (ItemMetaType === QfLocalFilesModel.Dataset && ItemType === QfLocalFilesModel.RasterDataset && cloudProjectsModel.currentProjectId)
+          property bool itemMenuVisible: ((ItemType === QfLocalFilesModel.SimpleFolder || ItemMetaType === QfLocalFilesModel.Dataset || ItemMetaType === QfLocalFilesModel.File) && table.model.currentPath !== 'root') || ((platformUtilities.capabilities & QfPlatformUtilities.CustomExport || platformUtilities.capabilities & QfPlatformUtilities.CustomSend) && (ItemMetaType === QfLocalFilesModel.Dataset)) || (ItemMetaType === QfLocalFilesModel.Dataset && ItemType === QfLocalFilesModel.RasterDataset && cloudProjectsModel.currentProjectId)
 
           width: parent ? parent.width : undefined
           height: line.height
@@ -182,6 +184,52 @@ Page {
           border.color: QfTheme.controlBorderColor
           border.width: 1
           radius: 2
+
+          QfBadge {
+            parent: ItemHasThumbnail ? thumbnail : type
+            z: 2
+            alignment: QfBadge.Alignment.BottomRight
+            visible: ItemCloudStatus !== QfLocalFilesModel.Unknown
+            width: 20
+            height: width
+            border.width: 2
+            bottomMargin: -2
+            rightMargin: -2
+            color: {
+              switch (ItemCloudStatus) {
+              case QfLocalFilesModel.Synchronized:
+                return QfTheme.mainColor;
+              case QfLocalFilesModel.Divergent:
+                return QfTheme.warningColor;
+              case QfLocalFilesModel.UploadQueued:
+                return QfTheme.cloudColor;
+              case QfLocalFilesModel.LocalOnly:
+              case QfLocalFilesModel.Unknown:
+                return QfTheme.controlBorderColor;
+              }
+            }
+
+            QfToolButton {
+              anchors.centerIn: parent
+              enabled: false
+              width: parent.width - 6
+              height: width
+              padding: 0
+              visible: ItemCloudStatus === QfLocalFilesModel.Synchronized || ItemCloudStatus === QfLocalFilesModel.UploadQueued
+              iconSource: ItemCloudStatus === QfLocalFilesModel.Synchronized ? QfTheme.getThemeVectorIcon('ic_check_white_24dp') : QfTheme.getThemeVectorIcon('ic_hourglass_black_24dp')
+              iconColor: "#ffffff"
+              icon.width: width
+              icon.height: width
+            }
+
+            Rectangle {
+              anchors.fill: parent
+              anchors.margins: 4
+              visible: ItemCloudStatus === QfLocalFilesModel.LocalOnly
+              color: QfTheme.mainBackgroundColor
+              radius: width / 2
+            }
+          }
 
           RowLayout {
             id: line
@@ -240,7 +288,7 @@ Page {
                 case QfLocalFilesModel.QfExternalStorage:
                   return QfTheme.getThemeVectorIcon('ic_sd_card_param_48dp');
                 case QfLocalFilesModel.SimpleFolder:
-                  return QfTheme.getThemeVectorIcon(ItemMetaType == QfLocalFilesModel.Folder && ItemIsFavorite ? 'ic_folder_favorite_param_48dp' : 'ic_folder_param_48dp');
+                  return QfTheme.getThemeVectorIcon(ItemMetaType === QfLocalFilesModel.Folder && ItemIsFavorite ? 'ic_folder_favorite_param_48dp' : 'ic_folder_param_48dp');
                 case QfLocalFilesModel.ProjectFile:
                   return QfTheme.getThemeVectorIcon('ic_map_param_48dp');
                 case QfLocalFilesModel.VectorDataset:
@@ -273,6 +321,7 @@ Page {
                 color: QfTheme.mainTextColor
                 elide: Text.ElideRight
                 wrapMode: Text.NoWrap
+                opacity: rectangle.isPressed ? 0.8 : 1
               }
               Text {
                 id: itemInfo
@@ -295,10 +344,11 @@ Page {
                   return info;
                 }
 
-                visible: text != ""
+                visible: text !== ""
                 font.pointSize: QfTheme.tipFont.pointSize - 2
                 color: QfTheme.secondaryTextColor
                 wrapMode: Text.WordWrap
+                opacity: rectangle.isPressed ? 0.8 : 1
               }
             }
             QfToolButton {
@@ -347,12 +397,12 @@ Page {
           }
           if (table.selectedList.length === 0) {
             table.selectedItemsWebDavConfigured = false;
-            table.selectedItemsPushableToQField = false;
+            table.selectedItemsUploadableToCloud = false;
             table.selectedItemsDeletable = false;
             return;
           }
           table.selectedItemsWebDavConfigured = true;
-          table.selectedItemsPushableToQField = true;
+          table.selectedItemsUploadableToCloud = true;
           table.selectedItemsDeletable = true;
           table.selectedItemsCompressible = true;
           for (let i = 0; i < table.selectedList.length; ++i) {
@@ -360,9 +410,9 @@ Page {
             const itemWithinQFieldCloudProjectFolder = cloudProjectsModel.currentProjectId !== "" && selectedItem.path.search(cloudProjectsModel.currentProjectId) !== -1;
 
             table.selectedItemsWebDavConfigured = table.selectedItemsWebDavConfigured && webdavConnectionLoader.item.hasWebdavConfiguration(selectedItem.path);
-            table.selectedItemsPushableToQField = (table.selectedItemsPushableToQField && selectedItem.metaType == QfLocalFilesModel.Dataset && selectedItem.type == QfLocalFilesModel.RasterDataset && cloudProjectsModel.currentProjectId) || (selectedItem.metaType == QfLocalFilesModel.Folder && itemWithinQFieldCloudProjectFolder);
+            table.selectedItemsUploadableToCloud = table.selectedItemsUploadableToCloud && itemWithinQFieldCloudProjectFolder && !QfProjectUtils.isLayerDataset(qgisProject, selectedItem.path);
             table.selectedItemsDeletable = table.selectedItemsDeletable && QfFileUtils.isDeletable(selectedItem.path);
-            table.selectedItemsCompressible = table.selectedItemsCompressible && selectedItem.metaType == QfLocalFilesModel.Dataset;
+            table.selectedItemsCompressible = table.selectedItemsCompressible && selectedItem.metaType === QfLocalFilesModel.Dataset;
           }
         }
 
@@ -395,20 +445,20 @@ Page {
             if (itemMenu.visible || importMenu.visible)
               return;
             const item = table.itemAt(table.contentX + mouse.x, table.contentY + mouse.y);
-            if (item && item.itemMenuLoadable) {
-              pressedItem = item.children[0].children[2].children[0];
-              pressedItem.color = "#5a8725";
+            if (item) {
+              pressedItem = item;
+              pressedItem.isPressed = true;
             }
           }
           onCanceled: {
             if (pressedItem) {
-              pressedItem.color = QfTheme.mainColor;
+              pressedItem.isPressed = false;
               pressedItem = null;
             }
           }
           onReleased: {
             if (pressedItem) {
-              pressedItem.color = QfTheme.mainColor;
+              pressedItem.isPressed = false;
               pressedItem = null;
             }
           }
@@ -459,9 +509,11 @@ Page {
         id: actionButton
         round: true
 
-        property bool isLocalProject: qgisProject && QfCloudUtils.getProjectId(qgisProject.fileName) === '' && (projectInfo.filePath.endsWith('.qgs') || projectInfo.filePath.endsWith('.qgz'))
-        property bool isLocalProjectActionAvailable: updateProjectFromArchive.enabled || uploadProjectToWebdav.enabled || compressProjectAndSendTo.enabled
-        visible: (projectFolderView && isLocalProject && isLocalProjectActionAvailable && table.model.currentDepth === 1) || table.model.currentPath === 'root'
+        property bool isProject: qgisProject && (projectInfo.filePath.endsWith('.qgs') || projectInfo.filePath.endsWith('.qgz'))
+        property bool isLocalProject: isProject && QfCloudUtils.getProjectId(qgisProject.fileName) === ''
+        property bool isCloudProject: isProject && QfCloudUtils.getProjectId(qgisProject.fileName) !== ''
+        property bool isProjectActionAvailable: updateProjectFromArchive.enabled || uploadProjectToWebdav.enabled || compressProjectAndSendTo.enabled
+        visible: (projectFolderView && isProject && isProjectActionAvailable && table.model.currentDepth === 1) || table.model.currentPath === 'root'
 
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -502,7 +554,7 @@ Page {
       MenuItem {
         id: viewFile
 
-        enabled: itemMenu.itemMetaType != QfLocalFilesModel.Folder
+        enabled: itemMenu.itemMetaType !== QfLocalFilesModel.Folder
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -516,61 +568,9 @@ Page {
         }
       }
 
-      // File items
-      MenuItem {
-        id: sendDatasetTo
-        enabled: itemMenu.itemMetaType === QfLocalFilesModel.File || (platformUtilities.capabilities & QfPlatformUtilities.CustomSend && itemMenu.itemMetaType == QfLocalFilesModel.Dataset)
-        visible: enabled
-
-        font: QfTheme.defaultFont
-        width: parent.width
-        height: enabled ? 48 : 0
-        leftPadding: QfTheme.menuItemLeftPadding
-
-        text: qsTr("Send to...")
-        onTriggered: {
-          platformUtilities.sendDatasetTo(itemMenu.itemPath);
-        }
-      }
-
-      MenuItem {
-        id: pushDatasetToCloud
-        enabled: (itemMenu.itemMetaType == QfLocalFilesModel.File) || (itemMenu.itemMetaType == QfLocalFilesModel.Dataset && itemMenu.itemType == QfLocalFilesModel.RasterDataset && cloudProjectsModel.currentProjectId) || (itemMenu.itemMetaType == QfLocalFilesModel.Folder && itemMenu.itemWithinQFieldCloudProjectFolder)
-        visible: enabled
-
-        font: QfTheme.defaultFont
-        width: parent.width
-        height: enabled ? 48 : 0
-        leftPadding: QfTheme.menuItemLeftPadding
-
-        text: qsTr("Push to QFieldCloud")
-        onTriggered: {
-          pushFilesToQFieldCloudConnection.enabled = true;
-          pushFilesToQFieldCloudConnection.sendingMultiple = true;
-          QfCloudUtils.addPendingAttachments(cloudConnection.userInformation.username, QfCloudUtils.getProjectId(table.model.currentPath), [itemMenu.itemPath], cloudConnection, true);
-        }
-      }
-
-      MenuItem {
-        id: exportDatasetTo
-        enabled: platformUtilities.capabilities & QfPlatformUtilities.CustomExport && itemMenu.itemMetaType == QfLocalFilesModel.Dataset
-        visible: enabled
-
-        font: QfTheme.defaultFont
-        width: parent.width
-        height: enabled ? 48 : 0
-        leftPadding: QfTheme.menuItemLeftPadding
-
-        text: qsTr("Export to folder...")
-        onTriggered: {
-          platformUtilities.exportDatasetTo(itemMenu.itemPath);
-        }
-      }
-
-      // Folder items
       MenuItem {
         id: toggleFavoriteState
-        enabled: itemMenu.itemMetaType == QfLocalFilesModel.Folder && localFilesModel.isPathFavoriteEditable(itemMenu.itemPath)
+        enabled: itemMenu.itemMetaType === QfLocalFilesModel.Folder && localFilesModel.isPathFavoriteEditable(itemMenu.itemPath)
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -589,15 +589,53 @@ Page {
       }
 
       MenuSeparator {
-        enabled: toggleFavoriteState.visible && (exportFolderTo.visible || sendCompressedFolderTo.visible || uploadFolderToWebdav.visible || downloadFolderFromWebdav.visible)
+        enabled: viewFile.enabled || toggleFavoriteState.enabled
         visible: enabled
         width: parent.width
         height: enabled ? undefined : 0
       }
 
       MenuItem {
-        id: exportFolderTo
-        enabled: platformUtilities.capabilities & QfPlatformUtilities.CustomExport && itemMenu.itemMetaType == QfLocalFilesModel.Folder
+        id: uploadDatasetToCloud
+        enabled: itemMenu.itemWithinQFieldCloudProjectFolder && !QfProjectUtils.isLayerDataset(qgisProject, itemMenu.itemPath) && itemMenu.itemPath.indexOf('deltafile.json') == -1
+        visible: enabled
+
+        font: QfTheme.defaultFont
+        width: parent.width
+        height: enabled ? 48 : 0
+        leftPadding: QfTheme.menuItemLeftPadding
+
+        text: qsTr("Upload to QFieldCloud")
+        onTriggered: {
+          uploadFilesToCloudConnection.enabled = true;
+          uploadFilesToCloudConnection.sendingMultiple = false;
+          QfCloudUtils.addPendingAttachments(cloudConnection.username, QfCloudUtils.getProjectId(table.model.currentPath), [itemMenu.itemPath], cloudConnection, true);
+        }
+      }
+
+      MenuItem {
+        id: sendTo
+        enabled: platformUtilities.capabilities & QfPlatformUtilities.CustomSend
+        visible: enabled
+
+        font: QfTheme.defaultFont
+        width: parent.width
+        height: enabled ? 48 : 0
+        leftPadding: QfTheme.menuItemLeftPadding
+
+        text: itemMenu.itemMetaType === QfLocalFilesModel.Folder ? qsTr("Send compressed folder to...") : qsTr("Send to...")
+        onTriggered: {
+          if (itemMenu.itemMetaType === QfLocalFilesModel.Folder) {
+            platformUtilities.sendCompressedFolderTo(itemMenu.itemPath);
+          } else {
+            platformUtilities.sendDatasetTo(itemMenu.itemPath);
+          }
+        }
+      }
+
+      MenuItem {
+        id: exportTo
+        enabled: platformUtilities.capabilities & QfPlatformUtilities.CustomExport
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -607,24 +645,19 @@ Page {
 
         text: qsTr("Export to folder...")
         onTriggered: {
-          platformUtilities.exportFolderTo(itemMenu.itemPath);
+          if (itemMenu.itemMetaType === QfLocalFilesModel.Folder) {
+            platformUtilities.exportFolderTo(itemMenu.itemPath);
+          } else {
+            platformUtilities.exportDatasetTo(itemMenu.itemPath);
+          }
         }
       }
 
-      MenuItem {
-        id: sendCompressedFolderTo
-        enabled: platformUtilities.capabilities & QfPlatformUtilities.CustomSend && itemMenu.itemMetaType == QfLocalFilesModel.Folder
+      MenuSeparator {
+        enabled: uploadFolderToWebdav.visible || downloadFolderFromWebdav.visible
         visible: enabled
-
-        font: QfTheme.defaultFont
         width: parent.width
-        height: enabled ? 48 : 0
-        leftPadding: QfTheme.menuItemLeftPadding
-
-        text: qsTr("Send compressed folder to...")
-        onTriggered: {
-          platformUtilities.sendCompressedFolderTo(itemMenu.itemPath);
-        }
+        height: enabled ? undefined : 0
       }
 
       MenuItem {
@@ -637,7 +670,7 @@ Page {
         height: enabled ? 48 : 0
         leftPadding: QfTheme.menuItemLeftPadding
 
-        text: qsTr("Upload folder to WebDAV server")
+        text: itemMenu.itemMetaType === QfLocalFilesModel.Folder ? qsTr("Upload folder to WebDAV") : qsTr("Upload file to WebDAV")
         onTriggered: {
           if (webdavConnectionLoader.item) {
             webdavConnectionLoader.item.uploadPaths([itemMenu.itemPath]);
@@ -647,7 +680,7 @@ Page {
 
       MenuItem {
         id: downloadFolderFromWebdav
-        enabled: itemMenu.itemHasWebdavConfiguration
+        enabled: itemMenu.itemHasWebdavConfiguration && itemMenu.itemMetaType === QfLocalFilesModel.Folder
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -655,7 +688,7 @@ Page {
         height: enabled ? 48 : 0
         leftPadding: QfTheme.menuItemLeftPadding
 
-        text: qsTr("Download folder from WebDAV server")
+        text: qsTr("Download folder from WebDAV")
         onTriggered: {
           if (webdavConnectionLoader.item) {
             webdavConnectionLoader.item.downloadPath(itemMenu.itemPath);
@@ -672,7 +705,7 @@ Page {
 
       MenuItem {
         id: deleteFile
-        enabled: QfFileUtils.isDeletable(itemMenu.itemPath)
+        enabled: ((!qfieldLocalDataPickerScreen.projectFolderView && itemMenu.itemMetaType === QfLocalFilesModel.Folder) || itemMenu.itemMetaType === QfLocalFilesModel.File) && QfFileUtils.isDeletable(itemMenu.itemPath)
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -689,7 +722,7 @@ Page {
 
       MenuItem {
         id: removeDataset
-        enabled: itemMenu.itemMetaType == QfLocalFilesModel.Dataset && !qfieldLocalDataPickerScreen.projectFolderView && table.model.isDeletedAllowedInCurrentPath
+        enabled: (!qfieldLocalDataPickerScreen.projectFolderView || itemMenu.itemType === QfLocalFilesModel.RasterDataset) && itemMenu.itemMetaType === QfLocalFilesModel.Dataset && table.model.isDeletedAllowedInCurrentPath
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -830,7 +863,7 @@ Page {
       MenuItem {
         id: updateProjectFromArchive
 
-        enabled: platformUtilities.capabilities & QfPlatformUtilities.UpdateProjectFromArchive
+        enabled: actionButton.isLocalProject && platformUtilities.capabilities & QfPlatformUtilities.UpdateProjectFromArchive
         visible: enabled
         font: QfTheme.defaultFont
         width: parent.width
@@ -861,7 +894,8 @@ Page {
 
         text: qsTr("Compress project and send to...")
         onTriggered: {
-          platformUtilities.sendCompressedFolderTo(QfFileUtils.absolutePath(projectInfo.filePath));
+          let projectName = actionButton.isCloudProject && cloudProjectsModel.currentProject ? cloudProjectsModel.currentProject.name : QfFileUtils.fileName(projectInfo.filePath, false);
+          platformUtilities.sendCompressedFolderTo(QfFileUtils.absolutePath(projectInfo.filePath), projectName);
         }
       }
 
@@ -934,9 +968,9 @@ Page {
       }
 
       MenuItem {
-        id: pushToQfieldCloud
+        id: uploadFileToCloud
 
-        enabled: table.selectedItemsPushableToQField
+        enabled: table.selectedItemsUploadableToCloud
         visible: enabled
 
         font: QfTheme.defaultFont
@@ -944,22 +978,16 @@ Page {
         height: enabled ? 48 : 0
         leftPadding: QfTheme.menuItemLeftPadding
 
-        text: qsTr("Push file(s) to QFieldCloud")
+        text: qsTr("Upload file(s) to QFieldCloud")
         onTriggered: {
           var fileNames = [];
           for (let i = 0; i < table.selectedList.length; ++i) {
             const item = table.model.get(table.selectedList[i]);
-            const itemWithinQFieldCloudProjectFolder = cloudProjectsModel.currentProjectId !== "" && item.path.search(cloudProjectsModel.currentProjectId) !== -1;
-            const pushableToCloud = (item.metaType === QfLocalFilesModel.Dataset && item.type === QfLocalFilesModel.RasterDataset && cloudProjectsModel.currentProjectId) || (item.metaType === QfLocalFilesModel.Folder && itemWithinQFieldCloudProjectFolder);
-            if (pushableToCloud)
-              fileNames.push(item.path);
+            fileNames.push(item.path);
           }
-          if (fileNames.length > 0) {
-            pushFilesToQFieldCloudConnection.enabled = true;
-            QfCloudUtils.addPendingAttachments(cloudConnection.userInformation.username, QfCloudUtils.getProjectId(table.model.currentPath), fileNames, cloudConnection, true);
-          } else {
-            displayToast(qsTr("Please select one or more files to push to QFieldCloud."));
-          }
+          uploadFilesToCloudConnection.enabled = true;
+          uploadFilesToCloudConnection.sendingMultiple = true;
+          QfCloudUtils.addPendingAttachments(cloudConnection.username, QfCloudUtils.getProjectId(table.model.currentPath), fileNames, cloudConnection, true);
         }
       }
 
@@ -1015,7 +1043,7 @@ Page {
   }
 
   Connections {
-    id: pushFilesToQFieldCloudConnection
+    id: uploadFilesToCloudConnection
     enabled: false
     target: cloudConnection
 
@@ -1023,14 +1051,23 @@ Page {
 
     function onPendingAttachmentsAdded() {
       platformUtilities.uploadPendingAttachments(cloudConnection);
-      if (pushFilesToQFieldCloudConnection.sendingMultiple) {
-        displayToast(qsTr("‘%1’ is being uploaded to QFieldCloud").arg(QfFileUtils.fileName(itemMenu.itemPath)));
-        pushFilesToQFieldCloudConnection.sendingMultiple = false;
-      } else {
+      if (uploadFilesToCloudConnection.sendingMultiple) {
+        if (cloudConnection.status === QfCloudConnection.LoggedIn && cloudConnection.isReachable) {
+          displayToast(qsTr("Items being uploaded to QFieldCloud"));
+        } else {
+          displayToast(qsTr("Items queued for upload to QFieldCloud"));
+        }
+
+        uploadFilesToCloudConnection.sendingMultiple = false;
         localFilesModel.clearSelection();
-        displayToast(qsTr("Items being uploaded to QFieldCloud"));
+      } else {
+        if (cloudConnection.status === QfCloudConnection.LoggedIn && cloudConnection.isReachable) {
+          displayToast(qsTr("‘%1’ is being uploaded to QFieldCloud").arg(QfFileUtils.fileName(itemMenu.itemPath)));
+        } else {
+          displayToast(qsTr("‘%1’ queued for upload to QFieldCloud").arg(QfFileUtils.fileName(itemMenu.itemPath)));
+        }
       }
-      pushFilesToQFieldCloudConnection.enabled = false;
+      uploadFilesToCloudConnection.enabled = false;
     }
   }
 

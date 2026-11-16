@@ -816,15 +816,17 @@ public class QFieldActivity extends QtActivity {
         return;
     }
 
-    private void sendCompressedFolderTo(String path) {
+    private void sendCompressedFolderTo(String path, String fileName) {
         showBlockingProgressDialog(getString(R.string.processing_message));
 
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 File file = new File(path);
-                File temporaryFile =
-                    new File(getCacheDir(), file.getName() + ".zip");
+                String zipName = (fileName == null || fileName.isEmpty())
+                                     ? file.getName()
+                                     : fileName;
+                File temporaryFile = new File(getCacheDir(), zipName + ".zip");
                 QFieldUtils.folderToZip(file.getPath(),
                                         temporaryFile.getPath());
                 dismissBlockingProgressDialog();
@@ -928,14 +930,24 @@ public class QFieldActivity extends QtActivity {
         resourcePrefix = prefix;
         resourceFilePath = filePath;
 
+        String[] mimeTypes = mimeType.split(",");
         Intent intent;
         if (Build.VERSION.SDK_INT >= 33) {
             intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-            intent.setType(mimeType);
+            // The photo picker offers both images and videos when no type is
+            // set
+            if (mimeTypes.length == 1) {
+                intent.setType(mimeType);
+            }
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         } else {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType(mimeType);
+            if (mimeTypes.length > 1) {
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            } else {
+                intent.setType(mimeType);
+            }
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
@@ -955,7 +967,13 @@ public class QFieldActivity extends QtActivity {
         intent.addFlags(Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-        intent.setType(mimeType);
+        String[] mimeTypes = mimeType.split(",");
+        if (mimeTypes.length > 1) {
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        } else {
+            intent.setType(mimeType);
+        }
         Log.d("QField", "File picker intent starting");
         startActivityForResult(intent, FILE_PICKER_RESOURCE);
         return;

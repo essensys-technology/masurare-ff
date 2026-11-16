@@ -165,7 +165,9 @@ class QfLayerUtils : public QObject
 
     /**
      * Adds a \a feature into the \a layer.
-     * \note The function will not call startEditing() and commitChanges()
+     * \note When the layer is not already being edited, the function will call startEditing()
+     * and commitChanges(). If editing was started outside of this function, the feature is left
+     * in the edit buffer for the caller to commit.
      */
     Q_INVOKABLE static bool addFeature( QgsVectorLayer *layer, QgsFeature feature );
 
@@ -174,6 +176,13 @@ class QfLayerUtils : public QObject
      * This is a stable identifier (compared to the provider field name).
      */
     Q_INVOKABLE static QString fieldType( const QgsField &field );
+
+    /**
+     * Returns the layer CRS.
+     * \note This function is capable of handling GeometryCollection layers, it will eventually be
+     * retired when handling is fixed upstream.
+     */
+    Q_INVOKABLE static QgsCoordinateReferenceSystem layerCrs( QgsVectorLayer *layer );
 
     /**
      * Returns TRUE if the vector \a layer geometry has an M value.
@@ -192,15 +201,23 @@ class QfLayerUtils : public QObject
     Q_INVOKABLE QSet<QVariant> uniqueValuesForVectorLayerFieldIndex( QgsVectorLayer *layer, int fieldIndex );
 
     /**
-     * Loads a vector layer.
+     * Loads all map layers from a data source.
+     * \param uri the data source uri
+     * \param name the layer(s) name (if more than one layer is present, the name will turn into a prefix)
+     * \param provider the data provider name
+     */
+    Q_INVOKABLE static QList<QgsMapLayer *> loadMapLayers( const QString &uri, const QString &name = QString() );
+
+    /**
+     * Loads a vector layer from a provided data source.
      * \param uri the data source uri
      * \param name the layer name
      * \param provider the data provider name
      */
-    Q_INVOKABLE static QgsVectorLayer *loadVectorLayer( const QString &uri, const QString &name = QString(), const QString &provider = QStringLiteral( "ogr" ) );
+    Q_INVOKABLE static QgsVectorLayer *loadVectorLayer( const QString &uri, const QString &prefix = QString(), const QString &provider = QStringLiteral( "ogr" ) );
 
     /**
-     * Loads a raster layer.
+     * Loads a raster layer from a provided data source.
      * \param uri the data source uri
      * \param name the layer name
      * \param provider the data provider name

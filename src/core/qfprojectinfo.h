@@ -20,6 +20,8 @@
 
 #include "qfcloudutils.h"
 #include "qflayertreemodel.h"
+#include "qfmarkupcollection.h"
+#include "qfmarkupmanager.h"
 #include "qftrackingmodel.h"
 #include "qgsquickmapcanvasmap.h"
 #include "qgsquickmapsettings.h"
@@ -56,6 +58,11 @@ class QfProjectInfo : public QObject
     Q_PROPERTY( QfFlatLayerTreeModel *layerTree READ layerTree WRITE setLayerTree NOTIFY layerTreeChanged )
 
     /**
+     * The markup manager used to keep track of collections.
+     */
+    Q_PROPERTY( QfMarkupManager *markups READ markupManager WRITE setMarkupManager NOTIFY markupManagerChanged )
+
+    /**
      * The state mode (browse vs. digitizing) for the currently opened project.
      */
     Q_PROPERTY( QString stateMode READ stateMode WRITE setStateMode NOTIFY stateModeChanged )
@@ -64,6 +71,11 @@ class QfProjectInfo : public QObject
      * The active layer for the currently opened project.
      */
     Q_PROPERTY( QgsMapLayer *activeLayer READ activeLayer WRITE setActiveLayer NOTIFY activeLayerChanged )
+
+    /**
+     * The active markup collection for the currently opened project.
+     */
+    Q_PROPERTY( QfMarkupCollection *activeCollection READ activeCollection WRITE setActiveCollection NOTIFY activeCollectionChanged )
 
     /**
      * The tracking model object, used to save and restore tracking session for individual vector layers.
@@ -103,6 +115,12 @@ class QfProjectInfo : public QObject
     //! \copydoc QfProjectInfo::layerTree
     QfFlatLayerTreeModel *layerTree() const;
 
+    //! \copydoc QfProjectInfo::markupManager
+    void setMarkupManager( QfMarkupManager *markupManager );
+
+    //! \copydoc QfProjectInfo::markupManager
+    QfMarkupManager *markupManager() const;
+
     //! \copydoc QfProjectInfo::trackingModel
     void setTrackingModel( QfTrackingModel *trackingModel );
 
@@ -130,6 +148,16 @@ class QfProjectInfo : public QObject
     Q_INVOKABLE void saveLayerRememberedFields( QgsMapLayer *layer );
 
     /**
+     * Saves the currently visible markup collections
+     */
+    Q_INVOKABLE void saveVisibleMarkupCollections();
+
+    /**
+     * Restores the currently visible markup collections
+     */
+    Q_INVOKABLE void restoreVisibleMarkupCollections();
+
+    /**
      * Saves the state \a mode for the current project
      */
     void setStateMode( const QString &mode );
@@ -149,6 +177,17 @@ class QfProjectInfo : public QObject
      * or nullptr if active layer was not saved or isn't present
      */
     QgsMapLayer *activeLayer() const;
+
+    /**
+     * Saves the active markup \a collection within the current project
+     */
+    void setActiveCollection( QfMarkupCollection *collection );
+
+    /**
+     * Returns the saved active markup collection for the current project
+     * or nullptr if the active markup collection was not saved or isn't present
+     */
+    QfMarkupCollection *activeCollection() const;
 
     /**
      * Returns the saved snapping enabed state for the current project
@@ -206,8 +245,10 @@ class QfProjectInfo : public QObject
     void filePathChanged();
     void mapSettingsChanged();
     void layerTreeChanged();
+    void markupManagerChanged();
     void stateModeChanged();
     void activeLayerChanged();
+    void activeCollectionChanged();
     void trackingModelChanged();
     void snappingEnabledChanged();
     void cloudUserInformationChanged();
@@ -234,6 +275,7 @@ class QfProjectInfo : public QObject
 
     QfFlatLayerTreeModel *mLayerTree = nullptr;
     QfTrackingModel *mTrackingModel = nullptr;
+    QfMarkupManager *mMarkupManager = nullptr;
 
     bool mIsTemporal = false;
 };

@@ -5,7 +5,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 Item {
   id: aboutPanel
@@ -212,6 +212,12 @@ Item {
         changelogPopup.open();
       }
     }
+  }
+
+  QfChangelog {
+    id: changelogPopup
+    objectName: 'changelogPopup'
+    parent: Overlay.overlay
   }
 
   Keys.onReleased: event => {

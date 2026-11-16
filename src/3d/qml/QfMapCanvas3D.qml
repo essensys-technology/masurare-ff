@@ -5,18 +5,28 @@ import QtQuick3D.Helpers
 import org.qfield._3d
 import org.qfield.core
 
+/**
+ * \defgroup qml_3d QML 3D
+ * \brief QField 3D QML items available through import org.qfield._3d
+ */
+
+/**
+ * \ingroup qml_3d
+ */
 Item {
   id: mapArea
   focus: true
   visible: !isFirstLoad || !isLoading
 
   property alias mapSettings: mapTerrainProvider.mapSettings
+  property alias markups: mapTextureData.markups
+
   property alias terrainExtent: mapTerrainProvider.extent
   property alias terrainGeometry: terrainMesh.mapTerrainGeometry
 
   property bool isLoading: mapTerrainProvider.isLoading || mapTextureData.isRendering
   property bool isFirstLoad: true
-  property bool eyeDomeLightingMode: false
+  property alias eyeDomeLightingMode: terrainMesh.eyeDomeLightingMode
   property alias extentMode: cameraController.extentMode
 
   property bool gnssActive: false
@@ -85,22 +95,6 @@ Item {
       antialiasingMode: SceneEnvironment.MSAA
       antialiasingQuality: SceneEnvironment.High
       depthPrePassEnabled: mapArea.eyeDomeLightingMode
-
-      effects: [
-        Effect {
-          id: eyeDomeLightingEffect
-
-          property real edlRadius: mapArea.eyeDomeLightingMode ? 2.5 * screen.devicePixelRatio : 0
-          property real edlStrength: 25000
-
-          passes: Pass {
-            shaders: Shader {
-              stage: Shader.Fragment
-              shader: "qrc:/3d/eye_dome_lighting.frag"
-            }
-          }
-        }
-      ]
     }
 
     PerspectiveCamera {
@@ -155,7 +149,7 @@ Item {
 
         materials: PrincipledMaterial {
           baseColor: mapArea.gnssMarkerSemiOpaqueColor
-          opacity: 0.4
+          opacity: 0.8
           alphaMode: PrincipledMaterial.Blend
         }
 
@@ -165,12 +159,12 @@ Item {
 
           Vector3dAnimation {
             from: Qt.vector3d(0.3, 0.05, 0.3)
-            to: Qt.vector3d(0.5, 0.05, 0.5)
+            to: Qt.vector3d(0.7, 0.05, 0.7)
             duration: 1500
             easing.type: Easing.InOutQuad
           }
           Vector3dAnimation {
-            from: Qt.vector3d(0.5, 0.05, 0.5)
+            from: Qt.vector3d(0.7, 0.05, 0.7)
             to: Qt.vector3d(0.3, 0.05, 0.3)
             duration: 1500
             easing.type: Easing.InOutQuad
@@ -183,43 +177,39 @@ Item {
 
         Model {
           source: "#Cone"
-          scale: Qt.vector3d(0.2, 0.15, 0.2)
+          scale: Qt.vector3d(0.33, 0.3, 0.33)
           position: Qt.vector3d(0, 0.15, 0)
           eulerRotation: Qt.vector3d(-90, 0, 0)
           pickable: true
 
           materials: PrincipledMaterial {
             baseColor: mapArea.gnssMarkerColor
-            metalness: 0.7
-            roughness: 0.1
           }
         }
 
         Model {
           source: "#Cylinder"
-          scale: Qt.vector3d(0.08, 0.12, 0.08)
-          position: Qt.vector3d(0, 0.06, 0)
+          scale: Qt.vector3d(0.2, 0.24, 0.2)
+          position: Qt.vector3d(0, 0.12, 0)
           eulerRotation: Qt.vector3d(-90, 0, 0)
           pickable: true
 
           materials: PrincipledMaterial {
             baseColor: mapArea.gnssMarkerColor
-            metalness: 0.6
-            roughness: 0.2
           }
         }
 
         Model {
           source: "#Cone"
-          scale: Qt.vector3d(0.12, 0.05, 0.12)
+          scale: Qt.vector3d(0.33, 0.15, 0.33)
           position: Qt.vector3d(0, 0.0, 0)
           eulerRotation: Qt.vector3d(90, 0, 0)
           pickable: true
 
           materials: PrincipledMaterial {
             baseColor: mapArea.gnssMarkerSemiOpaqueColor
-            metalness: 0.5
-            roughness: 0.3
+            opacity: 0.8
+            alphaMode: PrincipledMaterial.Blend
           }
         }
       }
@@ -227,14 +217,12 @@ Item {
       Model {
         visible: !(mapArea.gnssSpeed > 0 && mapArea.gnssDirection >= 0)
         source: "#Sphere"
-        scale: Qt.vector3d(0.15, 0.15, 0.15)
+        scale: Qt.vector3d(0.33, 0.33, 0.33)
         position: Qt.vector3d(0, 0.08, 0)
         pickable: true
 
         materials: PrincipledMaterial {
           baseColor: mapArea.gnssMarkerColor
-          metalness: 0.6
-          roughness: 0.2
         }
       }
     }
@@ -278,6 +266,9 @@ Item {
           }
           materials: PrincipledMaterial {
             vertexColorsEnabled: true
+            alphaMode: PrincipledMaterial.Blend
+            depthDrawMode: Material.OpaqueOnlyDepthDraw
+            cullMode: PrincipledMaterial.NoCulling
           }
         }
       }
@@ -389,6 +380,18 @@ Item {
 
   function lookAtPoint(pos3d, distance) {
     cameraController.lookAtPoint(pos3d, distance);
+  }
+
+  function jumpTo(point) {
+    const pos3d = geoTo3D(point.x, point.y);
+    if (!isNaN(pos3d.x)) {
+      cameraController.lookAtPoint(pos3d);
+      return;
+    }
+    // Outside of the loaded terrain, bring the terrain to the camera instead
+    mapTerrainProvider.panTo(point.x, point.y);
+    mapTerrainProvider.beginTransition();
+    cameraController.lookAtPoint(Qt.vector3d(0, cameraController.targetY, 0));
   }
 
   function zoomIn() {

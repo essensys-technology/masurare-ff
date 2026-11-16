@@ -1,11 +1,11 @@
 /***************************************************************************
-    qfiosplatformutilities.h  -  utilities for qfield
+  qfiosplatformutilities.h  -  utilities for qfield
 
-      -------------------
-    begin                : November 2020
-    copyright            : (C) 2020 by Denis Rouzaud
-    email                : denis@opengis.ch
- ***************************************************************************/
+  -------------------
+  begin                : November 2020
+  copyright            : (C) 2020 by Denis Rouzaud
+  email                : denis@opengis.ch
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -23,6 +23,8 @@
 
 class QfResourceSource;
 
+Q_FORWARD_DECLARE_OBJC_CLASS( QFieldVolumeButtonObserver );
+
 class QfIosPlatformUtilities : public QfPlatformUtilities
 {
   public:
@@ -39,10 +41,11 @@ class QfIosPlatformUtilities : public QfPlatformUtilities
     void importProjectFolder() const override;
     void importProjectArchive() const override;
     void importDatasets() const override;
+    void handleFileAssociation( const QString &path ) const override;
     void exportDatasetTo( const QString &path ) const override;
     void exportFolderTo( const QString &path ) const override;
     void sendDatasetTo( const QString &path ) const override;
-    void sendCompressedFolderTo( const QString &path ) const override;
+    void sendCompressedFolderTo( const QString &path, const QString &fileName = QString() ) const override;
     void updateProjectFromArchive( const QString &projectPath ) const override;
 
     void setScreenLockPermission( const bool allowLock ) override;
@@ -58,6 +61,8 @@ class QfIosPlatformUtilities : public QfPlatformUtilities
       getGalleryPicture( const QString &prefix, const QString &pictureFilePath, QObject *parent = nullptr ) override;
     virtual QfResourceSource *
       getGalleryVideo( const QString &prefix, const QString &videoFilePath, QObject *parent = nullptr ) override;
+    virtual QfResourceSource *
+      getGalleryMedia( const QString &prefix, const QString &mediaFilePath, QObject *parent = nullptr ) override;
     virtual QfViewStatus *open( const QString &uri, bool editing = false, QObject *parent = nullptr ) override;
     virtual QfProjectSource *openProject( QObject *parent = nullptr ) override;
 
@@ -68,6 +73,11 @@ class QfIosPlatformUtilities : public QfPlatformUtilities
     void requestCameraPermission( std::function<void( Qt::PermissionStatus )> func ) override;
     virtual Qt::PermissionStatus checkMicrophonePermission() const override;
     virtual void requestMicrophonePermission( std::function<void( Qt::PermissionStatus )> func ) override;
+
+    void setHandleVolumeKeys( const bool handle ) override;
+
+  private:
+    QFieldVolumeButtonObserver *mVolumeButtonObserver = nullptr;
 };
 
 #endif

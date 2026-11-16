@@ -4,6 +4,9 @@ import QtQuick.Layouts
 import org.qfield.core
 import org.qfield.gui
 
+/**
+ * \ingroup qml_app
+ */
 ColumnLayout {
   id: projectDetails
   spacing: 5
@@ -44,7 +47,7 @@ ColumnLayout {
         lastSubscriptionUser = projectDetails.cloudProject.owner;
         detailsStorageMeter.value = subscriptionInformation.storageUsed / subscriptionInformation.storageTotal;
         detailsStorageMeter.usageText = qsTr("Using %1 of %2").arg(QfFileUtils.representFileSize(subscriptionInformation.storageUsed, true)).arg(QfFileUtils.representFileSize(subscriptionInformation.storageTotal, true));
-        detailsStorageMeter.relatedUrl = Qt.platform !== "ios" ? QfCloudUtils.subscriptionManagementUrl(cloudConnection.url, subscriptionInformation.plan, projectDetails.cloudProject.owner, cloudConnection.username) : "";
+        detailsStorageMeter.relatedUrl = Qt.platform.os !== "ios" ? QfCloudUtils.subscriptionManagementUrl(cloudConnection.url, subscriptionInformation.plan, projectDetails.cloudProject.owner, cloudConnection.username) : "";
         detailsStorageMeter.warningThreshold = subscriptionInformation.storageThresholdWarning > 0 ? 1.0 - (subscriptionInformation.storageThresholdWarning / subscriptionInformation.storageTotal) : 0.8;
         detailsStorageMeter.criticalThreshold = subscriptionInformation.storageThresholdCritical > 0 ? 1.0 - (subscriptionInformation.storageThresholdCritical / subscriptionInformation.storageTotal) : 0.95;
         detailsStorageMeter.visible = true;
@@ -129,13 +132,13 @@ ColumnLayout {
       }
     }
 
-    ScrollView {
+    Flickable {
       Layout.fillWidth: true
       Layout.fillHeight: true
       contentWidth: width
       contentHeight: projectDetailsBodyLayout.height
-      ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
       ScrollBar.vertical: QfScrollBar {}
+      clip: true
 
       ColumnLayout {
         id: projectDetailsBodyLayout
@@ -271,6 +274,9 @@ ColumnLayout {
 
           Image {
             id: projectDetailsCode
+
+            property int desiredWidth: Math.min(mainWindow.width - 40, 240)
+
             Layout.preferredWidth: desiredWidth
             Layout.preferredHeight: desiredWidth
             fillMode: Image.PreserveAspectFit
@@ -280,12 +286,11 @@ ColumnLayout {
             source: cloudProject != undefined ? "image://barcode/?text=" + encodeURIComponent(QfUrlUtils.createActionUrl("qfield", "cloud", {
               "project": cloudProject.owner + '/' + cloudProject.name
             })) + "&color=" + encodeURIComponent(QfTheme.mainTextColor) : ""
-            property int desiredWidth: Math.min(mainWindow.width - 40, 250)
           }
 
           Text {
             id: projectDetailsCodeLabel
-            Layout.preferredWidth: projectDetailsCode.desiredWidth - 20
+            Layout.preferredWidth: projectDetailsCode.desiredWidth
             font: QfTheme.tinyFont
             color: QfTheme.secondaryTextColor
             wrapMode: Text.WordWrap

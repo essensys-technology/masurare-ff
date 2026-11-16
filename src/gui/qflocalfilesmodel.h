@@ -16,12 +16,16 @@
 #ifndef QFLOCALFILESMODEL_H
 #define QFLOCALFILESMODEL_H
 
+#include "qfcloudattachmentswatcher.h"
+#include "qfcloudconnection.h"
+
 #include <QAbstractListModel>
+#include <QPointer>
 
 class QfLocalFileItem;
 
 /**
- * \ingroup core
+ * \ingroup gui
  */
 class QfLocalFilesModel : public QAbstractListModel
 {
@@ -32,6 +36,10 @@ class QfLocalFilesModel : public QAbstractListModel
     Q_PROPERTY( int currentDepth READ currentDepth NOTIFY currentPathChanged )
     Q_PROPERTY( bool isDeletedAllowedInCurrentPath READ isDeletedAllowedInCurrentPath NOTIFY currentPathChanged )
     Q_PROPERTY( bool inSelectionMode READ inSelectionMode NOTIFY inSelectionModeChanged )
+    Q_PROPERTY( int selectedCount READ selectedCount NOTIFY selectionDetailsChanged )
+    Q_PROPERTY( qint64 selectedSize READ selectedSize NOTIFY selectionDetailsChanged )
+    Q_PROPERTY( QfCloudConnection *cloudConnection READ cloudConnection WRITE setCloudConnection NOTIFY cloudConnectionChanged )
+    Q_PROPERTY( bool isFetchingCloudStatus READ isFetchingCloudStatus NOTIFY isFetchingCloudStatusChanged )
 
   public:
     enum ItemMetaType
@@ -56,6 +64,17 @@ class QfLocalFilesModel : public QAbstractListModel
     };
     Q_ENUM( ItemType )
 
+    //! Synchronization status of a local file within a cloud project, compared against the files stored on QFieldCloud
+    enum CloudStatus
+    {
+      Unknown,      //!< The status could not be determined, e.g. while offline or logged out
+      LocalOnly,    //!< The file only exists locally and is missing on QFieldCloud
+      Synchronized, //!< The file exists on QFieldCloud and its checksum matches the local file
+      Divergent,    //!< The file exists on QFieldCloud but its checksum differs from the local file
+      UploadQueued, //!< The file is queued for upload to QFieldCloud
+    };
+    Q_ENUM( CloudStatus )
+
     enum Role
     {
       ItemMetaTypeRole = Qt::UserRole,
@@ -68,6 +87,7 @@ class QfLocalFilesModel : public QAbstractListModel
       ItemIsFavoriteRole,
       ItemHasWebdavConfigurationRole,
       ItemCheckedRole,
+      ItemCloudStatusRole,
     };
     Q_ENUM( Role )
 
@@ -121,11 +141,26 @@ class QfLocalFilesModel : public QAbstractListModel
     //! Returns whether list is in multi-selection mode or not
     bool inSelectionMode();
 
+    //! Returns the number of checked items
+    int selectedCount() const;
+
+    //! Returns the summed size of checked items in bytes
+    qint64 selectedSize() const;
+
     //! Set checked state of an item in list
     Q_INVOKABLE void setChecked( const int &mIdx, const bool &checked );
 
     //! Set checked state of all items to false
     Q_INVOKABLE void clearSelection();
+
+    //! Returns the cloud connection used to fetch the cloud status of files within cloud projects
+    QfCloudConnection *cloudConnection() const;
+
+    //! Sets the cloud connection used to fetch the cloud status of files within cloud projects
+    void setCloudConnection( QfCloudConnection *cloudConnection );
+
+    //! Returns TRUE while the cloud project file list is being fetched
+    bool isFetchingCloudStatus() const { return mIsFetchingCloudStatus; }
 
   signals:
 
@@ -133,8 +168,20 @@ class QfLocalFilesModel : public QAbstractListModel
 
     void inSelectionModeChanged();
 
+    void selectionDetailsChanged();
+
+    void cloudConnectionChanged();
+
+    void isFetchingCloudStatusChanged();
+
   private:
     void reloadModel();
+    void fetchCloudStatus();
+    void fetchCloudFiles( const QString &endpoint );
+    void updateCloudStatus();
+    void updateQueuedCloudStatus();
+    void clearCloudFiles();
+    void setIsFetchingCloudStatus( bool isFetching );
     const QString getCurrentTitleFromPath( const QString &path ) const;
 
     QStringList mHistory;
@@ -145,6 +192,15 @@ class QfLocalFilesModel : public QAbstractListModel
     QString mCreatedProjectsPath;
     QString mImportedProjectsPath;
     QString mImportedDatasetsPath;
+
+    QPointer<QfCloudConnection> mCloudConnection;
+    QString mCloudFilesProjectId;
+    QHash<QString, QPair<qint64, QString>> mCloudFiles;
+    bool mCloudFilesFetched = false;
+    bool mIsFetchingCloudStatus = false;
+    int mCloudFilesRequestId = 0;
+
+    QfCloudAttachmentsWatcher mCloudAttachmentsWatcher;
 };
 
 
@@ -186,6 +242,9 @@ class QfLocalFileItem
     bool checked() const { return mChecked; }
     void setChecked( bool checked ) { mChecked = checked; }
 
+    QfLocalFilesModel::CloudStatus cloudStatus() const { return mCloudStatus; }
+    void setCloudStatus( QfLocalFilesModel::CloudStatus cloudStatus ) { mCloudStatus = cloudStatus; }
+
   private:
     QfLocalFilesModel::ItemMetaType mMetaType = QfLocalFilesModel::ItemMetaType::Folder;
     QfLocalFilesModel::ItemType mType = QfLocalFilesModel::ItemType::SimpleFolder;
@@ -194,6 +253,7 @@ class QfLocalFileItem
     QString mPath;
     qint64 mSize = 0;
     bool mChecked = false;
+    QfLocalFilesModel::CloudStatus mCloudStatus = QfLocalFilesModel::CloudStatus::Unknown;
 };
 
 Q_DECLARE_METATYPE( QfLocalFileItem )

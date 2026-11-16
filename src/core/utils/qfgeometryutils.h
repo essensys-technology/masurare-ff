@@ -61,6 +61,9 @@ class QFIELD_CORE_EXPORT QfGeometryUtils : public QObject
 
     explicit QfGeometryUtils( QObject *parent = nullptr );
 
+    //! Returns a QgsGeometryfrom a rubberband model. The wktType is unknown, the type will be determined from the shape formed by the point sequence in the rubberband model..
+    static Q_INVOKABLE QgsGeometry geometryFromRubberband( QfRubberbandModel *rubberBandModel, const QgsCoordinateReferenceSystem &crs, double mapUnitsPerPoint, Qgis::WkbType wkbType = Qgis::WkbType::Unknown );
+
     //! Returns a QgsGeometry with a polygon by using the point sequence in the rubberband model.
     static Q_INVOKABLE QgsGeometry polygonFromRubberband( QfRubberbandModel *rubberBandModel, const QgsCoordinateReferenceSystem &crs, Qgis::WkbType wkbType = Qgis::WkbType::Unknown );
 
@@ -121,11 +124,14 @@ class QFIELD_CORE_EXPORT QfGeometryUtils : public QObject
     //! Returns a rectangle from two points.
     static Q_INVOKABLE QgsRectangle createRectangleFromPoints( const QgsPoint &p1, const QgsPoint &p2 );
 
-    //! Returns TRUE is a geometry is within a reference geometry.
+    //! Returns TRUE if a geometry is within a reference geometry.
     static Q_INVOKABLE bool geometryWithin( const QgsGeometry &geometry, const QgsGeometry &referenceGeometry );
 
-    //! Returns TRUE is a geometry overlaps a reference geometry.
+    //! Returns TRUE if a geometry overlaps a reference geometry.
     static Q_INVOKABLE bool geometryOverlaps( const QgsGeometry &geometry, const QgsGeometry &referenceGeometry );
+
+    //! Retruns TRUE if a geometry is topolgically equal to a referenced geometry.
+    static Q_INVOKABLE bool geometryIsTopologicallyEqual( const QgsGeometry &geometry, const QgsGeometry &referenceGeometry );
 };
 
 #endif // QFGEOMETRYUTILS_H

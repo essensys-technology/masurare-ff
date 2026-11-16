@@ -5,7 +5,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Item {
   id: navigationRenderer
@@ -77,7 +77,7 @@ Item {
           layer.effect: QfDropShadow {
             transparentBorder: true
             radius: 8
-            color: "#99000000"
+            color: QfTheme.shadowColor
             horizontalOffset: 0
             verticalOffset: 0
           }
@@ -88,6 +88,7 @@ Item {
           visible: !isOnMapCanvas
           width: 20
           height: 24
+          preferredRendererType: Shape.CurveRenderer
 
           x: Math.min(mapCanvas.width - width, Math.max(0, mapToScreenPosition.screenPoint.x - width / 2))
           y: Math.min(mapCanvas.height - width, Math.max(0, mapToScreenPosition.screenPoint.y - width / 2))
@@ -125,7 +126,7 @@ Item {
           layer.effect: QfDropShadow {
             transparentBorder: true
             radius: 8
-            color: "#99000000"
+            color: QfTheme.shadowColor
             horizontalOffset: 0
             verticalOffset: 0
           }

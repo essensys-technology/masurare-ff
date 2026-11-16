@@ -56,6 +56,7 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
       Vibrate = 1 << 9,                   //!< Haptic feedback / vibration support
       UpdateProjectFromArchive = 1 << 10, //!< Update local project from a ZIP archive support
       PositioningService = 1 << 11,       //!< QfPositioning service support
+      CustomFileAssociation = 1 << 12,    //!< Opening files shared with the app from other applications
     };
     Q_DECLARE_FLAGS( Capabilities, Capability )
     Q_FLAGS( Capabilities )
@@ -72,6 +73,13 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
      * It will also call afterUpdate whenever a new version is detected.
      */
     void initSystem();
+
+    /**
+     * This method can be used to implement platform specific initialization tasks to be performed after an app update.
+     * This is implemented for Android to extract app assets to location where it can
+     * be accessed via filesystem.
+     */
+    virtual void afterUpdate();
 
     /**
      * The path to share data location.
@@ -124,6 +132,16 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
     Q_INVOKABLE bool rmFile( const QString &filename ) const;
     Q_INVOKABLE bool renameFile( const QString &oldFilePath, const QString &newFilePath, bool overwrite = true ) const;
 
+    /**
+     * Renames \a oldFilePath to \a newFilePath along with the sidecar files accompanying
+     * it, each taking the new file's name while keeping its own suffix.
+     *
+     * Returns the outcome of renaming the file itself; a sidecar which could not follow is
+     * logged and does not turn a successful move into a failure, as the file has moved
+     * either way and the caller's path is valid.
+     */
+    Q_INVOKABLE bool renameFileWithSidecars( const QString &oldFilePath, const QString &newFilePath, bool overwrite = true ) const;
+
 
     /**
      * The main application directory within which projects and datasets can be imported.
@@ -146,6 +164,8 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
     Q_INVOKABLE virtual void importProjectArchive() const;
     //! Requests and imports one or more datasets into QField's application directory action
     Q_INVOKABLE virtual void importDatasets() const;
+    //! Handles a file shared with QField by the operating system by importing it into its application directory and opening it
+    virtual void handleFileAssociation( const QString &path ) const;
 
     /**
      * Update a local project content from a user-picked archive file action
@@ -160,8 +180,11 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
 
     //! Sends a dataset \a path via the platform native API
     Q_INVOKABLE virtual void sendDatasetTo( const QString &path ) const;
-    //! Compresses a folder \a path and sends it via the platform native API
-    Q_INVOKABLE virtual void sendCompressedFolderTo( const QString &path ) const;
+
+    //! Compresses a folder \a path and sends it via the platform native API.
+    //! When \a fileName is set, it is used as the resulting archive name (without extension); otherwise the folder name is used.
+    Q_INVOKABLE virtual void sendCompressedFolderTo( const QString &path, const QString &fileName = QString() ) const;
+
     //! Compresses a list of file \a paths and sends it via the platform native API
     Q_INVOKABLE virtual void sendCompressedFilesTo( const QStringList &paths ) const;
 
@@ -205,13 +228,30 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
     Q_INVOKABLE virtual QfResourceSource *getGalleryVideo( const QString &prefix, const QString &videoFilePath, QObject *parent = nullptr );
 
     /**
+     * Get a picture or a video from gallery and copy it to the requested prefix
+     * @param prefix The project folder
+     * @param mediaFilePath The path (including subfolders and name) of the picture or video
+     * @return The name of the picture or video or null
+     */
+    Q_INVOKABLE virtual QfResourceSource *getGalleryMedia( const QString &prefix, const QString &mediaFilePath, QObject *parent = nullptr );
+
+    /**
      * Get a file from the operating system and copy it to the requested prefix
      * @param prefix The project folder
      * @param filePath The path (including subfolders and name) of the file
-     * @param filter The filter string (e.g. *.mp3)
+     * @param mimeType The accepted mime type
      * @return The name of the file or null
      */
-    Q_INVOKABLE virtual QfResourceSource *getFile( const QString &prefix, const QString &filePath, const QString &mimeType = QStringLiteral( "*/*" ), QObject *parent = nullptr );
+    Q_INVOKABLE QfResourceSource *getFile( const QString &prefix, const QString &filePath, const QString &mimeType = QStringLiteral( "*/*" ), QObject *parent = nullptr );
+
+    /**
+     * Get a file from the operating system and copy it to the requested prefix
+     * @param prefix The project folder
+     * @param filePath The path (including subfolders and name) of the file
+     * @param mimeTypes The accepted mime types, where a * subtype matches any subtype
+     * @return The name of the file or null
+     */
+    Q_INVOKABLE virtual QfResourceSource *getFile( const QString &prefix, const QString &filePath, const QStringList &mimeTypes, QObject *parent = nullptr );
 
     /**
      * Open the resource (file, image, ...) that is available under \a uri.
@@ -337,13 +377,6 @@ class QFIELD_CORE_EXPORT QfPlatformUtilities : public QObject
     void resourceCanceled( const QString &message );
 
   private:
-    /**
-     * This method can be used to implement platform specific initialization tasks to be performed after an app update.
-     * This is implemented for Android to extract app assets to location where it can
-     * be accessed via filesystem.
-     */
-    virtual void afterUpdate();
-
     void copySampleProjects();
 
     QfResourceSource *createResource( const QString &prefix, const QString &filePath, const QString &fileName, QObject *parent );

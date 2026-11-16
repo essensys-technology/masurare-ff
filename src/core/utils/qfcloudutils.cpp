@@ -17,15 +17,19 @@
 #include "qfcloudutils.h"
 #include "qffileutils.h"
 #include "qfplatformutilities.h"
+#include "qfprojectutils.h"
 #include "qfstringutils.h"
 
 #include <QDir>
+#include <QDirIterator>
 #include <QFile>
 #include <QLockFile>
 #include <QStandardPaths>
 #include <QString>
+#include <QTimeZone>
 #include <qgsapplication.h>
 #include <qgsmessagelog.h>
+#include <qgsproject.h>
 
 static QString sLocalCloudDirectory;
 
@@ -74,19 +78,23 @@ bool QfCloudUtils::isCloudAction( const QgsMapLayer *layer )
 const QString QfCloudUtils::getProjectId( const QString &fileName )
 {
   if ( fileName.isEmpty() )
+  {
     return QString();
+  }
 
   const QString path = QFileInfo( fileName ).canonicalFilePath();
   if ( path.isEmpty() )
+  {
     return QString();
+  }
 
   const QString cloudPath = QFileInfo( QfCloudUtils::localCloudDirectory() ).canonicalFilePath();
   if ( cloudPath.isEmpty() || !path.startsWith( cloudPath ) )
+  {
     return QString();
+  }
 
-  const QRegularExpression re(
-    QStringLiteral( "^%1[/\\\\][^/\\\\]+[/\\\\]([^/\\\\]+)" )
-      .arg( QRegularExpression::escape( cloudPath ) ) );
+  const QRegularExpression re( QStringLiteral( "^%1[/\\\\][^/\\\\]+[/\\\\]([^/\\\\]+)" ).arg( QRegularExpression::escape( cloudPath ) ) );
   const QRegularExpressionMatch match = re.match( path );
 
   if ( match.hasMatch() )
@@ -118,6 +126,41 @@ QString QfCloudUtils::documentationFromErrorString( const QString &errorString )
   if ( errorString.contains( errorCodeOverQuota() ) )
   {
     return QStringLiteral( "https://docs.qfield.org/get-started/storage-qfc/#adding-qfieldcloud-storage" );
+  }
+
+  return QString();
+}
+
+QString QfCloudUtils::checkCloudifyFeasibility( const QString &localPath )
+{
+  const QFileInfo localPathInfo( localPath );
+  if ( !localPathInfo.exists() )
+  {
+    return tr( "The project folder could not be found." );
+  }
+
+  const QString projectDirectoryPath = localPathInfo.isFile() ? localPathInfo.absolutePath() : localPathInfo.absoluteFilePath();
+
+  bool projectFileFound = false;
+  QDirIterator projectDirIterator( projectDirectoryPath, { QStringLiteral( "*.qgs" ), QStringLiteral( "*.qgz" ) }, QDir::Files, QDirIterator::Subdirectories );
+  while ( projectDirIterator.hasNext() )
+  {
+    if ( projectFileFound )
+    {
+      return tr( "The project folder contains more than one project file, move the project into a folder of its own and try again." );
+    }
+    projectFileFound = true;
+
+    projectDirIterator.next();
+    if ( projectDirIterator.fileInfo().size() == 0 )
+    {
+      return tr( "The project folder does not contain a valid project file." );
+    }
+  }
+
+  if ( !projectFileFound )
+  {
+    return tr( "The project folder does not contain a project file." );
   }
 
   return QString();
@@ -251,7 +294,7 @@ void QfCloudUtils::addPendingAttachments( const QString &username, const QString
     return;
   }
 
-  if ( checkSumCheck && cloudConnection )
+  if ( checkSumCheck && cloudConnection && cloudConnection->status() == QfCloudConnection::ConnectionStatus::LoggedIn && cloudConnection->isReachable() )
   {
     QVariantMap params;
     params.insert( "skip_metadata", 1 );
@@ -264,6 +307,9 @@ void QfCloudUtils::addPendingAttachments( const QString &username, const QString
       if ( rawReply->error() != QNetworkReply::NoError )
       {
         QgsLogger::debug( QStringLiteral( "Project %1: failed to retrieve file information. %2" ).arg( projectId, QfCloudConnection::errorString( rawReply ) ) );
+
+        // Fallback to non-checksum path
+        writeToAttachmentsFile( username, projectId, fileNames, nullptr, false, cloudConnection );
         return;
       }
 
@@ -308,13 +354,22 @@ void QfCloudUtils::writeToAttachmentsFile( const QString &username, const QStrin
         else if ( fi.isFile() )
         {
           writeFileDetails( fileName, projectId, fileChecksumMap, checkSumCheck, attachmentsStream );
+
+          // Sidecar files carry no meaning on their own and must reach the cloud with the file they belong to
+          const QSet<QString> sidecarFiles = QfFileUtils::sidecarFilesForPath( fileName );
+          for ( const QString &sidecarFile : sidecarFiles )
+          {
+            writeFileDetails( sidecarFile, projectId, fileChecksumMap, checkSumCheck, attachmentsStream );
+          }
         }
       }
       attachmentsFile.close();
     }
 
     if ( cloudConnection )
+    {
       emit cloudConnection->pendingAttachmentsAdded();
+    }
   }
 }
 
@@ -330,6 +385,11 @@ void QfCloudUtils::writeFilesFromDirectory( const QString &dirPath, const QStrin
 
   for ( const QFileInfo &entry : entries )
   {
+    if ( QfProjectUtils::isLayerDataset( QgsProject::instance(), entry.absoluteFilePath() ) )
+    {
+      continue;
+    }
+
     if ( entry.isDir() )
     {
       writeFilesFromDirectory( entry.absoluteFilePath(), projectId, fileChecksumMap, checkSumCheck, attachmentsStream );
@@ -386,6 +446,67 @@ void QfCloudUtils::removePendingAttachment( const QString &username, const QStri
   }
 }
 
+void QfCloudUtils::addAttachmentHistory( const QString &username, const QString &projectId, const QfCloudAttachmentHistoryEntry &entry )
+{
+  if ( username.isEmpty() || projectId.isEmpty() )
+  {
+    return;
+  }
+
+  const QString localCloudUserDirectory = QStringLiteral( "%1/%2" ).arg( QfCloudUtils::localCloudDirectory(), username );
+  QLockFile attachmentsLock( QStringLiteral( "%1/attachments.lock" ).arg( localCloudUserDirectory ) );
+  if ( !attachmentsLock.tryLock( 10000 ) )
+  {
+    return;
+  }
+
+  QFile historyFile( QStringLiteral( "%1/attachments_history.csv" ).arg( localCloudUserDirectory ) );
+  if ( historyFile.open( QFile::Append | QFile::Text ) )
+  {
+    // The expected CSV format must have four columns:
+    // timestamp,project_id,http_code,file_path
+    QTextStream historyStream( &historyFile );
+    historyStream << QfStringUtils::stringListToCsv( QStringList() << entry.timestamp.toUTC().toString( Qt::ISODateWithMs ) << projectId << QString::number( entry.httpCode ) << entry.fileName ) << Qt::endl;
+    historyFile.close();
+  }
+}
+
+const QList<QfCloudAttachmentHistoryEntry> QfCloudUtils::getAttachmentsHistory( const QString &username, const QString &projectId )
+{
+  QList<QfCloudAttachmentHistoryEntry> entries;
+  if ( username.isEmpty() || projectId.isEmpty() )
+  {
+    return entries;
+  }
+
+  const QString localCloudUserDirectory = QStringLiteral( "%1/%2" ).arg( QfCloudUtils::localCloudDirectory(), username );
+  QLockFile attachmentsLock( QStringLiteral( "%1/attachments.lock" ).arg( localCloudUserDirectory ) );
+  if ( !attachmentsLock.tryLock( 10000 ) )
+  {
+    return entries;
+  }
+
+  QFile historyFile( QStringLiteral( "%1/attachments_history.csv" ).arg( localCloudUserDirectory ) );
+  if ( historyFile.open( QFile::ReadOnly | QFile::Text ) )
+  {
+    QTextStream historyStream( &historyFile );
+    while ( !historyStream.atEnd() )
+    {
+      const QStringList values = QfStringUtils::csvToStringList( historyStream.readLine().trimmed() );
+      if ( values.size() >= 4 && values.at( 1 ) == projectId )
+      {
+        QfCloudAttachmentHistoryEntry entry;
+        entry.timestamp = QDateTime::fromString( values.at( 0 ), Qt::ISODateWithMs );
+        entry.httpCode = values.at( 2 ).toInt();
+        entry.fileName = values.at( 3 );
+        entries << entry;
+      }
+    }
+  }
+
+  return entries;
+}
+
 QString QfCloudUtils::subscriptionManagementUrl( const QString &serverUrl, const QString &plan, const QString &projectOwner, const QString &username )
 {
   if ( serverUrl != QfCloudConnection::defaultUrl() )
@@ -405,6 +526,11 @@ QString QfCloudUtils::subscriptionManagementUrl( const QString &serverUrl, const
   }
 
   return QString();
+}
+
+QString QfCloudUtils::deviceTimeZoneId()
+{
+  return QString::fromUtf8( QTimeZone::systemTimeZoneId() );
 }
 
 QList<QfCloudDelta> QfCloudUtils::parseDeltaJsonDocument( const QJsonDocument &jsonDocument, QString &errorString, bool &isValid )

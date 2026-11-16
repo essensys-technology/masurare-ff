@@ -104,6 +104,7 @@ class QfAppInterface : public QObject
     /**
      * Prints a project layout to PDF.
      * \param layoutName the layout name
+     * \returns TRUE if the print was started, its outcome is reported through printEnded()
      */
     Q_INVOKABLE bool print( const QString &layoutName );
 
@@ -111,6 +112,7 @@ class QfAppInterface : public QObject
      * Prints an atlas-driven project layout to PDF.
      * \param layoutName the layout name
      * \param featureIds the list of atlas feature IDs
+     * \returns TRUE if the print was started, its outcome is reported through printEnded()
      */
     Q_INVOKABLE bool printAtlasFeatures( const QString &layoutName, const QList<long long> &featureIds );
 
@@ -265,6 +267,24 @@ class QfAppInterface : public QObject
      */
     void loadProjectEnded( const QString &path, const QString &name );
 
+    /**
+     * Emitted when a layout print has been triggered.
+     * \param name the name of the layout being printed
+     */
+    void printTriggered( const QString &name );
+
+    /**
+     * Emitted when an ongoing print reports its \a progress.
+     * \note only atlas prints report progress, others stay indefinite
+     */
+    void printProgress( double progress );
+
+    /**
+     * Emitted when a print has ended, \a success telling whether a PDF was written.
+     * \param folderPath the folder the output was written into, empty when the print failed
+     */
+    void printEnded( bool success, const QString &folderPath );
+
     //! Requests QField to set its map to the provided \a extent.
     void setMapExtent( const QgsRectangle &extent );
 
@@ -282,6 +302,18 @@ class QfAppInterface : public QObject
 
   private:
     QObject *rootObject() const;
+
+    /**
+     * Imports a local file into the Imported Projects or Imported Datasets folder, extracts it
+     * when it is a compressed project, and reports the outcome through importEnded().
+     * \param filePath the file to import, which is moved rather than copied
+     * \param loadOnImport set to TRUE to load the imported project or dataset when it is supported
+     * \param fileName the name to import the file as, defaults to the name of \a filePath
+     * \param originalUrl the URL the file was downloaded from, if any
+     */
+    void importLocalFile( const QString &filePath, bool loadOnImport = false, const QString &fileName = QString(), const QString &originalUrl = QString() );
+
+    friend class QfIosPlatformUtilities;
 
     static QfAppInterface *sAppInterface;
 

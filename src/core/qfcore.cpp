@@ -35,9 +35,11 @@
 #include "qfaudioanalyzer.h"
 #include "qfaudiorecorder.h"
 #include "qfbarcodedecoder.h"
+#include "qfbarcodevideomodel.h"
 #include "qfbookmarkmodel.h"
 #include "qfcameraorientationnormalizer.h"
 #include "qfcore.h"
+#include "qfdigitizinglayermodel.h"
 #include "qfdigitizinglogger.h"
 #include "qfdistancearea.h"
 #include "qfdrawingcanvas.h"
@@ -51,6 +53,7 @@
 #include "qfgridmodel.h"
 #include "qfidentifytool.h"
 #include "qfield.h"
+#include "qfieldcloud/qfcloudattachmentsmodel.h"
 #include "qfieldcloud/qfcloudconnection.h"
 #include "qfieldcloud/qfcloudproject.h"
 #include "qfieldcloud/qfcloudprojectsmodel.h"
@@ -64,10 +67,14 @@
 #include "qflinepolygonshape.h"
 #include "qfmaplayermodel.h"
 #include "qfmaptoscreen.h"
+#include "qfmarkupcollection.h"
+#include "qfmarkupitem.h"
+#include "qfmarkupmanager.h"
 #include "qfmultifeaturelistmodel.h"
 #include "qfnavigation.h"
 #include "qfnavigationmodel.h"
 #include "qfnearfieldreader.h"
+#include "qfnewsparser.h"
 #include "qfprojectinfo.h"
 #include "qfprojectsource.h"
 #include "qfresourcesource.h"
@@ -76,6 +83,7 @@
 #include "qfscalebarmeasurement.h"
 #include "qfsettings.h"
 #include "qfsubmodel.h"
+#include "qfsubtitlewriter.h"
 #include "qftracker.h"
 #include "qftrackingmodel.h"
 #include "qfvertexmodel.h"
@@ -164,6 +172,7 @@ namespace QfCore
     qmlRegisterType<QfCogoOperationsModel>( "org.qfield.core", 1, 0, "QfCogoOperationsModel" );
     qmlRegisterType<QfDeltaChangesModel>( "org.qfield.core", 1, 0, "QfDeltaChangesModel" );
     qmlRegisterType<QfDeltaListModel>( "org.qfield.core", 1, 0, "QfDeltaListModel" );
+    qmlRegisterType<QfDigitizingLayerModel>( "org.qfield.core", 1, 0, "QfDigitizingLayerModel" );
     qmlRegisterType<QfDigitizingLogger>( "org.qfield.core", 1, 0, "QfDigitizingLogger" );
     qmlRegisterType<QfDistanceArea>( "org.qfield.core", 1, 0, "QfDistanceArea" );
     qmlRegisterType<QfDrawingCanvas>( "org.qfield.core", 1, 0, "QfDrawingCanvas" );
@@ -181,10 +190,12 @@ namespace QfCore
     qmlRegisterType<QfLocatorModelSuperBridge>( "org.qfield.core", 1, 0, "QfLocatorModelSuperBridge" );
     qmlRegisterType<QfMapLayerModel>( "org.qfield.core", 1, 0, "QfMapLayerModel" );
     qmlRegisterType<QfMapToScreen>( "org.qfield.core", 1, 0, "QfMapToScreen" );
+    qmlRegisterType<QfMarkupCollection>( "org.qfield.core", 1, 0, "QfMarkupCollection" );
     qmlRegisterType<QfMultiFeatureListModel>( "org.qfield.core", 1, 0, "QfMultiFeatureListModel" );
     qmlRegisterType<QfNavigation>( "org.qfield.core", 1, 0, "QfNavigation" );
     qmlRegisterType<QfNavigationModel>( "org.qfield.core", 1, 0, "QfNavigationModel" );
     qmlRegisterType<QfNearFieldReader>( "org.qfield.core", 1, 0, "QfNearFieldReader" );
+    qmlRegisterType<QfNewsParser>( "org.qfield.core", 1, 0, "QfNewsParser" );
     qmlRegisterType<QfNtripSourceTableFetcher>( "org.qfield.core", 1, 0, "QfNtripSourceTableFetcher" );
     qmlRegisterType<QfPositioning>( "org.qfield.core", 1, 0, "QfPositioning" );
     qmlRegisterType<QfPositioningDeviceModel>( "org.qfield.core", 1, 0, "QfPositioningDeviceModel" );
@@ -194,6 +205,7 @@ namespace QfCore
     qmlRegisterType<QfProcessingAlgorithmsModel>( "org.qfield.core", 1, 0, "QfProcessingAlgorithmsModel" );
     qmlRegisterType<QfProjectInfo>( "org.qfield.core", 1, 0, "QfProjectInfo" );
     qmlRegisterType<QfProjectSource>( "org.qfield.core", 1, 0, "QfProjectSource" );
+    qmlRegisterType<QfCloudAttachmentsModel>( "org.qfield.core", 1, 0, "QfCloudAttachmentsModel" );
     qmlRegisterType<QfCloudConnection>( "org.qfield.core", 1, 0, "QfCloudConnection" );
     qmlRegisterType<QfCloudProject>( "org.qfield.core", 1, 0, "QfCloudProject" );
     qmlRegisterType<QfCloudProjectsModel>( "org.qfield.core", 1, 0, "QfCloudProjectsModel" );
@@ -206,6 +218,7 @@ namespace QfCore
     qmlRegisterType<QfRubberbandShape>( "org.qfield.core", 1, 0, "QfRubberbandShape" );
     qmlRegisterType<QfScaleBarMeasurement>( "org.qfield.core", 1, 0, "QfScaleBarMeasurement" );
     qmlRegisterType<QfSnappingUtils>( "org.qfield.core", 1, 0, "QfSnappingUtils" );
+    qmlRegisterType<QfSubtitleWriter>( "org.qfield.core", 1, 0, "QfSubtitleWriter" );
     qmlRegisterType<QfSubModel>( "org.qfield.core", 1, 0, "QfSubModel" );
     qmlRegisterType<QfVertexModel>( "org.qfield.core", 1, 0, "QfVertexModel" );
     qmlRegisterType<QfVideoSinkCapture>( "org.qfield.core", 1, 0, "QfVideoSinkCapture" );
@@ -232,20 +245,23 @@ namespace QfCore
 
     qmlRegisterUncreatableType<QfAbstractGnssReceiver>( "org.qfield.core", 1, 0, "QfAbstractGnssReceiver", "" );
     qmlRegisterUncreatableType<QfAppInterface>( "org.qfield.core", 1, 0, "QfAppInterface", "AppInterface is only provided by the environment and cannot be created ad-hoc" );
-    qmlRegisterUncreatableType<QfBookmarkModel>( "org.qfield.core", 1, 0, "QfBookmarkModel", "The BookmarkModel is available as context property `bookmarkModel`" );
+    qmlRegisterUncreatableType<QfBookmarkModel>( "org.qfield.core", 1, 0, "QfBookmarkModel", "The QfBookmarkModel is available as context property `bookmarkModel`" );
     qmlRegisterUncreatableType<QfCogoParameter>( "org.qfield.core", 1, 0, "cogoParameter", "Used for property values" );
     qmlRegisterUncreatableType<QfCogoVisualGuide>( "org.qfield.core", 1, 0, "cogoVisualGuide", "Used for property values" );
     qmlRegisterUncreatableType<QfDeltaFileWrapper>( "org.qfield.core", 1, 0, "QfDeltaFileWrapper", "" );
-    qmlRegisterUncreatableType<QfFlatLayerTreeModel>( "org.qfield.core", 1, 0, "QfFlatLayerTreeModel", "The FlatLayerTreeModel is available as context property `flatLayerTree`." );
+    qmlRegisterUncreatableType<QfFlatLayerTreeModel>( "org.qfield.core", 1, 0, "QfFlatLayerTreeModel", "The QfFlatLayerTreeModel is available as context property `flatLayerTree`." );
     qmlRegisterUncreatableType<QfGnssPositionInformation>( "org.qfield.core", 1, 0, "gnssPositionInformation", "Used for property values" );
     qmlRegisterUncreatableType<QfGridAnnotation>( "org.qfield.core", 1, 0, "gridAnnotation", "Used for property values" );
     qmlRegisterUncreatableType<QfLayerObserver>( "org.qfield.core", 1, 0, "QfLayerObserver", "" );
+    qmlRegisterUncreatableType<QfMarkupItem>( "org.qfield.core", 1, 0, "QfMarkupItem", "" );
+    qmlRegisterUncreatableType<QfMarkupManager>( "org.qfield.core", 1, 0, "QfMarkupManager", "The QfMarkupManager is available as context property `markupManager`" );
     qmlRegisterUncreatableType<QfNtripSettings>( "org.qfield.core", 1, 0, "ntripSettings", "Used for property values" );
     qmlRegisterUncreatableType<QfPlatformUtilities>( "org.qfield.core", 1, 0, "QfPlatformUtilities", "" );
     qmlRegisterUncreatableType<QgsGpkgFlusher>( "org.qfield.core", 1, 0, "QgsGpkgFlusher", "The gpkgFlusher is available as context property `gpkgFlusher`" );
     qmlRegisterUncreatableType<QfSettings>( "org.qfield.core", 1, 0, "QfSettings", "" );
     qmlRegisterUncreatableType<QfTracker>( "org.qfield.core", 1, 0, "QfTracker", "" );
     qmlRegisterUncreatableType<QfTrackingModel>( "org.qfield.core", 1, 0, "QfTrackingModel", "The TrackingModel is available as context property `trackingModel`." );
+    qmlRegisterUncreatableType<QfBarcodeVideoModel>( "org.qfield.core", 1, 0, "QfBarcodeVideoModel", "" );
 
 #ifdef WITH_BLUETOOTH
     qmlRegisterType<QfBluetoothDeviceModel>( "org.qfield.core", 1, 0, "QfBluetoothDeviceModel" );

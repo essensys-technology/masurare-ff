@@ -1,5 +1,5 @@
-set(QGIS_REF 3a92eb30c83d7d52751a330628d72b8eb9e64876)
-set(QGIS_SHA512 3d1a9f5acafd8e6a3e00904872b7ae8176a26e6ea8c41d8ae6b8659d00f6fa5b7e9e88e7779723e1175401e559d376bd6d1de1285fc45f527228fab56dbfb871)
+set(QGIS_REF b48841f414e5d33c699fb6118c376911600dbed0)
+set(QGIS_SHA512 25e9863161480e4679e7b6343112986f5a38be20d3ea3c4150823969982efa15d55a0a0885ce98c1801e667232c2304838a9e45b0842371b88ad91283ce9d82e)
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
@@ -14,9 +14,7 @@ vcpkg_from_github(
         include-qthread.patch
         processing.patch # Needed to avoid link issue with tinygltf (ATM embedded into QGIS) and _GEOSQueryCallback defined multiple times
         mesh.patch
-        vector_tiles_dpi_fix.patch
 )
-
 
 file(REMOVE ${SOURCE_PATH}/cmake/FindGDAL.cmake)
 file(REMOVE ${SOURCE_PATH}/cmake/FindGEOS.cmake)
@@ -29,8 +27,8 @@ vcpkg_find_acquire_program(BISON)
 vcpkg_find_acquire_program(PYTHON3)
 
 list(APPEND QGIS_OPTIONS "-DENABLE_TESTS:BOOL=OFF")
+list(APPEND QGIS_OPTIONS "-DWITH_WAYLAND:BOOL=OFF")
 list(APPEND QGIS_OPTIONS "-DWITH_QTWEBENGINE:BOOL=OFF")
-list(APPEND QGIS_OPTIONS "-DWITH_QTWEBKIT:BOOL=OFF")
 list(APPEND QGIS_OPTIONS "-DWITH_QTPRINTER:BOOL=OFF")
 list(APPEND QGIS_OPTIONS "-DWITH_GRASS7:BOOL=OFF")
 list(APPEND QGIS_OPTIONS "-DWITH_SPATIALITE:BOOL=ON")
@@ -47,9 +45,7 @@ list(APPEND QGIS_OPTIONS "-DFLEX_EXECUTABLE=${FLEX}")
 # By default QGIS installs includes into "include" on Windows and into "include/qgis" everywhere else
 # let's keep things clean and tidy and put them at a predictable location
 list(APPEND QGIS_OPTIONS "-DQGIS_INCLUDE_SUBDIR=include/qgis")
-list(APPEND QGIS_OPTIONS "-DBUILD_WITH_QT6=ON")
 list(APPEND QGIS_OPTIONS "-DUSE_CCACHE=OFF")
-list(APPEND QGIS_OPTIONS "-DQGIS_MACAPP_FRAMEWORK=FALSE")
 
 if("opencl" IN_LIST FEATURES)
     list(APPEND QGIS_OPTIONS -DUSE_OPENCL:BOOL=ON)

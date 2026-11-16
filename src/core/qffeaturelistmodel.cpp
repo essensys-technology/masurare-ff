@@ -25,6 +25,8 @@
 #include <qgsstringutils.h>
 #include <qgsvaluerelationfieldformatter.h>
 
+#define UNACCENTED_MAX_FEATURE_COUNT 15000
+
 
 QfFeatureListModel::QfFeatureListModel( QObject *parent )
   : QAbstractItemModel( parent )
@@ -349,29 +351,49 @@ void QfFeatureListModel::gatherFeatureList()
 
   referencedColumns << mDisplayValueField;
 
-  QgsFields fields = mCurrentLayer->fields();
-  int displayValueIndex = fields.indexOf( mDisplayValueField );
+  const QgsFields fields = mCurrentLayer->fields();
+  const int displayValueIndex = fields.indexOf( mDisplayValueField );
 
   request.setSubsetOfAttributes( referencedColumns, fields );
 
-  QString fieldDisplayString = displayValueIndex >= 0
-                                 ? QgsExpression::quotedColumnRef( mDisplayValueField )
-                                 : QStringLiteral( " ( %1 ) " ).arg( mCurrentLayer->displayExpression() );
+  const QString fieldDisplayString = displayValueIndex >= 0
+                                       ? QgsExpression::quotedColumnRef( mDisplayValueField )
+                                       : mCurrentLayer->displayExpression();
 
+  // Since the use of unaccent() function means the filter expression cannot be compiled on the provider
+  // side, we need to bail out of unaccented searches when the layer contains a large number of features
+  const bool unaccentedSearch = mCurrentLayer->featureCount() < UNACCENTED_MAX_FEATURE_COUNT;
   QString searchTermExpression;
   if ( !mSearchTerm.isEmpty() )
   {
-    QString escapedSearchTerm = QgsExpression::quotedValue( QgsStringUtils::unaccent( mSearchTerm ) ).replace( QRegularExpression( QStringLiteral( "^'|'$" ) ), QString( "" ) );
-    searchTermExpression = QStringLiteral( " unaccent( %1 ) ILIKE '%%2%' " ).arg( fieldDisplayString, escapedSearchTerm );
-
+    QString escapedSearchTerm = QgsExpression::quotedValue( unaccentedSearch ? QgsStringUtils::unaccent( mSearchTerm.trimmed() ) : mSearchTerm.trimmed() ).replace( QRegularExpression( QStringLiteral( "^'|'$" ) ), QString( "" ) );
     QStringList searchTermParts = escapedSearchTerm.split( QRegularExpression( QStringLiteral( "\\s+" ) ), Qt::SkipEmptyParts );
-    if ( !searchTermParts.isEmpty() )
+
+    if ( searchTermParts.size() > 1 )
     {
       for ( QString &searchTermPart : searchTermParts )
       {
-        searchTermPart = QStringLiteral( "unaccent( %1 ) ILIKE '%%2%' " ).arg( fieldDisplayString, searchTermPart );
+        searchTermPart = QStringLiteral( "(%1) ILIKE '%%2%'" ).arg( unaccentedSearch ? QStringLiteral( "@search_string" ) : fieldDisplayString, searchTermPart );
       }
-      searchTermExpression += QStringLiteral( "OR (%2) " ).arg( searchTermParts.join( QStringLiteral( " AND " ) ) );
+      if ( unaccentedSearch )
+      {
+        searchTermExpression = QStringLiteral( "with_variable('search_string', unaccent(%1), %2)" ).arg( fieldDisplayString, searchTermParts.join( QStringLiteral( " AND " ) ) );
+      }
+      else
+      {
+        searchTermExpression = searchTermParts.join( QStringLiteral( " AND " ) );
+      }
+    }
+    else
+    {
+      if ( unaccentedSearch )
+      {
+        searchTermExpression = QStringLiteral( "unaccent(%1) ILIKE '%%2%'" ).arg( fieldDisplayString, escapedSearchTerm );
+      }
+      else
+      {
+        searchTermExpression = QStringLiteral( "(%1) ILIKE '%%2%'" ).arg( fieldDisplayString, escapedSearchTerm );
+      }
     }
   }
 
@@ -397,7 +419,7 @@ void QfFeatureListModel::gatherFeatureList()
     request.setFilterExpression( mFilterExpression );
     if ( mFilterExpression.isEmpty() )
     {
-      request.setFilterExpression( QStringLiteral( " (%1) " ).arg( searchTermExpression ) );
+      request.setFilterExpression( QStringLiteral( "%1" ).arg( searchTermExpression ) );
     }
     else if ( searchTermExpression.isEmpty() )
     {
@@ -405,7 +427,7 @@ void QfFeatureListModel::gatherFeatureList()
     }
     else
     {
-      request.setFilterExpression( QStringLiteral( " (%1) AND (%2) " ).arg( mFilterExpression, searchTermExpression ) );
+      request.setFilterExpression( QStringLiteral( "(%1) AND (%2)" ).arg( mFilterExpression, searchTermExpression ) );
     }
   }
 
@@ -429,7 +451,7 @@ void QfFeatureListModel::processFeatureList()
 
   if ( mAddNull )
   {
-    entries.append( Entry( QStringLiteral( "<i>NULL</i>" ), QVariant(), QVariant(), QgsFeatureId(), QString() ) );
+    entries.append( Entry( QStringLiteral( "NULL" ), QVariant(), QVariant(), QgsFeatureId(), QString() ) );
   }
 
   const QVector<QfFeatureExpressionValuesGatherer::Entry> gatheredEntries = mGatherer->entries();

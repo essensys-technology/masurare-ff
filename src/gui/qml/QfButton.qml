@@ -9,7 +9,7 @@ import org.qfield.core
 import org.qfield.gui
 
 /**
- * \ingroup qml
+ * \ingroup qml_gui
  */
 Button {
   id: button
@@ -21,6 +21,7 @@ Button {
   property bool dropdown: false
   property real progressValue: 0.0
   property bool showProgress: false
+  property color progressColor: QfTheme.mainColor
 
   signal dropdownClicked
 
@@ -66,9 +67,11 @@ Button {
       Shape {
         x: progressPath.strokeWidth / 2
         y: progressPath.strokeWidth / 2
+        preferredRendererType: Shape.CurveRenderer
+
         ShapePath {
           id: progressPath
-          strokeColor: QfTheme.mainColor
+          strokeColor: button.progressColor
           strokeWidth: 2
           strokeStyle: ShapePath.DashLine
           fillColor: "transparent"
@@ -190,6 +193,7 @@ Button {
       height: 20
       visible: true
       opacity: button.enabled ? 1 : 0.25
+      preferredRendererType: Shape.CurveRenderer
 
       ShapePath {
         strokeWidth: 2

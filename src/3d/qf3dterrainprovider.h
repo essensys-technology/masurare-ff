@@ -43,7 +43,7 @@ class QgsAbstractTerrainProvider;
  * generation in Qt Quick 3D.
  *
  * \note QML Type: Qf3DTerrainProvider
- * \ingroup core
+ * \ingroup _3d
  *
  */
 class Qf3DTerrainProvider : public QObject
@@ -142,10 +142,10 @@ class Qf3DTerrainProvider : public QObject
     Q_INVOKABLE double heightAt( double x, double y ) const;
 
     /**
-     * Returns the normalized height value [0.0-1.0] at the specified map coordinates.
+     * Returns the terrain mesh height at the given map coordinates.
      * \param x X coordinate in map CRS
      * \param y Y coordinate in map CRS
-     * \returns Normalized height between 0 and 1, or 0 if outside extent
+     * \returns 0 until the terrain is loaded, and the nearest edge height for points outside it
      */
     Q_INVOKABLE double normalizedHeightAt( double x, double y ) const;
 
@@ -183,6 +183,13 @@ class Qf3DTerrainProvider : public QObject
     //! Applies scale offset to the stored terrain based on zoom action
     Q_INVOKABLE void zoom( double factor );
 
+    /**
+     * Applies X/Z offsets to the stored terrain so that the given point sits at the scene center.
+     * \param geoX X coordinate in map CRS
+     * \param geoY Y coordinate in map CRS
+     */
+    Q_INVOKABLE void panTo( double geoX, double geoY );
+
   signals:
     void projectChanged();
     void mapSettingsChanged();
@@ -203,6 +210,10 @@ class Qf3DTerrainProvider : public QObject
   private:
     void updateTerrainProvider();
     void updateFromMapSettings();
+
+    QSizeF extentSizeInMeters( const QgsRectangle &extent ) const;
+    void setNormalizedDataExtent( const QgsRectangle &extent );
+
     void updateExtentFromOffsets();
     void calculateResolution();
     void generateData();
@@ -239,6 +250,9 @@ class Qf3DTerrainProvider : public QObject
 
     double mMinRealHeight = 0.0;
     double mMaxRealHeight = 0.0;
+
+    //! Scene units per meter of elevation, derived from the terrain data extent
+    double mHeightScale = 1.0;
 
     QFutureWatcher<QVector<double>> *mFutureWatcher = nullptr;
     QgsRectangle mFutureExtent;

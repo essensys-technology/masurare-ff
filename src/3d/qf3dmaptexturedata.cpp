@@ -15,13 +15,17 @@
  ***************************************************************************/
 
 #include "qf3dmaptexturedata.h"
+#include "qfmarkupcollection.h"
 #include "qgsquick/qgsquickmapsettings.h"
 
 #include <QPainter>
 #include <qgis.h>
+#include <qgsannotationlayer.h>
+#include <qgsexpressioncontextutils.h>
 #include <qgsmaplayer.h>
 #include <qgsmaprendererparalleljob.h>
 #include <qgsmapsettings.h>
+#include <qgsproject.h>
 
 
 Qf3DMapTextureData::Qf3DMapTextureData( QQuick3DObject *parent )
@@ -84,6 +88,33 @@ void Qf3DMapTextureData::setMapSettings( QgsQuickMapSettings *mapSettings )
   }
 
   emit mapSettingsChanged();
+}
+
+QfMarkupManager *Qf3DMapTextureData::markupManager() const
+{
+  return mMarkupManager;
+}
+
+void Qf3DMapTextureData::setMarkupManager( QfMarkupManager *markupManager )
+{
+  if ( mMarkupManager == markupManager )
+  {
+    return;
+  }
+
+  if ( mMarkupManager )
+  {
+    disconnect( mMarkupManager, &QfMarkupManager::visibleCollectionsChanged, this, &Qf3DMapTextureData::render );
+  }
+
+  mMarkupManager = markupManager;
+
+  if ( mMarkupManager )
+  {
+    connect( mMarkupManager, &QfMarkupManager::visibleCollectionsChanged, this, &Qf3DMapTextureData::render );
+  }
+
+  emit markupManagerChanged();
 }
 
 QgsRectangle Qf3DMapTextureData::extent() const
@@ -210,6 +241,39 @@ void Qf3DMapTextureData::render()
   renderSettings.setFlag( Qgis::MapSettingsFlag::UseRenderingOptimization );
   renderSettings.setFlag( Qgis::MapSettingsFlag::RenderPartialOutput, mIncrementalRendering );
   renderSettings.setOutputImageFormat( QImage::Format_RGBA8888 );
+
+  //build the expression context
+  QgsExpressionContext expressionContext;
+  expressionContext << QgsExpressionContextUtils::globalScope()
+                    << QgsExpressionContextUtils::mapSettingsScope( renderSettings );
+
+  QList<QgsMapLayer *> allLayers = renderSettings.layers();
+
+  QgsProject *project = mMapSettings->project();
+  if ( project )
+  {
+    expressionContext << QgsExpressionContextUtils::projectScope( project );
+
+    renderSettings.setLabelingEngineSettings( project->labelingEngineSettings() );
+
+    // render main annotation layer above all other layers
+    allLayers.insert( 0, project->mainAnnotationLayer() );
+  }
+
+  if ( mMarkupManager )
+  {
+    // render markup collections above all other layers
+    for ( QfMarkupCollection *collection : mMarkupManager->visibleCollections() )
+    {
+      if ( collection->count() > 0 )
+      {
+        allLayers.insert( 0, collection->asAnnotationLayer() );
+      }
+    }
+  }
+
+  renderSettings.setLayers( allLayers );
+  renderSettings.setExpressionContext( expressionContext );
 
   mRenderJob.reset( new QgsMapRendererParallelJob( renderSettings ) );
 

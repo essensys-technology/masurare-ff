@@ -31,12 +31,12 @@ import org.qfield.gui
 import org.qfield.app
 
 /**
- * \defgroup qml
- * \brief QField QML items
+ * \defgroup qml_app QML app
+ * \brief QField application QML items available through import org.qfield.app
  */
 
 /**
- * \ingroup qml
+ * \ingroup qml_app
  */
 ApplicationWindow {
   id: mainWindow
@@ -121,6 +121,20 @@ ApplicationWindow {
     }
   }
 
+  Binding {
+    target: mainWindow
+    property: "width"
+    value: mainWindowSettings.width
+    when: Qt.platform.os !== "ios" && Qt.platform.os !== "android"
+  }
+
+  Binding {
+    target: mainWindow
+    property: "height"
+    value: mainWindowSettings.height
+    when: Qt.platform.os !== "ios" && Qt.platform.os !== "android"
+  }
+
   palette {
     link: QfTheme.mainColor
     linkVisited: QfTheme.mainColor
@@ -151,7 +165,7 @@ ApplicationWindow {
     }
 
     onRequestJumpToPoint: function (center, scale, handleMargins) {
-      mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+      mainWindow.jumpTo(center, scale, handleMargins);
     }
   }
 
@@ -265,21 +279,14 @@ ApplicationWindow {
     objectName: "stateMachine"
 
     property string lastState
+    property bool is3DView: false
 
     states: [
       State {
         name: "browse"
-        PropertyChanges {
-          target: identifyTool
-          deactivated: false
-        }
       },
       State {
         name: "digitize"
-        PropertyChanges {
-          target: identifyTool
-          deactivated: false
-        }
         PropertyChanges {
           target: mainWindow
           currentRubberband: digitizingRubberband
@@ -288,10 +295,6 @@ ApplicationWindow {
       State {
         name: 'measure'
         PropertyChanges {
-          target: identifyTool
-          deactivated: true
-        }
-        PropertyChanges {
           target: mainWindow
           currentRubberband: measuringTool.measuringRubberband
         }
@@ -299,12 +302,15 @@ ApplicationWindow {
           target: featureListForm
           state: "Hidden"
         }
-      },
-      State {
-        name: '3d'
       }
     ]
     state: "browse"
+
+    onStateChanged: {
+      if (state !== "browse" && is3DView) {
+        mapCanvas3DLoader.close();
+      }
+    }
   }
 
   onToggleDigitizeMode: {
@@ -323,7 +329,7 @@ ApplicationWindow {
     if (stateMachine.state === mode) {
       return;
     }
-    if (stateMachine.state !== 'measure' && stateMachine.state !== '3d') {
+    if (stateMachine.state !== 'measure') {
       stateMachine.lastState = stateMachine.state;
     }
     stateMachine.state = mode;
@@ -348,8 +354,6 @@ ApplicationWindow {
       informationDrawer.elevationProfile.populateLayersFromProject();
       displayToast(qsTr('You are now in measure mode'));
       break;
-    case '3d':
-      break;
     }
   }
 
@@ -358,14 +362,8 @@ ApplicationWindow {
   }
 
   onClose3DView: {
-    // Sync 2D map to the 3D extent so we land on the same area
-    if (mapCanvas3DLoader.item) {
-      const ext = mapCanvas3DLoader.item.terrainExtent;
-      if (ext && ext.width > 0 && ext.height > 0) {
-        mapCanvas.mapSettings.extent = ext;
-      }
-    }
-    changeMode(stateMachine.lastState);
+    mapCanvas3DLoader.close();
+    changeMode(mapCanvas3DLoader.previousMode);
   }
 
   /**
@@ -413,7 +411,7 @@ ApplicationWindow {
         }
         bearingTrueNorth = QfPositioningUtils.bearingTrueNorth(positionSource.projectedPosition, mapCanvas.mapSettings.destinationCrs);
         if (gnssButton.followActive) {
-          if (stateMachine.state === '3d') {
+          if (stateMachine.is3DView) {
             if (mapCanvas3DLoader.item) {
               const pos3d = mapCanvas3DLoader.item.geoTo3D(positionSource.projectedPosition.x, positionSource.projectedPosition.y);
               if (pos3d !== null) {
@@ -451,6 +449,7 @@ ApplicationWindow {
     onBackgroundModeChanged: {
       if (trackings.count > 0) {
         if (backgroundMode) {
+          replayTimer.stop();
           trackingModel.suspendUntilReplay();
         } else {
           busyOverlay.text = qsTr("Replaying collected positions, hold on");
@@ -531,6 +530,30 @@ ApplicationWindow {
     clip: true
 
     DragHandler {
+      id: markupHandler
+
+      enabled: markupToolbar.stateVisible && markupToolbar.isMarking
+      grabPermissions: PointerHandler.CanTakeOverFromHandlersOfSameType | PointerHandler.CanTakeOverFromHandlersOfDifferentType
+      dragThreshold: 0
+
+      onActiveChanged: {
+        if (!active) {
+          markupToolbar.processMarkup();
+          coordinateLocator.sourceLocation = undefined;
+        }
+      }
+
+      onCentroidChanged: {
+        if (active) {
+          if (centroid.position !== Qt.point(0, 0)) {
+            coordinateLocator.sourceLocation = centroid.position;
+            markupToolbar.addVertex();
+          }
+        }
+      }
+    }
+
+    DragHandler {
       id: freehandHandler
       property bool isDigitizing: false
       property int freehandStartVertexIndex: -1
@@ -570,8 +593,8 @@ ApplicationWindow {
     DragHandler {
       id: rotateDragHandler
       enabled: rotateFeaturesToolbar.rotateFeaturesRequested == true
-      acceptedDevices: !qfieldSettings.mouseAsTouchScreen ? PointerDevice.TouchScreen | PointerDevice.Mouse : PointerDevice.TouchScreen | PointerDevice.Mouse | PointerDevice.Stylus
-      grabPermissions: PointerHandler.CanTakeOverFromHandlersOfSameType | PointerHandler.CanTakeOverFromHandlersOfDifferentType | PointerHandler.ApprovesTakeOverByAnything
+      acceptedDevices: !qfieldSettings.mouseAsTouchScreen ? PointerDevice.TouchScreen | PointerDevice.Mouse | PointerDevice.TouchPad : PointerDevice.TouchScreen | PointerDevice.Mouse | PointerDevice.Stylus
+      grabPermissions: PointerHandler.CanTakeOverFromHandlersOfSameType | PointerHandler.CanTakeOverFromHandlersOfDifferentType
 
       property real pressClickX: 0
       property real pressClickY: 0
@@ -589,10 +612,11 @@ ApplicationWindow {
 
       onTranslationChanged: {
         if (active) {
-          let newPositionX = pressClickX + translation.x;
-          let newPositionY = pressClickY + translation.y;
-          screenCenterX = mapCanvas.mapSettings.coordinateToScreen(featureListForm.extentController.getCentroidFromSelected()).x;
-          screenCenterY = mapCanvas.mapSettings.coordinateToScreen(featureListForm.extentController.getCentroidFromSelected()).y;
+          const newPositionX = pressClickX + translation.x;
+          const newPositionY = pressClickY + translation.y;
+          const screenCentroid = mapCanvas.mapSettings.coordinateToScreen(featureListForm.extentController.getCentroidFromSelected());
+          screenCenterX = screenCentroid.x;
+          screenCenterY = screenCentroid.y;
           let angle = Math.atan2(newPositionY - screenCenterY, newPositionX - screenCenterX) - Math.atan2(pressClickY - screenCenterY, pressClickX - screenCenterX);
           if (angle != 0) {
             moveAndRotateFeaturesHighlight.originX = screenCenterX;
@@ -605,7 +629,7 @@ ApplicationWindow {
 
     HoverHandler {
       id: hoverHandler
-      enabled: !digitizingToolbar.rubberbandModel || !digitizingToolbar.rubberbandModel.frozen
+      enabled: !markupToolbar.stateVisible && (!digitizingToolbar.rubberbandModel || !digitizingToolbar.rubberbandModel.frozen)
       acceptedDevices: !qfieldSettings.mouseAsTouchScreen ? PointerDevice.TouchPad | PointerDevice.Stylus | PointerDevice.Mouse : PointerDevice.Stylus
 
       grabPermissions: PointerHandler.TakeOverForbidden
@@ -746,8 +770,11 @@ ApplicationWindow {
 
     Loader {
       id: mapCanvas3DLoader
+
+      property string previousMode: "browse"
+
       anchors.fill: parent
-      active: stateMachine.state === '3d'
+      active: stateMachine.is3DView
       visible: active ? true : false
       z: 100
       opacity: active ? 1.0 : 0.0
@@ -769,10 +796,22 @@ ApplicationWindow {
         }
       }
 
+      function close() {
+        // Sync 2D map to the 3D extent so we land on the same area
+        if (item) {
+          const extent = item.terrainExtent;
+          if (extent && extent.width > 0 && extent.height > 0) {
+            mapCanvas.mapSettings.extent = extent;
+          }
+        }
+        stateMachine.is3DView = false;
+      }
+
       onLoaded: {
         item.objectName = 'mapCanvas3D';
         item.pluginContainer = mapCanvas3DPluginContainer;
         item.mapSettings = mapCanvas.mapSettings;
+        item.markups = markupManager;
         item.trackingModel = trackingModel;
         item.eyeDomeLightingMode = settings.valueBool('3d/eyeDomeLightingMode', false);
         item.selectionColor = Qt.binding(() => QfTheme.mainColor);
@@ -813,7 +852,7 @@ ApplicationWindow {
       id: loadingOverlay
       anchors.fill: parent
       color: "#80000000"
-      visible: stateMachine.state === '3d' && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && mapCanvas3DLoader.item.isFirstLoad
+      visible: stateMachine.is3DView && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && mapCanvas3DLoader.item.isFirstLoad
       z: 1000
 
       Column {
@@ -822,7 +861,7 @@ ApplicationWindow {
 
         BusyIndicator {
           anchors.horizontalCenter: parent.horizontalCenter
-          running: stateMachine.state === '3d' && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && mapCanvas3DLoader.item.isFirstLoad
+          running: stateMachine.is3DView && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && mapCanvas3DLoader.item.isFirstLoad
           width: 64
           height: 64
         }
@@ -851,7 +890,7 @@ ApplicationWindow {
       id: mapCanvasMap
       objectName: "mapCanvas"
 
-      property bool isEnabled: !mapCanvas3DLoader.active && !dashBoard.opened && !aboutDialog.visible && !welcomeScreen.visible && !qfieldSettings.visible && !qfieldLocalDataPickerScreen.visible && !qfieldCloudScreen.visible && !qfieldCloudPopup.visible && !codeReader.visible && !sketcher.visible && !overlayFeatureFormDrawer.opened && !rotateFeaturesToolbar.rotateFeaturesRequested
+      property bool isEnabled: !stateMachine.is3DView && !dashBoard.opened && !aboutDialog.visible && !welcomeScreen.visible && !qfieldSettings.visible && !qfieldLocalDataPickerScreen.visible && !qfieldCloudScreen.visible && !qfieldCloudPopup.visible && !codeReader.visible && !sketcher.visible && !overlayFeatureFormDrawer.opened && !rotateFeaturesToolbar.rotateFeaturesRequested
 
       interactive: isEnabled && !screenLocker.enabled && !snapToCommonAngleMenu.visible
       isMapRotationEnabled: qfieldSettings.enableMapRotation
@@ -870,6 +909,10 @@ ApplicationWindow {
       anchors.fill: parent
 
       onClicked: (point, type) => {
+        if (locatorItem.state === "on") {
+          locatorItem.state = "off";
+          return;
+        }
         // Check if any registered handlers want to handle this click
         if (pointHandler.clicked(point, type)) {
           return;
@@ -878,10 +921,6 @@ ApplicationWindow {
           return;
         }
         if (!digitizingToolbar.geometryRequested && featureListForm.state == "FeatureFormEdit") {
-          return;
-        }
-        if (locatorItem.state === "on") {
-          locatorItem.state = "off";
           return;
         }
 
@@ -914,16 +953,27 @@ ApplicationWindow {
                 digitizingToolbar.addVertex();
               }
             }
-          } else {
-            if (!featureListForm.canvasOperationRequested && !overlayFeatureFormDrawer.opened && featureListForm.state !== "FeatureFormEdit") {
-              identifyTool.isMenuRequest = false;
-              identifyTool.identify(point);
-            }
+            return;
+          }
+          if (markupToolbar.stateVisible && markupToolbar.isMarking) {
+            coordinateLocator.sourceLocation = point;
+            markupToolbar.addVertex();
+            markupToolbar.processMarkup();
+            coordinateLocator.sourceLocation = undefined;
+            return;
+          }
+          if (!featureListForm.canvasOperationRequested && !overlayFeatureFormDrawer.opened && featureListForm.state !== "FeatureFormEdit") {
+            identifyTool.isMenuRequest = false;
+            identifyTool.identify(point);
           }
         }
       }
 
       onConfirmedClicked: point => {
+        if (locatorItem.state === "on") {
+          locatorItem.state = "off";
+          return;
+        }
         // Check if any registered handlers want to handle this tap
         if (pointHandler.clicked(point, "touch")) {
           return;
@@ -940,7 +990,16 @@ ApplicationWindow {
           if (!positionLocked && (!featureListForm.visible || digitizingToolbar.geometryRequested)) {
             coordinateLocator.sourceLocation = point;
           }
-        } else if (!featureListForm.canvasOperationRequested && !overlayFeatureFormDrawer.opened && featureListForm.state !== "FeatureFormEdit") {
+          return;
+        }
+        if (markupToolbar.stateVisible && markupToolbar.isMarking) {
+          coordinateLocator.sourceLocation = point;
+          markupToolbar.addVertex();
+          markupToolbar.processMarkup();
+          coordinateLocator.sourceLocation = undefined;
+          return;
+        }
+        if (!featureListForm.canvasOperationRequested && !overlayFeatureFormDrawer.opened && featureListForm.state !== "FeatureFormEdit") {
           identifyTool.isMenuRequest = false;
           identifyTool.identify(point);
         }
@@ -1053,7 +1112,7 @@ ApplicationWindow {
    * - Digitizing QfRubberband
    **************************************************/
 
-    // Model for pie menu and context menu feature identification
+    /** Model for pie menu and context menu feature identification **/
     QfMultiFeatureListModel {
       id: menuFeatureListModel
     }
@@ -1061,11 +1120,14 @@ ApplicationWindow {
     /** The identify tool **/
     QfIdentifyTool {
       id: identifyTool
+      objectName: "identifyTool"
 
       property bool isMenuRequest: false
       property bool isPieMenuRequest: false
 
+      enabled: stateMachine.state !== 'measure'
       mapSettings: mapCanvas.mapSettings
+      markups: markupManager
       model: isPieMenuRequest || isMenuRequest ? menuFeatureListModel : featureListForm.model
       searchRadiusMm: 3
 
@@ -1087,6 +1149,19 @@ ApplicationWindow {
       }
     }
 
+    /** Markup collections **/
+    Repeater {
+      id: markupCollections
+      objectName: "markupCollections"
+
+      model: markupManager.visibleCollections
+
+      QfMarkupCollectionRenderer {
+        markupCollection: modelData
+        mapSettings: mapCanvas.mapSettings
+      }
+    }
+
     /** A rubberband for measuring **/
     QfMeasuringTool {
       id: measuringTool
@@ -1100,6 +1175,8 @@ ApplicationWindow {
     /** Tracking sessions **/
     Repeater {
       id: trackings
+      objectName: "trackings"
+
       model: trackingModel
 
       onCountChanged: {
@@ -1112,7 +1189,7 @@ ApplicationWindow {
       }
 
       QfTrackingSession {
-        positionSource: positionSource
+        positioning: positionSource
         filterAccuracy: positioningSettings.accuracyIndicator && positioningSettings.accuracyRequirement
         project: qgisProject
         mapSettings: mapCanvas.mapSettings
@@ -1135,6 +1212,7 @@ ApplicationWindow {
 
       mapSettings: mapCanvas.mapSettings
       showVertices: digitizingToolbar.cogoEnabled
+      color: markupToolbar.stateVisible && markupToolbar.pickedColor !== undefined ? markupToolbar.pickedColor : defaultColor()
 
       model: QfRubberbandModel {
         frozen: false
@@ -1168,7 +1246,8 @@ ApplicationWindow {
           }
           return Number.NaN;
         }
-        vectorLayer: digitizingToolbar.geometryRequested ? digitizingToolbar.geometryRequestedLayer : dashBoard.activeLayer
+        vectorLayer: !markupToolbar.stateVisible ? digitizingToolbar.geometryRequested ? digitizingToolbar.geometryRequestedLayer : dashBoard.activeLayer : null
+        geometryType: markupToolbar.stateVisible || !vectorLayer ? Qgis.GeometryType.Line : vectorLayer.geometryType()
         crs: mapCanvas.mapSettings.destinationCrs
       }
 
@@ -1234,7 +1313,7 @@ ApplicationWindow {
       objectName: "coordinateLocator"
       anchors.fill: parent
       anchors.bottomMargin: mapCanvasMap.allowMargins ? informationDrawer.height > mainWindow.sceneBottomMargin ? informationDrawer.height : 0 : 0
-      visible: (stateMachine.state === "digitize" || stateMachine.state === 'measure')
+      visible: !markupToolbar.stateVisible && (stateMachine.state === "digitize" || stateMachine.state === 'measure')
       highlightColor: digitizingToolbar.isDigitizing ? currentRubberband.color : "#CFD8DC"
       mapSettings: mapCanvas.mapSettings
       currentLayer: dashBoard.activeLayer
@@ -1894,13 +1973,13 @@ ApplicationWindow {
     readonly property int shortVibration: 500
 
     onIsWithinChanged: {
-      if (behavior == QfGeofencer.AlertWhenInsideGeofencedArea && geofencer.isWithin) {
+      if (behavior === QfGeofencer.AlertWhenInsideGeofencedArea && geofencer.isWithin) {
         platformUtilities.vibrate(longVibration);
         displayToast(qsTr("Position has trespassed into ‘%1’").arg(isWithinAreaName), 'error');
-      } else if (behavior == QfGeofencer.AlertWhenOutsideGeofencedArea && !geofencer.isWithin) {
+      } else if (behavior === QfGeofencer.AlertWhenOutsideGeofencedArea && !geofencer.isWithin) {
         platformUtilities.vibrate(longVibration);
         displayToast(qsTr("Position outside areas after leaving ‘%1’").arg(lastWithinAreaName), 'error');
-      } else if (behavior == QfGeofencer.InformWhenEnteringLeavingGeofencedArea) {
+      } else if (behavior === QfGeofencer.InformWhenEnteringLeavingGeofencedArea) {
         if (isWithin) {
           platformUtilities.vibrate(shortVibration);
           displayToast(qsTr("Position entered into ‘%1’").arg(isWithinAreaName));
@@ -1969,6 +2048,21 @@ ApplicationWindow {
     positioningSettings: positioningSettings
 
     cogoOperationSettings.mapSettings: mapCanvas.mapSettings
+
+    digitizingLayerInformationView.visible: stateMachine.state === "digitize"
+    digitizingLayerInformationView.allowActiveDigitizingLayerChange: dashBoard.allowActiveLayerChange && !digitizingToolbar.geometryRequested
+    digitizingLayerInformationView.overwriteDigitizingLayer: digitizingToolbar.geometryRequested ? digitizingToolbar.geometryRequestedLayer : null
+
+    digitizingLayerInformationView.onActiveDigitizingLayerChanged: {
+      if (digitizingLayerInformationView.activeDigitizingLayer && dashBoard.activeLayer !== digitizingLayerInformationView.activeDigitizingLayer) {
+        dashBoard.activeLayer = digitizingLayerInformationView.activeDigitizingLayer;
+      }
+    }
+    digitizingLayerInformationView.onActiveDigitizingCollectionChanged: {
+      if (digitizingLayerInformationView.activeDigitizingCollection && dashBoard.activeCollection !== digitizingLayerInformationView.activeDigitizingCollection) {
+        dashBoard.activeCollection = digitizingLayerInformationView.activeDigitizingCollection;
+      }
+    }
   }
 
   /**************************************************
@@ -2177,70 +2271,17 @@ ApplicationWindow {
 
     QfToolButton {
       id: compassArrow
-      rotation: mapCanvas.mapSettings.rotation
-      visible: rotation !== 0 && stateMachine.state !== '3d'
+
+      visible: mapCanvas.mapSettings.rotation !== 0 && !stateMachine.is3DView
       anchors.left: parent.left
       anchors.bottom: parent.bottom
       anchors.leftMargin: mainWindow.sceneLeftMargin + 4
       anchors.bottomMargin: 54
       round: true
-      bgcolor: QfTheme.toolButtonBackgroundSemiOpaqueColor
 
-      Shape {
-        width: compassArrow.width
-        height: compassArrow.height
-
-        ShapePath {
-          strokeWidth: 3
-          strokeColor: "transparent"
-          strokeStyle: ShapePath.SolidLine
-          fillColor: QfTheme.mainColor
-          joinStyle: ShapePath.MiterJoin
-          startX: compassArrow.width / 2
-          startY: 8
-          PathLine {
-            x: compassArrow.width / 2 + 6
-            y: compassArrow.height / 2
-          }
-          PathLine {
-            x: compassArrow.width / 2
-            y: compassArrow.height / 2 - 2
-          }
-          PathLine {
-            x: compassArrow.width / 2 - 6
-            y: compassArrow.height / 2
-          }
-          PathLine {
-            x: compassArrow.width / 2
-            y: 8
-          }
-        }
-
-        ShapePath {
-          strokeWidth: 3
-          strokeColor: "transparent"
-          strokeStyle: ShapePath.SolidLine
-          fillColor: QfTheme.toolButtonColor
-          joinStyle: ShapePath.MiterJoin
-          startX: compassArrow.width / 2
-          startY: compassArrow.height - 8
-          PathLine {
-            x: compassArrow.width / 2 + 6
-            y: compassArrow.height / 2
-          }
-          PathLine {
-            x: compassArrow.width / 2
-            y: compassArrow.height / 2 + 2
-          }
-          PathLine {
-            x: compassArrow.width / 2 - 6
-            y: compassArrow.height / 2
-          }
-          PathLine {
-            x: compassArrow.width / 2
-            y: compassArrow.height - 8
-          }
-        }
+      QfCompassDial {
+        anchors.fill: parent
+        mapRotation: mapCanvas.mapSettings.rotation
       }
 
       onClicked: {
@@ -2259,7 +2300,7 @@ ApplicationWindow {
     }
 
     QfScaleBar {
-      visible: qfieldSettings.showScaleBar && stateMachine.state !== '3d'
+      visible: qfieldSettings.showScaleBar && !stateMachine.is3DView
       mapSettings: mapCanvas.mapSettings
       anchors.left: parent.left
       anchors.bottom: parent.bottom
@@ -2279,6 +2320,7 @@ ApplicationWindow {
 
     Column {
       id: zoomToolbar
+      objectName: "zoomToolbar"
       anchors.right: parent.right
       anchors.rightMargin: mainWindow.sceneRightMargin + 10
       anchors.bottom: parent.bottom
@@ -2299,7 +2341,7 @@ ApplicationWindow {
         height: 36
 
         onClicked: {
-          if (stateMachine.state === '3d') {
+          if (stateMachine.is3DView) {
             if (mapCanvas3DLoader.item) {
               mapCanvas3DLoader.item.zoomIn();
             }
@@ -2328,7 +2370,7 @@ ApplicationWindow {
         height: 36
 
         onClicked: {
-          if (stateMachine.state === '3d') {
+          if (stateMachine.is3DView) {
             if (mapCanvas3DLoader.item) {
               mapCanvas3DLoader.item.zoomOut();
             }
@@ -2357,7 +2399,8 @@ ApplicationWindow {
       anchors.topMargin: mainWindow.sceneTopMargin + 4
       anchors.rightMargin: mainWindow.sceneRightMargin + 4
 
-      visible: !screenLocker.enabled && stateMachine.state !== 'measure'
+      z: 10
+      visible: !screenLocker.enabled
 
       onStateChanged: {
         if (state == "off") {
@@ -2373,6 +2416,7 @@ ApplicationWindow {
 
     QfDropShadow {
       anchors.fill: locatorItem
+      z: locatorItem.z
       visible: locatorItem.searchFieldVisible
       verticalOffset: 2
       radius: 10
@@ -2383,6 +2427,7 @@ ApplicationWindow {
     /* The main menu */
     Row {
       id: mainMenuBar
+      objectName: "mainMenuBar"
       visible: !screenLocker.enabled
       width: childrenRect.width
       height: childrenRect.height
@@ -2428,7 +2473,7 @@ ApplicationWindow {
 
       QfActionButton {
         id: close3DView
-        visible: stateMachine.state === '3d'
+        visible: stateMachine.is3DView
         toolImage: QfTheme.getThemeVectorIcon("ic_3d_white_24dp")
         toolText: qsTr('Close 3D view')
 
@@ -2453,6 +2498,21 @@ ApplicationWindow {
       }
 
       QfActionButton {
+        id: closeMovingRotatingTool
+        visible: moveFeaturesToolbar.stateVisible || rotateFeaturesToolbar.stateVisible
+        toolImage: geometryEditorsToolbar.image
+        toolText: moveFeaturesToolbar.stateVisible ? qsTr('Cancel movement') : qsTr('Cancel rotation')
+
+        onClicked: {
+          if (moveFeaturesToolbar.stateVisible) {
+            moveFeaturesToolbar.cancel();
+          } else {
+            rotateFeaturesToolbar.cancel();
+          }
+        }
+      }
+
+      QfActionButton {
         id: abortRequestGeometry
         visible: digitizingToolbar.geometryRequested
         toolImage: QfTheme.getThemeVectorIcon("ic_edit_geometry_white_24dp")
@@ -2464,6 +2524,7 @@ ApplicationWindow {
 
     Column {
       id: mainToolbar
+      objectName: "mainToolbar"
       visible: !screenLocker.enabled
       anchors.left: mainMenuBar.left
       anchors.top: mainMenuBar.bottom
@@ -2916,7 +2977,7 @@ ApplicationWindow {
         iconSource: QfTheme.getThemeVectorIcon('ic_3d_settings_white_24dp')
         iconColor: QfTheme.toolButtonColor
         spacing: 4
-        visible: stateMachine.state === '3d' && mapCanvas3DLoader.item
+        visible: stateMachine.is3DView && mapCanvas3DLoader.item
 
         QfToolButton {
           id: extentModeButton
@@ -2966,11 +3027,12 @@ ApplicationWindow {
       anchors.top: mainToolbar.bottom
       width: menuButton.width + 10
       height: width
-      running: mapCanvasMap.isRendering || (stateMachine.state === '3d' && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && !mapCanvas3DLoader.item.isFirstLoad)
+      running: mapCanvasMap.isRendering || (stateMachine.is3DView && mapCanvas3DLoader.item && mapCanvas3DLoader.item.isLoading && !mapCanvas3DLoader.item.isFirstLoad)
     }
 
     Column {
       id: locationToolbar
+      objectName: "locationToolbar"
       anchors.right: parent.right
       anchors.rightMargin: mainWindow.sceneRightMargin + 4
       anchors.bottom: digitizingToolbarContainer.top
@@ -3001,7 +3063,7 @@ ApplicationWindow {
             settings.setValue("/QField/Navigation/FollowIncludeDestination", followIncludeDestination);
             gnssButton.followLocation(true);
           } else {
-            mapCanvasMap.jumpTo(navigation.destination, -1, -1, true);
+            mainWindow.jumpTo(navigation.destination, -1, true);
           }
         }
 
@@ -3060,7 +3122,7 @@ ApplicationWindow {
             name: "On"
             PropertyChanges {
               target: gnssButton
-              iconSource: trackings.count > 0 ? QfTheme.getThemeVectorIcon("ic_location_tracking_white_24dp") : positionSource.positionInformation && positionSource.positionInformation.latitudeValid ? QfTheme.getThemeVectorIcon("ic_location_valid_white_24dp") : QfTheme.getThemeVectorIcon("ic_location_white_24dp")
+              iconSource: trackingModel.activeCount > 0 ? QfTheme.getThemeVectorIcon("ic_location_tracking_white_24dp") : positionSource.positionInformation && positionSource.positionInformation.latitudeValid ? QfTheme.getThemeVectorIcon("ic_location_valid_white_24dp") : QfTheme.getThemeVectorIcon("ic_location_white_24dp")
               iconColor: followActive ? QfTheme.toolButtonColor : QfTheme.positionColor
               bgcolor: followActive ? QfTheme.positionColor : QfTheme.toolButtonBackgroundColor
             }
@@ -3087,7 +3149,7 @@ ApplicationWindow {
         property bool jumpedOnce: false
 
         function jumpToLocation() {
-          const is3D = stateMachine.state === '3d';
+          const is3D = stateMachine.is3DView;
           if (is3D) {
             const pos3d = mapCanvas3DLoader.item.geoTo3D(positionSource.projectedPosition.x, positionSource.projectedPosition.y);
             if (pos3d === null) {
@@ -3296,22 +3358,23 @@ ApplicationWindow {
       anchors.right: parent.right
       anchors.rightMargin: mainWindow.sceneRightMargin + 4
       anchors.bottom: parent.bottom
-      anchors.bottomMargin: 4
+      anchors.bottomMargin: digitizingToolbar.stateVisible || geometryEditorsToolbar.stateVisible || moveFeaturesToolbar.stateVisible || rotateFeaturesToolbar.stateVisible ? 8 : 4
 
       spacing: 4
 
       QfDigitizingToolbar {
         id: digitizingToolbar
 
-        property bool digitizingAllowed: dashBoard.activeLayer && !dashBoard.activeLayer.readOnly && !QfLayerUtils.isFeatureAdditionLocked(dashBoard.activeLayer) && (projectInfo.editRights || projectInfo.insertRights)
+        property bool digitizingAllowed: dashBoard.activeLayer && dashBoard.activeLayer.supportsEditing && !dashBoard.activeLayer.readOnly && !QfLayerUtils.isFeatureAdditionLocked(dashBoard.activeLayer) && (projectInfo.editRights || projectInfo.insertRights)
         property string previousStateMachineState: ''
 
         stateVisible: !screenLocker.enabled && (!positioningSettings.geofencingPreventDigitizingDuringAlert || !geofencer.isAlerting) && ((stateMachine.state === "digitize" && digitizingAllowed && !geometryEditorsToolbar.stateVisible && !moveFeaturesToolbar.stateVisible && !rotateFeaturesToolbar.stateVisible) || stateMachine.state === 'measure' || (stateMachine.state === "digitize" && digitizingToolbar.geometryRequested))
+        anchors.right: parent.right
+
         rubberbandModel: currentRubberband ? currentRubberband.model : null
         mapSettings: mapCanvas.mapSettings
         showConfirmButton: stateMachine.state === "digitize"
         screenHovering: mapCanvasMap.hovered
-
         cogoOperationSettings: informationDrawer.cogoOperationSettings
 
         digitizingLogger.type: stateMachine.state === 'measure' ? '' : 'add'
@@ -3352,7 +3415,7 @@ ApplicationWindow {
                 if (overlayFeatureFormDrawer.featureForm.model.constraintsHardValid && !overlayFeatureFormDrawer.featureForm.featureAdditionLocked) {
                   // when the constrainst are fulfilled
                   // indirect action, no need to check for success and display a toast, the log is enough
-                  overlayFeatureFormDrawer.featureModel.featureCreated = overlayFeatureFormDrawer.featureModel.create();
+                  overlayFeatureFormDrawer.featureForm.featureCreated = overlayFeatureFormDrawer.featureModel.create();
                 }
               } else {
                 // indirect action, no need to check for success and display a toast, the log is enough
@@ -3411,13 +3474,7 @@ ApplicationWindow {
             digitizingRubberband.model.frozen = true;
             digitizingFeature.updateRubberband();
           }
-          if (!digitizingFeature.suppressFeatureForm()) {
-            overlayFeatureFormDrawer.featureModel.geometry = digitizingFeature.geometry;
-            overlayFeatureFormDrawer.featureModel.applyGeometry();
-            overlayFeatureFormDrawer.featureModel.resetAttributes();
-            overlayFeatureFormDrawer.open();
-            overlayFeatureFormDrawer.state = "Add";
-          } else {
+          if (digitizingFeature.suppressFeatureForm()) {
             if (!overlayFeatureFormDrawer.featureForm.featureCreated) {
               overlayFeatureFormDrawer.featureModel.geometry = digitizingFeature.geometry;
               overlayFeatureFormDrawer.featureModel.applyGeometry();
@@ -3434,10 +3491,21 @@ ApplicationWindow {
                 displayToast(qsTr("Failed to save feature"), 'error');
               }
             }
-            digitizingRubberband.model.reset();
-            digitizingRubberband.model.frozen = digitizingToolbar.cogoEnabled;
-            digitizingFeature.resetFeature();
+          } else {
+            if (!overlayFeatureFormDrawer.featureForm.featureCreated) {
+              overlayFeatureFormDrawer.featureModel.geometry = digitizingFeature.geometry;
+              overlayFeatureFormDrawer.featureModel.applyGeometry();
+              overlayFeatureFormDrawer.featureModel.resetAttributes();
+            }
+
+            overlayFeatureFormDrawer.open();
+            overlayFeatureFormDrawer.state = "Add";
           }
+
+          digitizingRubberband.model.reset();
+          digitizingRubberband.model.frozen = digitizingToolbar.cogoEnabled;
+          digitizingFeature.resetFeature();
+
           coordinateLocator.sourceLocation = undefined;
         }
 
@@ -3452,7 +3520,7 @@ ApplicationWindow {
         }
 
         onRequestJumpToPoint: function (center, scale, handleMargins) {
-          mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+          mainWindow.jumpTo(center, scale, handleMargins);
         }
 
         onRequestPosition: function (item, fromCoordinateLocator) {
@@ -3482,10 +3550,22 @@ ApplicationWindow {
         screenHovering: mapCanvasMap.hovered
 
         stateVisible: !screenLocker.enabled && (stateMachine.state === "digitize" && geometryEditingVertexModel.vertexCount > 0)
+        anchors.right: parent.right
 
         onRequestJumpToPoint: function (center, scale, handleMargins) {
-          mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+          mainWindow.jumpTo(center, scale, handleMargins);
         }
+      }
+
+      QfMarkupToolbar {
+        id: markupToolbar
+
+        markupCollection: dashBoard.activeCollection
+        rubberbandModel: currentRubberband ? currentRubberband.model : null
+        mapSettings: mapCanvas.mapSettings
+
+        stateVisible: stateMachine.state === "digitize" && dashBoard.activeCollection && !moveFeaturesToolbar.stateVisible && !rotateFeaturesToolbar.stateVisible
+        anchors.right: parent.right
       }
 
       QfConfirmationToolbar {
@@ -3498,6 +3578,7 @@ ApplicationWindow {
         signal moveCanceled
 
         stateVisible: moveFeaturesRequested
+        anchors.right: parent.right
 
         onConfirm: {
           endPoint = stateMachine.state === "digitize" ? coordinateLocator.currentCoordinate : mapCanvas.mapSettings.getCenter(true);
@@ -3516,7 +3597,7 @@ ApplicationWindow {
           moveFeaturesRequested = true;
           if (featureListForm && featureListForm.selection.model.selectedCount === 1) {
             featureListForm.extentController.zoomToSelected();
-            let centroid = QfGeometryUtils.reprojectPoint(QfGeometryUtils.boundingBox(featureListForm.selection.model.selectedFeatures[0].geometry).center, featureListForm.selection.model.selectedLayer.crs, mapCanvas.mapSettings.destinationCrs);
+            let centroid = QfGeometryUtils.reprojectPoint(QfGeometryUtils.boundingBox(featureListForm.selection.model.selectedFeatures[0].geometry).center, QfLayerUtils.layerCrs(featureListForm.selection.model.selectedLayer), mapCanvas.mapSettings.destinationCrs);
             centroid = QfGeometryUtils.point(centroid.x, centroid.y);
             startPoint = centroid;
           } else {
@@ -3536,6 +3617,7 @@ ApplicationWindow {
         signal rotateCanceled
 
         stateVisible: rotateFeaturesRequested
+        anchors.right: parent.right
 
         onConfirm: {
           rotateFeaturesRequested = false;
@@ -3575,7 +3657,7 @@ ApplicationWindow {
     id: dashBoard
     objectName: "dashBoard"
 
-    allowActiveLayerChange: !digitizingToolbar.isDigitizing
+    allowActiveLayerChange: !digitizingToolbar.isDigitizing && geometryEditingVertexModel.vertexCount === 0
     cloudProjectsModel: cloudProjectsModel
     allowInteractive: !welcomeScreen.visible && !qfieldSettings.visible && !qfieldCloudScreen.visible && !qfieldLocalDataPickerScreen.visible && !codeReader.visible && !screenLocker.enabled
     mapSettings: mapCanvas.mapSettings
@@ -3605,7 +3687,7 @@ ApplicationWindow {
         shouldReturnHome = true;
       } else if (!shouldReturnHome) {
         openWelcomeScreen();
-        if (stateMachine.state === '3d') {
+        if (stateMachine.is3DView) {
           mainWindow.close3DView();
         }
       }
@@ -3649,31 +3731,53 @@ ApplicationWindow {
       qfieldLocalDataPickerScreen.visible = true;
     }
 
+    onActiveLayerChanged: {
+      if (informationDrawer.digitizingLayerInformationView.activeDigitizingLayer !== activeLayer) {
+        informationDrawer.digitizingLayerInformationView.activeDigitizingLayer = activeLayer;
+      }
+    }
+
+    onActiveCollectionChanged: {
+      if (informationDrawer.digitizingLayerInformationView.activeDigitizingCollection !== activeCollection) {
+        informationDrawer.digitizingLayerInformationView.activeDigitizingCollection = activeCollection;
+      }
+    }
+
     // If the user clicks the "Return home" button in the middle of digitizing, we will ask if they want to discard their changes.
     // If they press cancel, nothing will happen, but if they press discard, we will discard their digitizing.
     // We will also use `shouldReturnHome` to know that we need to return home as well or not.
     property bool shouldReturnHome: false
 
     function ensureEditableLayerSelected() {
-      var firstEditableLayer = null;
-      var activeLayerLocked = false;
-      for (var i = 0; i < layerTree.rowCount(); i++) {
-        var index = layerTree.index(i, 0);
+      let firstEditableLayer = null;
+      let activeLayerLocked = false;
+      for (let i = 0; i < layerTree.rowCount(); i++) {
+        let index = layerTree.index(i, 0);
+        let vectorLayer = layerTree.data(index, QfFlatLayerTreeModel.VectorLayerPointer);
+        if (vectorLayer == null) {
+          continue;
+        }
+
         if (firstEditableLayer === null) {
-          if (layerTree.data(index, QfFlatLayerTreeModel.Type) === QfFlatLayerTreeModel.Layer && layerTree.data(index, QfFlatLayerTreeModel.ReadOnly) === false && layerTree.data(index, QfFlatLayerTreeModel.FeatureAdditionLocked) === false) {
-            firstEditableLayer = layerTree.data(index, QfFlatLayerTreeModel.VectorLayerPointer);
+          if (vectorLayer.supportsEditing && layerTree.data(index, QfFlatLayerTreeModel.ReadOnly) === false && layerTree.data(index, QfFlatLayerTreeModel.FeatureAdditionLocked) === false) {
+            firstEditableLayer = vectorLayer;
           }
         }
-        if (activeLayer != null && activeLayer === layerTree.data(index, QfFlatLayerTreeModel.VectorLayerPointer)) {
-          if (layerTree.data(index, QfFlatLayerTreeModel.ReadOnly) === true || layerTree.data(index, QfFlatLayerTreeModel.FeatureAdditionLocked) === true) {
+        if (activeLayer !== null && activeLayer === vectorLayer) {
+          if (vectorLayer.supportsEditing && layerTree.data(index, QfFlatLayerTreeModel.ReadOnly) === true || layerTree.data(index, QfFlatLayerTreeModel.FeatureAdditionLocked) === true) {
             activeLayerLocked = true;
           } else {
             break;
           }
         }
-        if (firstEditableLayer !== null && (activeLayer == null || activeLayerLocked === true)) {
+        if (firstEditableLayer !== null && (activeLayer === null || activeLayerLocked)) {
           activeLayer = firstEditableLayer;
           break;
+        }
+      }
+      if (firstEditableLayer == null && (activeLayer === null || activeLayerLocked)) {
+        if (markupManager.collections.length > 0) {
+          activeCollection = markupManager.collections[0];
         }
       }
     }
@@ -3702,8 +3806,18 @@ ApplicationWindow {
   function activate3DMode() {
     mainMenu.close();
     dashBoard.close();
-    if (stateMachine.state !== '3d') {
-      changeMode('3d');
+    if (!stateMachine.is3DView) {
+      mapCanvas3DLoader.previousMode = stateMachine.state;
+      changeMode('browse');
+      stateMachine.is3DView = true;
+    }
+  }
+
+  function jumpTo(point, scale, handleMargins) {
+    if (stateMachine.state === '3d' && mapCanvas3DLoader.item) {
+      mapCanvas3DLoader.item.jumpTo(point);
+    } else {
+      mapCanvasMap.jumpTo(point, scale, -1, handleMargins);
     }
   }
 
@@ -4255,6 +4369,8 @@ ApplicationWindow {
 
         property int fid: featureId
         property var featureLayer: currentLayer
+        property bool isMarkupCollection: currentLayer ? currentLayer.customProperty('QField/is_markup_collection') === true : false
+
         height: visible ? implicitHeight : 0
 
         topMargin: sceneTopMargin
@@ -4264,6 +4380,8 @@ ApplicationWindow {
         font: QfTheme.defaultFont
 
         icon.source: iconForGeometry(feature.geometry.type)
+        icon.width: 24
+        icon.height: 24
 
         MenuItem {
           text: qsTr('Layer:') + ' ' + layerName
@@ -4320,10 +4438,11 @@ ApplicationWindow {
         MenuItem {
           text: qsTr('Duplicate Feature')
           font: QfTheme.defaultFont
-          enabled: projectInfo.insertRights
+          enabled: projectInfo.insertRights && !isMarkupCollection
           icon.source: QfTheme.getThemeVectorIcon("ic_duplicate_black_24dp")
           leftPadding: QfTheme.menuItemLeftPadding
-          height: 48
+          visible: enabled
+          height: enabled ? 48 : 0
 
           onTriggered: {
             featureListForm.model.setFeatures(menu.featureLayer, '@id = ' + menu.fid);
@@ -4430,6 +4549,8 @@ ApplicationWindow {
       return QfTheme.getThemeVectorIcon('ic_geometry_line_24dp');
     case Qgis.GeometryType.Polygon:
       return QfTheme.getThemeVectorIcon('ic_geometry_polygon_24dp');
+    case Qgis.GeometryType.Unknown:
+      return QfTheme.getThemeVectorIcon('ic_markup_collection_24dp');
     default:
       return QfTheme.getThemeVectorIcon('ic_info_white_24dp');
     }
@@ -4675,7 +4796,7 @@ ApplicationWindow {
     onShowMessage: displayToast(message)
 
     onRequestJumpToPoint: function (center, scale, handleMargins) {
-      mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+      mainWindow.jumpTo(center, scale, handleMargins);
     }
 
     onEditGeometry: {
@@ -4766,7 +4887,7 @@ ApplicationWindow {
     featureModel.currentLayer: dashBoard.activeLayer
 
     onRequestJumpToPoint: function (center, scale, handleMargins) {
-      mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+      mainWindow.jumpTo(center, scale, handleMargins);
     }
 
     Component.onCompleted: focusstack.addFocusTaker(this)
@@ -4834,6 +4955,7 @@ ApplicationWindow {
     }
 
     function onImportTriggered(name) {
+      busyOverlay.reset();
       busyOverlay.text = qsTr("Importing %1").arg(name);
       busyOverlay.state = "visible";
     }
@@ -4861,6 +4983,33 @@ ApplicationWindow {
       }
     }
 
+    function onPrintTriggered(name) {
+      busyOverlay.isPrinting = true;
+      busyOverlay.reset();
+      busyOverlay.text = qsTr("Printing %1").arg(name);
+      busyOverlay.state = "visible";
+    }
+
+    function onPrintProgress(progress) {
+      busyOverlay.progress = progress;
+    }
+
+    function onPrintEnded(success, folderPath) {
+      busyOverlay.isPrinting = false;
+      busyOverlay.reset();
+      busyOverlay.state = "hidden";
+      if (!success) {
+        displayToast(qsTr('Print failed'), 'error');
+      } else {
+        displayToast(qsTr('Printed and placed in your project layouts folder'), 'info', qsTr('Open folder'), () => {
+          dashBoard.close();
+          qfieldLocalDataPickerScreen.projectFolderView = true;
+          qfieldLocalDataPickerScreen.model.resetToPath(folderPath);
+          qfieldLocalDataPickerScreen.visible = true;
+        });
+      }
+    }
+
     function onLoadProjectTriggered(path, name) {
       qfieldAuthRequestHandler.isProjectLoading = true;
       messageLogModel.suppress({
@@ -4874,15 +5023,33 @@ ApplicationWindow {
       welcomeScreen.focus = false;
       projectCreationScreen.visible = false;
       projectCreationScreen.focus = false;
-      if (changelogPopup.visible)
-        changelogPopup.close();
+      // abort any ongoing feature addition or digitizing, they are tied to the project being closed
+      if (digitizingToolbar.geometryRequested) {
+        // prevent the digitizing cancellation below from re-opening the feature addition drawer
+        digitizingToolbar.geometryRequested = false;
+      }
+      if (overlayFeatureFormDrawer.isAdding) {
+        overlayFeatureFormDrawer.featureForm.cancel();
+        overlayFeatureFormDrawer.isAdding = false;
+      }
+      if (digitizingToolbar.isDigitizing) {
+        digitizingToolbar.digitizingLogger.clearCoordinates();
+        digitizingToolbar.rubberbandModel.reset();
+        digitizingToolbar.cancel();
+      }
+      if (geometryEditorsToolbar.stateVisible) {
+        geometryEditorsToolbar.cancelEditors();
+      }
+      dashBoard.projectLoading = true;
       dashBoard.layerTree.freeze();
       mapCanvasMap.stopRendering();
       mapCanvasMap.freeze('projectload');
+      busyOverlay.reset();
       busyOverlay.text = qsTr("Loading %1").arg(name !== '' ? name : path);
       busyOverlay.state = "visible";
       navigation.clearDestinationFeature();
       projectInfo.filePath = '';
+      markupManager.reset('');
       readProjectTimer.start();
     }
 
@@ -4905,17 +5072,6 @@ ApplicationWindow {
       projectInfo.filePath = path;
       stateMachine.state = projectInfo.stateMode;
       platformUtilities.setHandleVolumeKeys(qfieldSettings.digitizingVolumeKeys && stateMachine.state != 'browse');
-      let activeLayer = projectInfo.activeLayer;
-      if (flatLayerTree.mapTheme != '') {
-        const defaultActiveLayer = projectInfo.getDefaultActiveLayerForMapTheme(flatLayerTree.mapTheme);
-        if (defaultActiveLayer !== null) {
-          activeLayer = defaultActiveLayer;
-        }
-      }
-      if (!qfieldAuthRequestHandler.hasPendingAuthRequest) {
-        // only set active layer when not handling layer credentials
-        dashBoard.activeLayer = activeLayer;
-      }
       drawingTemplateModel.projectFilePath = path;
       mapCanvasBackground.color = mapCanvas.mapSettings.backgroundColor;
       const titleDecorationConfiguration = projectInfo.getTitleDecorationConfiguration();
@@ -4999,17 +5155,49 @@ ApplicationWindow {
         } else {
           projectInfo.restoreCloudUserInformation();
         }
-        if (cloudConnection.isReachable && settings.valueBool("/QField/showCloudButtonGuide", true) && cloudProjectsModel.layerObserver.deltaFileWrapper.count > 0) {
-          cloudMenuTour.runTour();
-          settings.setValue("/QField/showCloudButtonGuide", false);
+        if (cloudConnection.isReachable) {
+          if (!settings.valueBool("/QField/showMapCanvasGuide", true) && settings.valueBool("/QField/showCloudButtonGuide", true) && cloudProjectsModel.layerObserver.deltaFileWrapper.count > 0) {
+            cloudMenuTour.runTour();
+            settings.setValue("/QField/showCloudButtonGuide", false);
+          }
         }
+        markupManager.reset(QfFileUtils.absolutePath(path) + '/markups', projectInfo.cloudUserInformation.username);
       } else {
         projectInfo.hasInsertRights = true;
         projectInfo.hasEditRights = true;
+        let prefix = "";
+        const isDataset = iface.readProjectBoolEntry("QField", "isDataset", false);
+        if (isDataset) {
+          prefix = QfFileUtils.fileName(path, false);
+        }
+        markupManager.reset(QfFileUtils.absolutePath(path) + '/markups', prefix);
       }
-      if (stateMachine.state === "digitize" && !qfieldAuthRequestHandler.hasPendingAuthRequest) {
-        dashBoard.ensureEditableLayerSelected();
+
+      let activeLayer = projectInfo.activeLayer;
+      if (flatLayerTree.mapTheme != '') {
+        const defaultActiveLayer = projectInfo.getDefaultActiveLayerForMapTheme(flatLayerTree.mapTheme);
+        if (defaultActiveLayer !== null) {
+          activeLayer = defaultActiveLayer;
+        }
       }
+      let activeCollection = projectInfo.activeCollection;
+      if (!qfieldAuthRequestHandler.hasPendingAuthRequest) {
+        // only set active layer when not handling layer credentials
+        if (activeCollection != null) {
+          dashBoard.activeLayer = null;
+          dashBoard.activeCollection = activeCollection;
+        } else if (activeLayer != null) {
+          dashBoard.activeLayer = activeLayer;
+          dashBoard.activeCollection = null;
+        } else {
+          if (stateMachine.state === "digitize") {
+            dashBoard.ensureEditableLayerSelected();
+          }
+        }
+
+        projectInfo.restoreVisibleMarkupCollections();
+      }
+
       const distanceString = iface.readProjectEntry("Measurement", "/DistanceUnits", "");
       const decodedDistanceUnits = distanceString !== "" ? UnitTypes.decodeDistanceUnit(distanceString) : Qgis.DistanceUnit.Meters;
       projectInfo.distanceUnits = decodedDistanceUnits !== Qgis.DistanceUnit.Unknown ? decodedDistanceUnits : mapCanvas.mapSettings.destinationCrs.mapUnits;
@@ -5083,6 +5271,7 @@ ApplicationWindow {
         break;
       }
 
+      dashBoard.projectLoading = false;
       mapCanvasTour.startOnFreshRun();
     }
 
@@ -5092,23 +5281,10 @@ ApplicationWindow {
   }
 
   Connections {
-    target: flatLayerTree
-
-    function onMapThemeChanged() {
-      if (!flatLayerTree.isFrozen && flatLayerTree.mapTheme != '') {
-        const defaultActiveLayer = projectInfo.getDefaultActiveLayerForMapTheme(flatLayerTree.mapTheme);
-        if (defaultActiveLayer !== null) {
-          dashBoard.activeLayer = defaultActiveLayer;
-        }
-      }
-    }
-  }
-
-  Connections {
     target: bookmarkModel
 
     function onRequestJumpToPoint(center, scale, handleMargins) {
-      mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+      mainWindow.jumpTo(center, scale, handleMargins);
     }
   }
 
@@ -5119,6 +5295,7 @@ ApplicationWindow {
     mapSettings: mapCanvas.mapSettings
     layerTree: dashBoard.layerTree
     trackingModel: trackings.model
+    markups: markupManager
 
     property var distanceUnits: Qgis.DistanceUnit.Meters
     property var areaUnits: Qgis.AreaUnit.SquareMeters
@@ -5249,7 +5426,7 @@ ApplicationWindow {
     id: trackerFeatureForm
 
     onRequestJumpToPoint: function (center, scale, handleMargins) {
-      mapCanvasMap.jumpTo(center, scale, -1, handleMargins);
+      mainWindow.jumpTo(center, scale, handleMargins);
     }
   }
 
@@ -5287,6 +5464,15 @@ ApplicationWindow {
       qfieldCloudStatus.refresh();
       displayToast(reason);
     }
+
+    onIsReachableChanged: {
+      if (cloudConnection.isReachable && cloudConnection.status === QfCloudConnection.Disconnected) {
+        const cloudProjectId = QfCloudUtils.getProjectId(qgisProject.fileName);
+        if (cloudProjectId) {
+          cloudConnection.login();
+        }
+      }
+    }
   }
 
   QfCloudProjectsModel {
@@ -5301,7 +5487,7 @@ ApplicationWindow {
       if (hasError) {
         const ownerIsUser = cloudConnection.username === projectOwner;
         if (errorString.indexOf(`"code":"${QFieldCloudUtils.errorCodeOverQuota}"`) >= 0) {
-          if (ownerIsUser && cloudConnection.url == cloudConnection.defaultUrl && Qt.platform !== "ios") {
+          if (ownerIsUser && cloudConnection.url == cloudConnection.defaultUrl && Qt.platform.os !== "ios") {
             displayToast(qsTr("Project %1 cannot be packaged as your available storage is full.").arg(projectName), 'info', qsTr('Upgrade storage'), function () {
               Qt.openUrlExternally('https://app.qfield.cloud/plans');
             });
@@ -5309,7 +5495,7 @@ ApplicationWindow {
             displayToast(qsTr("Project %1 cannot be packaged as the project owner's available storage is full.").arg(projectName), 'warning');
           }
         } else if (errorString.indexOf(`"code":"${QFieldCloudUtils.errorCodePlanInsufficient}"`) >= 0) {
-          if (ownerIsUser && cloudConnection.url == cloudConnection.defaultUrl && Qt.platform !== "ios") {
+          if (ownerIsUser && cloudConnection.url == cloudConnection.defaultUrl && Qt.platform.os !== "ios") {
             displayToast(qsTr("Project %1 cannot be downloaded as your subscription plan is insufficient.").arg(projectName), 'info', qsTr('Upgrade plan'), function () {
               Qt.openUrlExternally('https://app.qfield.cloud/plans');
             });
@@ -5354,6 +5540,15 @@ ApplicationWindow {
     Component.onCompleted: focusstack.addFocusTaker(this)
   }
 
+  QfCloudAttachmentsHistory {
+    id: qfieldCloudAttachmentsHistory
+    objectName: "qfieldCloudAttachmentsHistory"
+
+    model.cloudConnection: cloudConnection
+
+    Component.onCompleted: focusstack.addFocusTaker(this)
+  }
+
   QfCloudStatus {
     id: qfieldCloudStatus
     objectName: "qfieldCloudStatus"
@@ -5365,6 +5560,7 @@ ApplicationWindow {
     objectName: "welcomeScreen"
     visible: !iface.hasProjectOnLaunch()
 
+    showNews: qfieldSettings.showNews
     model: QfRecentProjectListModel {
       id: recentProjectListModel
     }
@@ -5486,6 +5682,7 @@ ApplicationWindow {
   QfLocalDataPickerScreen {
     id: qfieldLocalDataPickerScreen
     objectName: "qfieldLocalDataPickerScreen"
+    model.cloudConnection: cloudConnection
 
     anchors.fill: parent
     visible: false
@@ -5498,7 +5695,7 @@ ApplicationWindow {
     Component.onCompleted: focusstack.addFocusTaker(this)
   }
 
-  QfSettings {
+  QfAppSettings {
     id: qfieldSettings
     objectName: "qfieldSettings"
 
@@ -5509,23 +5706,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: focusstack.addFocusTaker(this)
-  }
-
-  QfChangelog {
-    id: changelogPopup
-    objectName: 'changelogPopup'
-    parent: Overlay.overlay
-
-    Component.onCompleted: {
-      if (Qfield.name === "QField") {
-        const changelogVersion = settings.value("/QField/ChangelogVersion", "");
-        if (changelogVersion === "") {
-          settings.setValue("/QField/ChangelogVersion", Qfield.version);
-        } else if (changelogVersion !== Qfield.version) {
-          open();
-        }
-      }
-    }
   }
 
   QfAbout {
@@ -5620,12 +5800,21 @@ ApplicationWindow {
   QfBusyOverlay {
     id: busyOverlay
     objectName: 'busyOverlay'
+
+    property bool isPrinting: false
+
+    parent: dashBoard.opened ? Overlay.overlay : mainWindow.contentItem
+    z: 10000 // 1000s are embedded feature forms, user a higher value to insure the dialog will always show above embedded feature forms
     state: iface.hasProjectOnLaunch() ? "visible" : "hidden"
   }
 
   property bool closeAlreadyRequested: false
 
   onClosing: close => {
+    if (busyOverlay.isPrinting) {
+      close.accepted = false;
+      return;
+    }
     if (screenLocker.enabled) {
       close.accepted = false;
       displayToast(qsTr("Unlock the screen to close project and app"));

@@ -94,7 +94,7 @@ QfEditorWidgetBase {
           width: parent.height
           height: parent.height
           enabled: isEnabled
-          visible: enabled
+          visible: enabled && isActionEnabled('AddChildFeature')
 
           round: false
           iconSource: QfTheme.getThemeVectorIcon('ic_add_white_24dp')
@@ -415,10 +415,8 @@ QfEditorWidgetBase {
           interval: 500
           repeat: false
           onTriggered: {
-            var ids = [childMenu.entryReferencingFeature.id];
-            if (iface.printAtlasFeatures(printName, ids)) {
-              displayToast(qsTr('Atlas feature(s) successfully printed and placed in your project folder'));
-            }
+            const ids = [childMenu.entryReferencingFeature.id];
+            iface.printAtlasFeatures(printName, ids);
           }
         }
       }

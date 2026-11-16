@@ -48,6 +48,8 @@ class QFIELD_CORE_EXPORT QfFileUtils : public QObject
     Q_INVOKABLE static QString fileName( const QString &filePath, bool includeSuffix = true );
     //! Returns true if the \a filePath exists (false if it's a directory)
     Q_INVOKABLE static bool fileExists( const QString &filePath );
+    //! Returns the size in bytes of the \a filePath, or -1 if it does not exist
+    Q_INVOKABLE static qint64 fileSize( const QString &filePath );
     //! Returns the suffix (extension)
     Q_INVOKABLE static QString fileSuffix( const QString &filePath );
     //! Returns a human-friendly size from bytes
@@ -174,6 +176,17 @@ class QFIELD_CORE_EXPORT QfFileUtils : public QObject
      * \return A map with file paths as keys and boolean success status as values
      */
     Q_INVOKABLE static QVariantMap deleteFiles( const QStringList &filePaths );
+
+    /**
+     * Returns the existing files accompanying \a filePath which carry no meaning on their
+     * own and must therefore follow it wherever it goes - when shared, exported, moved
+     * into an attachment folder or deleted.
+     *
+     * This extends QgsFileUtils::sidecarFilesForPath(), which resolves companion files by
+     * asking the registered data providers and so covers datasets only, with additional files
+     * that are relevant to QField.
+     */
+    static QSet<QString> sidecarFilesForPath( const QString &filePath );
 
   private:
     static int copyRecursivelyPrepare( const QString &sourceFolder, const QString &destFolder, QList<QPair<QString, QString>> &mapping );

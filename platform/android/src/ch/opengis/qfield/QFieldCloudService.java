@@ -176,14 +176,15 @@ public class QFieldCloudService extends QtService {
             this, 0, new Intent(this, QFieldActivity.class),
             PendingIntent.FLAG_MUTABLE);
 
-        Notification.Builder builder = new Notification.Builder(this)
-                                           .setSmallIcon(R.drawable.app_logo)
-                                           .setWhen(System.currentTimeMillis())
-                                           .setOngoing(true)
-                                           .setContentTitle("QFieldCloud")
-                                           .setContentText(contentText)
-                                           .setProgress(100, progress, false)
-                                           .setContentIntent(contentIntent);
+        Notification.Builder builder =
+            new Notification.Builder(this)
+                .setSmallIcon(R.drawable.app_logo)
+                .setWhen(System.currentTimeMillis())
+                .setOngoing(true)
+                .setContentTitle("Măsurare FF")
+                .setContentText(contentText)
+                .setProgress(100, progress, false)
+                .setContentIntent(contentIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             builder.setChannelId(CHANNEL_ID);
