@@ -165,6 +165,7 @@ if (ANDROID)
 
     if(APP_ICON_PATH AND EXISTS "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}.xml")
       message(STATUS "Using custom icon: ${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}.xml")
+      file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}.xml" DESTINATION "${DST_DIR}")
       file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_background.xml" DESTINATION "${DST_DIR}")
       file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_foreground.xml" DESTINATION "${DST_DIR}")
       file(COPY "${APP_ICON_PATH}/android/drawable/launcher_${APP_ICON}_monochrome.xml" DESTINATION "${DST_DIR}")
